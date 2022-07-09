@@ -1,5 +1,7 @@
 # Local .terraform directories
 **/.terraform/*
+.terraform*
+new_user_credentials.csv
 
 # .tfstate files
 *.tfstate
