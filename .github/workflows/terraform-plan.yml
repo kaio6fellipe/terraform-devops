@@ -2,7 +2,10 @@ name: Create terraform plan on this repository
 
 on: 
   push:
-  - path: .
+    branches:
+      - main
+    paths: 
+      - .
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
