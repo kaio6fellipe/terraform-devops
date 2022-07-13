@@ -1,4 +1,4 @@
-name: Create terraform destroy on this repository
+name: Terraform destroy
 
 on: 
   workflow_dispatch:
