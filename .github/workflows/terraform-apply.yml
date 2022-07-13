@@ -1,9 +1,9 @@
-name: Create terraform plan on this repository
+name: Create terraform apply on this repository
 
 on: 
   push:
     branches:
-      - '**'
+      - main
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -11,7 +11,7 @@ env:
 
 jobs:
   plan:
-    name: 'terraform plan'
+    name: 'terraform apply'
     runs-on: ubuntu-latest
     
     defaults:
@@ -37,8 +37,6 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color
-        continue-on-error: true
-          
+      - name: Terraform Apply
+        id: apply
+        run: terraform plan -auto-approve
