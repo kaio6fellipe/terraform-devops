@@ -1,5 +1,5 @@
 resource "aws_instance" "ansible-server01" {
-  ami = "ami-0070c5311b7677678"
+  ami = data.aws_ami.ubuntu2004.id
   instance_type = "t2.micro"
   key_name = "${var.key_name}"
   tags = {

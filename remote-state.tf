@@ -8,3 +8,4 @@ terraform {
         dynamodb_table  = "terraform-state-devops"
     }
 }
+
