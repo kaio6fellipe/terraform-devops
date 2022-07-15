@@ -1,6 +1,6 @@
 resource "aws_security_group" "acesso-ssh" {
-  name        = "acesso-ssh"
-  description = "acesso-ssh"
+  name        = "acesso-ssh-${var.environment}"
+  description = "acesso-ssh-${var.environment}"
 
   ingress {
     from_port   = 22
@@ -10,5 +10,6 @@ resource "aws_security_group" "acesso-ssh" {
   }
   tags = {
     Name = "ssh"
+    Env = var.environment
   }
 }

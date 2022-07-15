@@ -1,22 +1,19 @@
-terraform {
-    required_providers {
-        aws = {
-            source = "hashicorp/aws"
-            configuration_aliases = [ aws.us-east-1,aws.sa-east-1 ]
-        }
-    }
-}
-
 module "us-east-1" {
   source = "./modules/multi-region"
+  instance_type = "${var.instance_type}"
+  ansible_instance_type = "${var.ansible_instance_type}"
+  environment = "${var.environment}"
   providers = {
-    aws = aws.us-east-1
+    aws = aws.use1
   }
 }
 
 module "sa-east-1" {
   source = "./modules/multi-region"
+  instance_type = "${var.instance_type}"
+  ansible_instance_type = "${var.ansible_instance_type}"
+  environment = "${var.environment}"
   providers = {
-    aws = aws.sa-east-1
+    aws = aws.sae1
   }
 }

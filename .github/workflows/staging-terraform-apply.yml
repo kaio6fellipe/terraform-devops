@@ -1,9 +1,9 @@
-name: Terraform apply
+name: Terraform apply (Staging)
 
 on: 
   workflow_run:
-    workflows: ["Terraform plan"]
-    branches: [main]
+    workflows: ["Terraform plan (Staging)"]
+    branches: [staging]
     types:
       - completed
 
@@ -33,7 +33,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -backend=true -backend-config="config/staging/backend.hcl"
 
       - name: Terraform Validate
         id: validate
@@ -41,4 +41,4 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var-file="config/staging/terraform.tfvars"
