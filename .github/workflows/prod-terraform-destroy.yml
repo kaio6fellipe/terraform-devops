@@ -15,7 +15,7 @@ env:
 
 jobs:
   plan:
-    name: 'terraform destroy'
+    name: 'terraform destroy prod'
     runs-on: ubuntu-latest
     
     defaults:
