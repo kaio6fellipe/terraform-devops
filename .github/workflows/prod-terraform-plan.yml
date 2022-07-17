@@ -1,7 +1,7 @@
 name: Terraform plan (Production)
 
 on: 
-  push:
+  pull_request:
     branches: [main]
 
 env:
@@ -10,7 +10,7 @@ env:
 
 jobs:
   plan:
-    name: 'terraform plan'
+    name: 'terraform plan prod'
     runs-on: ubuntu-latest
     
     defaults:
