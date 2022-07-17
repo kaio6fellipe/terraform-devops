@@ -1,7 +1,7 @@
 name: Terraform plan (Staging)
 
 on: 
-  push:
+  pull_request:
     branches: [staging]
 
 env:
@@ -10,7 +10,7 @@ env:
 
 jobs:
   plan:
-    name: 'terraform plan'
+    name: 'terraform plan staging'
     runs-on: ubuntu-latest
     
     defaults:
