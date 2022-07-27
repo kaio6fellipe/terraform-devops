@@ -1,6 +1,10 @@
 name: Generate terraform docs
 on:
-  - pull_request
+  workflow_run:
+    workflows: ["Terraform plan (Development)"]
+    branches: [development]
+    types: 
+      - completed
 jobs:
   docs:
     runs-on: ubuntu-latest
