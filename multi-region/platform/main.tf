@@ -1,11 +1,11 @@
-module "ansible-server" {
+module "ansible_server" {
     source = "./ansible-server"
     instance_type = "${var.instance_type}"
     ansible_instance_type = "${var.ansible_instance_type}"
     environment = "${var.environment}"
-    ubuntu2004_id = "${data.aws_ami.ubuntu2004.id}"
-    key_name = "${var.key_name}-${var.environment}"
-    sg_ssh = "${aws_security_group.acesso-ssh.id}"
+    ubuntu2004_id = "${var.ubuntu2004_id}"
+    key_name = "${var.key_name}"
+    sg_ssh = "${var.sg_ssh}"
 }
 
 module "bastion" {
@@ -13,7 +13,7 @@ module "bastion" {
     instance_type = "${var.instance_type}"
     ansible_instance_type = "${var.ansible_instance_type}"
     environment = "${var.environment}"
-    ubuntu2004_id = "${data.aws_ami.ubuntu2004.id}"
-    key_name = "${var.key_name}-${var.environment}"
-    sg_ssh = "${aws_security_group.acesso-ssh.id}"
+    ubuntu2004_id = "${var.ubuntu2004_id}"
+    key_name = "${var.key_name}"
+    sg_ssh = "${var.sg_ssh}"
 }

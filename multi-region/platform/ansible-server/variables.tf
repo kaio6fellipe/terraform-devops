@@ -10,10 +10,10 @@ variable "ansible_instance_type" {
   type = string
 }
 
-variable "ubuntu2004_id" {}
-
 variable "key_name" {
     type = string
 }
 
 variable "sg_ssh" {}
+
+variable "ubuntu2004_id" {}
