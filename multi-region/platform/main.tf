@@ -4,7 +4,7 @@ module "ansible_server" {
     ansible_instance_type = "${var.ansible_instance_type}"
     environment = "${var.environment}"
     ubuntu2004_id = "${var.ubuntu2004_id}"
-    key_name = "${var.key_name}-${var.environment}"
+    key_name = "${var.key_name}"
     sg_ssh = "${var.sg_ssh}"
 }
 
@@ -14,6 +14,6 @@ module "bastion" {
     ansible_instance_type = "${var.ansible_instance_type}"
     environment = "${var.environment}"
     ubuntu2004_id = "${var.ubuntu2004_id}"
-    key_name = "${var.key_name}-${var.environment}"
+    key_name = "${var.key_name}"
     sg_ssh = "${var.sg_ssh}"
 }
