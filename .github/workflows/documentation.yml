@@ -2,7 +2,6 @@ name: Generate terraform docs
 on:
   workflow_run:
     workflows: ["Terraform plan (Development)"]
-    branches: [development]
     types: 
       - completed
 jobs:
