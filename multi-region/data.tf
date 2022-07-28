@@ -10,3 +10,7 @@ data "aws_ami" "ubuntu2004" {
         values = ["hvm"]
     }
 }
+
+data "aws_availability_zones" "az_zones" {
+  all_availability_zones = true
+}
