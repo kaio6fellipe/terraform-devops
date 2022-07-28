@@ -1,5 +1,6 @@
 resource "aws_instance" "ansible-server01" {
   ami = var.ubuntu2004_id
+  associate_public_ip_address = false
   instance_type = var.ansible_instance_type
   key_name = "${var.key_name}"
   tags = {
