@@ -33,7 +33,7 @@ resource "aws_default_vpc" "default_vpc" {
 }
 
 resource "aws_default_subnet" "default_subnet_azs" {
-  for_each          = toset(local.az_zone)
+  for_each          = toset(data.aws_availability_zones.az_zones.names)
   availability_zone = each.value
   force_destroy     = true
   # vpc_id            = aws_default_vpc.default_vpc.id
