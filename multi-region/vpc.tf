@@ -1,5 +1,32 @@
-# Definir CIDR block da VPC entre /16 e /28
-# O CIDR block nao pode ser igual, cada VPC tem que ter uma
-# - prod = 10.99.0.0/16
-# - staging = 10.2.0.0/16
-# - dev = 10.1.0.0/16
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.14.2"
+  
+  name = "vpc-${var.region}-${var.environment}"
+  cidr = "${var.vpc_cidr}"
+
+  azs             = ["${var.region}a", "${var.region}b", "${var.region}c"]
+  private_subnets = ["${var.private_subnet_a}", "${var.private_subnet_b}", "${var.private_subnet_c}"]
+  public_subnets  = ["${var.public_subnet_a}", "${var.public_subnet_b}", "${var.public_subnet_c}"]
+
+  enable_ipv6 = false
+
+  enable_nat_gateway = true
+  single_nat_gateway = false
+  one_nat_gateway_per_az = false
+
+  tags = {
+    Env = "${var.environment}"
+  }
+
+  vpc_tags = {
+    Name = "vpc-${var.region}-${var.environment}"
+  }
+}
+
+resource "aws_default_vpc" "default" {
+    force_destroy = true
+    tags = {
+        Name = "Default VPC"
+    }
+}
