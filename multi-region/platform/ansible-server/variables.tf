@@ -17,3 +17,7 @@ variable "key_name" {
 variable "sg_ssh" {}
 
 variable "ubuntu2004_id" {}
+
+variable "availability_zone_0" {}
+
+variable "private_subnet_id_0" {}
