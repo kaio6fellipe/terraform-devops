@@ -7,7 +7,7 @@ module "ansible_server" {
     key_name = "${var.key_name}"
     sg_ssh = "${var.sg_ssh}"
     availability_zone_0 = "${var.availability_zone_0}"
-    subnet_id_0 = "${var.subnet_id_0}"
+    private_subnet_id_0 = "${var.private_subnet_id_0}"
 }
 
 module "bastion" {

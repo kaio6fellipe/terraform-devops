@@ -13,5 +13,5 @@ module "platform" {
     key_name = "${var.key_name}-${var.environment}"
     sg_ssh = "${aws_security_group.acesso-ssh.id}"
     availability_zone_0 = "${local.availability_zone_0}"
-    subnet_id_0 = "${local.subnet_id_0}"
+    private_subnet_id_0 = "${local.private_subnet_id_0}"
 }
