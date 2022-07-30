@@ -1,6 +1,7 @@
 resource "aws_security_group" "acesso-ssh" {
   name        = "acesso-ssh-${var.environment}"
   description = "acesso-ssh-${var.environment}"
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     from_port   = 22
