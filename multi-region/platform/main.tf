@@ -6,6 +6,7 @@ module "ansible_server" {
     key_name = "${var.key_name}"
     availability_zone_0 = "${var.availability_zone_0}"
     private_subnet_id_0 = "${var.private_subnet_id_0}"
+    allow_bastion_ssh = "${aws_security_group.allow_bastion_ssh.id}"
 }
 
 module "bastion" {

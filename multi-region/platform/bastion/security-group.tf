@@ -1,4 +1,4 @@
-resource "aws_security_group" "bastion_acesso_ssh" {
+resource "aws_security_group" "bastion_public_ssh" {
   name        = "bastion_public_ssh-${var.environment}"
   description = "bastion_public_ssh-${var.environment}"
   vpc_id = "${var.vpc_id}"

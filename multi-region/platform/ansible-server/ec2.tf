@@ -11,6 +11,7 @@ module "ec2-instance" {
   
   availability_zone = var.availability_zone_0
   subnet_id = var.private_subnet_id_0
+  vpc_security_group_ids = ["${var.allow_bastion_ssh}"]
 
   tags = {
     Env = var.environment
