@@ -1,5 +1,5 @@
 variable "cdirs_acesso_remoto" {
-  default = ["192.12.115.207/32"]
+  default = ["192.12.115.207/32", "201.33.205.131/32"]
 }
 
 variable "key_name" {
