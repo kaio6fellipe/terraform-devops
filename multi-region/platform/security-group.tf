@@ -1,7 +1,7 @@
 resource "aws_security_group" "allow_bastion_ssh" {
   name        = "allow_bastion_ssh-${var.environment}"
   description = "allow_bastion_ssh-${var.environment}"
-  vpc_id = "${var.vpc_id}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 22
@@ -11,6 +11,6 @@ resource "aws_security_group" "allow_bastion_ssh" {
   }
   tags = {
     Name = "ssh"
-    Env = var.environment
+    Env  = var.environment
   }
 }
