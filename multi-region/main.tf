@@ -11,7 +11,7 @@ module "platform" {
     environment = "${var.environment}"
     ubuntu2004_id = "${data.aws_ami.ubuntu2004.id}"
     key_name = "${var.key_name}-${var.environment}"
-    sg_ssh = "${aws_security_group.acesso-ssh.id}"
+    vpc_id = "${local.vpc_id}"
     availability_zone_0 = "${local.availability_zone_0}"
     private_subnet_id_0 = "${local.private_subnet_id_0}"
     public_subnet_id_0 = "${local.public_subnet_id_0}"

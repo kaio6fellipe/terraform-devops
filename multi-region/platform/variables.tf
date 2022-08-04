@@ -14,9 +14,9 @@ variable "key_name" {
     type = string
 }
 
-variable "sg_ssh" {}
-
 variable "ubuntu2004_id" {}
+
+variable "vpc_id" {}
 
 variable "availability_zone_0" {}
 
