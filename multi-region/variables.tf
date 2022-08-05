@@ -1,7 +1,3 @@
-variable "cdirs_acesso_remoto" {
-  default = ["192.12.115.207/32"]
-}
-
 variable "key_name" {
   default = "terraform-aws"
 }
@@ -32,7 +28,7 @@ variable "private_subnet_a" {
 
 variable "public_subnet_a" {
   type = string
-} 
+}
 
 variable "private_subnet_b" {
   type = string
@@ -40,7 +36,7 @@ variable "private_subnet_b" {
 
 variable "public_subnet_b" {
   type = string
-} 
+}
 
 variable "private_subnet_c" {
   type = string
@@ -48,4 +44,4 @@ variable "private_subnet_c" {
 
 variable "public_subnet_c" {
   type = string
-} 
+}
