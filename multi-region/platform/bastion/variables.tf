@@ -11,7 +11,7 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-    type = string
+  type = string
 }
 
 variable "ubuntu2004_id" {}

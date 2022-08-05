@@ -4,17 +4,18 @@ module "ec2-instance" {
 
   name = "ansible-server01-${var.environment}"
 
-  ami = var.ubuntu2004_id
+  ami           = var.ubuntu2004_id
   instance_type = var.ansible_instance_type
-  key_name = "${var.key_name}"
-  monitoring = false
-  
-  availability_zone = var.availability_zone_0
-  subnet_id = var.private_subnet_id_0
+  key_name      = var.key_name
+  monitoring    = false
+
+  availability_zone      = var.availability_zone_0
+  subnet_id              = var.private_subnet_id_0
+  vpc_security_group_ids = ["${var.allow_bastion_ssh}"]
 
   tags = {
-    Env = var.environment
+    Env  = var.environment
     Type = var.ansible_instance_type
-    App = "ansible"
+    App  = "ansible"
   }
 }
