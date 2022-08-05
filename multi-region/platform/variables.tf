@@ -11,9 +11,15 @@ variable "ansible_instance_type" {
 }
 
 variable "key_name" {
-    type = string
+  type = string
 }
 
-variable "sg_ssh" {}
-
 variable "ubuntu2004_id" {}
+
+variable "vpc_id" {}
+
+variable "availability_zone_0" {}
+
+variable "private_subnet_id_0" {}
+
+variable "public_subnet_id_0" {}
