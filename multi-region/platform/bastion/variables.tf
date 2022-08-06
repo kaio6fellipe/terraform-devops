@@ -21,3 +21,5 @@ variable "vpc_id" {}
 variable "availability_zone_0" {}
 
 variable "public_subnet_id_0" {}
+
+variable "allow_ansible_admin_ssh" {}

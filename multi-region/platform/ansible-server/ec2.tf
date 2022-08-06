@@ -23,7 +23,6 @@ echo "ansible-server01-${var.environment}" > /etc/hostname
 EOF
 
   tags = {
-    Env  = var.environment
     Type = var.ansible_instance_type
     App  = "ansible"
   }
