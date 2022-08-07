@@ -7,6 +7,8 @@ module "ansible_server" {
   availability_zone_0   = var.availability_zone_0
   private_subnet_id_0   = var.private_subnet_id_0
   allow_bastion_ssh     = aws_security_group.allow_bastion_ssh.id
+  allow_outbound        = aws_security_group.allow_outbound.id
+  allow_ping            = aws_security_group.allow_ping.id
 }
 
 module "bastion" {
@@ -19,4 +21,6 @@ module "bastion" {
   availability_zone_0            = var.availability_zone_0
   public_subnet_id_0             = var.public_subnet_id_0
   allow_ansible_admin_subnet_ssh = aws_security_group.allow_ansible_admin_subnet_ssh.id
+  allow_outbound                 = aws_security_group.allow_outbound.id
+  allow_ping                     = aws_security_group.allow_ping.id
 }

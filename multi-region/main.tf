@@ -16,4 +16,5 @@ module "platform" {
   private_subnet_id_0         = local.private_subnet_id_0
   public_subnet_id_0          = local.public_subnet_id_0
   private_subnet_cidr_block_0 = local.private_subnet_cidr_block_0
+  vpc_cidr                    = var.vpc_cidr
 }
