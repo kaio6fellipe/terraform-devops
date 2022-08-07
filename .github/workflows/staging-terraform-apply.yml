@@ -48,7 +48,6 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve -var-file="config/staging/terraform.tfvars"
-        continue-on-error: true
 
       - name: Post to a Slack channel
         id: slack
