@@ -11,7 +11,7 @@ module "ec2-instance" {
 
   availability_zone      = var.availability_zone_0
   subnet_id              = var.public_subnet_id_0
-  vpc_security_group_ids = ["${aws_security_group.bastion_public_ssh.id}", "${var.allow_ansible_admin_ssh}"]
+  vpc_security_group_ids = ["${aws_security_group.bastion_public_ssh.id}", "${var.allow_ansible_admin_subnet_ssh}"]
 
   tags = {
     Type = var.instance_type
