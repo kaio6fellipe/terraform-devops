@@ -11,6 +11,5 @@ resource "aws_security_group" "bastion_public_ssh" {
   }
   tags = {
     Name = "ssh"
-    Env  = var.environment
   }
 }

@@ -13,8 +13,16 @@ module "ec2-instance" {
   subnet_id              = var.private_subnet_id_0
   vpc_security_group_ids = ["${var.allow_bastion_ssh}"]
 
+  user_data = <<EOF
+#!/bin/bash
+echo "Copying the SSH Key to Ansible server"
+
+echo "Changing Hostname"
+hostname "ansible-server01-${var.environment}"
+echo "ansible-server01-${var.environment}" > /etc/hostname
+EOF
+
   tags = {
-    Env  = var.environment
     Type = var.ansible_instance_type
     App  = "ansible"
   }
