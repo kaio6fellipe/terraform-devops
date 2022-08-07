@@ -23,3 +23,5 @@ variable "availability_zone_0" {}
 variable "private_subnet_id_0" {}
 
 variable "public_subnet_id_0" {}
+
+variable "private_subnet_cidr_block_0" {}

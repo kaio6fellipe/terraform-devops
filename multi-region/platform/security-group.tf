@@ -23,7 +23,7 @@ resource "aws_security_group" "allow_ansible_admin_subnet_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.private_subnet_id_0}/32"]
+    cidr_blocks = ["${var.private_subnet_cidr_block_0}"]
   }
   tags = {
     Name = "ssh"
