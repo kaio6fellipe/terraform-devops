@@ -9,6 +9,7 @@ module "ansible_server" {
   allow_bastion_ssh     = aws_security_group.allow_bastion_ssh.id
   allow_outbound        = aws_security_group.allow_outbound.id
   allow_ping            = aws_security_group.allow_ping.id
+  SSH_PRIVATE_KEY       = var.SSH_PRIVATE_KEY
 }
 
 module "bastion" {
@@ -23,4 +24,5 @@ module "bastion" {
   allow_ansible_admin_subnet_ssh = aws_security_group.allow_ansible_admin_subnet_ssh.id
   allow_outbound                 = aws_security_group.allow_outbound.id
   allow_ping                     = aws_security_group.allow_ping.id
+  SSH_PRIVATE_KEY                = var.SSH_PRIVATE_KEY
 }

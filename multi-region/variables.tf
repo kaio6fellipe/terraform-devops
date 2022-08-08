@@ -45,3 +45,5 @@ variable "private_subnet_c" {
 variable "public_subnet_c" {
   type = string
 }
+
+variable "SSH_PRIVATE_KEY" {}

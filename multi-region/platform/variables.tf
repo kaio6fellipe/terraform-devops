@@ -27,3 +27,5 @@ variable "public_subnet_id_0" {}
 variable "private_subnet_cidr_block_0" {}
 
 variable "vpc_cidr" {}
+
+variable "SSH_PRIVATE_KEY" {}
