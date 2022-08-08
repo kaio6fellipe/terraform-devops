@@ -19,7 +19,7 @@ echo "Copying the SSH Key to Bastion server" >> /var/log/terraform.log
 echo "${var.SSH_PRIVATE_KEY}" > /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
 
 echo "Changing permissions of the SSH Key" >> /var/log/terraform.log
-sudo chmod 400 /home/ubuntu/.ssh/"terraform-aws-${var.environment}
+# sudo chmod 400 /home/ubuntu/.ssh/"terraform-aws-${var.environment}
 
 echo "Changing Hostname" >> /var/log/terraform.log
 hostname "bastion01-${var.environment}"
