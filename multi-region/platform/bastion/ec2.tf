@@ -19,6 +19,10 @@ sudo echo "Changing Hostname o Bastion Server" >> /var/log/terraform.log
 sudo hostname "bastion01-${var.environment}"
 sudo echo "bastion01-${var.environment}" > /etc/hostname
 
+sudo echo "Running updates with apt update and upgrade" >> /var/log/terraform.log
+sudo apt update -y
+sudo apt upgrade -y
+
 sudo echo "Copying the SSH Key to Bastion server" >> /var/log/terraform.log
 sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
 
