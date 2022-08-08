@@ -15,7 +15,7 @@ module "ec2-instance" {
 
   user_data = <<EOF
 #!/bin/bash
-sudo echo "Changing Hostname" >> /var/log/terraform.log
+sudo echo "Changing Hostname of Ansible Server" >> /var/log/terraform.log
 sudo hostname "ansible-server01-${var.environment}"
 sudo echo "ansible-server01-${var.environment}" > /etc/hostname
 
