@@ -47,7 +47,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve -var-file="config/staging/terraform.tfvars"
+        run: terraform apply -auto-approve -var-file="config/staging/terraform.tfvars" -var SSH_PRIVATE_KEY=${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Post to a Slack channel
         id: slack

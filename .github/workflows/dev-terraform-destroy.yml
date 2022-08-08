@@ -44,4 +44,4 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve -var-file="config/dev/terraform.tfvars"
+        run: terraform destroy -auto-approve -var-file="config/dev/terraform.tfvars" -var SSH_PRIVATE_KEY=${{ secrets.SSH_PRIVATE_KEY }}

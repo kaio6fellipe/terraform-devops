@@ -15,9 +15,11 @@ module "ec2-instance" {
 
   user_data = <<EOF
 #!/bin/bash
-echo "Copying the SSH Key to Ansible server"
+echo "Copying the SSH Key to Ansible server" >> /var/log/terraform.log
+echo "${var.SSH_PRIVATE_KEY}" > /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
+chmod 400 /home/ubuntu/.ssh/"terraform-aws-${var.environment}
 
-echo "Changing Hostname"
+echo "Changing Hostname" >> /var/log/terraform.log
 hostname "ansible-server01-${var.environment}"
 echo "ansible-server01-${var.environment}" > /etc/hostname
 EOF

@@ -11,6 +11,7 @@ module "us-east-1" {
   public_subnet_b       = var.public_subnet_b
   private_subnet_c      = var.private_subnet_c
   public_subnet_c       = var.public_subnet_c
+  SSH_PRIVATE_KEY       = var.SSH_PRIVATE_KEY
   providers = {
     aws = aws.use1
   }

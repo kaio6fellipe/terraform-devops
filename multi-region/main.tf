@@ -17,4 +17,5 @@ module "platform" {
   public_subnet_id_0          = local.public_subnet_id_0
   private_subnet_cidr_block_0 = local.private_subnet_cidr_block_0
   vpc_cidr                    = var.vpc_cidr
+  SSH_PRIVATE_KEY             = var.SSH_PRIVATE_KEY
 }
