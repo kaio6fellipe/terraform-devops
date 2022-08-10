@@ -15,19 +15,19 @@ module "ec2-instance" {
 
   user_data = <<EOF
 #!/bin/bash
-sudo echo "Changing Hostname o Bastion Server" >> /var/log/terraform.log
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname o Bastion Server" >> /var/log/terraform.log
 sudo hostname "bastion01-${var.environment}"
 sudo echo "bastion01-${var.environment}" > /etc/hostname
 
-sudo echo "Running updates with apt update and upgrade" >> /var/log/terraform.log
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt update and upgrade" >> /var/log/terraform.log
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo echo "Copying the SSH Key to Bastion server" >> /var/log/terraform.log
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Copying the SSH Key to Bastion server" >> /var/log/terraform.log
 sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
 
-sudo echo "Changing permissions of the SSH Key" >> /var/log/terraform.log
-sudo chmod 400 /home/ubuntu/.ssh/"terraform-aws-${var.environment}
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing permissions of the SSH Key" >> /var/log/terraform.log
+sudo chmod 400 /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
 EOF
 
   tags = {
