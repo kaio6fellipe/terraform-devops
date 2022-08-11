@@ -4,7 +4,7 @@ module "ec2-instance" {
 
   name = "bastion01-${var.environment}"
 
-  ami           = var.ubuntu2004_id
+  ami           = var.amazon_linux_2
   instance_type = var.instance_type
   key_name      = var.key_name
   monitoring    = false
@@ -20,14 +20,14 @@ sudo hostname "bastion01-${var.environment}"
 sudo echo "bastion01-${var.environment}" > /etc/hostname
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt update and upgrade" >> /var/log/terraform.log
-sudo apt update -y
-sudo apt upgrade -y
+sudo yum update -y
+sudo yum upgrade -y
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Copying the SSH Key to Bastion server" >> /var/log/terraform.log
-sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
+sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing permissions of the SSH Key" >> /var/log/terraform.log
-sudo chmod 400 /home/ubuntu/.ssh/"terraform-aws-${var.environment}"
+sudo chmod 400 /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
 EOF
 
   tags = {
