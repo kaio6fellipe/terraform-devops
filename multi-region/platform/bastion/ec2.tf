@@ -25,6 +25,7 @@ sudo yum upgrade -y
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Copying the SSH Key to Bastion server" >> /var/log/terraform.log
 sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
+sudo chown ec2-user:root /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing permissions of the SSH Key" >> /var/log/terraform.log
 sudo chmod 400 /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
