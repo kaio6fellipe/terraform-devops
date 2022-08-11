@@ -14,7 +14,7 @@ variable "key_name" {
   type = string
 }
 
-variable "ubuntu2004_id" {}
+variable "amazon_linux_2" {}
 
 variable "vpc_id" {}
 
