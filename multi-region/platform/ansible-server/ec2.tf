@@ -24,6 +24,7 @@ sudo yum update -y
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Copying the SSH Key to Ansible server" >> /var/log/terraform.log
 sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
+sudo chown ec2-user:root /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Setup Ansible Server" >> /var/log/terraform.log
 sudo yum install epel-release -y
