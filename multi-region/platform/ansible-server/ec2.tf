@@ -41,6 +41,6 @@ EOF
 
   tags = {
     Type = var.ansible_instance_type
-    App  = "ansible"
+    App  = "ansible-${var.environment}"
   }
 }
