@@ -2,9 +2,9 @@
 
 | Env | Status |
 |-----|--------|
-| Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-apply.yml/badge.svg) ![Plan dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-plan.yml/badge.svg) ![Destroy dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-destroy.yml/badge.svg) |
-| Staging | ![Apply staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-apply.yml/badge.svg) ![Plan staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-plan.yml/badge.svg) ![Destroy staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-destroy.yml/badge.svg) |
-| Production | ![Apply prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-apply.yml/badge.svg) ![Plan prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-plan.yml/badge.svg) ![Destroy prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-destroy.yml/badge.svg) |
+| Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-apply.yml/badge.svg) |
+| Staging | ![Apply staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-apply.yml/badge.svg) |
+| Production | ![Apply prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-apply.yml/badge.svg) |
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
