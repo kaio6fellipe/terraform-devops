@@ -1,5 +1,5 @@
 resource "aws_codepipeline" "codepipeline" {
-  name     = "ansible-deploy-pipeline"
+  name     = "ansible-deploy-pipeline-${var.environment}"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
@@ -16,7 +16,7 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Source"
 
     action {
-      name             = "S3 Source"
+      name             = "S3_Source"
       category         = "Source"
       owner            = "AWS"
       provider         = "S3"

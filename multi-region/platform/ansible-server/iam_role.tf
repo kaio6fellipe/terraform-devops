@@ -1,7 +1,7 @@
 # Code Pipeline
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline-ansible-role"
+  name = "codepipeline-ansible-role-${var.environment}"
 
   assume_role_policy = <<EOF
 {
@@ -20,7 +20,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "codepipeline_policy"
+  name = "codepipeline_policy-${var.environment}"
   role = aws_iam_role.codepipeline_role.id
 
   policy = <<EOF
@@ -62,7 +62,7 @@ resource "aws_iam_role_policy_attachment" "AWSCodeDeployRole" {
 }
 
 resource "aws_iam_role" "codedeploy_role" {
-  name = "ansible-codedeploy-role"
+  name = "ansible-codedeploy-role-${var.environment}"
 
   assume_role_policy = <<EOF
 {
