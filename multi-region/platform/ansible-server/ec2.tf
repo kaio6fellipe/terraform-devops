@@ -27,7 +27,7 @@ sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ec2-user/.ssh/"terraform-aws-${var.en
 sudo chown ec2-user:root /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Setup Ansible Server" >> /var/log/terraform.log
-sudo yum install epel-release -y
+sudo amazon-linux-extras install epel -y
 sudo yum install ansible -y
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Ansible Setup Successfully" >> /var/log/terraform.log
 sudo ansible --version >> /var/log/terraform.log
