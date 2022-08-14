@@ -97,7 +97,7 @@ resource "aws_iam_role" "github_role" {
         Action: "sts:AssumeRoleWithWebIdentity",
         Condition: {
           StringLike: {
-            "token.actions.githubusercontent.com:sub": "${var.ansible_repository}"
+            "token.actions.githubusercontent.com:sub": "repo:${var.ansible_repository}"
           }
         }
       }
