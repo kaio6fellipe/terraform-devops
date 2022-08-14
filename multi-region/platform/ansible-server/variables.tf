@@ -10,6 +10,10 @@ variable "key_name" {
   type = string
 }
 
+variable "ansible_repository" {
+  default = "kaio6fellipe/ansible-devops"
+}
+
 variable "amazon_linux_2" {}
 
 variable "availability_zone_0" {}
