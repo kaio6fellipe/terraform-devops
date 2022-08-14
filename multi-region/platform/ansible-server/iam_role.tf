@@ -85,19 +85,20 @@ EOF
 
 resource "aws_iam_role" "github_role" {
   name = "github_ansible_role-${var.environment}"
+  path = "/"
 
   assume_role_policy = jsonencode({
     Version: "2012-10-17",
     Statement: [
       {
         Effect: "Allow",
+        Action: "sts:AssumeRoleWithWebIdentity",
         Principal: {
           Federated: "${aws_iam_openid_connect_provider.github_actions.arn}"
         },
-        Action: "sts:AssumeRoleWithWebIdentity",
         Condition: {
           StringLike: {
-            "token.actions.githubusercontent.com:sub": "repo:${var.ansible_repository}"
+            "token.actions.githubusercontent.com:sub": "repo:${var.ansible_repository}:*"
           }
         }
       }
@@ -118,7 +119,6 @@ resource "aws_iam_role_policy" "github_policy" {
           "s3:PutObject"
         ],
         Resource: [
-          "${aws_s3_bucket.codepipeline_bucket.arn}",
           "${aws_s3_bucket.codepipeline_bucket.arn}/*"
         ]
       }
