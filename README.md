@@ -1,4 +1,4 @@
-# A project to practice Terraform
+# A project to practice Terraform.
 
 | Env | Status |
 |-----|--------|
