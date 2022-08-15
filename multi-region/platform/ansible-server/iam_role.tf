@@ -76,7 +76,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
       {
         Effect: "Allow",
         Action: [
-          "codedeploy:RegisterApplicationRevision"
+          "codedeploy:RegisterApplicationRevision",
+          "codedeploy:GetApplicationRevision"
         ],
         Resource: [
           "${aws_codedeploy_app.ansible.arn}"
