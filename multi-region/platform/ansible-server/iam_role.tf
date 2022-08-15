@@ -217,7 +217,7 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
 }
 
 resource "aws_iam_role_policy" "ansible_ec2_policy_inventory" {
-  name = "ec2_ansible_policy-${var.environment}"
+  name = "ec2_ansible_policy_inventory-${var.environment}"
   role = aws_iam_role.ansible_ec2_role.id
 
   policy = jsonencode({
