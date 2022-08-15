@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = "codepipeline-ansible-ktech-br-${var.environment}"
+  bucket        = "codepipeline-ansible-ktech-br-${var.environment}"
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_acl" "codepipeline_bucket" {
