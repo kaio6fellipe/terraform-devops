@@ -45,6 +45,15 @@ chmod +x ./install
 sudo ./install auto
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Code Deploy Installation completed" >> /var/log/terraform.log
 
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Installing python-boto3" >> /var/log/terraform.log
+sudo yum install python-boto3 -y
+
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Configuring AWS CLI" >> /var/log/terraform.log
+sudo mkdir /home/ec2-user/.aws
+sudo echo "[default]" > /home/ec2-user/.aws/credentials
+sudo echo "[default]" > /home/ec2-user/.aws/config
+sudo chown -R ec2-user:ec2-user /home/ec2-user/.aws
+
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Rebooting" >> /var/log/terraform.log
 sudo reboot
 EOF

@@ -215,3 +215,23 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
     ]
   })
 }
+
+resource "aws_iam_role_policy" "ansible_ec2_policy_inventory" {
+  name = "ec2_ansible_policy-${var.environment}"
+  role = aws_iam_role.ansible_ec2_role.id
+
+  policy = jsonencode({
+    Version: "2012-10-17",
+    Statement: [
+      {
+        Effect:"Allow",
+        Action: [
+          "ec2:DescribeInstances"
+        ],
+        Resource: [
+          "arn:aws:ec2:${var.region}*",
+        ]
+      }
+    ]
+  })
+}
