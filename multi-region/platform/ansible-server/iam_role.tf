@@ -72,6 +72,15 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         Resource: [
           "arn:aws:codedeploy:${var.region}:${data.aws_caller_identity.current.account_id}:deploymentconfig:${aws_codedeploy_deployment_config.ansible.id}"
         ]
+      },
+      {
+        Effect: "Allow",
+        Action: [
+          "codedeploy:RegisterApplicationRevision"
+        ],
+        Resource: [
+          "${aws_codedeploy_app.ansible.arn}"
+        ]
       }
     ]
   })
