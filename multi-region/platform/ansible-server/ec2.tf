@@ -4,10 +4,11 @@ module "ec2-instance" {
 
   name = "ansible-server01-${var.environment}"
 
-  ami           = var.amazon_linux_2
-  instance_type = var.ansible_instance_type
-  key_name      = var.key_name
-  monitoring    = false
+  ami                  = var.amazon_linux_2
+  instance_type        = var.ansible_instance_type
+  key_name             = var.key_name
+  monitoring           = false
+  iam_instance_profile = aws_iam_instance_profile.ansible_ec2_profile.id
 
   availability_zone      = var.availability_zone_0
   subnet_id              = var.private_subnet_id_0
@@ -34,6 +35,15 @@ sudo ansible --version >> /var/log/terraform.log
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing permissions of the SSH Key" >> /var/log/terraform.log
 sudo chmod 400 /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
+
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Installing Code Deploy agent" >> /var/log/terraform.log
+sudo yum update -y
+sudo yum install ruby -y
+sudo yum install wget -y
+wget https://aws-codedeploy-${var.region}.s3.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Code Deploy Installation completed" >> /var/log/terraform.log
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Rebooting" >> /var/log/terraform.log
 sudo reboot
