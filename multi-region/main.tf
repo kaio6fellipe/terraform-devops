@@ -9,6 +9,7 @@ module "platform" {
   instance_type               = var.instance_type
   ansible_instance_type       = var.ansible_instance_type
   environment                 = var.environment
+  region                      = var.region
   amazon_linux_2              = data.aws_ami.amazon_linux_2.id
   key_name                    = "${var.key_name}-${var.environment}"
   vpc_id                      = local.vpc_id

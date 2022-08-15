@@ -2,6 +2,7 @@ module "ansible_server" {
   source                = "./ansible-server"
   ansible_instance_type = var.ansible_instance_type
   environment           = var.environment
+  region                = var.region
   amazon_linux_2        = var.amazon_linux_2
   key_name              = var.key_name
   availability_zone_0   = var.availability_zone_0
