@@ -201,6 +201,16 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
           "${aws_s3_bucket.codepipeline_bucket.arn}/*",
           "arn:aws:s3:::aws-codedeploy-${var.region}/*",
         ]
+      },
+      {
+        Effect:"Allow",
+        Action: [
+          "kms:GenerateDataKey",
+          "kms:Decrypt"
+        ],
+        Resource: [
+          "${aws_kms_key.ansible_bucket_key.arn}"
+        ]
       }
     ]
   })
