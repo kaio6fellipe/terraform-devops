@@ -63,6 +63,15 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
         Resource: [
           "${aws_codedeploy_deployment_group.ansible.arn}"
         ]
+      },
+      {
+        Effect: "Allow",
+        Action: [
+          "codedeploy:GetDeploymentConfig"
+        ],
+        Resource: [
+          "${aws_codedeploy_deployment_config.ansible.deployment_config_id}"
+        ]
       }
     ]
   })
