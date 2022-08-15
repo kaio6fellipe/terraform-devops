@@ -70,7 +70,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codedeploy:GetDeploymentConfig"
         ],
         Resource: [
-          "${aws_codedeploy_deployment_config.ansible.deployment_config_id}"
+          "arn:aws:codedeploy:${var.region}:${data.aws_caller_identity.current.account_id}:deploymentconfig:${aws_codedeploy_deployment_config.ansible.id}"
         ]
       }
     ]
