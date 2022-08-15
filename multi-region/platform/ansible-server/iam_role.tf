@@ -228,9 +228,7 @@ resource "aws_iam_role_policy" "ansible_ec2_policy_inventory" {
         Action: [
           "ec2:DescribeInstances"
         ],
-        Resource: [
-          "arn:aws:ec2:${var.region}*",
-        ]
+        Resource: "*"
       }
     ]
   })
