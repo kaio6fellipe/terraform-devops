@@ -51,7 +51,9 @@ sudo yum install python-boto3 -y
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Configuring AWS CLI" >> /var/log/terraform.log
 sudo mkdir /home/ec2-user/.aws
 sudo echo "[default]" > /home/ec2-user/.aws/credentials
+sudo echo "role_arn = ${aws_iam_role.ansible_ec2_role.arn}" >> /home/ec2-user/.aws/credentials
 sudo echo "[default]" > /home/ec2-user/.aws/config
+sudo echo "region = ${var.region}" >> /home/ec2-user/.aws/config
 sudo chown -R ec2-user:ec2-user /home/ec2-user/.aws
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Rebooting" >> /var/log/terraform.log
