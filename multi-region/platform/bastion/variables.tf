@@ -1,5 +1,5 @@
 variable "cdirs_acesso_remoto" {
-  default = ["177.58.170.125/32"]
+  default = ["201.33.205.165/32"]
 }
 
 variable "environment" {
