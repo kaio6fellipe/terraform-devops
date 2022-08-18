@@ -46,4 +46,7 @@ variable "public_subnet_c" {
   type = string
 }
 
-variable "SSH_PRIVATE_KEY" {}
+variable "SSH_PRIVATE_KEY" {
+  description = "SSH Private Key for Ansible Server (Controller)"
+  type = string
+}
