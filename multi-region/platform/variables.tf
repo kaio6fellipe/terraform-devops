@@ -11,7 +11,8 @@ variable "ansible_instance_type" {
 }
 
 variable "key_name" {
-  type = string
+  description = "Key name prefix"
+  type        = string
 }
 
 variable "amazon_linux_2" {}

@@ -1,5 +1,6 @@
 variable "key_name" {
-  default = "terraform-aws"
+  description = "Key name prefix"
+  default     = "terraform-aws"
 }
 
 variable "environment" {
@@ -48,5 +49,5 @@ variable "public_subnet_c" {
 
 variable "SSH_PRIVATE_KEY" {
   description = "SSH Private Key for Ansible Server (Controller)"
-  type = string
+  type        = string
 }
