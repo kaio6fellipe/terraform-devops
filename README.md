@@ -36,6 +36,10 @@ No resources.
 |------|-------------|------|---------|:--------:|
 | <a name="input_SSH_PRIVATE_KEY"></a> [SSH\_PRIVATE\_KEY](#input\_SSH\_PRIVATE\_KEY) | SSH Private Key for Ansible Server (Controller) | `string` | n/a | yes |
 | <a name="input_ansible_instance_type"></a> [ansible\_instance\_type](#input\_ansible\_instance\_type) | An instance type to the Ansible Server (Controller) | `string` | n/a | yes |
+| <a name="input_database_subnet_a"></a> [database\_subnet\_a](#input\_database\_subnet\_a) | Database subnet in AZ (a) | `string` | n/a | yes |
+| <a name="input_database_subnet_b"></a> [database\_subnet\_b](#input\_database\_subnet\_b) | Database subnet in AZ (b) | `string` | n/a | yes |
+| <a name="input_database_subnet_c"></a> [database\_subnet\_c](#input\_database\_subnet\_c) | Database subnet in AZ (c) | `string` | n/a | yes |
+| <a name="input_db_instance_type"></a> [db\_instance\_type](#input\_db\_instance\_type) | The default instance type to use in all RDS instances | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment variable passed to all the modules | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The default instance type to use in all the instances | `string` | n/a | yes |
 | <a name="input_private_subnet_a"></a> [private\_subnet\_a](#input\_private\_subnet\_a) | Private Subnet in AZ (a) | `string` | n/a | yes |
