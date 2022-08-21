@@ -32,6 +32,7 @@ module "bastion" {
 module "grafana_dashboards" {
   source                         = "./grafana-dashboards"
   instance_type                  = var.instance_type
+  db_instance_type               = var.db_instance_type
   environment                    = var.environment
   amazon_linux_2                 = var.amazon_linux_2
   key_name                       = var.key_name
@@ -43,4 +44,6 @@ module "grafana_dashboards" {
   allow_outbound                 = aws_security_group.allow_outbound.id
   allow_ping                     = aws_security_group.allow_ping.id
   cdirs_acesso_remoto            = var.cdirs_acesso_remoto
+  database_subnet_id_0           = var.database_subnet_id_0
+  db_subnet_group_name           = var.db_subnet_group_name
 }

@@ -10,6 +10,6 @@ resource "aws_security_group" "grafana_http" {
     cidr_blocks = var.cdirs_acesso_remoto
   }
   tags = {
-    Name = "ssh"
+    Name = "grafana-dashboards"
   }
 }

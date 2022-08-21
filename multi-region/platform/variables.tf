@@ -15,6 +15,10 @@ variable "ansible_instance_type" {
   type = string
 }
 
+variable "db_instance_type" {
+  type = string
+}
+
 variable "key_name" {
   description = "Key name prefix"
   type        = string
@@ -31,6 +35,10 @@ variable "private_subnet_id_0" {}
 variable "public_subnet_id_0" {}
 
 variable "private_subnet_cidr_block_0" {}
+
+variable "database_subnet_id_0" {}
+
+variable "db_subnet_group_name" {}
 
 variable "vpc_cidr" {}
 
