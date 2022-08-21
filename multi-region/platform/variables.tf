@@ -1,3 +1,8 @@
+variable "cdirs_acesso_remoto" {
+  description = "Remote access CIDR for SGs in hosts associated with public subnets"
+  default = ["201.33.195.0/24", "201.33.205.0/24"]
+}
+
 variable "environment" {
   type = string
 }
@@ -7,6 +12,10 @@ variable "instance_type" {
 }
 
 variable "ansible_instance_type" {
+  type = string
+}
+
+variable "db_instance_type" {
   type = string
 }
 
@@ -26,6 +35,10 @@ variable "private_subnet_id_0" {}
 variable "public_subnet_id_0" {}
 
 variable "private_subnet_cidr_block_0" {}
+
+variable "database_subnet_id_0" {}
+
+variable "db_subnet_group_name" {}
 
 variable "vpc_cidr" {}
 

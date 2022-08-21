@@ -15,6 +15,10 @@ variable "ansible_instance_type" {
   type = string
 }
 
+variable "db_instance_type" {
+  type = string
+}
+
 variable "region" {
   type = string
 }
@@ -46,6 +50,19 @@ variable "private_subnet_c" {
 variable "public_subnet_c" {
   type = string
 }
+
+variable "database_subnet_a" {
+  type = string
+}
+
+variable "database_subnet_b" {
+  type = string
+}
+
+variable "database_subnet_c" {
+  type = string
+}
+
 
 variable "SSH_PRIVATE_KEY" {
   description = "SSH Private Key for Ansible Server (Controller)"

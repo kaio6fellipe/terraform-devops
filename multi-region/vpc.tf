@@ -5,15 +5,16 @@ module "vpc" {
   name = "vpc-${var.region}-${var.environment}"
   cidr = var.vpc_cidr
 
-  azs             = ["${var.region}a", "${var.region}b", "${var.region}c"]
-  private_subnets = ["${var.private_subnet_a}", "${var.private_subnet_b}", "${var.private_subnet_c}"]
-  public_subnets  = ["${var.public_subnet_a}", "${var.public_subnet_b}", "${var.public_subnet_c}"]
+  azs              = ["${var.region}a", "${var.region}b", "${var.region}c"]
+  private_subnets  = ["${var.private_subnet_a}", "${var.private_subnet_b}", "${var.private_subnet_c}"]
+  public_subnets   = ["${var.public_subnet_a}", "${var.public_subnet_b}", "${var.public_subnet_c}"]
+  database_subnets = ["${var.database_subnet_a}", "${var.database_subnet_b}", "${var.database_subnet_c}"]
 
-  enable_ipv6 = false
-
-  enable_nat_gateway     = true
-  single_nat_gateway     = true
-  one_nat_gateway_per_az = false
+  create_database_subnet_group = true
+  enable_ipv6                  = false
+  enable_nat_gateway           = true
+  single_nat_gateway           = true
+  one_nat_gateway_per_az       = false
 
   vpc_tags = {
     Name = "vpc-${var.region}-${var.environment}"
