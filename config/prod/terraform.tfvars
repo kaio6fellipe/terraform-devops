@@ -1,6 +1,6 @@
 environment           = "prod"
-ansible_instance_type = "t2.micro"
-instance_type         = "t2.micro"
+ansible_instance_type = "t2.large"
+instance_type         = "t2.large"
 vpc_cidr              = "10.99.0.0/16"
 private_subnet_a      = "10.99.1.0/24"
 public_subnet_a       = "10.99.101.0/24"

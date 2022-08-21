@@ -1,6 +1,4 @@
-variable "cdirs_acesso_remoto" {
-  default = ["201.33.195.0/24", "201.33.205.0/24"]
-}
+variable "cdirs_acesso_remoto" {}
 
 variable "environment" {
   type = string

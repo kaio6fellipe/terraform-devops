@@ -1,6 +1,6 @@
 environment           = "staging"
-ansible_instance_type = "t2.micro"
-instance_type         = "t2.micro"
+ansible_instance_type = "t2.medium"
+instance_type         = "t2.medium"
 vpc_cidr              = "10.2.0.0/16"
 private_subnet_a      = "10.2.1.0/24"
 public_subnet_a       = "10.2.101.0/24"
