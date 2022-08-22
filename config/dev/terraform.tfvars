@@ -1,7 +1,7 @@
 environment               = "dev"
 ansible_instance_type     = "t2.micro"
 instance_type             = "t2.micro"
-db_instance_type          = "db.t2.micro"
+db_instance_type          = "db.t3.micro"
 vpc_cidr                  = "10.1.0.0/16"
 private_subnet_a          = "10.1.1.0/24"
 public_subnet_a           = "10.1.101.0/24"
