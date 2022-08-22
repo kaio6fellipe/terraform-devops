@@ -25,7 +25,6 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_SSH_PRIVATE_KEY"></a> [SSH\_PRIVATE\_KEY](#input\_SSH\_PRIVATE\_KEY) | n/a | `any` | n/a | yes |
 | <a name="input_allow_ansible_admin_subnet_ssh"></a> [allow\_ansible\_admin\_subnet\_ssh](#input\_allow\_ansible\_admin\_subnet\_ssh) | n/a | `any` | n/a | yes |
 | <a name="input_allow_outbound"></a> [allow\_outbound](#input\_allow\_outbound) | n/a | `any` | n/a | yes |
 | <a name="input_allow_ping"></a> [allow\_ping](#input\_allow\_ping) | n/a | `any` | n/a | yes |

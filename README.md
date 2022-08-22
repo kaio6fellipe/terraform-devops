@@ -48,6 +48,8 @@ No resources.
 | <a name="input_public_subnet_a"></a> [public\_subnet\_a](#input\_public\_subnet\_a) | Public Subnet in AZ (a) | `string` | n/a | yes |
 | <a name="input_public_subnet_b"></a> [public\_subnet\_b](#input\_public\_subnet\_b) | Public Subnet in AZ (a) | `string` | n/a | yes |
 | <a name="input_public_subnet_c"></a> [public\_subnet\_c](#input\_public\_subnet\_c) | Public Subnet in AZ (c) | `string` | n/a | yes |
+| <a name="input_rds_allocated_storage"></a> [rds\_allocated\_storage](#input\_rds\_allocated\_storage) | The default allocated storage to use in all RDS instances | `number` | n/a | yes |
+| <a name="input_rds_max_allocated_storage"></a> [rds\_max\_allocated\_storage](#input\_rds\_max\_allocated\_storage) | The default max allocated storage to use in all RDS instances | `number` | n/a | yes |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | VPC CIDR block | `string` | n/a | yes |
 
 ## Outputs

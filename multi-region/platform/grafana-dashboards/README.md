@@ -14,6 +14,8 @@ No requirements.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_ec2-instance"></a> [ec2-instance](#module\_ec2-instance) | terraform-aws-modules/ec2-instance/aws | 4.1.1 |
+| <a name="module_grafana_rds"></a> [grafana\_rds](#module\_grafana\_rds) | terraform-aws-modules/rds/aws | 5.0.3 |
+| <a name="module_sg_grafana_db"></a> [sg\_grafana\_db](#module\_sg\_grafana\_db) | terraform-aws-modules/security-group/aws | 4.0 |
 
 ## Resources
 
@@ -39,6 +41,8 @@ No requirements.
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | n/a | `string` | n/a | yes |
 | <a name="input_public_subnet_id_0"></a> [public\_subnet\_id\_0](#input\_public\_subnet\_id\_0) | n/a | `any` | n/a | yes |
+| <a name="input_rds_allocated_storage"></a> [rds\_allocated\_storage](#input\_rds\_allocated\_storage) | n/a | `any` | n/a | yes |
+| <a name="input_rds_max_allocated_storage"></a> [rds\_max\_allocated\_storage](#input\_rds\_max\_allocated\_storage) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `any` | n/a | yes |
 
 ## Outputs
