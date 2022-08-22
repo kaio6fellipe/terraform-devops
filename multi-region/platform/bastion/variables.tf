@@ -25,3 +25,5 @@ variable "allow_ansible_admin_subnet_ssh" {}
 variable "allow_outbound" {}
 
 variable "allow_ping" {}
+
+variable "SSH_PRIVATE_KEY" {}

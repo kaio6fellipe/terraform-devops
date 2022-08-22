@@ -26,6 +26,7 @@ module "bastion" {
   allow_outbound                 = aws_security_group.allow_outbound.id
   allow_ping                     = aws_security_group.allow_ping.id
   cdirs_acesso_remoto            = var.cdirs_acesso_remoto
+  SSH_PRIVATE_KEY                = var.SSH_PRIVATE_KEY
 }
 
 module "grafana_dashboards" {
