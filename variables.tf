@@ -18,6 +18,16 @@ variable "db_instance_type" {
   type        = string
 }
 
+variable "rds_allocated_storage" {
+  description = "The default allocated storage to use in all RDS instances"
+  type        = number
+}
+
+variable "rds_max_allocated_storage" {
+  description = "The default max allocated storage to use in all RDS instances"
+  type        = number
+}
+
 variable "vpc_cidr" {
   description = "VPC CIDR block"
   type        = string
