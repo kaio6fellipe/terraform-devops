@@ -9,6 +9,8 @@ module "platform" {
   instance_type               = var.instance_type
   ansible_instance_type       = var.ansible_instance_type
   db_instance_type            = var.db_instance_type
+  rds_allocated_storage       = var.rds_allocated_storage
+  rds_max_allocated_storage   = var.rds_max_allocated_storage
   environment                 = var.environment
   region                      = var.region
   amazon_linux_2              = data.aws_ami.amazon_linux_2.id

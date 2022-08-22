@@ -25,7 +25,6 @@ module "bastion" {
   allow_ansible_admin_subnet_ssh = aws_security_group.allow_ansible_admin_subnet_ssh.id
   allow_outbound                 = aws_security_group.allow_outbound.id
   allow_ping                     = aws_security_group.allow_ping.id
-  SSH_PRIVATE_KEY                = var.SSH_PRIVATE_KEY
   cdirs_acesso_remoto            = var.cdirs_acesso_remoto
 }
 
@@ -33,6 +32,8 @@ module "grafana_dashboards" {
   source                         = "./grafana-dashboards"
   instance_type                  = var.instance_type
   db_instance_type               = var.db_instance_type
+  rds_allocated_storage          = var.rds_allocated_storage
+  rds_max_allocated_storage      = var.rds_max_allocated_storage
   environment                    = var.environment
   amazon_linux_2                 = var.amazon_linux_2
   key_name                       = var.key_name

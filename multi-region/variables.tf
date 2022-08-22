@@ -19,6 +19,10 @@ variable "db_instance_type" {
   type = string
 }
 
+variable "rds_allocated_storage" {}
+
+variable "rds_max_allocated_storage" {}
+
 variable "region" {
   type = string
 }
