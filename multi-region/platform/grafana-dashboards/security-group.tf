@@ -1,6 +1,6 @@
-resource "aws_security_group" "grafana_http" {
-  name        = "grafana_http-${var.environment}"
-  description = "grafana_http-${var.environment}"
+resource "aws_security_group" "grafana_http_instance" {
+  name        = "grafana_http_instance-${var.environment}"
+  description = "grafana_http_instance-${var.environment}"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -32,4 +32,36 @@ module "sg_grafana_db" {
       cidr_blocks = "${module.ec2-instance.private_ip}/32"
     },
   ]
+}
+
+resource "aws_security_group" "sg_grafana_http" {
+  name        = "alb_grafana_http-${var.environment}"
+  description = "alb_grafana_http-${var.environment}"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = var.cdirs_acesso_remoto
+  }
+  tags = {
+    Name = "grafana-dashboards"
+  }
+}
+
+resource "aws_security_group" "sg_grafana_https" {
+  name        = "alb_grafana_https-${var.environment}"
+  description = "alb_grafana_https-${var.environment}"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.cdirs_acesso_remoto
+  }
+  tags = {
+    Name = "grafana-dashboards"
+  }
 }

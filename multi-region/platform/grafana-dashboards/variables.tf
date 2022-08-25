@@ -24,7 +24,7 @@ variable "vpc_id" {}
 
 variable "availability_zone_0" {}
 
-variable "public_subnet_id_0" {}
+variable "private_subnet_id_1" {}
 
 variable "database_subnet_id_0" {}
 
@@ -38,4 +38,6 @@ variable "allow_ping" {}
 
 variable "allow_bastion_ssh" {}
 
-variable "cdirs_acesso_remoto" {}
+variable "cdirs_acesso_remoto" {
+  type = list
+}
