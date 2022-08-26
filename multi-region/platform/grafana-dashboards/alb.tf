@@ -8,7 +8,7 @@ module "alb" {
 
   vpc_id             = var.vpc_id
   subnets            = [var.public_subnet_id_1, var.public_subnet_id_2]
-  security_groups    = [aws_security_group.sg_grafana_http.id, aws_security_group.sg_grafana_https.id]
+  security_groups    = [aws_security_group.sg_grafana_http.id, aws_security_group.sg_grafana_https.id, var.allow_outbound, var.allow_ping]
 
   target_groups = [
     {
@@ -16,6 +16,17 @@ module "alb" {
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
+      health_check = {
+        enabled             = true
+        interval            = 30
+        path                = "/login"
+        port                = "traffic-port"
+        healthy_threshold   = 2
+        unhealthy_threshold = 3
+        timeout             = 6
+        protocol            = "HTTP"
+        matcher             = "200"
+      }
       targets = {
         target = {
           target_id = "${module.ec2-instance.id}"
