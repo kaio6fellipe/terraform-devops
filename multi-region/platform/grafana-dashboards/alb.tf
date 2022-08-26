@@ -12,7 +12,7 @@ module "alb" {
 
   target_groups = [
     {
-      name_prefix      = "alb-grafana-dashboards-${var.environment}"
+      name_prefix      = "graf-"
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
