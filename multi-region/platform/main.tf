@@ -41,6 +41,7 @@ module "grafana_dashboards" {
   amazon_linux_2                 = var.amazon_linux_2
   key_name                       = var.key_name
   vpc_id                         = var.vpc_id
+  vpc_cidr                       = var.vpc_cidr
   availability_zone_1            = var.availability_zone_1
   private_subnet_id_1            = var.private_subnet_id_1
   availability_zone_2            = var.availability_zone_2

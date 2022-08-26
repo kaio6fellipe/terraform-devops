@@ -22,6 +22,8 @@ variable "amazon_linux_2" {}
 
 variable "vpc_id" {}
 
+variable "vpc_cidr" {}
+
 variable "availability_zone_1" {}
 
 variable "private_subnet_id_1" {}
