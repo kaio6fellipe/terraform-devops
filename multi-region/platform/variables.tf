@@ -36,7 +36,13 @@ variable "availability_zone_0" {}
 
 variable "private_subnet_id_0" {}
 
+variable "availability_zone_1" {}
+
 variable "private_subnet_id_1" {}
+
+variable "availability_zone_2" {}
+
+variable "private_subnet_id_2" {}
 
 variable "public_subnet_id_0" {}
 

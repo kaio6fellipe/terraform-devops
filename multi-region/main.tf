@@ -18,7 +18,10 @@ module "platform" {
   vpc_id                      = local.vpc_id
   availability_zone_0         = local.availability_zone_0
   private_subnet_id_0         = local.private_subnet_id_0
+  availability_zone_1         = local.availability_zone_1
   private_subnet_id_1         = local.private_subnet_id_1
+  availability_zone_2         = local.availability_zone_2
+  private_subnet_id_2         = local.private_subnet_id_2
   public_subnet_id_0          = local.public_subnet_id_0
   private_subnet_cidr_block_0 = local.private_subnet_cidr_block_0
   database_subnet_id_0        = local.database_subnet_id_0
