@@ -36,6 +36,8 @@ variable "availability_zone_0" {}
 
 variable "private_subnet_id_0" {}
 
+variable "private_subnet_id_1" {}
+
 variable "public_subnet_id_0" {}
 
 variable "private_subnet_cidr_block_0" {}
@@ -49,3 +51,5 @@ variable "vpc_cidr" {}
 variable "SSH_PRIVATE_KEY" {}
 
 variable "region" {}
+
+variable "private_dns_zone_name" {}

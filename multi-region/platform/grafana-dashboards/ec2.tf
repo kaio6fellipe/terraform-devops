@@ -10,8 +10,8 @@ module "ec2-instance" {
   monitoring    = false
 
   availability_zone      = var.availability_zone_0
-  subnet_id              = var.public_subnet_id_0
-  vpc_security_group_ids = ["${aws_security_group.grafana_http.id}", "${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
+  subnet_id              = var.private_subnet_id_1
+  vpc_security_group_ids = ["${aws_security_group.grafana_http_instance.id}", "${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
 
   user_data = <<EOF
 #!/bin/bash
