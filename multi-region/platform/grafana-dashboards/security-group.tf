@@ -7,7 +7,7 @@ resource "aws_security_group" "grafana_http_instance" {
     from_port   = 3000
     to_port     = 3000
     protocol    = "tcp"
-    cidr_blocks = [0.0.0.0/0]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
     Name = "grafana-dashboards"
