@@ -51,3 +51,5 @@ variable "vpc_cidr" {}
 variable "SSH_PRIVATE_KEY" {}
 
 variable "region" {}
+
+variable "private_dns_zone_name" {}

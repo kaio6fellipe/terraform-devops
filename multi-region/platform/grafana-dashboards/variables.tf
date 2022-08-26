@@ -41,3 +41,5 @@ variable "allow_bastion_ssh" {}
 variable "cdirs_acesso_remoto" {
   type = list
 }
+
+variable "private_dns_zone_name" {}

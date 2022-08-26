@@ -25,4 +25,5 @@ module "platform" {
   db_subnet_group_name        = local.db_subnet_group_name
   vpc_cidr                    = var.vpc_cidr
   SSH_PRIVATE_KEY             = var.SSH_PRIVATE_KEY
+  private_dns_zone_name       = sort(keys(module.zones.route53_zone_zone_id))[0]
 }
