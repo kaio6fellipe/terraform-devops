@@ -46,6 +46,8 @@ module "grafana_dashboards" {
   private_subnet_id_1            = var.private_subnet_id_1
   availability_zone_2            = var.availability_zone_2
   private_subnet_id_2            = var.private_subnet_id_2
+  public_subnet_id_1             = var.public_subnet_id_1
+  public_subnet_id_2             = var.public_subnet_id_2
   allow_bastion_ssh              = aws_security_group.allow_bastion_ssh.id
   allow_ansible_admin_subnet_ssh = aws_security_group.allow_ansible_admin_subnet_ssh.id
   allow_outbound                 = aws_security_group.allow_outbound.id

@@ -32,6 +32,10 @@ variable "availability_zone_2" {}
 
 variable "private_subnet_id_2" {}
 
+variable "public_subnet_id_1" {}
+
+variable "public_subnet_id_2" {}
+
 variable "database_subnet_id_0" {}
 
 variable "db_subnet_group_name" {}

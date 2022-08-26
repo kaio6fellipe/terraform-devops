@@ -46,6 +46,10 @@ variable "private_subnet_id_2" {}
 
 variable "public_subnet_id_0" {}
 
+variable "public_subnet_id_1" {}
+
+variable "public_subnet_id_2" {}
+
 variable "private_subnet_cidr_block_0" {}
 
 variable "database_subnet_id_0" {}

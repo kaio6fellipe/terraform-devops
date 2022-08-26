@@ -7,7 +7,7 @@ module "alb" {
   load_balancer_type = "application"
 
   vpc_id             = var.vpc_id
-  subnets            = [var.private_subnet_id_1, var.private_subnet_id_2]
+  subnets            = [var.public_subnet_id_1, var.public_subnet_id_2]
   security_groups    = [aws_security_group.sg_grafana_http.id, aws_security_group.sg_grafana_https.id]
 
   target_groups = [

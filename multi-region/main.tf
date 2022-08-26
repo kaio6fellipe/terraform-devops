@@ -23,6 +23,8 @@ module "platform" {
   availability_zone_2         = local.availability_zone_2
   private_subnet_id_2         = local.private_subnet_id_2
   public_subnet_id_0          = local.public_subnet_id_0
+  public_subnet_id_1          = local.public_subnet_id_1
+  public_subnet_id_2          = local.public_subnet_id_2
   private_subnet_cidr_block_0 = local.private_subnet_cidr_block_0
   database_subnet_id_0        = local.database_subnet_id_0
   db_subnet_group_name        = local.db_subnet_group_name
