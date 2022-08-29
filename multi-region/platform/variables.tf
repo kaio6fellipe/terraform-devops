@@ -1,6 +1,6 @@
 variable "cdirs_acesso_remoto" {
   description = "Remote access CIDR for SGs in hosts associated with public subnets"
-  default = ["201.33.192.0/20"]
+  default = ["201.33.192.0/20","200.186.50.162"]
 }
 
 variable "environment" {
