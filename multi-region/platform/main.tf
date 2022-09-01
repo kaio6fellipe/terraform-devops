@@ -29,6 +29,8 @@ module "bastion" {
   cdirs_acesso_remoto            = var.cdirs_acesso_remoto
   SSH_PRIVATE_KEY                = var.SSH_PRIVATE_KEY
   private_dns_zone_name          = var.private_dns_zone_name
+  public_dns_zone_name           = data.aws_route53_zone.ktech_public.name
+  public_dns_zone_id             = data.aws_route53_zone.ktech_public.zone_id
 }
 
 module "grafana_dashboards" {
