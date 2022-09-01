@@ -53,3 +53,7 @@ variable "cdirs_acesso_remoto" {
 }
 
 variable "private_dns_zone_name" {}
+
+variable "public_dns_zone_name" {}
+
+variable "public_dns_zone_id" {}
