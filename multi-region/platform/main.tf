@@ -56,4 +56,6 @@ module "grafana_dashboards" {
   database_subnet_id_0           = var.database_subnet_id_0
   db_subnet_group_name           = var.db_subnet_group_name
   private_dns_zone_name          = var.private_dns_zone_name
+  public_dns_zone_name           = data.aws_route53_zone.ktech_public.name
+  public_dns_zone_id             = data.aws_route53_zone.ktech_public.zone_id
 }
