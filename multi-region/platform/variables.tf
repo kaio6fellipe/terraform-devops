@@ -63,3 +63,7 @@ variable "SSH_PRIVATE_KEY" {}
 variable "region" {}
 
 variable "private_dns_zone_name" {}
+
+variable "private_dns_zone_id" {}
+
+variable "AWS_RDS_PASSWORD" {}

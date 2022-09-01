@@ -30,6 +30,8 @@ variable "SSH_PRIVATE_KEY" {}
 
 variable "private_dns_zone_name" {}
 
+variable "private_dns_zone_id" {}
+
 variable "public_dns_zone_name" {}
 
 variable "public_dns_zone_id" {}

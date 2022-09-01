@@ -67,8 +67,12 @@ variable "database_subnet_c" {
   type = string
 }
 
-
 variable "SSH_PRIVATE_KEY" {
   description = "SSH Private Key for Ansible Server (Controller)"
   type        = string
+}
+
+variable "AWS_RDS_PASSWORD" {
+  description = "AWS RDS generic root password"
+  type = string
 }

@@ -11,6 +11,7 @@ module "ansible_server" {
   allow_outbound        = aws_security_group.allow_outbound.id
   allow_ping            = aws_security_group.allow_ping.id
   SSH_PRIVATE_KEY       = var.SSH_PRIVATE_KEY
+  private_dns_zone_id   = var.private_dns_zone_id
   private_dns_zone_name = var.private_dns_zone_name
 }
 
@@ -28,6 +29,7 @@ module "bastion" {
   allow_ping                     = aws_security_group.allow_ping.id
   cdirs_acesso_remoto            = var.cdirs_acesso_remoto
   SSH_PRIVATE_KEY                = var.SSH_PRIVATE_KEY
+  private_dns_zone_id            = var.private_dns_zone_id
   private_dns_zone_name          = var.private_dns_zone_name
   public_dns_zone_name           = data.aws_route53_zone.ktech_public.name
   public_dns_zone_id             = data.aws_route53_zone.ktech_public.zone_id
@@ -57,7 +59,9 @@ module "grafana_dashboards" {
   cdirs_acesso_remoto            = var.cdirs_acesso_remoto
   database_subnet_id_0           = var.database_subnet_id_0
   db_subnet_group_name           = var.db_subnet_group_name
+  private_dns_zone_id            = var.private_dns_zone_id
   private_dns_zone_name          = var.private_dns_zone_name
   public_dns_zone_name           = data.aws_route53_zone.ktech_public.name
   public_dns_zone_id             = data.aws_route53_zone.ktech_public.zone_id
+  AWS_RDS_PASSWORD               = var.AWS_RDS_PASSWORD
 }

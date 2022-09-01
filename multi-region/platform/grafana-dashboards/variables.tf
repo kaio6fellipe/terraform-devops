@@ -54,6 +54,12 @@ variable "cdirs_acesso_remoto" {
 
 variable "private_dns_zone_name" {}
 
+variable "private_dns_zone_id" {}
+
 variable "public_dns_zone_name" {}
 
 variable "public_dns_zone_id" {}
+
+variable "AWS_RDS_PASSWORD" {
+  type = string
+}
