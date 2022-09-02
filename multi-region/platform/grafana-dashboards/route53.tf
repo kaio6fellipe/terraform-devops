@@ -13,3 +13,11 @@ resource "aws_route53_record" "grafana_private" {
   ttl = "300"
   records = [module.ec2-instance.private_ip]
 }
+
+resource "aws_route53_record" "rds_private" {
+  zone_id = var.private_dns_zone_id
+  name = "grafana-rds.${var.private_dns_zone_name}"
+  type = "CNAME"
+  ttl = "300"
+  records = [module.grafana_rds.db_instance_address]
+}

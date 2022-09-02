@@ -49,7 +49,7 @@ variable "allow_ping" {}
 variable "allow_bastion_ssh" {}
 
 variable "cdirs_acesso_remoto" {
-  type = list
+  type = list(any)
 }
 
 variable "private_dns_zone_name" {}
@@ -61,5 +61,6 @@ variable "public_dns_zone_name" {}
 variable "public_dns_zone_id" {}
 
 variable "AWS_RDS_PASSWORD" {
-  type = string
+  type      = string
+  sensitive = true
 }

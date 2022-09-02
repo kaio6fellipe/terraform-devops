@@ -1,6 +1,6 @@
 variable "cdirs_acesso_remoto" {
   description = "Remote access CIDR for SGs in hosts associated with public subnets"
-  default = ["201.33.192.0/20","200.186.50.162/32","45.239.100.0/22"]
+  default     = ["201.33.192.0/20", "200.186.50.162/32", "45.239.100.0/22"]
 }
 
 variable "environment" {
@@ -58,7 +58,9 @@ variable "db_subnet_group_name" {}
 
 variable "vpc_cidr" {}
 
-variable "SSH_PRIVATE_KEY" {}
+variable "SSH_PRIVATE_KEY" {
+  sensitive = true
+}
 
 variable "region" {}
 
@@ -66,4 +68,6 @@ variable "private_dns_zone_name" {}
 
 variable "private_dns_zone_id" {}
 
-variable "AWS_RDS_PASSWORD" {}
+variable "AWS_RDS_PASSWORD" {
+  sensitive = true
+}
