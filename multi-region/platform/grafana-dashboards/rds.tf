@@ -25,7 +25,7 @@ module "grafana_rds" {
   deletion_protection = false
   storage_encrypted   = false
 
-  restore_to_point_in_time = {
-    use_latest_restorable_time = true
-  }
+  # restore_to_point_in_time = {
+  #   use_latest_restorable_time = true
+  # }
 }
