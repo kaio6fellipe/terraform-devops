@@ -35,5 +35,4 @@ data "aws_availability_zones" "az_zones" {
 data "aws_route53_zone" "private_zone" {
   name         = "${var.environment}.private.ktech-br.com"
   private_zone = true
-  vpc_id       = local.vpc_id
 }
