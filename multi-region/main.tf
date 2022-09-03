@@ -30,5 +30,7 @@ module "platform" {
   db_subnet_group_name        = local.db_subnet_group_name
   vpc_cidr                    = var.vpc_cidr
   SSH_PRIVATE_KEY             = var.SSH_PRIVATE_KEY
+  AWS_RDS_PASSWORD            = var.AWS_RDS_PASSWORD
+  private_dns_zone_id         = data.aws_route53_zone.private_zone.zone_id
   private_dns_zone_name       = sort(keys(module.zones.route53_zone_zone_id))[0]
 }

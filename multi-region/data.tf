@@ -13,13 +13,13 @@ data "aws_ami" "ubuntu2004" {
 
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
-  owners = ["amazon"]
+  owners      = ["amazon"]
   filter {
     name   = "owner-alias"
     values = ["amazon"]
   }
   filter {
-    name = "name"
+    name   = "name"
     values = ["amzn2-ami-hvm-2.0.20220719.0-x86_64-gp2"]
   }
   filter {
@@ -30,4 +30,10 @@ data "aws_ami" "amazon_linux_2" {
 
 data "aws_availability_zones" "az_zones" {
   all_availability_zones = true
+}
+
+data "aws_route53_zone" "private_zone" {
+  name         = "${var.environment}.private.ktech-br.com"
+  private_zone = true
+  vpc_id       = local.vpc_id
 }

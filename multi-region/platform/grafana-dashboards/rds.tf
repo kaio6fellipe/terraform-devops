@@ -16,6 +16,7 @@ module "grafana_rds" {
   db_name  = "grafana"
   username = "grafana_usr"
   port     = 5432
+  password = var.AWS_RDS_PASSWORD
 
   multi_az               = false
   db_subnet_group_name   = var.db_subnet_group_name
@@ -23,4 +24,8 @@ module "grafana_rds" {
 
   deletion_protection = false
   storage_encrypted   = false
+
+  restore_to_point_in_time = {
+    use_latest_restorable_time = true
+  }
 }
