@@ -6,6 +6,10 @@
 | Staging | ![Apply staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-apply.yml/badge.svg) |
 | Production | ![Apply prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-apply.yml/badge.svg) |
 
+The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state). Each environment has a separate remote state.
+
+The configuration management is being performed by the "Ansible Controller" in the following repository: [ansible-devops](https://github.com/kaio6fellipe/ansible-devops).
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
