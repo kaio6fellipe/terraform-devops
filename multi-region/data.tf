@@ -35,4 +35,5 @@ data "aws_availability_zones" "az_zones" {
 data "aws_route53_zone" "private_zone" {
   name         = "${var.environment}.private.ktech-br.com"
   private_zone = true
+  depends_on = [module.zones.route53_zone_zone_id]
 }
