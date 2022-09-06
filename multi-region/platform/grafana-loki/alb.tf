@@ -29,11 +29,11 @@ module "alb" {
         matcher             = "200"
       }
       targets = {
-        target = {
+        target01 = {
           target_id = "${module.ec2-instance01.id}"
           port      = 3100
-        },
-        target = {
+        }
+        target02 = {
           target_id = "${module.ec2-instance02.id}"
           port      = 3100
         }
