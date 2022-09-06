@@ -13,10 +13,11 @@ module "grafana_rds" {
   allocated_storage     = var.rds_allocated_storage
   max_allocated_storage = var.rds_max_allocated_storage
 
-  db_name  = "grafana"
-  username = "grafana_usr"
-  port     = 5432
-  password = var.AWS_RDS_PASSWORD
+  db_name                = "grafana"
+  username               = "grafana_usr"
+  port                   = 5432
+  password               = var.AWS_RDS_PASSWORD
+  create_random_password = false
 
   multi_az               = false
   db_subnet_group_name   = var.db_subnet_group_name
