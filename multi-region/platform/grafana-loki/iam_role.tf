@@ -30,10 +30,11 @@ resource "aws_iam_role_policy" "loki_ec2_policy" {
       {
         Effect:"Allow",
         Action: [
-          "s3:GetObject",
-          "s3:ListBucket",
-          "s3:PutObject",
-          "s3:DeleteObject"
+          "s3:*"
+          # "s3:GetObject",
+          # "s3:ListBucket",
+          # "s3:PutObject",
+          # "s3:DeleteObject"
         ],
         Resource: [
           "${aws_s3_bucket.loki_bucket.arn}/*"
