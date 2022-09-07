@@ -4,10 +4,11 @@ module "ec2-instance01" {
 
   name = "grafana-loki01-${var.environment}"
 
-  ami           = var.amazon_linux_2
-  instance_type = var.instance_type
-  key_name      = var.key_name
-  monitoring    = false
+  ami                  = var.amazon_linux_2
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  monitoring           = false
+  iam_instance_profile = aws_iam_instance_profile.loki_ec2_profile.id
 
   availability_zone      = var.availability_zone_1
   subnet_id              = var.private_subnet_id_1
@@ -36,10 +37,11 @@ module "ec2-instance02" {
 
   name = "grafana-loki02-${var.environment}"
 
-  ami           = var.amazon_linux_2
-  instance_type = var.instance_type
-  key_name      = var.key_name
-  monitoring    = false
+  ami                  = var.amazon_linux_2
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  monitoring           = false
+  iam_instance_profile = aws_iam_instance_profile.loki_ec2_profile.id
 
   availability_zone      = var.availability_zone_2
   subnet_id              = var.private_subnet_id_2
