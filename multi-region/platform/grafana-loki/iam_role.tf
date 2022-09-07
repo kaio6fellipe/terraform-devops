@@ -37,6 +37,7 @@ resource "aws_iam_role_policy" "loki_ec2_policy" {
           # "s3:DeleteObject"
         ],
         Resource: [
+          "${aws_s3_bucket.loki_bucket.arn}",
           "${aws_s3_bucket.loki_bucket.arn}/*"
         ]
       },
