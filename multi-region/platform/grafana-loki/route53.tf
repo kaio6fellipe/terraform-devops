@@ -14,10 +14,10 @@ resource "aws_route53_record" "loki01_private" {
   records = [module.ec2-instance01.private_ip]
 }
 
-resource "aws_route53_record" "loki02_private" {
-  zone_id = var.private_dns_zone_id
-  name    = "loki02.${var.private_dns_zone_name}"
-  type    = "A"
-  ttl     = "300"
-  records = [module.ec2-instance02.private_ip]
-}
+# resource "aws_route53_record" "loki02_private" {
+#   zone_id = var.private_dns_zone_id
+#   name    = "loki02.${var.private_dns_zone_name}"
+#   type    = "A"
+#   ttl     = "300"
+#   records = [module.ec2-instance02.private_ip]
+# }

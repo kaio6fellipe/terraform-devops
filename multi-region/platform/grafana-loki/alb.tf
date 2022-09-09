@@ -33,10 +33,10 @@ module "alb" {
           target_id = "${module.ec2-instance01.id}"
           port      = 3100
         }
-        target02 = {
-          target_id = "${module.ec2-instance02.id}"
-          port      = 3100
-        }
+        # target02 = {
+        #   target_id = "${module.ec2-instance02.id}"
+        #   port      = 3100
+        # }
       }
     }
   ]
