@@ -20,10 +20,10 @@ resource "aws_security_group" "loki_cluster_instance" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port       = 7946
-    to_port         = 7946
-    protocol        = "tcp"
-    security_groups = [aws_security_group.sg_loki_cluster.id]
+    from_port   = 7946
+    to_port     = 7946
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
   }
   tags = {
     Name = "loki-dashboards"
@@ -54,22 +54,6 @@ resource "aws_security_group" "sg_loki_https" {
   ingress {
     from_port   = 443
     to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
-  }
-  tags = {
-    Name = "loki-dashboards"
-  }
-}
-
-resource "aws_security_group" "sg_loki_cluster" {
-  name        = "alb_loki_cluster-${var.environment}"
-  description = "alb_loki_cluster-${var.environment}"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 7946
-    to_port     = 7946
     protocol    = "tcp"
     cidr_blocks = [var.vpc_cidr]
   }

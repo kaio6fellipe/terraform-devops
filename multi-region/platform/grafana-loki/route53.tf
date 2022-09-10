@@ -21,3 +21,11 @@ resource "aws_route53_record" "loki02_private" {
   ttl     = "300"
   records = [module.ec2-instance02.private_ip]
 }
+
+resource "aws_route53_record" "loki_gossip_ring" {
+  zone_id = var.private_dns_zone_id
+  name    = "loki-gossip-ring.${var.private_dns_zone_name}"
+  type = "A"
+  ttl = "300"
+  records = [module.ec2-instance01.private_ip, module.ec2-instance02.private_ip]
+}
