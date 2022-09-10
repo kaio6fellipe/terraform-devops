@@ -3,8 +3,8 @@ name: Terraform plan (Development)
 on: 
   pull_request:
     branches: [development]
-    paths-ignore:
-      - '**README.md'
+    # paths-ignore:
+    #   - '**README.md'
 
 # on: 
 #   workflow_run:
