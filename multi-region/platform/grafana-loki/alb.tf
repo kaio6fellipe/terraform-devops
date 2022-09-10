@@ -38,6 +38,33 @@ module "alb" {
           port      = 3100
         }
       }
+    },
+    {
+      name_prefix      = "loki-"
+      backend_protocol = "HTTP"
+      backend_port     = 7946
+      target_type      = "instance"
+      health_check = {
+        enabled             = true
+        interval            = 30
+        path                = ""
+        port                = "traffic-port"
+        healthy_threshold   = 2
+        unhealthy_threshold = 3
+        timeout             = 6
+        protocol            = "HTTP"
+        matcher             = "200"
+      }
+      targets = {
+        target01 = {
+          target_id = "${module.ec2-instance01.id}"
+          port      = 7946
+        }
+        target02 = {
+          target_id = "${module.ec2-instance02.id}"
+          port      = 7946
+        }
+      }
     }
   ]
 
@@ -55,6 +82,11 @@ module "alb" {
       port               = 80
       protocol           = "HTTP"
       target_group_index = 0
+    },
+    {
+      port               = 7946
+      protocol           = "HTTP"
+      target_group_index = 1
     }
   ]
 
