@@ -8,7 +8,8 @@ name: Terraform plan (Development)
 
 on: 
   workflow_run:
-    workflows: ["Generate terraform docs"]
+    workflows: 
+      - Generate terraform docs
     types:
       - completed
 
