@@ -23,6 +23,7 @@ jobs:
   plan:
     name: 'terraform plan dev'
     runs-on: ubuntu-latest
+    needs: docs
     
     defaults:
       run:
@@ -82,7 +83,7 @@ jobs:
   docs:
     name: 'terraform-docs'
     runs-on: ubuntu-latest
-    needs: plan
+    # needs: plan
     steps:
     - uses: actions/checkout@v3
       with:
