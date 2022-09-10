@@ -57,6 +57,7 @@ No requirements.
 | <a name="input_private_dns_zone_name"></a> [private\_dns\_zone\_name](#input\_private\_dns\_zone\_name) | n/a | `any` | n/a | yes |
 | <a name="input_private_subnet_id_1"></a> [private\_subnet\_id\_1](#input\_private\_subnet\_id\_1) | n/a | `any` | n/a | yes |
 | <a name="input_private_subnet_id_2"></a> [private\_subnet\_id\_2](#input\_private\_subnet\_id\_2) | n/a | `any` | n/a | yes |
+| <a name="input_teste"></a> [teste](#input\_teste) | n/a | `string` | `"teste"` | no |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `any` | n/a | yes |
 
