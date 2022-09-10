@@ -3,6 +3,8 @@ name: Terraform plan (Development)
 on: 
   pull_request:
     branches: [development]
+    paths-ignore:
+      - '**README.md'
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
