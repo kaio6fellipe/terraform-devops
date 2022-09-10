@@ -14,6 +14,22 @@ resource "aws_security_group" "loki_http_instance" {
   }
 }
 
+resource "aws_security_group" "loki_cluster_instance" {
+  name        = "loki_cluster_instance-${var.environment}"
+  description = "loki_cluster_instance-${var.environment}"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port       = 7946
+    to_port         = 7946
+    protocol        = "tcp"
+    security_groups = [aws_security_group.sg_loki_cluster.id]
+  }
+  tags = {
+    Name = "loki-dashboards"
+  }
+}
+
 resource "aws_security_group" "sg_loki_http" {
   name        = "alb_loki_http-${var.environment}"
   description = "alb_loki_http-${var.environment}"
@@ -38,6 +54,22 @@ resource "aws_security_group" "sg_loki_https" {
   ingress {
     from_port   = 443
     to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+  tags = {
+    Name = "loki-dashboards"
+  }
+}
+
+resource "aws_security_group" "sg_loki_cluster" {
+  name        = "alb_loki_cluster-${var.environment}"
+  description = "alb_loki_cluster-${var.environment}"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 7946
+    to_port     = 7946
     protocol    = "tcp"
     cidr_blocks = [var.vpc_cidr]
   }
