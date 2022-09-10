@@ -29,3 +29,7 @@ variable "allow_ping" {}
 variable "private_dns_zone_id" {}
 
 variable "private_dns_zone_name" {}
+
+variable "teste" {
+  default = "teste"
+}
