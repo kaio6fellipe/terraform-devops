@@ -1,8 +1,16 @@
 name: Terraform plan (Development)
 
+# on: 
+#   pull_request:
+#     branches: [development]
+#     paths-ignore:
+#       - '**README.md'
+
 on: 
-  pull_request:
-    branches: [development]
+  workflow_run:
+    workflows: ["Generate terraform docs"]
+    types:
+      - completed
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
