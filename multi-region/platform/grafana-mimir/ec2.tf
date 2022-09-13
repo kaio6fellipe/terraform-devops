@@ -8,11 +8,11 @@ module "ec2-instance01" {
   instance_type = var.instance_type
   key_name      = var.key_name
   monitoring    = false
-  # iam_instance_profile = aws_iam_instance_profile.mimir_ec2_profile.id
+  iam_instance_profile = aws_iam_instance_profile.mimir_ec2_profile.id
 
   availability_zone      = var.availability_zone_1
   subnet_id              = var.private_subnet_id_1
-  vpc_security_group_ids = ["${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
+  vpc_security_group_ids = ["${aws_security_group.mimir_http_instance.id}", "${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
 
   user_data = <<EOF
 #!/bin/bash
