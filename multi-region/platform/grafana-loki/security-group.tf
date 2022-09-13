@@ -10,7 +10,7 @@ resource "aws_security_group" "loki_http_instance" {
     security_groups = [aws_security_group.sg_loki_http.id, aws_security_group.sg_loki_https.id]
   }
   tags = {
-    Name = "loki-dashboards"
+    Name = "loki"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_security_group" "loki_cluster_instance" {
   }
   
   tags = {
-    Name = "loki-dashboards"
+    Name = "loki"
   }
 }
 
@@ -50,7 +50,7 @@ resource "aws_security_group" "sg_loki_http" {
     cidr_blocks = [var.vpc_cidr]
   }
   tags = {
-    Name = "loki-dashboards"
+    Name = "loki"
   }
 }
 
@@ -66,6 +66,6 @@ resource "aws_security_group" "sg_loki_https" {
     cidr_blocks = [var.vpc_cidr]
   }
   tags = {
-    Name = "loki-dashboards"
+    Name = "loki"
   }
 }
