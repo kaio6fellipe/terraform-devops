@@ -26,7 +26,7 @@ module "alb" {
         unhealthy_threshold = 3
         timeout             = 6
         protocol            = "HTTP"
-        matcher             = "405"
+        matcher             = "200"
       }
       targets = {
         target01 = {
