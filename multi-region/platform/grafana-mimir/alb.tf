@@ -20,13 +20,13 @@ module "alb" {
       health_check = {
         enabled             = true
         interval            = 30
-        path                = "/prometheus"
+        path                = "/"
         port                = "traffic-port"
         healthy_threshold   = 2
         unhealthy_threshold = 3
         timeout             = 6
         protocol            = "HTTP"
-        matcher             = "200"
+        matcher             = "405"
       }
       targets = {
         target01 = {
