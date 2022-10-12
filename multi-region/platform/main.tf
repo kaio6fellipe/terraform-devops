@@ -1,18 +1,19 @@
 module "ansible_server" {
-  source                = "./ansible-server"
-  ansible_instance_type = var.ansible_instance_type
-  environment           = var.environment
-  region                = var.region
-  amazon_linux_2        = var.amazon_linux_2
-  key_name              = var.key_name
-  availability_zone_0   = var.availability_zone_0
-  private_subnet_id_0   = var.private_subnet_id_0
-  allow_bastion_ssh     = aws_security_group.allow_bastion_ssh.id
-  allow_outbound        = aws_security_group.allow_outbound.id
-  allow_ping            = aws_security_group.allow_ping.id
-  SSH_PRIVATE_KEY       = var.SSH_PRIVATE_KEY
-  private_dns_zone_id   = var.private_dns_zone_id
-  private_dns_zone_name = var.private_dns_zone_name
+  source                 = "./ansible-server"
+  ansible_instance_type  = var.ansible_instance_type
+  environment            = var.environment
+  region                 = var.region
+  amazon_linux_2         = var.amazon_linux_2
+  key_name               = var.key_name
+  availability_zone_0    = var.availability_zone_0
+  private_subnet_id_0    = var.private_subnet_id_0
+  allow_bastion_ssh      = aws_security_group.allow_bastion_ssh.id
+  allow_outbound         = aws_security_group.allow_outbound.id
+  allow_ping             = aws_security_group.allow_ping.id
+  SSH_PRIVATE_KEY        = var.SSH_PRIVATE_KEY
+  private_dns_zone_id    = var.private_dns_zone_id
+  private_dns_zone_name  = var.private_dns_zone_name
+  ANSIBLE_VAULT_PASSWORD = var.ANSIBLE_VAULT_PASSWORD
 }
 
 module "bastion" {

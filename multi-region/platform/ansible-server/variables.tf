@@ -35,3 +35,7 @@ variable "region" {}
 variable "private_dns_zone_name" {}
 
 variable "private_dns_zone_id" {}
+
+variable "ANSIBLE_VAULT_PASSWORD" {
+  sensitive = true
+}
