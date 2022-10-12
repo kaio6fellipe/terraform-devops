@@ -71,3 +71,7 @@ variable "private_dns_zone_id" {}
 variable "AWS_RDS_PASSWORD" {
   sensitive = true
 }
+
+variable "ANSIBLE_VAULT_PASSWORD" {
+  sensitive = true
+}

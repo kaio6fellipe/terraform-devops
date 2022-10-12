@@ -23,9 +23,11 @@ sudo echo "ansible-server01-${var.environment}" > /etc/hostname
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt-get" >> /var/log/terraform.log
 sudo yum update -y
 
-sudo echo "$(date '+%d%m%Y_%Hh%M') - Copying the SSH Key to Ansible server" >> /var/log/terraform.log
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Copying the SSH Key and Vault Password File to Ansible server" >> /var/log/terraform.log
 sudo echo "${var.SSH_PRIVATE_KEY}" > /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
+sudo echo "${var.ANSIBLE_VAULT_PASSWORD}" > /home/ec2-user/".vault_password_file-${var.environment}"
 sudo chown ec2-user:root /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
+sudo chown ec2-user:root /home/ec2-user/".vault_password_file-${var.environment}"
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Setup Ansible Server" >> /var/log/terraform.log
 sudo amazon-linux-extras install epel -y
@@ -33,8 +35,9 @@ sudo yum install ansible -y
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Ansible Setup Successfully" >> /var/log/terraform.log
 sudo ansible --version >> /var/log/terraform.log
 
-sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing permissions of the SSH Key" >> /var/log/terraform.log
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing permissions of the SSH Key and Vault Password File" >> /var/log/terraform.log
 sudo chmod 400 /home/ec2-user/.ssh/"terraform-aws-${var.environment}"
+sudo chmoe 400 /home/ec2-user/".vault_password_file-${var.environment}"
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Installing Code Deploy agent" >> /var/log/terraform.log
 sudo yum update -y

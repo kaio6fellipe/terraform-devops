@@ -31,6 +31,7 @@ module "platform" {
   vpc_cidr                    = var.vpc_cidr
   SSH_PRIVATE_KEY             = var.SSH_PRIVATE_KEY
   AWS_RDS_PASSWORD            = var.AWS_RDS_PASSWORD
+  ANSIBLE_VAULT_PASSWORD      = var.ANSIBLE_VAULT_PASSWORD
   private_dns_zone_id         = data.aws_route53_zone.private_zone.zone_id
   private_dns_zone_name       = sort(keys(module.zones.route53_zone_zone_id))[0]
 }

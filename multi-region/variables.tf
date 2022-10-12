@@ -78,3 +78,9 @@ variable "AWS_RDS_PASSWORD" {
   type        = string
   sensitive   = true
 }
+
+variable "ANSIBLE_VAULT_PASSWORD" {
+  description = "Ansible vault root password"
+  type        = string
+  sensitive   = true
+}
