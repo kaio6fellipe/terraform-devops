@@ -105,3 +105,7 @@ module "grafana_mimir" {
   private_dns_zone_id            = var.private_dns_zone_id
   private_dns_zone_name          = var.private_dns_zone_name
 }
+
+module "platform_k8s" {
+  source = "./platform-k8s"
+}
