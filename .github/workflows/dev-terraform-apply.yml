@@ -73,7 +73,3 @@ jobs:
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-  call-ansible:
-    uses: kaio6fellipe/ansible-devops/.github/workflows/build_package_dev.yml@development
-    needs: plan
