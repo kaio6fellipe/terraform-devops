@@ -1,7 +1,14 @@
 variable "cdirs_acesso_remoto" {
   description = "Remote access CIDR for SGs in hosts associated with public subnets"
   # default     = ["0.0.0.0/0"]
-  default     = ["201.33.192.0/20", "200.186.50.162/32", "45.239.100.0/22", "186.209.64.0/20", "131.0.200.0/22", "143.255.232.0/22", "177.125.200.0/22", "191.253.32.0/21", "170.244.252.0/22", "163.116.224.116/32"]
+  default     = [
+    "168.196.72.0/22", #TurboNet
+    "45.239.100.0/22", #TurboNet
+    "170.233.164.0/22", #TurboNet
+    "201.131.68.0/22", #TurboNet
+    "131.255.68.0/22", #TurboNet
+    "163.116.224.116/32" #Proxy
+  ]
 }
 
 variable "environment" {
