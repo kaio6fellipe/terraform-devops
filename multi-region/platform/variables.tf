@@ -10,6 +10,7 @@ variable "cdirs_acesso_remoto" {
     "201.33.192.0/20", #VBTelecom
     "168.227.32.0/22", #VBTelecom
     "163.116.224.116/32" #Proxy
+    "163.116.224.113/32" #Proxy
   ]
 }
 
