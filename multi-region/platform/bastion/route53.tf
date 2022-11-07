@@ -6,7 +6,7 @@ resource "aws_route53_record" "bastion_public" {
   records = [module.ec2-instance.public_ip]
 }
 
-resource "aws_route53_record" "grafana_private" {
+resource "aws_route53_record" "bastion_private" {
   zone_id = var.private_dns_zone_id
   name = "bastion.${var.private_dns_zone_name}"
   type = "A"

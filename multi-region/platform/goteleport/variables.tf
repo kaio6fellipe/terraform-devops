@@ -26,6 +26,8 @@ variable "allow_outbound" {}
 
 variable "allow_ping" {}
 
+variable "allow_bastion_ssh" {}
+
 variable "private_dns_zone_name" {}
 
 variable "private_dns_zone_id" {}
