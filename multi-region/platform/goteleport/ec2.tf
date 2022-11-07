@@ -2,7 +2,7 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "4.1.1"
 
-  name = "bastion01-${var.environment}"
+  name = "goteleport01-${var.environment}"
 
   ami           = var.amazon_linux_2
   instance_type = var.instance_type
@@ -11,13 +11,13 @@ module "ec2-instance" {
 
   availability_zone      = var.availability_zone_0
   subnet_id              = var.public_subnet_id_0
-  vpc_security_group_ids = ["${aws_security_group.bastion_public_ssh.id}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
+  vpc_security_group_ids = ["${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
 
   user_data = <<EOF
 #!/bin/bash
-sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname o Bastion Server" >> /var/log/terraform.log
-sudo hostname "bastion01-${var.environment}"
-sudo echo "bastion01-${var.environment}" > /etc/hostname
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname of GoTeleport Server" >> /var/log/terraform.log
+sudo hostname "goteleport01-${var.environment}"
+sudo echo "goteleport01-${var.environment}" > /etc/hostname
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt update and upgrade" >> /var/log/terraform.log
 sudo yum update -y
@@ -26,6 +26,6 @@ EOF
 
   tags = {
     Type = var.instance_type
-    App  = "bastion"
+    App  = "goteleport"
   }
 }
