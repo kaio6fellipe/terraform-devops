@@ -10,6 +10,6 @@ resource "aws_security_group" "goteleport_public_https" {
     cidr_blocks = var.cdirs_acesso_remoto
   }
   tags = {
-    Name = "http/https"
+    Name = "https"
   }
 }
