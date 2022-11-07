@@ -11,7 +11,7 @@ module "ec2-instance" {
 
   availability_zone      = var.availability_zone_0
   subnet_id              = var.public_subnet_id_0
-  vpc_security_group_ids = ["${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
+  vpc_security_group_ids = ["${aws_security_group.goteleport_public_https.id}", "${var.allow_bastion_ssh}", "${var.allow_ansible_admin_subnet_ssh}", "${var.allow_outbound}", "${var.allow_ping}"]
 
   user_data = <<EOF
 #!/bin/bash
