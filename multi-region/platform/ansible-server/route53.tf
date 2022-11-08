@@ -1,4 +1,4 @@
-resource "aws_route53_record" "grafana_private" {
+resource "aws_route53_record" "ansible_private" {
   zone_id = var.private_dns_zone_id
   name = "ansible.${var.private_dns_zone_name}"
   type = "A"
