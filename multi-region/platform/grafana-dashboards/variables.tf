@@ -40,13 +40,7 @@ variable "database_subnet_id_0" {}
 
 variable "db_subnet_group_name" {}
 
-variable "allow_ansible_admin_subnet_ssh" {}
-
-variable "allow_outbound" {}
-
-variable "allow_ping" {}
-
-variable "allow_bastion_ssh" {}
+variable "default_sg" {}
 
 variable "cdirs_acesso_remoto" {
   type = list(any)
