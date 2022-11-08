@@ -9,7 +9,7 @@ module "alb" {
 
   vpc_id          = var.vpc_id
   subnets         = [var.private_subnet_id_1, var.private_subnet_id_2]
-  security_groups = [aws_security_group.sg_loki_http.id, aws_security_group.sg_loki_https.id, var.allow_outbound, var.allow_ping]
+  security_groups = [aws_security_group.sg_loki_http.id, aws_security_group.sg_loki_https.id, var.default_sg]
 
   target_groups = [
     {

@@ -8,7 +8,7 @@ module "alb" {
 
   vpc_id          = var.vpc_id
   subnets         = [var.public_subnet_id_1, var.public_subnet_id_2]
-  security_groups = [aws_security_group.sg_grafana_http.id, aws_security_group.sg_grafana_https.id, var.allow_outbound, var.allow_ping]
+  security_groups = [aws_security_group.sg_grafana_http.id, aws_security_group.sg_grafana_https.id, var.default_sg]
 
   target_groups = [
     {

@@ -20,11 +20,7 @@ variable "availability_zone_0" {}
 
 variable "public_subnet_id_0" {}
 
-variable "allow_ansible_admin_subnet_ssh" {}
-
-variable "allow_outbound" {}
-
-variable "allow_ping" {}
+variable "default_sg" {}
 
 variable "private_dns_zone_name" {}
 
