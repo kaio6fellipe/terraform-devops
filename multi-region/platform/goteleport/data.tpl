@@ -3,6 +3,10 @@ sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname of Teleport Server" >> /v
 sudo hostname "${cluster_name}"
 sudo echo "${cluster_name}" > /etc/hostname
 
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt update and upgrade" >> /var/log/terraform.log
+sudo yum update -y
+sudo yum upgrade -y
+
 cat >/etc/teleport.d/conf <<EOF
 TELEPORT_ROLE=auth,node,proxy
 EC2_REGION=${region}
