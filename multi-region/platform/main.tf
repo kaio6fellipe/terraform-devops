@@ -69,7 +69,7 @@ module "grafana_dashboards" {
   private_subnet_id_2       = var.private_subnet_id_2
   public_subnet_id_1        = var.public_subnet_id_1
   public_subnet_id_2        = var.public_subnet_id_2
-  default_sg                = aws_security_group.default.id
+  default_sg                = aws_security_group.default_platform.id
   cdirs_acesso_remoto       = var.cdirs_acesso_remoto
   database_subnet_id_0      = var.database_subnet_id_0
   db_subnet_group_name      = var.db_subnet_group_name
@@ -92,7 +92,7 @@ module "grafana_loki" {
   private_subnet_id_1   = var.private_subnet_id_1
   availability_zone_2   = var.availability_zone_2
   private_subnet_id_2   = var.private_subnet_id_2
-  default_sg            = aws_security_group.default.id
+  default_sg            = aws_security_group.default_platform.id
   private_dns_zone_id   = var.private_dns_zone_id
   private_dns_zone_name = var.private_dns_zone_name
 }
@@ -109,7 +109,7 @@ module "grafana_mimir" {
   private_subnet_id_1   = var.private_subnet_id_1
   availability_zone_2   = var.availability_zone_2
   private_subnet_id_2   = var.private_subnet_id_2
-  default_sg            = aws_security_group.default.id
+  default_sg            = aws_security_group.default_platform.id
   private_dns_zone_id   = var.private_dns_zone_id
   private_dns_zone_name = var.private_dns_zone_name
 }

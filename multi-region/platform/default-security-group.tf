@@ -1,5 +1,5 @@
-resource "aws_security_group" "default" {
-  name        = "default_sg-${var.environment}"
+resource "aws_security_group" "default_platform" {
+  name        = "default_platform_sg-${var.environment}"
   description = "Default SG for env: ${var.environment}"
   vpc_id      = var.vpc_id
 
