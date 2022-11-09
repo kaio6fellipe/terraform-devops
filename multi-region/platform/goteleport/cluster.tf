@@ -2,24 +2,24 @@
 resource "aws_instance" "cluster" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.base.id
-  instance_type               = var.cluster_instance_type
-  subnet_id                   = tolist(data.aws_subnets.all.ids)[0]
-  vpc_security_group_ids      = [aws_security_group.cluster.id]
+  instance_type               = var.instance_type
+  subnet_id                   = var.public_subnet_id_0
+  vpc_security_group_ids      = [aws_security_group.cluster.id, var.default_sg]
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_role.cluster.id
 
   user_data = templatefile(
-    "data.tpl",
+    "${abspath(path.cwd)}/multi-region/platform/goteleport/data.tpl",
     {
       region                   = var.region
-      cluster_name             = var.cluster_name
+      cluster_name             = local.cluster_name
       email                    = var.email
-      domain_name              = var.route53_domain
+      domain_name              = local.route53_domain
       dynamo_table_name        = aws_dynamodb_table.teleport.name
       dynamo_events_table_name = aws_dynamodb_table.teleport_events.name
       locks_table_name         = aws_dynamodb_table.teleport_locks.name
       license_path             = var.license_path
-      s3_bucket                = var.s3_bucket_name
+      s3_bucket                = local.s3_bucket_name
       enable_mongodb_listener  = var.enable_mongodb_listener
       enable_mysql_listener    = var.enable_mysql_listener
       enable_postgres_listener = var.enable_postgres_listener

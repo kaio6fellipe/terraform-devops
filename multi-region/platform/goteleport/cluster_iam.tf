@@ -6,7 +6,7 @@ resources.
 
 // IAM Role
 resource "aws_iam_role" "cluster" {
-  name = "${var.cluster_name}-cluster"
+  name = "${local.cluster_name}-cluster"
 
   assume_role_policy = <<EOF
 {
@@ -25,14 +25,14 @@ EOF
 
 // IAM Profile
 resource "aws_iam_instance_profile" "cluster" {
-  name       = "${var.cluster_name}-cluster"
+  name       = "${local.cluster_name}-cluster"
   role       = aws_iam_role.cluster.name
   depends_on = [aws_iam_role_policy.cluster_s3]
 }
 
 // Policy to permit cluster to talk to S3 (Session recordings)
 resource "aws_iam_role_policy" "cluster_s3" {
-  name = "${var.cluster_name}-cluster-s3"
+  name = "${local.cluster_name}-cluster-s3"
   role = aws_iam_role.cluster.id
 
   policy = <<EOF
@@ -67,7 +67,7 @@ EOF
 
 // Policy to permit cluster to access SSM (Enterprise license handling)
 resource "aws_iam_role_policy" "cluster_ssm" {
-  name = "${var.cluster_name}-cluster-ssm"
+  name = "${local.cluster_name}-cluster-ssm"
   role = aws_iam_role.cluster.id
 
   policy = <<EOF
@@ -84,7 +84,7 @@ resource "aws_iam_role_policy" "cluster_ssm" {
               "ssm:PutParameter",
               "ssm:DeleteParameter"
             ],
-            "Resource": "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/teleport/${var.cluster_name}/*"
+            "Resource": "arn:aws:ssm:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:parameter/teleport/${local.cluster_name}/*"
         },
         {
          "Effect":"Allow",
@@ -103,7 +103,7 @@ EOF
 
 // Policy to permit cluster to access DynamoDB tables (Cluster state, events, and SSL)
 resource "aws_iam_role_policy" "cluster_dynamo" {
-  name = "${var.cluster_name}-cluster-dynamo"
+  name = "${local.cluster_name}-cluster-dynamo"
   role = aws_iam_role.cluster.id
 
   policy = <<EOF
@@ -148,7 +148,7 @@ EOF
 
 // Policy to permit cluster to access Route53 (SSL)
 resource "aws_iam_role_policy" "cluster_route53" {
-  name = "${var.cluster_name}-cluster-route53"
+  name = "${local.cluster_name}-cluster-route53"
   role = aws_iam_role.cluster.id
 
   policy = <<EOF

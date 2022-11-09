@@ -8,7 +8,7 @@ session replays and SSL certificates.
 // For demo purposes, don't need bucket logging
 // tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "storage" {
-  bucket        = var.s3_bucket_name
+  bucket        = local.s3_bucket_name
   force_destroy = true
 }
 

@@ -15,7 +15,7 @@ module "ec2-instance" {
 
   user_data = <<EOF
 #!/bin/bash
-sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname o Bastion Server" >> /var/log/terraform.log
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname of Bastion Server" >> /var/log/terraform.log
 sudo hostname "bastion01-${var.environment}"
 sudo echo "bastion01-${var.environment}" > /etc/hostname
 

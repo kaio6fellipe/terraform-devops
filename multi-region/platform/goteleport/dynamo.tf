@@ -6,7 +6,7 @@ cert generation and renewal.
 
 // DynamoDB table for storing cluster state
 resource "aws_dynamodb_table" "teleport" {
-  name           = var.cluster_name
+  name           = local.cluster_name
   read_capacity  = 1
   write_capacity = 1
   # read_capacity  = 10
@@ -50,13 +50,13 @@ resource "aws_dynamodb_table" "teleport" {
   }
 
   tags = {
-    TeleportCluster = var.cluster_name
+    TeleportCluster = local.cluster_name
   }
 }
 
 // DynamoDB table for storing cluster events
 resource "aws_dynamodb_table" "teleport_events" {
-  name           = "${var.cluster_name}-events"
+  name           = "${local.cluster_name}-events"
   read_capacity  = 1
   write_capacity = 1
   # read_capacity  = 10
@@ -115,13 +115,13 @@ resource "aws_dynamodb_table" "teleport_events" {
   }
 
   tags = {
-    TeleportCluster = var.cluster_name
+    TeleportCluster = local.cluster_name
   }
 }
 
 // DynamoDB table for simple locking mechanism
 resource "aws_dynamodb_table" "teleport_locks" {
-  name           = "${var.cluster_name}-locks"
+  name           = "${local.cluster_name}-locks"
   read_capacity  = 1
   write_capacity = 1
   # read_capacity  = 5
@@ -158,6 +158,6 @@ resource "aws_dynamodb_table" "teleport_locks" {
   }
 
   tags = {
-    TeleportCluster = var.cluster_name
+    TeleportCluster = local.cluster_name
   }
 }

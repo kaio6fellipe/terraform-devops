@@ -4,9 +4,16 @@ variable "region" {
 }
 
 // Teleport cluster name to set up
-variable "cluster_name" {
-  type = string
-}
+# variable "cluster_name" {
+#   type    = string
+#   default = "teleport-${var.environment}"
+# }
+
+variable "environment" {}
+
+variable "default_sg" {}
+
+variable "public_subnet_id_0" {}
 
 // Path to Teleport Enterprise license file
 variable "license_path" {
@@ -16,7 +23,8 @@ variable "license_path" {
 
 // AMI name to use
 variable "ami_name" {
-  type = string
+  type    = string
+  default = "gravitational-teleport-ami-ent-11.0.1"
 }
 
 // DNS and Let's Encrypt integration variables
@@ -27,13 +35,15 @@ variable "route53_zone" {
 
 // Domain name to use for Teleport proxy,
 // e.g. proxy.example.com
-variable "route53_domain" {
-  type = string
-}
+# variable "route53_domain" {
+#   type = string
+#   default = "teleport-${var.environment}.${var.public_dns_zone_name}"
+# }
 
 // Whether to add a wildcard entry *.proxy.example.com for application access
 variable "add_wildcard_route53_record" {
-  type = bool
+  type    = bool
+  default = true
 }
 
 // whether to enable the mongodb listener
@@ -58,13 +68,15 @@ variable "enable_postgres_listener" {
 }
 
 // S3 Bucket to create for encrypted Let's Encrypt certificates
-variable "s3_bucket_name" {
-  type = string
-}
+# variable "s3_bucket_name" {
+#   type    = string
+#   default = "teleport-certificates-ktech-br-${var.environment}"
+# }
 
 // Email for Let's Encrypt domain registration
 variable "email" {
-  type = string
+  type    = string
+  default = "kaio6fellipe@gmail.com.br"
 }
 
 // SSH key name to provision instances with
@@ -74,31 +86,15 @@ variable "key_name" {
 
 // Whether to use Let's Encrypt-issued certificates
 variable "use_letsencrypt" {
-  type = bool
+  type    = bool
+  default = true
 }
 
 // Whether to use Amazon-issued certificates via ACM or not
 // This must be set to true for any use of ACM whatsoever, regardless of whether Terraform generates/approves the cert
 variable "use_acm" {
-  type = bool
-}
-
-// CIDR blocks allowed to connect to the SSH port
-variable "allowed_ssh_ingress_cidr_blocks" {
-  type    = list(any)
-  default = ["0.0.0.0/0"]
-}
-
-// CIDR blocks allowed for ingress for all Teleport ports
-variable "allowed_ingress_cidr_blocks" {
-  type    = list(any)
-  default = ["0.0.0.0/0"]
-}
-
-// CIDR blocks allowed for egress from Teleport
-variable "allowed_egress_cidr_blocks" {
-  type    = list(any)
-  default = ["0.0.0.0/0"]
+  type    = bool
+  default = false
 }
 
 variable "kms_alias_name" {
@@ -109,5 +105,9 @@ variable "kms_alias_name" {
 // Instance type for cluster
 variable "instance_type" {
   type    = string
-  default = "t3.nano"
+  default = "t3.micro"
 }
+
+variable "cdirs_acesso_remoto" {}
+
+variable "vpc_id" {}

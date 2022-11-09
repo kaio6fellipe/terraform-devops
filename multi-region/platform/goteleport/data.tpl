@@ -1,4 +1,8 @@
 #!/bin/bash
+sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname of Teleport Server" >> /var/log/terraform.log
+sudo hostname "${cluster_name}"
+sudo echo "${cluster_name}" > /etc/hostname
+
 cat >/etc/teleport.d/conf <<EOF
 TELEPORT_ROLE=auth,node,proxy
 EC2_REGION=${region}
