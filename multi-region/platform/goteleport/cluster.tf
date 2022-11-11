@@ -36,4 +36,8 @@ resource "aws_instance" "cluster" {
   root_block_device {
     encrypted = true
   }
+
+  tags = {
+    Name = local.cluster_name
+  }
 }
