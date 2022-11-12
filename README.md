@@ -1,5 +1,3 @@
-<center>
-
 # A project to practice Terraform
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
@@ -17,8 +15,6 @@
 The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state). Each environment has a separate remote state.
 
 The configuration management is being performed by the "Ansible Controller" in the following repository: [ansible-devops](https://github.com/kaio6fellipe/ansible-devops).
-
-</center>
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
