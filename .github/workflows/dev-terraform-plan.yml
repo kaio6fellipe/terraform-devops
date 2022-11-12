@@ -31,7 +31,7 @@ jobs:
     needs: sonarcloud
     uses: kaio6fellipe/terraform-devops/.github/workflows/documentation.yml@development
     secrets:
-      GITHUBREF: ${{ github.ref }}
+      GITHUBREF: ${{ github.event.pull_request.head.ref }}
   plan:
     name: 'Terraform plan (Development)'
     needs: [sonarcloud, documentation]
