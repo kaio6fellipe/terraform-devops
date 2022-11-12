@@ -32,23 +32,23 @@ module "bastion" {
   public_dns_zone_id    = data.aws_route53_zone.ktech_public.zone_id
 }
 
-# module "goteleport" {
-#   source        = "./goteleport"
-#   instance_type = var.instance_type
-#   environment   = var.environment
-#   key_name      = var.key_name
-#   vpc_id        = var.vpc_id
-#   # availability_zone_0 = var.availability_zone_0
-#   public_subnet_id_0  = var.public_subnet_id_0
-#   default_sg          = aws_security_group.default_platform.id
-#   cdirs_acesso_remoto = var.cdirs_acesso_remoto
-#   region              = var.region
-#   # private_dns_zone_id            = var.private_dns_zone_id
-#   # private_dns_zone_name          = var.private_dns_zone_name
-#   route53_zone = data.aws_route53_zone.ktech_public.name
-#   # public_dns_zone_id             = data.aws_route53_zone.ktech_public.zone_id
-#   # allow_bastion_ssh              = aws_security_group.allow_bastion_ssh.id
-# }
+module "goteleport" {
+  source        = "./goteleport"
+  instance_type = var.instance_type
+  environment   = var.environment
+  key_name      = var.key_name
+  vpc_id        = var.vpc_id
+  # availability_zone_0 = var.availability_zone_0
+  public_subnet_id_0  = var.public_subnet_id_0
+  default_sg          = aws_security_group.default_platform.id
+  cdirs_acesso_remoto = var.cdirs_acesso_remoto
+  region              = var.region
+  # private_dns_zone_id            = var.private_dns_zone_id
+  # private_dns_zone_name          = var.private_dns_zone_name
+  route53_zone = data.aws_route53_zone.ktech_public.name
+  # public_dns_zone_id             = data.aws_route53_zone.ktech_public.zone_id
+  # allow_bastion_ssh              = aws_security_group.allow_bastion_ssh.id
+}
 
 module "grafana_dashboards" {
   source                    = "./grafana-dashboards"
