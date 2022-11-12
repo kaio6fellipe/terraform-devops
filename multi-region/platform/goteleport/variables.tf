@@ -18,7 +18,7 @@ variable "public_subnet_id_0" {}
 // Path to Teleport Enterprise license file
 variable "license_path" {
   type    = string
-  default = ""
+  default = "/var/lib/teleport/license.pem"
 }
 
 // AMI name to use

@@ -7,6 +7,8 @@ sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt update and upgrade
 sudo yum update -y
 sudo yum upgrade -y
 
+sudo echo "somelicence" >> /var/lib/teleport/license.pem
+
 cat >/etc/teleport.d/conf <<EOF
 TELEPORT_ROLE=auth,node,proxy
 EC2_REGION=${region}
