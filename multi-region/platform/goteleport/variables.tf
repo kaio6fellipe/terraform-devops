@@ -24,7 +24,7 @@ variable "license_path" {
 // AMI name to use
 variable "ami_name" {
   type    = string
-  default = "gravitational-teleport-ami-ent-11.0.1"
+  default = "gravitational-teleport-ami-oss-11.0.1"
 }
 
 // DNS and Let's Encrypt integration variables
