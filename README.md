@@ -2,19 +2,17 @@
 
 # A project to practice Terraform
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
+![](https://img.shields.io/github/commit-activity/w/kaio6fellipe/terraform-devops)
+  
 | Env | Status |
 |-----|--------|
 | Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-apply.yml/badge.svg) |
 | Staging | ![Apply staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-apply.yml/badge.svg) |
 | Production | ![Apply prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-apply.yml/badge.svg) |
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
-![](https://img.shields.io/github/issues/kaio6fellipe/terraform-devops?style=flat)
-![](https://img.shields.io/github/issues-closed/kaio6fellipe/terraform-devops?style=flat)
-![](https://img.shields.io/github/issues-pr/kaio6fellipe/terraform-devops?style=flat)
-![](https://img.shields.io/github/issues-pr-closed/kaio6fellipe/terraform-devops?style=flat)
-![](https://img.shields.io/github/commit-activity/w/kaio6fellipe/terraform-devops)
-
 
 The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state). Each environment has a separate remote state.
 
