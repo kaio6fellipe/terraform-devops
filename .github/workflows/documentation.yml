@@ -20,4 +20,5 @@ jobs:
         find-dir: .
         output-file: README.md
         output-method: inject
+        git-commit-message: "[skip actions] terraform-docs: automated action"
         git-push: "true"
