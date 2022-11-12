@@ -198,7 +198,7 @@ No modules.
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type for cluster | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | SSH key name to provision instances with | `string` | n/a | yes |
 | <a name="input_kms_alias_name"></a> [kms\_alias\_name](#input\_kms\_alias\_name) | n/a | `string` | `"alias/aws/ssm"` | no |
-| <a name="input_license_path"></a> [license\_path](#input\_license\_path) | Path to Teleport Enterprise license file | `string` | `""` | no |
+| <a name="input_license_path"></a> [license\_path](#input\_license\_path) | Path to Teleport Enterprise license file | `string` | `"/var/lib/teleport/license.pem"` | no |
 | <a name="input_public_subnet_id_0"></a> [public\_subnet\_id\_0](#input\_public\_subnet\_id\_0) | n/a | `any` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Region is AWS region, the region should support EFS | `string` | n/a | yes |
 | <a name="input_route53_zone"></a> [route53\_zone](#input\_route53\_zone) | DNS and Let's Encrypt integration variables Zone name to host DNS record, e.g. example.com | `string` | n/a | yes |
