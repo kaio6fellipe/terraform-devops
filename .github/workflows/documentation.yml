@@ -1,8 +1,8 @@
 name: Generate terraform docs
 on: 
   workflow_call:
-    github:
-      ref:
+    env:
+      GITHUBREF:
         required: true
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        ref: ${{ github.ref }}
+        ref: ${{ env.GITHUBREF }}
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Render terraform docs inside the README.md and push changes back to PR branch
