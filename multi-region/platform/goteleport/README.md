@@ -129,3 +129,84 @@ make plan
 ## Public Teleport AMI IDs
 
 Please [see the AMIS.md file](../AMIS.md) for a list of public Teleport AMI IDs that you can use.
+
+<!-- BEGIN_TF_DOCS -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_dynamodb_table.teleport](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_dynamodb_table.teleport_events](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_dynamodb_table.teleport_locks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_iam_instance_profile.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_instance_profile) | resource |
+| [aws_iam_role.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy.cluster_dynamo](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.cluster_route53](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.cluster_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy.cluster_ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_instance.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
+| [aws_route53_record.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_route53_record.wildcard-cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_s3_bucket.storage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_acl.storage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_acl) | resource |
+| [aws_s3_bucket_public_access_block.storage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.storage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.storage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
+| [aws_security_group.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.cluster_egress](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.cluster_ingress_mongodb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.cluster_ingress_mysql](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.cluster_ingress_postgres](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.cluster_ingress_services](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.cluster_ingress_ssh](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.cluster_ingress_web](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_security_group_rule.proxy_ingress_allow_web_acm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [aws_ssm_parameter.license](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
+| [aws_ami.base](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_kms_alias.ssm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/kms_alias) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_route53_zone.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_add_wildcard_route53_record"></a> [add\_wildcard\_route53\_record](#input\_add\_wildcard\_route53\_record) | Whether to add a wildcard entry *.proxy.example.com for application access | `bool` | `true` | no |
+| <a name="input_ami_name"></a> [ami\_name](#input\_ami\_name) | AMI name to use | `string` | `"gravitational-teleport-ami-ent-11.0.1"` | no |
+| <a name="input_cdirs_acesso_remoto"></a> [cdirs\_acesso\_remoto](#input\_cdirs\_acesso\_remoto) | n/a | `any` | n/a | yes |
+| <a name="input_default_sg"></a> [default\_sg](#input\_default\_sg) | n/a | `any` | n/a | yes |
+| <a name="input_email"></a> [email](#input\_email) | Email for Let's Encrypt domain registration | `string` | `"kaio6fellipe@gmail.com.br"` | no |
+| <a name="input_enable_mongodb_listener"></a> [enable\_mongodb\_listener](#input\_enable\_mongodb\_listener) | whether to enable the mongodb listener adds security group setting, maps load balancer to port, and adds to teleport config | `bool` | `false` | no |
+| <a name="input_enable_mysql_listener"></a> [enable\_mysql\_listener](#input\_enable\_mysql\_listener) | whether to enable the mysql listener adds security group setting, maps load balancer to port, and adds to teleport config | `bool` | `false` | no |
+| <a name="input_enable_postgres_listener"></a> [enable\_postgres\_listener](#input\_enable\_postgres\_listener) | whether to enable the postgres listener adds security group setting, maps load balancer to port, and adds to teleport config | `bool` | `false` | no |
+| <a name="input_environment"></a> [environment](#input\_environment) | n/a | `any` | n/a | yes |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Instance type for cluster | `string` | n/a | yes |
+| <a name="input_key_name"></a> [key\_name](#input\_key\_name) | SSH key name to provision instances with | `string` | n/a | yes |
+| <a name="input_kms_alias_name"></a> [kms\_alias\_name](#input\_kms\_alias\_name) | n/a | `string` | `"alias/aws/ssm"` | no |
+| <a name="input_license_path"></a> [license\_path](#input\_license\_path) | Path to Teleport Enterprise license file | `string` | `""` | no |
+| <a name="input_public_subnet_id_0"></a> [public\_subnet\_id\_0](#input\_public\_subnet\_id\_0) | n/a | `any` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | Region is AWS region, the region should support EFS | `string` | n/a | yes |
+| <a name="input_route53_zone"></a> [route53\_zone](#input\_route53\_zone) | DNS and Let's Encrypt integration variables Zone name to host DNS record, e.g. example.com | `string` | n/a | yes |
+| <a name="input_use_acm"></a> [use\_acm](#input\_use\_acm) | Whether to use Amazon-issued certificates via ACM or not This must be set to true for any use of ACM whatsoever, regardless of whether Terraform generates/approves the cert | `bool` | `false` | no |
+| <a name="input_use_letsencrypt"></a> [use\_letsencrypt](#input\_use\_letsencrypt) | Whether to use Let's Encrypt-issued certificates | `bool` | `true` | no |
+| <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `any` | n/a | yes |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
