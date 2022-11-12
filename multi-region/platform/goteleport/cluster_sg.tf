@@ -30,15 +30,15 @@ resource "aws_security_group_rule" "cluster_ingress_ssh" {
 
 // Ingress traffic to web port 443 is allowed from all directions (ACM)
 // tfsec:ignore:aws-ec2-no-public-ingress-sgr
-resource "aws_security_group_rule" "proxy_ingress_allow_web_acm" {
-  description       = "Ingress traffic to web port 443 is allowed from all directions (ACM)"
-  type              = "ingress"
-  from_port         = 443
-  to_port           = 443
-  protocol          = "tcp"
-  cidr_blocks       = local.allowed_ingress_cidr_blocks
-  security_group_id = aws_security_group.cluster.id
-}
+# resource "aws_security_group_rule" "proxy_ingress_allow_web_acm" {
+#   description       = "Ingress traffic to web port 443 is allowed from all directions (ACM)"
+#   type              = "ingress"
+#   from_port         = 443
+#   to_port           = 443
+#   protocol          = "tcp"
+#   cidr_blocks       = local.allowed_ingress_cidr_blocks
+#   security_group_id = aws_security_group.cluster.id
+# }
 
 // Permit inbound to Teleport Web interface
 // tfsec:ignore:aws-ec2-no-public-ingress-sgr
