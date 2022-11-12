@@ -79,3 +79,9 @@ jobs:
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  documentation:
+    name: Generate docs
+    needs: apply
+    uses: kaio6fellipe/terraform-devops/.github/workflows/documentation.yml@development
+    secrets:
+      GITHUBREF: development

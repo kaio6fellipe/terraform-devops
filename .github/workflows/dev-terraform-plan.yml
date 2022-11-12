@@ -22,22 +22,13 @@ env:
 
 jobs:
   sonarcloud:
-    if: github.actor != 'github-actions[bot]'
     name: Security check
     uses: kaio6fellipe/terraform-devops/.github/workflows/sonar.yml@development
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  documentation:
-    if: github.actor != 'github-actions[bot]'
-    name: Generate docs
-    needs: sonarcloud
-    uses: kaio6fellipe/terraform-devops/.github/workflows/documentation.yml@development
-    secrets:
-      GITHUBREF: ${{ github.event.pull_request.head.ref }}
   plan:
-    if: github.actor != 'github-actions[bot]'
     name: 'Terraform plan (Development)'
-    needs: [sonarcloud, documentation]
+    needs: sonarcloud
     runs-on: ubuntu-latest
     # needs: docs
     
