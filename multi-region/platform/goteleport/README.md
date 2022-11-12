@@ -187,7 +187,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_add_wildcard_route53_record"></a> [add\_wildcard\_route53\_record](#input\_add\_wildcard\_route53\_record) | Whether to add a wildcard entry *.proxy.example.com for application access | `bool` | `true` | no |
-| <a name="input_ami_name"></a> [ami\_name](#input\_ami\_name) | AMI name to use | `string` | `"gravitational-teleport-ami-ent-11.0.1"` | no |
+| <a name="input_ami_name"></a> [ami\_name](#input\_ami\_name) | AMI name to use | `string` | `"gravitational-teleport-ami-oss-11.0.1"` | no |
 | <a name="input_cdirs_acesso_remoto"></a> [cdirs\_acesso\_remoto](#input\_cdirs\_acesso\_remoto) | n/a | `any` | n/a | yes |
 | <a name="input_default_sg"></a> [default\_sg](#input\_default\_sg) | n/a | `any` | n/a | yes |
 | <a name="input_email"></a> [email](#input\_email) | Email for Let's Encrypt domain registration | `string` | `"kaio6fellipe@gmail.com.br"` | no |
