@@ -5,14 +5,23 @@ on:
       GITHUBREF:
         required: true
 
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
+    - name: GH_TOKEN
+      if: env.GH_TOKEN == ''
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: echo "GH_TOKEN=${GITHUB_TOKEN}" >> $GITHUB_ENV
+
     - uses: actions/checkout@v3
       with:
         ref: ${{ secrets.GITHUBREF }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ env.GH_TOKEN }}
 
     - name: Render terraform docs inside the README.md and push changes back to PR branch
       uses: terraform-docs/gh-actions@v1.0.0
