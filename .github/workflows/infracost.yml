@@ -1,4 +1,4 @@
-name: Infracost multi-project
+name: Infracost
 
 on: [pull_request]
 # env:
@@ -7,8 +7,8 @@ on: [pull_request]
   # SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
 jobs:
-  multi-project-config-file:
-    name: Multi-project config file
+  infracost:
+    name: Infracost Multi-project config file
     runs-on: ubuntu-latest
     env:
       TF_ROOT: .

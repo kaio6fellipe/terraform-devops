@@ -21,8 +21,20 @@ env:
   TF_VAR_ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
 
 jobs:
+  sonarcloud:
+    name: Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/sonar.yml@development
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  documentation:
+    name: Generate docs
+    needs: sonarcloud
+    uses: kaio6fellipe/terraform-devops/.github/workflows/documentation.yml@development
+    github:
+      ref: ${{ github.ref }}
   plan:
-    name: 'terraform plan dev'
+    name: 'Terraform plan (Development)'
+    needs: [sonarcloud, documentation]
     runs-on: ubuntu-latest
     # needs: docs
     

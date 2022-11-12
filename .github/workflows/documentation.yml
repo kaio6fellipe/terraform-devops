@@ -1,0 +1,23 @@
+name: Generate terraform docs
+on: 
+  workflow_call:
+    github:
+      ref:
+        required: true
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Render terraform docs inside the README.md and push changes back to PR branch
+      uses: terraform-docs/gh-actions@v1.0.0
+      with:
+        find-dir: .
+        output-file: README.md
+        output-method: inject
+        git-push: "true"
