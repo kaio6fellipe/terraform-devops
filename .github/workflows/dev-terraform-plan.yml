@@ -30,7 +30,7 @@ jobs:
     name: Generate docs
     needs: sonarcloud
     uses: kaio6fellipe/terraform-devops/.github/workflows/documentation.yml@development
-    env:
+    secrets:
       GITHUBREF: ${{ github.ref }}
   plan:
     name: 'Terraform plan (Development)'
