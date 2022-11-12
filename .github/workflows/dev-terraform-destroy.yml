@@ -17,8 +17,8 @@ env:
   TF_VAR_ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
 
 jobs:
-  plan:
-    name: 'terraform destroy dev'
+  destroy:
+    name: 'Terraform destroy (Development)'
     runs-on: ubuntu-latest
     
     defaults:

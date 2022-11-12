@@ -1,14 +1,15 @@
 name: Sonar Cloud
 on:
-  push:
-    branches:
-      - development
-  pull_request:
-    branches:
-      - development
+  workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+
+  workflow_dispatch:
+  
 jobs:
   sonarcloud:
-    name: sonar-check
+    name: 'Sonar Cloud validation'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
