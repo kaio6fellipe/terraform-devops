@@ -25,6 +25,10 @@ jobs:
       with:
         tflint_version: v0.38.1
 
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.2.4
+
     - name: Terraform Init
       run: terraform init -backend=true -backend-config="config/${{ secrets.ENV }}/backend.hcl"
 
