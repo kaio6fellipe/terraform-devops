@@ -19,8 +19,7 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   tflint:
     name: Lint check
-    # TODO: Update the ref to @development after testing
-    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@linter-pre-push-automation
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
     secrets:
       ENV: dev
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
