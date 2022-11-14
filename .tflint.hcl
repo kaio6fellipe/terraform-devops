@@ -14,10 +14,10 @@ config {
   varfile = ["config/dev/terraform.tfvars", "config/staging/terraform.tfvars", "config/prod/terraform.tfvars"]
 }
 
-plugin "terraform" {
-    enabled = true
-    preset  = "recommended"
-}
+# plugin "terraform" {
+#     enabled = true
+#     preset  = "recommended"
+# }
 
 plugin "aws" {
     enabled = true

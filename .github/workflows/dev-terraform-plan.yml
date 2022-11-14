@@ -18,7 +18,7 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   tflint:
-    name: TFLint validation
+    name: Lint check
     # TODO: Update the ref to @development after testing
     uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@linter-pre-push-automation
     secrets:
