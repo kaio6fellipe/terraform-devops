@@ -23,6 +23,8 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@linter-pre-push-automation
     secrets:
       ENV: dev
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   plan:
     name: 'Terraform plan (Development)'
     needs: [sonarcloud,tflint]
