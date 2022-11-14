@@ -8,6 +8,7 @@ session replays and SSL certificates.
 // For demo purposes, don't need bucket logging
 // tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "storage" {
+  #checkov:skip=CKV_AWS_144: For demo purposes, don't need cross-region replication enabled
   bucket        = local.s3_bucket_name
   force_destroy = true
 }

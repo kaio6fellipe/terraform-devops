@@ -1,4 +1,6 @@
 resource "aws_s3_bucket" "loki_bucket" {
+  #checkov:skip=CKV_AWS_21:This bucket dont need versioning cause its used to store logs
+  #checkov:skip=CKV_AWS_144: For demo purposes, don't need cross-region replication enabled
   bucket        = "loki-bucket-ktech-br-${var.environment}"
   force_destroy = true
 }

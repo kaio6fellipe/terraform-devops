@@ -1,0 +1,19 @@
+# Lint Terraform with .tflint.hcl configs
+
+echo "Setup requirements.txt"
+pip install -r requirements.txt
+echo "Linting with Checkov"
+~/.local/bin/checkov --directory . --var-file config/dev/terraform.tfvars --skip-path .github/
+~/.local/bin/checkov --directory . --var-file config/staging/terraform.tfvars --skip-path .github/
+~/.local/bin/checkov --directory . --var-file config/prod/terraform.tfvars --skip-path .github/
+
+echo "Start tflint"
+echo "Installing tflint"
+curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+echo "Initialize tflint"
+tflint --init
+echo "Linting..."
+tflint --var-file=./config/dev/terraform.tfvars --module
+tflint --var-file=./config/staging/terraform.tfvars --module
+tflint --var-file=./config/prod/terraform.tfvars --module
+echo "Finish tflint"
