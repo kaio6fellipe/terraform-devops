@@ -25,6 +25,9 @@ jobs:
       with:
         tflint_version: v0.38.1
 
+    - name: Terraform Init
+      run: terraform init -backend=true -backend-config="config/${{ secrets.ENV }}/backend.hcl"
+
     - name: Show version
       run: tflint --version
 
