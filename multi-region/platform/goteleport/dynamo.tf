@@ -107,7 +107,6 @@ resource "aws_dynamodb_table" "teleport_events" {
     # write_capacity  = 10
     # read_capacity   = 10
     projection_type = "ALL"
-    billing_mode    = "PAY_PER_REQUEST"
   }
 
   lifecycle {
