@@ -25,9 +25,14 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/sonar.yml@development
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  tflint:
+    name: TFLint validation
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
+    secrets:
+      ENV: dev
   apply:
     name: 'Terraform apply (Development)'
-    needs: sonarcloud
+    needs: [sonarcloud,tflint]
     runs-on: ubuntu-latest
     
     defaults:
