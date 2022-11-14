@@ -7,6 +7,10 @@ new_user_credentials.csv
 *.tfstate
 *.tfstate.*
 
+# .tflint folder
+**/.tflint.d/*
+.tflint.d*
+
 # Crash log files
 crash.log
 
