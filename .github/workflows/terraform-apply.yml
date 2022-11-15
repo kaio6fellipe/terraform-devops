@@ -25,6 +25,7 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/sonar.yml@development
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   tflint:
     name: Lint check
     uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
@@ -32,9 +33,18 @@ jobs:
       ENV: dev
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  tfsec:
+    name: Terraform Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@development
+
+  checkov:
+    name: Checkov Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
+
   apply:
     name: 'Terraform apply (Development)'
-    needs: [sonarcloud,tflint]
+    needs: [sonarcloud,tflint,tfsec,checkov]
     runs-on: ubuntu-latest
     
     defaults:
