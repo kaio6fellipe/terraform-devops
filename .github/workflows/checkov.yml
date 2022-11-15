@@ -22,4 +22,3 @@ jobs:
           directory: .
           framework: terraform 
           var_file: config/dev/terraform.tfvars 
-          skip_path: .github/
