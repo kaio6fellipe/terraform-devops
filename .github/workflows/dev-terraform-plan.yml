@@ -29,6 +29,10 @@ jobs:
     name: Terraform Security check
     # Change after tests
     uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@linter-pre-push-automation
+  checkov:
+    name: Checkov Security check
+    # Change after tests
+    uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@linter-pre-push-automation
   plan:
     name: 'Terraform plan (Development)'
     needs: [tflint]
