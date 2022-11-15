@@ -25,9 +25,13 @@ jobs:
       ENV: dev
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  tfsec:
+    name: Terraform Security check
+    # Change after tests
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@linter-pre-push-automation
   plan:
     name: 'Terraform plan (Development)'
-    needs: [sonarcloud,tflint]
+    needs: [tflint]
     runs-on: ubuntu-latest
     
     defaults:

@@ -1,19 +1,25 @@
 # Lint Terraform with .tflint.hcl configs
 
+CHECKOV=$(command -v checkov)
+TFLINT=$(command -v tflint)
+TFSEC=$(command -v tfsec)
+
 echo "Setup requirements.txt"
 pip install -r requirements.txt
 echo "Linting with Checkov"
-~/.local/bin/checkov --directory . --var-file config/dev/terraform.tfvars --skip-path .github/
-~/.local/bin/checkov --directory . --var-file config/staging/terraform.tfvars --skip-path .github/
-~/.local/bin/checkov --directory . --var-file config/prod/terraform.tfvars --skip-path .github/
+"${CHECKOV}" --directory . --var-file config/dev/terraform.tfvars --skip-path .github/
 
 echo "Start tflint"
 echo "Installing tflint"
 curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 echo "Initialize tflint"
-tflint --init
+"${TFLINT}" --init
 echo "Linting..."
-tflint --var-file=./config/dev/terraform.tfvars --module
-tflint --var-file=./config/staging/terraform.tfvars --module
-tflint --var-file=./config/prod/terraform.tfvars --module
+"${TFLINT}" --var-file=./config/dev/terraform.tfvars --module
 echo "Finish tflint"
+
+echo "Start tfsec"
+echo "Installing tfsec"
+curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+echo "Linting..."
+"${TFSEC}" . --tfvars-file config/dev/terraform.tfvars
