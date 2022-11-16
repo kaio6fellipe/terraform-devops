@@ -1,0 +1,25 @@
+echo "Installing dependencies..."
+pip install -r hooks/requirements.txt
+echo "Installing tflint..."
+chmod +x hooks/install_tflint.sh
+./hooks/install_tflint.sh
+echo "Installing tfsec..."
+chmod +x hooks/install_tfsec.sh
+./hooks/install_tfsec.sh
+
+CHECKOV=$(command -v checkov)
+TFLINT=$(command -v tflint)
+TFSEC=$(command -v tfsec)
+
+echo "Linting with Checkov..."
+"${CHECKOV}" --directory . --var-file config/dev/terraform.tfvars --skip-path .github/ --framework terraform
+
+echo "Linting with tflint..."
+"${TFLINT}" --init
+echo "Linting..."
+"${TFLINT}" --var-file=./config/dev/terraform.tfvars --module
+echo "Finish tflint"
+
+echo "Linting with tfsec..."
+"${TFSEC}" . --tfvars-file config/dev/terraform.tfvars
+echo "Finish tfsec"
