@@ -53,6 +53,7 @@ fi
 color_echo_green "...TFLint succeeded."
 
 color_echo_blue "Linting with TFSec..."
+#TODO: Remove soft-fail parameter and check every alert
 "${TFSEC}" . --tfvars-file config/dev/terraform.tfvars --soft-fail || status_tfsec="1"
 
 if [[ "${status_tfsec}" != "0" ]]; then

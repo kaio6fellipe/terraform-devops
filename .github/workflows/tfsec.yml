@@ -21,3 +21,5 @@ jobs:
         with:
           tfsec_args: --tfvars-file config/dev/terraform.tfvars
           github_token: ${{ secrets.GITHUB_TOKEN }} 
+          #TODO: Remove soft-fail parameter and check every alert
+          soft_fail: true
