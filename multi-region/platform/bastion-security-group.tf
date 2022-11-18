@@ -1,5 +1,6 @@
 // Bastion Default Rule
 resource "aws_security_group" "default_bastion" {
+  #checkov:skip=CKV2_AWS_5: SG attached to all instances managed by Bastion
   name        = "default_bastion_sg-${var.environment}"
   description = "Default SG for Bastion in env: ${var.environment}"
   vpc_id      = var.vpc_id

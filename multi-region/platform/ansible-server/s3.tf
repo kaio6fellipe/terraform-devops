@@ -11,6 +11,11 @@ resource "aws_s3_bucket" "codepipeline_bucket" {
       }
     }
   }
+
+  logging {
+    target_bucket = "codepipeline-ansible-ktech-br-${var.environment}"
+    target_prefix = "bucket-access-log/codepipeline-ansible-ktech-br-${var.environment}"
+  }
 }
 
 resource "aws_s3_bucket_acl" "codepipeline_bucket" {

@@ -53,11 +53,11 @@ fi
 color_echo_green "...TFLint succeeded."
 
 color_echo_blue "Linting with TFSec..."
-"${TFSEC}" . --tfvars-file config/dev/terraform.tfvars || status_tfsec="1"
+"${TFSEC}" . --tfvars-file config/dev/terraform.tfvars --soft-fail || status_tfsec="1"
 
 if [[ "${status_tfsec}" != "0" ]]; then
     color_echo_red "...TFSec failed."
     exit 1
 fi
-color_echo_green "...TFSec succeeded."
+color_echo_green "...TFSec succeeded with soft-fail parameter."
 exit 0

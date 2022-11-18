@@ -1,9 +1,11 @@
 resource "aws_security_group" "grafana_http_instance" {
+  #checkov:skip=CKV2_AWS_5: SG attached to Grafana EC2 Module
   name        = "grafana_http_instance-${var.environment}"
   description = "grafana_http_instance-${var.environment}"
   vpc_id      = var.vpc_id
 
   ingress {
+    description = "Allow requests to port 3000 from Grafana Load Balancer"
     from_port   = 3000
     to_port     = 3000
     protocol    = "tcp"
@@ -35,11 +37,13 @@ module "sg_grafana_db" {
 }
 
 resource "aws_security_group" "sg_grafana_http" {
+  #checkov:skip=CKV2_AWS_5: SG attached to Grafana ALB Module
   name        = "alb_grafana_http-${var.environment}"
   description = "alb_grafana_http-${var.environment}"
   vpc_id      = var.vpc_id
 
   ingress {
+    description = "Allow HTTP access to Grafana ALB from allowed CIDR blocks"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -51,11 +55,13 @@ resource "aws_security_group" "sg_grafana_http" {
 }
 
 resource "aws_security_group" "sg_grafana_https" {
+  #checkov:skip=CKV2_AWS_5: SG attached to Grafana ALB Module
   name        = "alb_grafana_https-${var.environment}"
   description = "alb_grafana_https-${var.environment}"
   vpc_id      = var.vpc_id
 
   ingress {
+    description = "Allow HTTPS access to Grafana ALB from allowed CIDR blocks"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"

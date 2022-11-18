@@ -17,6 +17,7 @@ resource "aws_dynamodb_table" "teleport" {
 
   // For demo purposes, CMK isn't necessary
   // tfsec:ignore:aws-dynamodb-table-customer-key
+  # checkov:skip=CKV_AWS_119: For demo purposes, CMK isn't necessary
   server_side_encryption {
     enabled = true
   }
@@ -90,6 +91,7 @@ resource "aws_dynamodb_table" "teleport_events" {
 
   // For demo purposes, CMK isn't necessary
   // tfsec:ignore:aws-dynamodb-table-customer-key
+  # checkov:skip=CKV_AWS_119: For demo purposes, CMK isn't necessary
   server_side_encryption {
     enabled = true
   }
@@ -176,6 +178,7 @@ resource "aws_dynamodb_table" "teleport_locks" {
 
   // For demo purposes, CMK isn't necessary
   // tfsec:ignore:aws-dynamodb-table-customer-key
+  # checkov:skip=CKV_AWS_119: For demo purposes, CMK isn't necessary
   server_side_encryption {
     enabled = true
   }
