@@ -1,25 +1,50 @@
-name: Terraform apply (Staging)
+name: Terraform apply (Development)
 
 # on: 
 #   workflow_run:
-#     workflows: ["Terraform plan (Staging)"]
-#     branches: [staging]
+#     workflows: ["Terraform plan (Development)"]
+#     branches: [development]
 #     types:
 #       - completed
 
-on:
+on: 
   push:
-    branches: [staging]
+    branches: [development]
+  workflow_dispatch:
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   TF_VAR_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   TF_VAR_AWS_RDS_PASSWORD: ${{ secrets.AWS_RDS_PASSWORD }}
+  TF_VAR_ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
 
 jobs:
-  plan:
-    name: 'terraform apply staging'
+  sonarcloud:
+    name: Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/sonar.yml@development
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  tflint:
+    name: Lint check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
+    secrets:
+      ENV: dev
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  tfsec:
+    name: Terraform Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@development
+
+  checkov:
+    name: Checkov Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
+
+  apply:
+    name: 'Terraform apply (Development)'
+    needs: [sonarcloud,tflint,tfsec,checkov]
     runs-on: ubuntu-latest
     
     defaults:
@@ -41,7 +66,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend=true -backend-config="config/staging/backend.hcl"
+        run: terraform init -backend=true -backend-config="config/dev/backend.hcl"
 
       - name: Terraform Validate
         id: validate
@@ -49,13 +74,13 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve -var-file="config/staging/terraform.tfvars"
+        run: terraform apply -auto-approve -var-file="config/dev/terraform.tfvars"
 
       - name: Post to a Slack channel
         id: slack
         uses: slackapi/slack-github-action@v1.19.0
         with:
-          channel-id: 'C03PVJLBNE8'
+          channel-id: 'C03PQ7DSHA9'
           payload: |
             {
               "text": "Terraform apply on repo terraform-devops result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
@@ -71,3 +96,9 @@ jobs:
             }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  documentation:
+    name: Generate docs
+    needs: apply
+    uses: kaio6fellipe/terraform-devops/.github/workflows/documentation.yml@development
+    secrets:
+      GITHUBREF: development

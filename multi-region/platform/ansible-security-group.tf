@@ -1,5 +1,6 @@
 // Ansible Default Rule
 resource "aws_security_group" "default_ansible" {
+  #checkov:skip=CKV2_AWS_5: SG attached to all instances managed by Ansible Controller
   name        = "default_ansible_sg-${var.environment}"
   description = "Default SG for Ansible env: ${var.environment}"
   vpc_id      = var.vpc_id

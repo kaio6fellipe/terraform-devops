@@ -1,0 +1,64 @@
+#!/bin/bash
+
+source ./hooks/colors.sh
+
+set -o errexit
+set -o nounset
+
+status_tflint="0"
+status_checkov="0"
+status_tfsec="0"
+
+color_echo_blue "Checking and installing dependencies..."
+
+if [ $(command -v checkov) = "" ]; then
+    color_echo_blue "Checkov not found, installing..."
+    pip install -r hooks/requirements.txt
+    continue
+fi
+
+if [ $(command -v tflint) = "" ]; then
+    color_echo_blue "TFLint not found, installing..."
+    chmod +x hooks/install_tflint.sh
+    ./hooks/install_tflint.sh
+    continue
+fi
+
+if [ $(command -v tfsec) = "" ]; then
+    color_echo_blue "TFSec not found, installing..."
+    chmod +x hooks/install_tfsec.sh
+    ./hooks/install_tfsec.sh
+    continue
+fi
+
+CHECKOV=$(command -v checkov)
+TFLINT=$(command -v tflint)
+TFSEC=$(command -v tfsec)
+
+color_echo_blue "Linting with Checkov..."
+"${CHECKOV}" --directory . --var-file config/dev/terraform.tfvars --skip-path .github/ --framework terraform || status_checkov="1"
+if [[ "${status_checkov}" != "0" ]]; then
+    color_echo_red "...Checkov failed."
+    exit 1
+fi
+color_echo_green "...Checkov succeeded."
+
+color_echo_blue "Linting with TFLint..."
+"${TFLINT}" --init
+"${TFLINT}" --var-file=./config/dev/terraform.tfvars --module || status_tflint="1"
+if [[ "${status_tflint}" != "0" ]]; then
+    color_echo_red "...TFLint failed."
+    exit 1
+fi
+color_echo_green "...TFLint succeeded."
+
+color_echo_blue "Linting with TFSec..."
+#TODO: Remove soft-fail parameter and check every alert
+"${TFSEC}" . --tfvars-file config/dev/terraform.tfvars --soft-fail || status_tfsec="1"
+
+if [[ "${status_tfsec}" != "0" ]]; then
+    color_echo_red "...TFSec failed."
+    exit 1
+fi
+color_echo_green "...TFSec succeeded with soft-fail parameter."
+exit 0

@@ -1,5 +1,8 @@
 // Auth, node, proxy (aka Teleport Cluster) on single AWS instance
 resource "aws_instance" "cluster" {
+  # checkov:skip=CKV_AWS_126: For demo purposes, don't need detailed monitoring for this EC2 instance
+  # checkov:skip=CKV_AWS_88: For demo purposes, this instance must have public IP.
+  # checkov:skip=CKV_AWS_135: For demo purposes, this EC2 does not need an optimized EBS
   key_name                    = var.key_name
   ami                         = data.aws_ami.base.id
   instance_type               = var.instance_type

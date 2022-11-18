@@ -1,0 +1,50 @@
+name: TFLint
+on:
+  workflow_call:
+    secrets:
+      ENV:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  tflint:
+    name: "TFLint validation"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout source code
+
+    - uses: actions/cache@v2
+      name: Cache plugin dir
+      with:
+        path: ~/.tflint.d/plugins
+        key: ubuntu-latest-tflint-${{ hashFiles('.tflint.hcl') }}
+
+    - uses: terraform-linters/setup-tflint@v2
+      name: Setup TFLint
+      with:
+        tflint_version: v0.42.2
+
+    - uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.2.4
+
+    - name: Terraform Init
+      run: terraform init -backend=true -backend-config="config/${{ secrets.ENV }}/backend.hcl"
+
+    - name: Show version
+      run: tflint --version
+
+    - name: Init TFLint
+      run: tflint --init
+
+    - name: Run TFLint
+      run: tflint --var-file=./config/${{ secrets.ENV }}/terraform.tfvars --module -f compact 

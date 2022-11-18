@@ -9,8 +9,6 @@
 | Env | Status |
 |-----|--------|
 | Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-apply.yml/badge.svg) |
-| Staging | ![Apply staging](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/staging-terraform-apply.yml/badge.svg) |
-| Production | ![Apply prod](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/prod-terraform-apply.yml/badge.svg) |
 
 The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state). Each environment has a separate remote state.
 

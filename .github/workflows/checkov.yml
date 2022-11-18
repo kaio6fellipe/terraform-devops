@@ -1,0 +1,24 @@
+name: Checkov
+on:
+  workflow_call:
+
+jobs:
+  checkov:
+    name: Checkov validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      # - name: Set up Python 3.8
+      #   uses: actions/setup-python@v1
+      #   with:
+      #     python-version: 3.8
+
+      - name: Run checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform 
+          var_file: config/dev/terraform.tfvars 

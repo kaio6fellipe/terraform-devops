@@ -1,4 +1,5 @@
 resource "aws_security_group" "default_platform" {
+  #checkov:skip=CKV2_AWS_5: SG attached to All instances, except Ansible Controller and Bastion
   name        = "default_platform_sg-${var.environment}"
   description = "Default SG for env: ${var.environment}"
   vpc_id      = var.vpc_id
