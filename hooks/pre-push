@@ -14,21 +14,27 @@ color_echo_blue "Checking and installing dependencies..."
 if [ $(command -v checkov) = "" ]; then
     color_echo_blue "Checkov not found, installing..."
     pip install -r hooks/requirements.txt
-    continue
+    color_echo_green "Checkov installed..."
+else
+    color_echo_green "Checkov already installed..."
 fi
 
 if [ $(command -v tflint) = "" ]; then
     color_echo_blue "TFLint not found, installing..."
     chmod +x hooks/install_tflint.sh
     ./hooks/install_tflint.sh
-    continue
+    color_echo_green "TFLint installed..."
+else
+    color_echo_green "TFLint already installed..."
 fi
 
 if [ $(command -v tfsec) = "" ]; then
     color_echo_blue "TFSec not found, installing..."
     chmod +x hooks/install_tfsec.sh
     ./hooks/install_tfsec.sh
-    continue
+    color_echo_green "TFSec installed..."
+else
+    color_echo_green "TFSec already installed..."
 fi
 
 CHECKOV=$(command -v checkov)
