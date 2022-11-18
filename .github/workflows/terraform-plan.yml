@@ -17,22 +17,23 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/sonar.yml@development
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   tflint:
     name: Lint check
-    # Change after tests
-    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@linter-pre-push-automation
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
     secrets:
       ENV: dev
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
   tfsec:
     name: Terraform Security check
-    # Change after tests
-    uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@linter-pre-push-automation
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@development
+
   checkov:
     name: Checkov Security check
-    # Change after tests
-    uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@linter-pre-push-automation
+    uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
+    
   plan:
     name: 'Terraform plan (Development)'
     needs: [tflint]
