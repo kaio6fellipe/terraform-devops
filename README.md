@@ -8,7 +8,7 @@
   
 | Env | Status |
 |-----|--------|
-| Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/dev-terraform-apply.yml/badge.svg) |
+| Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/terraform-apply.yml/badge.svg) |
 
 The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state). Each environment has a separate remote state.
 
