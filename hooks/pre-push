@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# New comment for test
 source ./hooks/colors.sh
 
 set -o errexit
@@ -10,7 +9,7 @@ status_tflint="0"
 status_checkov="0"
 status_tfsec="0"
 
-if [ $(diff hooks/pre-push .git/hooks/pre-push) -ne "" ]; then
+if [ $(diff hooks/pre-push .git/hooks/pre-push) != "" ]; then
   $(cp hooks/pre-push .git/hooks/pre-push)
   $(chmod +x .git/hooks/pre-push)
   color_echo_red "Pre-push hook is out of date, please push your changes again."
