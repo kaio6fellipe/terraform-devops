@@ -1,12 +1,5 @@
 name: Terraform apply (Development)
 
-# on: 
-#   workflow_run:
-#     workflows: ["Terraform plan (Development)"]
-#     branches: [development]
-#     types:
-#       - completed
-
 on: 
   push:
     branches: [development]
@@ -42,7 +35,7 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
 
   apply:
-    name: 'Terraform apply (Development)'
+    name: 'Terraform apply'
     needs: [sonarcloud,tflint,tfsec,checkov]
     runs-on: ubuntu-latest
     

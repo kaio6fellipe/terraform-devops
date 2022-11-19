@@ -1,4 +1,4 @@
-name: Terraform plan (Development)
+name: Terraform plan
 
 on: 
   pull_request:
@@ -34,7 +34,7 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
     
   plan:
-    name: 'Terraform plan (Development)'
+    name: 'Terraform plan'
     needs: [tflint]
     runs-on: ubuntu-latest
     
