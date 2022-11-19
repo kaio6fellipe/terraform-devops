@@ -20,5 +20,5 @@ jobs:
         uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
         with:
           #TODO: Remove soft-fail parameter and check every alert
-          tfsec_args: --tfvars-file config/dev/terraform.tfvars --soft-fail
+          tfsec_args: --tfvars-file global/terraform.tfvars --soft-fail
           github_token: ${{ secrets.GITHUB_TOKEN }} 

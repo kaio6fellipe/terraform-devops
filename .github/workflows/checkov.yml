@@ -21,4 +21,4 @@ jobs:
         with:
           directory: .
           framework: terraform 
-          var_file: config/dev/terraform.tfvars 
+          var_file: global/terraform.tfvars 

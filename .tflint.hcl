@@ -11,7 +11,7 @@ config {
   #   "terraform-aws-modules/security-group/aws" = true
   # }
 
-  varfile = ["config/dev/terraform.tfvars", "config/staging/terraform.tfvars", "config/prod/terraform.tfvars"]
+  varfile = ["global/terraform.tfvars"]
 }
 
 # plugin "terraform" {

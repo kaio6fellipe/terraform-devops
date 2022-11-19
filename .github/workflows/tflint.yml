@@ -2,8 +2,6 @@ name: TFLint
 on:
   workflow_call:
     secrets:
-      ENV:
-        required: true
       AWS_ACCESS_KEY_ID:
         required: true
       AWS_SECRET_ACCESS_KEY:
@@ -38,7 +36,7 @@ jobs:
         terraform_version: 1.2.4
 
     - name: Terraform Init
-      run: terraform init -backend=true -backend-config="config/${{ secrets.ENV }}/backend.hcl"
+      run: terraform init -backend=true -backend-config="global/backend.hcl"
 
     - name: Show version
       run: tflint --version
@@ -47,4 +45,4 @@ jobs:
       run: tflint --init
 
     - name: Run TFLint
-      run: tflint --var-file=./config/${{ secrets.ENV }}/terraform.tfvars --module -f compact 
+      run: tflint --var-file=./global/terraform.tfvars --module -f compact 

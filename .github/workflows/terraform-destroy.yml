@@ -40,11 +40,11 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend=true -backend-config="config/dev/backend.hcl"
+        run: terraform init -backend=true -backend-config="global/backend.hcl"
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve -var-file="config/dev/terraform.tfvars"
+        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"

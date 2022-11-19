@@ -30,7 +30,6 @@ jobs:
     name: Lint check
     uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
     secrets:
-      ENV: dev
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -66,7 +65,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend=true -backend-config="config/dev/backend.hcl"
+        run: terraform init -backend=true -backend-config="global/backend.hcl"
 
       - name: Terraform Validate
         id: validate
@@ -74,7 +73,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve -var-file="config/dev/terraform.tfvars"
+        run: terraform apply -auto-approve -var-file="global/terraform.tfvars"
 
       - name: Post to a Slack channel
         id: slack
