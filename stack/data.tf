@@ -33,16 +33,7 @@ data "aws_availability_zones" "az_zones" {
 }
 
 data "aws_route53_zone" "private_zone" {
-  name         = "${var.environment}.private.ktech-br.com"
+  name         = "${local.environment}.private.ktech-br.com"
   private_zone = true
   depends_on   = [module.zones.route53_zone_zone_id]
-}
-
-data "terraform_remote_state" "base_foundation" {
-  backend = "s3"
-  config = {
-    bucket = "terraform-state20220711040913053000000001"
-    key    = "state-dev/terraform.tfstate"
-    region = "us-east-1"
-  }
 }

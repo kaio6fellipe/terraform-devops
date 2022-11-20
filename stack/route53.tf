@@ -3,15 +3,15 @@ module "zones" {
   version = "2.9.0"
 
   zones = {
-    "${var.environment}.private.ktech-br.com" = {
-      comment = "${var.environment}.private.ktech-br.com (Private zone for env: ${var.environment})"
+    "${local.environment}.private.ktech-br.com" = {
+      comment = "${local.environment}.private.ktech-br.com (Private zone for env: ${local.environment})"
       vpc = [
         {
           vpc_id = module.vpc.vpc_id
         }
       ]
       tags = {
-        Name = "${var.environment}.private.ktech-br.com"
+        Name = "${local.environment}.private.ktech-br.com"
       }
     }
   }
