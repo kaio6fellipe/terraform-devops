@@ -1,4 +1,4 @@
-# Teleport Terraform AWS AMI Simple Example
+# [[Teleport]] [[Terraform]] AWS AMI Simple Example
 
 This is a simple Terraform example to get you started provisioning an all-in-one Teleport cluster (auth, node, proxy) on a single ec2 instance based on Teleport's pre-built AMI.
 
