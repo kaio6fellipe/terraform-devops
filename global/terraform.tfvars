@@ -1,5 +1,5 @@
 environment               = "dev"
-ansible_instance_type     = "t3.small"
+ansible_instance_type     = "t3.micro"
 instance_type             = "t3.small"
 db_instance_type          = "db.t3.small"
 vpc_cidr                  = "10.1.0.0/16"
