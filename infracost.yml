@@ -12,7 +12,7 @@ projects:
   - path: stack/platform
     terraform_workspace: stack-platform
     terraform_var_files:
-      - global/terraform.tfvars
+      - ../../global/terraform.tfvars
 
   # - path: stack/platform/ansible-server
   #   terraform_workspace: stack-platform-ansible-server
