@@ -11,6 +11,11 @@ projects:
 
   - path: stack/platform
     terraform_workspace: stack-platform
+    terraform_var_files:
+      - global/terraform.tfvars
+
+  # - path: stack/platform/ansible-server
+  #   terraform_workspace: stack-platform-ansible-server
 
   # - path: .
   #   terraform_workspace: dev
