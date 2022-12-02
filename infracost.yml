@@ -9,6 +9,9 @@ projects:
   - path: stack
     terraform_workspace: stack
 
+  - path: stack/platform
+    terraform_workspace: stack-platform
+
   # - path: .
   #   terraform_workspace: dev
   #   terraform_var_files:
