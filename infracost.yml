@@ -6,6 +6,9 @@ projects:
     terraform_var_files:
       - global/terraform.tfvars
 
+  - path: stack
+    terraform_workspace: stack
+
   # - path: .
   #   terraform_workspace: dev
   #   terraform_var_files:
