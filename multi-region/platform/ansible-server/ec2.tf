@@ -31,6 +31,8 @@ sudo chown ec2-user:root /home/ec2-user/".vault_password_file-${var.environment}
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Setup Ansible Server" >> /var/log/terraform.log
 # sudo amazon-linux-extras install epel -y
+sudo amazon-linux-extras enable python3.8
+sudo yum install python3.8 -y
 sudo pip3 install ansible
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Ansible Setup Successfully" >> /var/log/terraform.log
 sudo ansible --version >> /var/log/terraform.log
@@ -50,7 +52,8 @@ sudo echo "$(date '+%d%m%Y_%Hh%M') - Code Deploy Installation completed" >> /var
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Installing python-boto3" >> /var/log/terraform.log
 sudo yum install python-boto3 -y
-sudo pip3 install boto3 -y
+sudo pip3 install boto3
+sudo pip3 install botocore
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Configuring AWS CLI" >> /var/log/terraform.log
 sudo mkdir /home/ec2-user/.aws
