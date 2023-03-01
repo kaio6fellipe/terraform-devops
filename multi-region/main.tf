@@ -16,6 +16,7 @@ module "platform" {
   amazon_linux_2              = data.aws_ami.amazon_linux_2.id
   key_name                    = "${var.key_name}-${var.environment}"
   vpc_id                      = local.vpc_id
+  vpc_private_subnets         = local.vpc_private_subnets
   availability_zone_0         = local.availability_zone_0
   private_subnet_id_0         = local.private_subnet_id_0
   availability_zone_1         = local.availability_zone_1

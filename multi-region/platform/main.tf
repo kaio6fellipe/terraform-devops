@@ -113,5 +113,8 @@ module "grafana_mimir" {
 }
 
 module "platform_k8s" {
-  source = "./platform-k8s"
+  source              = "./platform-k8s"
+  environment         = var.environment
+  vpc_id              = var.vpc_id
+  vpc_private_subnets = var.vpc_private_subnets
 }
