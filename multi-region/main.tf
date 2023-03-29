@@ -17,6 +17,7 @@ module "platform" {
   key_name                    = "${var.key_name}-${var.environment}"
   vpc_id                      = local.vpc_id
   vpc_private_subnets         = local.vpc_private_subnets
+  vpc_public_subnets          = local.vpc_public_subnets
   availability_zone_0         = local.availability_zone_0
   private_subnet_id_0         = local.private_subnet_id_0
   availability_zone_1         = local.availability_zone_1

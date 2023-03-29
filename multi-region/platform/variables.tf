@@ -50,6 +50,8 @@ variable "vpc_id" {}
 
 variable "vpc_private_subnets" {}
 
+variable "vpc_public_subnets" {}
+
 variable "availability_zone_0" {}
 
 variable "private_subnet_id_0" {}

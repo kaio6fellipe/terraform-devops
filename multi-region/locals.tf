@@ -13,4 +13,5 @@ locals {
   db_subnet_group_name        = module.vpc.database_subnet_group_name
   vpc_id                      = module.vpc.vpc_id
   vpc_private_subnets         = module.vpc.private_subnets
+  vpc_public_subnets          = module.vpc.public_subnets
 }
