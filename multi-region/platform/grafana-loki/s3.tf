@@ -1,5 +1,7 @@
 resource "aws_s3_bucket" "loki_bucket" {
-  #checkov:skip=CKV_AWS_21:This bucket dont need versioning cause its used to store logs
+  #checkov:skip=CKV2_AWS_61: For demo purposes, don't need lifecycle configuration
+  #checkov:skip=CKV2_AWS_62: For demo purposes, dont't need event notifications enabled
+  #checkov:skip=CKV_AWS_21: This bucket dont need versioning cause its used to store logs
   #checkov:skip=CKV_AWS_144: For demo purposes, don't need cross-region replication enabled
   #checkov:skip=CKV_AWS_145: For demo purposes, don't need default encryption with KMS
   bucket        = "loki-bucket-ktech-br-${var.environment}"

@@ -113,5 +113,12 @@ module "grafana_mimir" {
 }
 
 module "platform_k8s" {
-  source = "./platform-k8s"
+  source              = "./platform-k8s"
+  environment         = var.environment
+  vpc_id              = var.vpc_id
+  vpc_cidr            = var.vpc_cidr
+  vpc_private_subnets = var.vpc_private_subnets
+  vpc_public_subnets  = var.vpc_public_subnets
+  region              = var.region
+  availability_zones  = [var.availability_zone_1, var.availability_zone_2]
 }

@@ -8,6 +8,8 @@ session replays and SSL certificates.
 // For demo purposes, don't need bucket logging
 // tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "storage" {
+  #checkov:skip=CKV2_AWS_61: For demo purposes, don't need lifecycle configuration
+  #checkov:skip=CKV2_AWS_62: For demo purposes, dont't need event notifications enabled
   #checkov:skip=CKV_AWS_144: For demo purposes, don't need cross-region replication enabled
   #checkov:skip=CKV_AWS_145: For demo purposes, don't need default encryption with KMS
   bucket        = local.s3_bucket_name

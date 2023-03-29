@@ -1,4 +1,6 @@
 resource "aws_s3_bucket" "codepipeline_bucket" {
+  #checkov:skip=CKV2_AWS_61: For demo purposes, don't need lifecycle configuration
+  #checkov:skip=CKV2_AWS_62: For demo purposes, dont't need event notifications enabled
   #checkov:skip=CKV_AWS_144: For demo purposes, don't need cross-region replication enabled
   #checkov:skip=CKV_AWS_145: For demo purposes, don't need default encryption with KMS
   bucket        = "codepipeline-ansible-ktech-br-${var.environment}"

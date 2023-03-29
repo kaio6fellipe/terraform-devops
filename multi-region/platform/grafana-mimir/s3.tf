@@ -1,5 +1,7 @@
 resource "aws_s3_bucket" "mimir_bucket" {
   #checkov:skip=CKV_AWS_21:This bucket dont need versioning cause its used to store metrics
+  #checkov:skip=CKV2_AWS_62: For demo purposes, dont't need event notifications enabled
+  #checkov:skip=CKV2_AWS_61: For demo purposes, don't need lifecycle configuration
   #checkov:skip=CKV_AWS_144: For demo purposes, don't need cross-region replication enabled
   #checkov:skip=CKV_AWS_145: For demo purposes, don't need default encryption with KMS
   bucket        = "mimir-bucket-ktech-br-${var.environment}"
