@@ -26,7 +26,7 @@ variable "name" {
 
 # When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod
 variable "kubernetes_version" {
-  default = "1.22"
+  default = "1.24"
 }
 
 variable "oidc_provider_enabled" {

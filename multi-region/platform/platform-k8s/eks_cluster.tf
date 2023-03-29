@@ -2,7 +2,6 @@ module "eks_cluster" {
   source  = "cloudposse/eks-cluster/aws"
   version = "2.6.0"
 
-  name                         = "${var.name}-${var.environment}"
   region                       = var.region
   vpc_id                       = var.vpc_id
   subnet_ids                   = concat(var.vpc_private_subnets, var.vpc_public_subnets)
