@@ -121,4 +121,6 @@ module "platform_k8s" {
   vpc_public_subnets  = var.vpc_public_subnets
   region              = var.region
   availability_zones  = [var.availability_zone_1, var.availability_zone_2]
+  key_name            = var.key_name
+  default_sg          = aws_security_group.default_platform.id
 }
