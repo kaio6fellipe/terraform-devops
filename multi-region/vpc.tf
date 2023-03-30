@@ -18,6 +18,14 @@ module "vpc" {
   enable_dns_hostnames         = true
   enable_dns_support           = true
 
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = 1
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/role/internal-elb" = 1
+  }
+
   vpc_tags = {
     Name = "vpc-${var.region}-${var.environment}"
   }

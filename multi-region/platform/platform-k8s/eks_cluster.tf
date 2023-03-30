@@ -1,53 +1,148 @@
-module "eks_cluster" {
-  source  = "cloudposse/eks-cluster/aws"
-  version = "2.6.0"
+module "eks" {
+  source = "terraform-aws-modules/eks/aws"
+  version = "19.11.0"
 
-  name                         = "${var.name}-${var.environment}"
-  region                       = var.region
-  vpc_id                       = var.vpc_id
-  subnet_ids                   = concat(var.vpc_private_subnets, var.vpc_public_subnets)
-  kubernetes_version           = var.kubernetes_version
-  local_exec_interpreter       = var.local_exec_interpreter
-  oidc_provider_enabled        = var.oidc_provider_enabled
-  enabled_cluster_log_types    = var.enabled_cluster_log_types
-  cluster_log_retention_period = var.cluster_log_retention_period
+  cluster_name                   = local.name
+  cluster_version                = local.cluster_version
+  cluster_endpoint_public_access = true
 
-  cluster_encryption_config_enabled                         = var.cluster_encryption_config_enabled
-  cluster_encryption_config_kms_key_id                      = var.cluster_encryption_config_kms_key_id
-  cluster_encryption_config_kms_key_enable_key_rotation     = var.cluster_encryption_config_kms_key_enable_key_rotation
-  cluster_encryption_config_kms_key_deletion_window_in_days = var.cluster_encryption_config_kms_key_deletion_window_in_days
-  cluster_encryption_config_kms_key_policy                  = var.cluster_encryption_config_kms_key_policy
-  cluster_encryption_config_resources                       = var.cluster_encryption_config_resources
+  cluster_ip_family = "ipv4"
 
-  addons = var.addons
+  cluster_addons = {
+    coredns = {
+      most_recent = true
+    }
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent              = true
+      before_compute           = true
+      service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
+      configuration_values = jsonencode({
+        env = {
+          # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
+          ENABLE_PREFIX_DELEGATION = "true"
+          WARM_PREFIX_TARGET       = "1"
+        }
+      })
+    }
+  }
 
-  # We need to create a new Security Group only if the EKS cluster is used with unmanaged worker nodes.
-  # EKS creates a managed Security Group for the cluster automatically, places the control plane and managed nodes into the security group,
-  # and allows all communications between the control plane and the managed worker nodes
-  # (EKS applies it to ENIs that are attached to EKS Control Plane master nodes and to any managed workloads).
-  # If only Managed Node Groups are used, we don't need to create a separate Security Group;
-  # otherwise we place the cluster in two SGs - one that is created by EKS, the other one that the module creates.
-  # See https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html for more details.
-  create_security_group = false
+  vpc_id                   = var.vpc_id
+  subnet_ids               = var.vpc_private_subnets
+  control_plane_subnet_ids = var.vpc_private_subnets
 
-  # This is to test `allowed_security_group_ids` and `allowed_cidr_blocks`
-  # In a real cluster, these should be some other (existing) Security Groups and CIDR blocks to allow access to the cluster
-  # allowed_security_group_ids = [module.vpc.vpc_default_security_group_id]
-  allowed_cidr_blocks = [var.vpc_cidr]
+  manage_aws_auth_configmap = true
 
-  # For manual testing. In particular, set `false` if local configuration/state
-  # has a cluster but the cluster was deleted by nightly cleanup, in order for
-  # `terraform destroy` to succeed.
-  apply_config_map_aws_auth = var.apply_config_map_aws_auth
+  eks_managed_node_group_defaults = {
+    ami_type       = "AL2_x86_64"
+    instance_types = var.instance_types
+    iam_role_attach_cni_policy = true
+  }
 
-  context = module.this.context
-}
+  eks_managed_node_groups = {
+    # Default node group - as provided by AWS EKS
+    default_node_group = {
+      # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
+      # so we need to disable it to use the default template provided by the AWS EKS managed node group service
+      use_custom_launch_template = false
 
-module "label" {
-  source  = "cloudposse/label/null"
-  version = "0.25.0"
+      disk_size = 50
 
-  attributes = ["cluster"]
+      # Remote access cannot be specified with a launch template
+      remote_access = {
+        ec2_ssh_key               = var.key_name
+        source_security_group_ids = [var.default_sg]
+      }
+    }
 
-  context = module.this.context
+    # Complete
+    complete = {
+      name            = "complete-eks-mng-${var.environment}"
+      use_name_prefix = true
+
+      subnet_ids = var.vpc_private_subnets
+
+      min_size     = var.min_size
+      max_size     = var.max_size
+      desired_size = var.desired_size
+
+      ami_id                     = data.aws_ami.eks_default.image_id
+      enable_bootstrap_user_data = true
+
+      pre_bootstrap_user_data = <<-EOT
+        export FOO=bar
+      EOT
+
+      post_bootstrap_user_data = <<-EOT
+        echo "you are free little kubelet!"
+      EOT
+
+      capacity_type        = "SPOT"
+      force_update_version = true
+      instance_types       = var.instance_types
+      labels = {
+        GithubRepo = "terraform-aws-eks"
+      }
+
+      taints = [
+        {
+          key    = "dedicated"
+          value  = "gpuGroup"
+          effect = "NO_SCHEDULE"
+        }
+      ]
+
+      update_config = {
+        max_unavailable_percentage = 33 # or set `max_unavailable`
+      }
+
+      description = "EKS managed node group example launch template"
+
+      ebs_optimized           = true
+      disable_api_termination = false
+      enable_monitoring       = true
+
+      block_device_mappings = {
+        xvda = {
+          device_name = "/dev/xvda"
+          ebs = {
+            volume_size           = 75
+            volume_type           = "gp3"
+            iops                  = 3000
+            throughput            = 150
+            encrypted             = true
+            kms_key_id            = module.ebs_kms_key.key_arn
+            delete_on_termination = true
+          }
+        }
+      }
+
+      metadata_options = {
+        http_endpoint               = "enabled"
+        http_tokens                 = "required"
+        http_put_response_hop_limit = 2
+        instance_metadata_tags      = "disabled"
+      }
+
+      create_iam_role          = true
+      iam_role_name            = "eks-managed-node-group-${var.environment}"
+      iam_role_use_name_prefix = false
+      iam_role_description     = "EKS managed node group for ${var.environment} env"
+      iam_role_tags = {
+        Purpose = "Protector of the kubelet"
+      }
+      iam_role_additional_policies = {
+        AmazonEC2ContainerRegistryReadOnly = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+        additional                         = aws_iam_policy.node_additional.arn
+      }
+
+      tags = {
+        ExtraTag = "EKS managed node group complete example"
+      }
+    }
+  }
+
+  tags = local.tags
 }
