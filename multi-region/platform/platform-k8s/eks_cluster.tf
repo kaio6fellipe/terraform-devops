@@ -113,7 +113,7 @@ module "eks" {
             iops                  = 3000
             throughput            = 150
             encrypted             = true
-            kms_key_id            = module.ebs_kms_key.key_arn
+            kms_key_id            = aws_kms_key.eks_k8s_platform.arn
             delete_on_termination = true
           }
         }
