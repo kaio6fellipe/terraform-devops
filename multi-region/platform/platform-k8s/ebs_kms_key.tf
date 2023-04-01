@@ -6,7 +6,7 @@ module "ebs_kms_key" {
 
   # Policy
   key_administrators = [
-    data.aws_caller_identity.current.arn
+    local.current_identity
   ]
 
   key_service_roles_for_autoscaling = [
