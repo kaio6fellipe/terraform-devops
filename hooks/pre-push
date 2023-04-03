@@ -8,6 +8,7 @@ set -o nounset
 status_tflint="0"
 status_checkov="0"
 status_tfsec="0"
+status_tfplan="0"
 
 diff_lines=$(diff hooks/pre-push .git/hooks/pre-push | wc -l)
 if [ $diff_lines != 0 ]; then
@@ -48,6 +49,7 @@ fi
 CHECKOV=$(command -v checkov)
 TFLINT=$(command -v tflint)
 TFSEC=$(command -v tfsec)
+TERRAFORM=$(command -v terraform)
 
 color_echo_blue "Linting with Checkov..."
 "${CHECKOV}" --directory . --var-file global/terraform.tfvars --skip-path .github/ --framework terraform || status_checkov="1"
@@ -76,3 +78,11 @@ if [[ "${status_tfsec}" != "0" ]]; then
 fi
 color_echo_green "...TFSec succeeded with soft-fail parameter."
 exit 0
+
+color_echo_blue "Planning with Terraform..."
+make plan || status_tfplan="1"
+if [[ "${status_tfplan}" != "0" ]]; then
+    color_echo_red "...Terraform plan failed."
+    exit 1
+fi
+color_echo_green "...Terraform plan succeeded."
