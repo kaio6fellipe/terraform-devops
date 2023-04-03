@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "eks" {
     principals {
       type = "AWS"
       identifiers = [
-        # "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
         module.eks.cluster_iam_role_arn,
       ]
     }
@@ -96,7 +96,7 @@ data "aws_iam_policy_document" "eks" {
     principals {
       type = "AWS"
       identifiers = [
-        # "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
         module.eks.cluster_iam_role_arn,
       ]
     }
