@@ -26,7 +26,7 @@ module "eks" {
   create_cluster_security_group = false
   create_node_security_group    = false
 
-  # manage_aws_auth_configmap = true
+  manage_aws_auth_configmap = true
 
   fargate_profile_defaults = {
     iam_role_additional_policies = {
