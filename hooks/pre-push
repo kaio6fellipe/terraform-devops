@@ -77,12 +77,12 @@ if [[ "${status_tfsec}" != "0" ]]; then
     exit 1
 fi
 color_echo_green "...TFSec succeeded with soft-fail parameter."
-exit 0
 
 color_echo_blue "Planning with Terraform..."
 make plan || status_tfplan="1"
 if [[ "${status_tfplan}" != "0" ]]; then
-    color_echo_red "...Terraform plan failed."
-    exit 1
+    color_echo_red "...Terraform plan failed. Maybe your user don't have all the access needed to execute this..."
+    exit 0
 fi
 color_echo_green "...Terraform plan succeeded."
+exit 0
