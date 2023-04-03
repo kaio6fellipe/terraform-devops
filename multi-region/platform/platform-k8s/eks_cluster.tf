@@ -13,27 +13,27 @@ resource "aws_eks_addon" "coredns" {
   depends_on = [module.eks.eks_managed_node_groups]
 }
 
-resource "aws_eks_addon" "kube_proxy" {
-  cluster_name = module.eks.cluster_name
-  addon_name   = "kube-proxy"
-
-  resolve_conflicts = "OVERWRITE"
-}
-
-resource "aws_eks_addon" "vpc_cni" {
-  cluster_name = module.eks.cluster_name
-  addon_name   = "vpc-cni"
-
-  resolve_conflicts        = "OVERWRITE"
-  service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
-  configuration_values = jsonencode({
-    env = {
-      # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
-      ENABLE_PREFIX_DELEGATION = "true"
-      WARM_PREFIX_TARGET       = "1"
-    }
-  })
-}
+# resource "aws_eks_addon" "kube_proxy" {
+#   cluster_name = module.eks.cluster_name
+#   addon_name   = "kube-proxy"
+# 
+#   resolve_conflicts = "OVERWRITE"
+# }
+# 
+# resource "aws_eks_addon" "vpc_cni" {
+#   cluster_name = module.eks.cluster_name
+#   addon_name   = "vpc-cni"
+# 
+#   resolve_conflicts        = "OVERWRITE"
+#   service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
+#   configuration_values = jsonencode({
+#     env = {
+#       # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
+#       ENABLE_PREFIX_DELEGATION = "true"
+#       WARM_PREFIX_TARGET       = "1"
+#     }
+#   })
+# }
 
 module "eks" {
 
@@ -46,26 +46,23 @@ module "eks" {
 
   cluster_ip_family = "ipv4"
 
-  # cluster_addons = {
-  #   coredns = {
-  #     most_recent = true
-  #   }
-  #   kube-proxy = {
-  #     most_recent = true
-  #   }
-  #   vpc-cni = {
-  #     most_recent              = true
-  #     before_compute           = true
-  #     service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
-  #     configuration_values = jsonencode({
-  #       env = {
-  #         # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
-  #         ENABLE_PREFIX_DELEGATION = "true"
-  #         WARM_PREFIX_TARGET       = "1"
-  #       }
-  #     })
-  #   }
-  # }
+  cluster_addons = {
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent              = true
+      before_compute           = true
+      service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
+      configuration_values = jsonencode({
+        env = {
+          # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
+          ENABLE_PREFIX_DELEGATION = "true"
+          WARM_PREFIX_TARGET       = "1"
+        }
+      })
+    }
+  }
 
   vpc_id                   = var.vpc_id
   subnet_ids               = var.vpc_private_subnets
