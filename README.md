@@ -20,7 +20,7 @@ The configuration management is being performed by the "Ansible Controller" in t
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.2.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 4.22.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 4.57.1 |
 
 ## Providers
 
