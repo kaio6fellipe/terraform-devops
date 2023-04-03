@@ -1,6 +1,5 @@
-resource "aws_iam_policy" "node_additional" {
-  name        = "${local.name}-additional"
-  description = "Example usage of node additional policy"
+resource "aws_iam_policy" "additional" {
+  name = "${local.name}-additional-fargate-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -14,6 +13,4 @@ resource "aws_iam_policy" "node_additional" {
       },
     ]
   })
-
-  tags = local.tags
 }
