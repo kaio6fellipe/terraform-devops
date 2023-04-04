@@ -9,6 +9,7 @@ status_tflint="0"
 status_checkov="0"
 status_tfsec="0"
 status_tfplan="0"
+status_tffmt="0"
 
 diff_lines=$(diff hooks/pre-push .git/hooks/pre-push | wc -l)
 if [ $diff_lines != 0 ]; then
@@ -77,6 +78,14 @@ if [[ "${status_tfsec}" != "0" ]]; then
     exit 1
 fi
 color_echo_green "...TFSec succeeded with soft-fail parameter."
+
+color_echo_blue "Formating check with Terraform..."
+terraform fmt -check || status_tffmt="1"
+if [[ "${status_tffmt}" != "0" ]]; then
+    color_echo_red "...Terraform format check failed."
+    exit 1
+fi
+color_echo_green "...Terraform format check succeeded."
 
 color_echo_blue "Planning with Terraform..."
 make plan || status_tfplan="1"
