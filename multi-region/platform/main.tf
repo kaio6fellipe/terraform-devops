@@ -123,4 +123,6 @@ module "platform_k8s" {
   availability_zones  = [var.availability_zone_1, var.availability_zone_2]
   key_name            = var.key_name
   default_sg          = aws_security_group.default_platform.id
+  ADMIN_USER_ARN      = var.ADMIN_USER_ARN
+  ADMIN_USER_NAME     = var.ADMIN_USER_NAME
 }

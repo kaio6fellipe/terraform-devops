@@ -28,6 +28,22 @@ module "eks" {
 
   manage_aws_auth_configmap = true
 
+  # aws_auth_roles = [
+  #   {
+  #     rolearn  = "arn:aws:iam::66666666666:role/role1"
+  #     username = "role1"
+  #     groups   = ["system:masters"]
+  #   },
+  # ]
+
+  aws_auth_users = [
+    {
+      userarn  = var.ADMIN_USER_ARN
+      username = var.ADMIN_USER_NAME
+      groups   = ["system:masters"]
+    },
+  ]
+
   fargate_profile_defaults = {
     iam_role_additional_policies = {
       additional = aws_iam_policy.additional.arn

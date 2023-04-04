@@ -95,3 +95,11 @@ variable "AWS_RDS_PASSWORD" {
 variable "ANSIBLE_VAULT_PASSWORD" {
   sensitive = true
 }
+
+variable "ADMIN_USER_ARN" {
+  sensitive = true
+}
+
+variable "ADMIN_USER_NAME" {
+  sensitive = true
+}

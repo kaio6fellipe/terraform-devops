@@ -84,3 +84,11 @@ variable "ANSIBLE_VAULT_PASSWORD" {
   type        = string
   sensitive   = true
 }
+
+variable "ADMIN_USER_ARN" {
+  sensitive = true
+}
+
+variable "ADMIN_USER_NAME" {
+  sensitive = true
+}

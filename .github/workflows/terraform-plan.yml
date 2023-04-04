@@ -10,6 +10,8 @@ env:
   TF_VAR_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   TF_VAR_AWS_RDS_PASSWORD: ${{ secrets.AWS_RDS_PASSWORD }}
   TF_VAR_ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
+  TF_VAR_ADMIN_USER_ARN: ${{ secrets.ADMIN_USER_ARN }}
+  TF_VAR_ADMIN_USER_NAME: ${{ secrets.ADMIN_USER_NAME }}
 
 jobs:
   sonarcloud:

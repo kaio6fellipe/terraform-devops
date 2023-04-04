@@ -16,6 +16,14 @@ variable "key_name" {}
 
 variable "default_sg" {}
 
+variable "ADMIN_USER_ARN" {
+  sensitive = true
+}
+
+variable "ADMIN_USER_NAME" {
+  sensitive = true
+}
+
 variable "name" {
   default = "platform-eks"
 }
