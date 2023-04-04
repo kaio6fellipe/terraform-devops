@@ -95,3 +95,13 @@ variable "ANSIBLE_VAULT_PASSWORD" {
   type        = string
   sensitive   = true
 }
+
+variable "ADMIN_USER_ARN" {
+  description = "EKS admin user ARN"
+  sensitive = true
+}
+
+variable "ADMIN_USER_NAME" {
+  description = "EKS admin user name"
+  sensitive = true
+}
