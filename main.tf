@@ -1,5 +1,5 @@
 module "us-east-1" {
-  source                    = "./multi-region/"
+  source                    = "./stack/"
   instance_type             = var.instance_type
   ansible_instance_type     = var.ansible_instance_type
   db_instance_type          = var.db_instance_type
@@ -44,15 +44,3 @@ module "us-east-1" {
 #     aws = aws.sae1
 #   }
 # }
-
-module "apps" {
-  source        = "./apps/"
-  environment   = var.environment
-  instance_type = var.instance_type
-}
-
-module "platform" {
-  source        = "./platform/"
-  environment   = var.environment
-  instance_type = var.instance_type
-}

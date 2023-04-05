@@ -3,7 +3,11 @@ include help.mk
 keyname?=id_rsa
 user?=""
 server?=""
-init?=false
+reset?=false
+region?="us-east-1"
+cluster?=""
+
+development_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops:development
 
 guard-%:
 	@ if [ "${${*}}" = "" ]; then \
@@ -12,15 +16,15 @@ guard-%:
 	fi
 
 .PHONY: init
-init: guard-init ##@repository Init repository config and hooks and reset .terraform cache
-ifeq ($(init), true)
+init: guard-reset ##@repository Init repository config and hooks and reset .terraform cache
+ifeq ($(reset), true)
 	$(shell cp hooks/pre-push .git/hooks/pre-push)
 	$(shell chmod +x .git/hooks/pre-push)
 	rm -rfd .terraform/
 	terraform init -upgrade -backend=true -backend-config="global/backend.hcl"
 	@echo "Repository initialized with success..."
 else
-	@echo "To init the repository pass the parameter init=true"
+	@echo "To init the repository pass the parameter reset=true"
 endif
 
 .PHONY: plan
@@ -50,6 +54,22 @@ jump: guard-keyname guard-user guard-server ##@bastion Jump access through basti
 clean: ##@bastion Clean known_hosts
 	rm -rv ~/.ssh/known_hosts
 
+.PHONY: kubectl
+kubectl: guard-region guard-cluster ##@eks Connect to an EKS cluster
+	./lib/eks-connect.sh --region $(region) --cluster $(cluster)
+
 .PHONY: check
 check: ##@check Execute pre-push hook
 	./hooks/pre-push
+
+.PHONY: image
+image: ##@docker Create the container image used for local development and operation
+	@docker build --tag $(development_imagename) .
+
+.PHONY: image-push
+image-push: ##@docker Push the container image used for local development and operation
+	@docker push $(development_imagename)
+
+.PHONY: image-pull
+image-pull: ##@docker Pull the contianer image used for local development and operation
+	@docker pull $(development_imagename)

@@ -16,7 +16,7 @@ sudo echo "$(date '+%d%m%Y_%Hh%M') - Setup Ansible Server" >> /var/log/terraform
 # sudo amazon-linux-extras install epel -y
 sudo amazon-linux-extras enable python3.8
 sudo yum install python3.8 -y
-sudo pip3 install ansible
+sudo pip3 install --no-cache-dir ansible==7.4.0
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Ansible Setup Successfully" >> /var/log/terraform.log
 sudo ansible --version >> /var/log/terraform.log
 
