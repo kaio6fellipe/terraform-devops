@@ -10,8 +10,14 @@
 #   }
 # }
 
+# provider "kubernetes" {
+#   host                   = data.aws_eks_cluster.default.endpoint
+#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.certificate_authority[0].data)
+#   token                  = data.aws_eks_cluster_auth.default.token
+# }
+
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.default.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.default.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.default.token
+  host                   = try(data.external.aws_eks_cluster_endpoint.result.cluster_endpoint,"https://cluster-not-created-yeat.us-east-1.eks.amazonaws.com")
+  cluster_ca_certificate = try(base64decode(data.external.aws_eks_cluster_ca_certificate.result.cluster_ca_certificate),"cluster-not-created-yeat=")
+  token                  = try(data.external.aws_eks_cluster_token.result.cluster_token,"cluster-not-created-yeat")
 }

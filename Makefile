@@ -22,6 +22,9 @@ ifeq ($(reset), true)
 	$(shell chmod +x .git/hooks/pre-push)
 	rm -rfd .terraform/
 	terraform init -upgrade -backend=true -backend-config="global/backend.hcl"
+	chmod +x stack/platform/platform-k8s/eks-cluster-ca-certificate.sh
+	chmod +x stack/platform/platform-k8s/eks-cluster-endpoint.sh
+	chmod +x stack/platform/platform-k8s/eks-cluster-token.sh
 	@echo "Repository initialized with success..."
 else
 	@echo "To init the repository pass the parameter reset=true"

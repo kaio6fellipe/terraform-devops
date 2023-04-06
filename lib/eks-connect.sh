@@ -63,6 +63,5 @@ if [[ -z  "${cluster}" ]]; then
     exit "1"
 fi
 
-aws --version
 aws sts get-caller-identity
 aws eks --region ${region} update-kubeconfig --name ${cluster}
