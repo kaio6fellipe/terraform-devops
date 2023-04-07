@@ -15,7 +15,7 @@ module "ec2-instance" {
   vpc_security_group_ids = ["${aws_security_group.egress_ping.id}", "${var.default_sg}"]
 
   user_data = templatefile(
-    "${abspath(path.cwd)}/multi-region/platform/ansible-server/user_data.tpl",
+    "${abspath(path.cwd)}/stack/platform/ansible-server/user_data.tpl",
     {
       environment            = var.environment
       region                 = var.region

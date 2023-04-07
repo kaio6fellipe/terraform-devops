@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source ./lib/colors
+
+set -o errexit
+set -o nounset
+
+status_tfplan="0"
+
+diff_lines=$(diff hooks/pre-push .git/hooks/pre-push | wc -l)
+if [ $diff_lines != 0 ]; then
+  cp hooks/pre-push .git/hooks/pre-push
+  chmod +x .git/hooks/pre-push
+  color_echo_red "Pre-push hook is out of date, please push your changes again."
+  exit 1
+fi

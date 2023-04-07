@@ -1,0 +1,50 @@
+data "aws_caller_identity" "current" {}
+
+data "aws_availability_zones" "available" {}
+
+#data "aws_eks_cluster" "default" {
+#  name = module.eks.cluster_name
+#  depends_on = [
+#    module.eks.fargate_profile,
+#  ]
+#}
+
+#data "aws_eks_cluster_auth" "default" {
+#  name = module.eks.cluster_name
+#  depends_on = [
+#    module.eks.fargate_profile,
+#  ]
+#}
+
+data "external" "aws_eks_cluster_endpoint" {
+  program = [
+    "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-endpoint.sh",
+    "${module.eks.cluster_name}",
+    "${var.region}",
+  ]
+  depends_on = [
+    module.eks.fargate_profile,
+  ]
+}
+
+data "external" "aws_eks_cluster_ca_certificate" {
+  program = [
+    "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-ca-certificate.sh",
+    "${module.eks.cluster_name}",
+    "${var.region}",
+  ]
+  depends_on = [
+    module.eks.fargate_profile,
+  ]
+}
+
+data "external" "aws_eks_cluster_token" {
+  program = [
+    "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-token.sh",
+    "${module.eks.cluster_name}",
+    "${var.region}",
+  ]
+  depends_on = [
+    module.eks.fargate_profile,
+  ]
+}

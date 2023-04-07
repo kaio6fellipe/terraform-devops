@@ -1,5 +1,5 @@
 locals {
-  name            = var.name
+  name            = "${var.name}-${var.environment}"
   cluster_version = var.kubernetes_version
   region          = var.region
 

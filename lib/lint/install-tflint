@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+set -x
+
 get_machine_arch () {
     machine_arch=""
     case $(uname -m) in
