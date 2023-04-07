@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# set -x
+
 cluster_name=$1
 region=$2
 
@@ -13,8 +15,8 @@ if [ -z ${region} ]; then
   exit 1
 fi
 
-cluster_described=$(aws eks describe-cluster --region ${region} --name ${cluster_name} > /dev/null 2> /dev/null)
-cluster_endpoint=$(echo -e ${cluster_described} | jq -r '.cluster.endpoint')
+cluster_described=$(aws eks describe-cluster --region ${region} --name ${cluster_name} 2> /dev/null)
+cluster_endpoint=$(echo ${cluster_described} | jq '.cluster.endpoint')
 
 if [ -z ${cluster_endpoint} ]; then
   result=''
