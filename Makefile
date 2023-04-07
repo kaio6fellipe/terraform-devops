@@ -6,8 +6,14 @@ server?=""
 reset?=false
 region?="us-east-1"
 cluster?=""
+version?=development
 
-development_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops:development
+dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
+  --env USER_ID="$(shell id -u $$USER)"
+base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
+development_imagename=$(base_imagename):development
+
+docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --volume ~/.ssh:/root/.ssh --tty --interactive $(base_imagename):$(version)
 
 guard-%:
 	@ if [ "${${*}}" = "" ]; then \
@@ -21,10 +27,10 @@ ifeq ($(reset), true)
 	$(shell cp hooks/pre-push .git/hooks/pre-push)
 	$(shell chmod +x .git/hooks/pre-push)
 	rm -rfd .terraform/
-	terraform init -upgrade -backend=true -backend-config="global/backend.hcl"
 	chmod +x stack/platform/platform-k8s/eks-cluster-ca-certificate.sh
 	chmod +x stack/platform/platform-k8s/eks-cluster-endpoint.sh
 	chmod +x stack/platform/platform-k8s/eks-cluster-token.sh
+	$(docker_run) /bin/bash -c "terraform init -upgrade -backend=true -backend-config='global/backend.hcl'"
 	@echo "Repository initialized with success..."
 else
 	@echo "To init the repository pass the parameter reset=true"
@@ -32,26 +38,15 @@ endif
 
 .PHONY: plan
 plan: ##@terraform Execute Terraform Plan
-	terraform init -backend=true -backend-config="global/backend.hcl" && \
-	export TF_VAR_SSH_PRIVATE_KEY="" && \
-	export TF_VAR_AWS_RDS_PASSWORD="" && \
-	export TF_VAR_ANSIBLE_VAULT_PASSWORD="" && \
-	export TF_VAR_ADMIN_USER_ARN="" && \
-	export TF_VAR_ADMIN_USER_NAME="" && \
-	terraform plan -var-file="global/terraform.tfvars" && \
-	unset TF_VAR_SSH_PRIVATE_KEY && \
-	unset TF_VAR_AWS_RDS_PASSWORD && \
-	unset TF_VAR_ANSIBLE_VAULT_PASSWORD && \
-	unset TF_VAR_ADMIN_USER_ARN && \
-	unset TF_VAR_ADMIN_USER_NAME
+	$(docker_run) ./lib/plan
 
 .PHONY: bastion
 bastion: guard-keyname ##@bastion Get access directly to bastion server
-	ssh -i $(keyname) ec2-user@bastion-dev.ktech-devops.com.br
+	$(docker_run) /bin/bash -c "chown -R root:root /root/.ssh && ssh -i /root/.ssh/$(keyname) ec2-user@bastion-dev.ktech-devops.com.br"
 
 .PHONY: jump
 jump: guard-keyname guard-user guard-server ##@bastion Jump access through bastion to another server
-	ssh -A -i $(keyname) -J $(user)@bastion-dev.ktech-devops.com.br $(user)@$(server)
+	$(docker_run) /bin/bash -c "chown -R root:root /root/.ssh && ssh -A -i /root/.ssh/$(keyname) -J $(user)@bastion-dev.ktech-devops.com.br $(user)@$(server)"
 
 .PHONY: clean
 clean: ##@bastion Clean known_hosts
@@ -59,11 +54,27 @@ clean: ##@bastion Clean known_hosts
 
 .PHONY: kubectl
 kubectl: guard-region guard-cluster ##@eks Connect to an EKS cluster
-	./lib/eks-connect.sh --region $(region) --cluster $(cluster)
+	$(docker_run) ./lib/eks-connect --region $(region) --cluster $(cluster)
 
 .PHONY: check
 check: ##@check Execute pre-push hook
-	./hooks/pre-push
+	$(docker_run) ./lib/lint/check-pre-push && \
+	./lib/lint/tflint && \
+	./lib/lint/tfsec && \
+	./lib/lint/tffmt && \
+	./lib/lint/tfplan
+
+.PHONY: tflint
+tflint: ##@check Execute TFLint
+	$(docker_run) ./lib/lint/tflint
+
+.PHONY: tfsec
+tfsec: ##@check Execute TFSec
+	$(docker_run) ./lib/lint/tfsec
+
+.PHONY: tffmt
+tffmt: ##@check Execute Terraform fmt
+	$(docker_run) ./lib/lint/tffmt
 
 .PHONY: image
 image: ##@docker Create the container image used for local development and operation
@@ -74,5 +85,9 @@ image-push: ##@docker Push the container image used for local development and op
 	@docker push $(development_imagename)
 
 .PHONY: image-pull
-image-pull: ##@docker Pull the contianer image used for local development and operation
+image-pull: ##@docker Pull the container image used for local development and operation
 	@docker pull $(development_imagename)
+
+.PHONY: run
+run: ##@docker Run the container image used for local development and operation
+	$(docker_run) /bin/bash

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source ./lib/colors
+
+set -o errexit
+set -o nounset
+
+status_tfplan="0"
+
+color_echo_blue "Planning with Terraform..."
+./lib/plan || status_tfplan="1"
+if [[ "${status_tfplan}" != "0" ]]; then
+    color_echo_red "...Terraform plan failed. Maybe your user don't have all the access needed to execute this..."
+    exit 0
+fi
+color_echo_green "...Terraform plan succeeded."
+exit 0

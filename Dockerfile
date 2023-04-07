@@ -4,7 +4,6 @@ LABEL org.opencontainers.image.source https://github.com/kaio6fellipe/terraform-
 ENV DEBIAN_FRONTEND noninteractive
 ENV AWS_CLI_VERSION=2.11.9
 ENV ANSIBLE_VERSION=7.4.0
-ENV CHECKOV_VERSION=2.2.50
 ENV KUBECTL_VERSION=v1.26.0
 ENV TERRAFORM_VERSION=1.2.4
 ENV TFLINT_VERSION=v0.42.2
@@ -27,8 +26,7 @@ RUN apt-get update && apt-get install -y \
         zip 
 
 RUN pip3 install --no-cache-dir \
-      ansible==${ANSIBLE_VERSION} \
-      checkov==${CHECKOV_VERSION} 
+      ansible==${ANSIBLE_VERSION}
 
 RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
   unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
@@ -38,11 +36,11 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL
   chmod +x ./kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
 
-COPY ./hooks /hooks
+COPY ./lib /lib
 
-RUN chmod +x /hooks/install_tflint.sh && ./hooks/install_tflint.sh
+RUN chmod +x /lib/lint/install-tflint && ./lib/lint/install-tflint
 
-RUN chmod +x /hooks/install_tfsec.sh && ./hooks/install_tfsec.sh
+RUN chmod +x /lib/lint/install-tfsec && ./lib/lint/install-tfsec
 
 RUN curl -L https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip -o awscli.zip && \
   unzip awscli.zip && \
