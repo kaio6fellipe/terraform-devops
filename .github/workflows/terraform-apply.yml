@@ -4,6 +4,18 @@ on:
   push:
     branches: [development]
   workflow_dispatch:
+    inputs:
+      log_level:
+        type: choice
+        description: Log Level
+        required: false
+        options:
+          - FATAL
+          - ERROR
+          - WARNING
+          - INFO
+          - DEBUG
+          - TRACE
 
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -13,6 +25,7 @@ env:
   TF_VAR_ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
   TF_VAR_ADMIN_USER_ARN: ${{ secrets.ADMIN_USER_ARN }}
   TF_VAR_ADMIN_USER_NAME: ${{ secrets.ADMIN_USER_NAME }}
+  TF_LOG: ${{ inputs.log_level }}
 
 jobs:
   sonarcloud:
