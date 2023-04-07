@@ -16,6 +16,14 @@ data "aws_availability_zones" "available" {}
 #  ]
 #}
 
+# resource "time_sleep" "wait_1_minutes" {
+#   depends_on = [
+#     module.eks.fargate_profile,
+#   ]
+# 
+#   create_duration = "1m"
+# }
+
 data "external" "aws_eks_cluster_endpoint" {
   program = [
     "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-endpoint.sh",
@@ -24,6 +32,7 @@ data "external" "aws_eks_cluster_endpoint" {
   ]
   depends_on = [
     module.eks.fargate_profile,
+    #time_sleep.wait_1_minutes,
   ]
 }
 
@@ -35,6 +44,7 @@ data "external" "aws_eks_cluster_ca_certificate" {
   ]
   depends_on = [
     module.eks.fargate_profile,
+    #time_sleep.wait_1_minutes,
   ]
 }
 
@@ -46,5 +56,6 @@ data "external" "aws_eks_cluster_token" {
   ]
   depends_on = [
     module.eks.fargate_profile,
+    #time_sleep.wait_1_minutes,
   ]
 }

@@ -15,13 +15,15 @@ if [ -z ${region} ]; then
   exit 1
 fi
 
+sleep 60
+
 cluster_described=$(aws eks describe-cluster --region ${region} --name ${cluster_name} 2> /dev/null)
 cluster_ca_certificate=$(echo ${cluster_described} | jq '.cluster.certificateAuthority.data')
 
 if [ -z ${cluster_ca_certificate} ]; then
   result=''
 else
-  result=${cluster_ca_certificate}
+  result=$(echo ${cluster_ca_certificate} | cut -d '"' -f 2)
 fi
 
 jq -n --arg ca_certificate ${result} '{"cluster_ca_certificate": $ca_certificate }'

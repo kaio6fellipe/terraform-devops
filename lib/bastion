@@ -70,3 +70,4 @@ echo "${KEY_FILE}" > ${key_file_path}
 chmod 400 ${key_file_path}
 
 ssh -i ${key_file_path} "${user}"@bastion-dev.ktech-devops.com.br
+/bin/bash

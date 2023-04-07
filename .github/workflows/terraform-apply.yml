@@ -10,9 +10,9 @@ on:
         description: Log Level
         required: false
         options:
-          - FATAL
+          - OFF
           - ERROR
-          - WARNING
+          - WARN
           - INFO
           - DEBUG
           - TRACE
