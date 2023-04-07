@@ -1,0 +1,72 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+function help() {
+
+    cat << EOF
+
+Usage: ${0} [OPTIONS]
+
+Connects to the bastion server
+
+Options:
+        --help      Print help
+        --keyname   Private key name registered on bastion server
+        --user      User name for authentication
+EOF
+
+}
+
+case "${1-}" in
+    --help)
+        help
+        exit
+        ;;
+esac
+
+keyname=""
+
+set +o errexit
+
+while [ "${1-}" ]; do
+    case "${1}" in
+        --keyname)
+            keyname="${2-}"
+            shift
+            ;;
+        --user)
+            user="${2-}"
+            shift
+            ;;
+        *)
+            printf "unknown flag: %s\n" "${1}"
+            help
+            exit
+    esac
+    shift
+done
+
+set -o errexit
+
+if [[ -z  "${keyname}" ]]; then
+    printf "missing --keyname parameter\n"
+    help
+    exit "1"
+fi
+
+if [[ -z  "${user}" ]]; then
+    printf "missing --user parameter\n"
+    help
+    exit "1"
+fi
+
+key_file_path="/root/.ssh/${keyname}"
+
+mkdir /root/.ssh
+touch ${key_file_path}
+echo "${KEY_FILE}" > ${key_file_path}
+chmod 400 ${key_file_path}
+
+ssh -i ${key_file_path} "${user}"@bastion-dev.ktech-devops.com.br

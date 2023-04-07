@@ -1,3 +1,5 @@
 #!/bin/bash
 
-make check
+echo $(pwd)
+
+make lint

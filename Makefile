@@ -1,7 +1,8 @@
 include help.mk
 
 keyname?=id_rsa
-user?=""
+keyfile=~/.ssh/$(keyname)
+user?="ec2-user"
 server?=""
 reset?=false
 region?="us-east-1"
@@ -9,11 +10,13 @@ cluster?=""
 version?=development
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
-  --env USER_ID="$(shell id -u $$USER)"
+  --env USER_ID="$(shell id -u $$USER)" \
+  --env KEY_FILE
 base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
 development_imagename=$(base_imagename):development
 
-docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --volume ~/.ssh:/root/.ssh --tty --interactive $(base_imagename):$(version)
+docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
+docker_run_interactive=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
 
 guard-%:
 	@ if [ "${${*}}" = "" ]; then \
@@ -41,12 +44,14 @@ plan: ##@terraform Execute Terraform Plan
 	$(docker_run) ./lib/plan
 
 .PHONY: bastion
-bastion: guard-keyname ##@bastion Get access directly to bastion server
-	$(docker_run) /bin/bash -c "chown -R root:root /root/.ssh && ssh -i /root/.ssh/$(keyname) ec2-user@bastion-dev.ktech-devops.com.br"
+bastion: guard-keyname guard-user ##@bastion Get access directly to bastion server
+	export KEY_FILE="$(shell cat $(keyfile))" && \
+	$(docker_run_interactive) ./lib/bastion --keyname $(keyname) --user $(user)
 
 .PHONY: jump
 jump: guard-keyname guard-user guard-server ##@bastion Jump access through bastion to another server
-	$(docker_run) /bin/bash -c "chown -R root:root /root/.ssh && ssh -A -i /root/.ssh/$(keyname) -J $(user)@bastion-dev.ktech-devops.com.br $(user)@$(server)"
+	export KEY_FILE="$(shell cat $(keyfile))" && \
+	$(docker_run_interactive) ./lib/jump --keyname $(keyname) --user $(user) --server $(server)
 
 .PHONY: clean
 clean: ##@bastion Clean known_hosts
@@ -54,15 +59,14 @@ clean: ##@bastion Clean known_hosts
 
 .PHONY: kubectl
 kubectl: guard-region guard-cluster ##@eks Connect to an EKS cluster
-	$(docker_run) ./lib/eks-connect --region $(region) --cluster $(cluster)
+	$(docker_run_interactive) ./lib/eks-connect --region $(region) --cluster $(cluster)
+
+.PHONY: lint
+lint: check tflint tfsec tffmt plan  ##@check Execute linters, security check and Terraform Plan
 
 .PHONY: check
-check: ##@check Execute pre-push hook
-	$(docker_run) ./lib/lint/check-pre-push && \
-	./lib/lint/tflint && \
-	./lib/lint/tfsec && \
-	./lib/lint/tffmt && \
-	./lib/lint/tfplan
+check: ##@check Check pre-push integrity
+	$(docker_run) ./lib/lint/check-pre-push
 
 .PHONY: tflint
 tflint: ##@check Execute TFLint
@@ -90,4 +94,4 @@ image-pull: ##@docker Pull the container image used for local development and op
 
 .PHONY: run
 run: ##@docker Run the container image used for local development and operation
-	$(docker_run) /bin/bash
+	$(docker_run_interactive) /bin/bash

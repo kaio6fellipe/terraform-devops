@@ -43,7 +43,7 @@ while [ "${1-}" ]; do
             ;;
         *)
             printf "unknown flag: %s\n" "${1}"
-            usage
+            help
             exit
     esac
     shift
@@ -53,13 +53,13 @@ set -o errexit
 
 if [[ -z  "${region}" ]]; then
     printf "missing --region parameter\n"
-    usage
+    help
     exit "1"
 fi
 
 if [[ -z  "${cluster}" ]]; then
     printf "missing --cluster parameter\n"
-    usage
+    help
     exit "1"
 fi
 

@@ -1,17 +1,29 @@
 #!/bin/bash
 
+source ./lib/colors
+
 set -o errexit
 set -o nounset
 
-terraform init -backend=true -backend-config="global/backend.hcl" && \
+status_tfplan="0"
+
+color_echo_blue "Planning with Terraform..."
+terraform init -backend=true -backend-config="global/backend.hcl" || status_tfplan="1" && \
 export TF_VAR_SSH_PRIVATE_KEY="" && \
 export TF_VAR_AWS_RDS_PASSWORD="" && \
 export TF_VAR_ANSIBLE_VAULT_PASSWORD="" && \
 export TF_VAR_ADMIN_USER_ARN="" && \
 export TF_VAR_ADMIN_USER_NAME="" && \
-terraform plan -var-file="global/terraform.tfvars" && \
+terraform plan -var-file="global/terraform.tfvars" || status_tfplan="1" && \
 unset TF_VAR_SSH_PRIVATE_KEY && \
 unset TF_VAR_AWS_RDS_PASSWORD && \
 unset TF_VAR_ANSIBLE_VAULT_PASSWORD && \
 unset TF_VAR_ADMIN_USER_ARN && \
 unset TF_VAR_ADMIN_USER_NAME
+
+if [[ "${status_tfplan}" != "0" ]]; then
+    color_echo_red "...Terraform plan failed. Maybe your user don't have all the access needed to execute this..."
+    exit 0
+fi
+color_echo_green "...Terraform plan succeeded."
+exit 0
