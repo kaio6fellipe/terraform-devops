@@ -32,7 +32,7 @@ data "external" "aws_eks_cluster_endpoint" {
     "${var.region}",
   ]
   depends_on = [
-    module.eks.fargate_profile,
+    module.eks.aws_eks_cluster,
     #time_sleep.wait_1_minutes,
   ]
 }
@@ -44,7 +44,7 @@ data "external" "aws_eks_cluster_ca_certificate" {
     "${var.region}",
   ]
   depends_on = [
-    module.eks.fargate_profile,
+    module.eks.aws_eks_cluster,
     #time_sleep.wait_1_minutes,
   ]
 }
@@ -56,7 +56,7 @@ data "external" "aws_eks_cluster_token" {
     "${var.region}",
   ]
   depends_on = [
-    module.eks.fargate_profile,
+    module.eks.aws_eks_cluster,
     #time_sleep.wait_1_minutes,
   ]
 }
