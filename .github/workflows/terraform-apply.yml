@@ -10,7 +10,6 @@ on:
         description: Log Level
         required: false
         options:
-          - OFF
           - ERROR
           - WARN
           - INFO
