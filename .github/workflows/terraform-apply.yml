@@ -61,9 +61,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.4
+
+      - name: Check AWS CLI version
+        id: aws-version
+        run: aws --version
 
       - name: Terraform fmt
         id: fmt

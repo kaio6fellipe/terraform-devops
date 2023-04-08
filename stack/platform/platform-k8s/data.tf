@@ -24,38 +24,39 @@ data "aws_availability_zones" "available" {}
 #   create_duration = "1m"
 # }
 
-data "external" "aws_eks_cluster_endpoint" {
-  program = [
-    "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-endpoint.sh",
-    "${module.eks.cluster_name}",
-    "${var.region}",
-  ]
-  depends_on = [
-    module.eks.fargate_profile,
-    #time_sleep.wait_1_minutes,
-  ]
-}
-
-data "external" "aws_eks_cluster_ca_certificate" {
-  program = [
-    "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-ca-certificate.sh",
-    "${module.eks.cluster_name}",
-    "${var.region}",
-  ]
-  depends_on = [
-    module.eks.fargate_profile,
-    #time_sleep.wait_1_minutes,
-  ]
-}
-
-data "external" "aws_eks_cluster_token" {
-  program = [
-    "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-token.sh",
-    "${module.eks.cluster_name}",
-    "${var.region}",
-  ]
-  depends_on = [
-    module.eks.fargate_profile,
-    #time_sleep.wait_1_minutes,
-  ]
-}
+# External data sources for testing
+# data "external" "aws_eks_cluster_endpoint" {
+#   program = [
+#     "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-endpoint.sh",
+#     "${module.eks.cluster_name}",
+#     "${var.region}",
+#   ]
+#   depends_on = [
+#     module.eks.fargate_profile,
+#     #time_sleep.wait_1_minutes,
+#   ]
+# }
+# 
+# data "external" "aws_eks_cluster_ca_certificate" {
+#   program = [
+#     "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-ca-certificate.sh",
+#     "${module.eks.cluster_name}",
+#     "${var.region}",
+#   ]
+#   depends_on = [
+#     module.eks.fargate_profile,
+#     #time_sleep.wait_1_minutes,
+#   ]
+# }
+# 
+# data "external" "aws_eks_cluster_token" {
+#   program = [
+#     "${abspath(path.cwd)}/stack/platform/platform-k8s/eks-cluster-token.sh",
+#     "${module.eks.cluster_name}",
+#     "${var.region}",
+#   ]
+#   depends_on = [
+#     module.eks.fargate_profile,
+#     #time_sleep.wait_1_minutes,
+#   ]
+# }
