@@ -30,9 +30,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_apps"></a> [apps](#module\_apps) | ./apps/ | n/a |
-| <a name="module_platform"></a> [platform](#module\_platform) | ./platform/ | n/a |
-| <a name="module_us-east-1"></a> [us-east-1](#module\_us-east-1) | ./multi-region/ | n/a |
+| <a name="module_us-east-1"></a> [us-east-1](#module\_us-east-1) | ./stack/ | n/a |
 
 ## Resources
 
