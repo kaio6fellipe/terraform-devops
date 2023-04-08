@@ -15,7 +15,7 @@ if [ -z ${region} ]; then
   exit 1
 fi
 
-sleep 60
+# sleep 60
 
 cluster_described=$(aws eks describe-cluster --region ${region} --name ${cluster_name} 2> /dev/null)
 cluster_endpoint=$(echo ${cluster_described} | jq '.cluster.endpoint')

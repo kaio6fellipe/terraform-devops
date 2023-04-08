@@ -15,7 +15,7 @@ if [ -z ${region} ]; then
   exit 1
 fi
 
-sleep 60
+# sleep 60
 
 cluster_get_token=$(aws eks get-token --region ${region} --cluster-name ${cluster_name} 2> /dev/null)
 cluster_token=$(echo ${cluster_get_token} | jq '.status.token')
