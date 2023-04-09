@@ -36,6 +36,8 @@ module "eks" {
   #   },
   # ]
 
+  cluster_endpoint_public_access_cidrs = local.public_cidr_allow_list
+
   aws_auth_users = [
     {
       userarn  = var.ADMIN_USER_ARN

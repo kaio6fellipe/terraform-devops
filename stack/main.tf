@@ -38,4 +38,5 @@ module "platform" {
   ADMIN_USER_NAME             = var.ADMIN_USER_NAME
   private_dns_zone_id         = data.aws_route53_zone.private_zone.zone_id
   private_dns_zone_name       = sort(keys(module.zones.route53_zone_zone_id))[0]
+  GITHUB_ACTIONS_CIDR         = var.GITHUB_ACTIONS_CIDR
 }

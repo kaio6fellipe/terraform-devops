@@ -107,3 +107,9 @@ variable "ADMIN_USER_NAME" {
   type        = string
   sensitive   = true
 }
+
+variable "GITHUB_ACTIONS_CIDR" {
+  description = "GitHub Actions egress CIDR Block"
+  default     = ["0.0.0.0/0"]
+  type        = list(string)
+}

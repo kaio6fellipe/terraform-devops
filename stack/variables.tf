@@ -92,3 +92,5 @@ variable "ADMIN_USER_ARN" {
 variable "ADMIN_USER_NAME" {
   sensitive = true
 }
+
+variable "GITHUB_ACTIONS_CIDR" {}

@@ -22,6 +22,7 @@ module "us-east-1" {
   ANSIBLE_VAULT_PASSWORD    = var.ANSIBLE_VAULT_PASSWORD
   ADMIN_USER_ARN            = var.ADMIN_USER_ARN
   ADMIN_USER_NAME           = var.ADMIN_USER_NAME
+  GITHUB_ACTIONS_CIDR       = var.GITHUB_ACTIONS_CIDR
   providers = {
     aws = aws.use1
   }

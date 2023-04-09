@@ -1,12 +1,14 @@
 #!/bin/bash
 
 source ./lib/colors
+source ./lib/github-meta-info
 
 set -o errexit
 set -o nounset
 
 status_tfplan="0"
 tf_log=""
+git_actions_cidr=$(function_get_cidr)
 
 color_echo_blue "Planning with Terraform..."
 terraform init -backend=true -backend-config="global/backend.hcl" || status_tfplan="1" && \
@@ -15,6 +17,7 @@ export TF_VAR_AWS_RDS_PASSWORD="" && \
 export TF_VAR_ANSIBLE_VAULT_PASSWORD="" && \
 export TF_VAR_ADMIN_USER_ARN="" && \
 export TF_VAR_ADMIN_USER_NAME="" && \
+export TF_VAR_GITHUB_ACTIONS_CIDR=${git_actions_cidr} && \
 export TF_LOG=${tf_log} && \
 terraform plan -var-file="global/terraform.tfvars" || status_tfplan="1" && \
 unset TF_VAR_SSH_PRIVATE_KEY && \
@@ -22,6 +25,7 @@ unset TF_VAR_AWS_RDS_PASSWORD && \
 unset TF_VAR_ANSIBLE_VAULT_PASSWORD && \
 unset TF_VAR_ADMIN_USER_ARN && \
 unset TF_VAR_ADMIN_USER_NAME && \
+unset TF_VAR_GITHUB_ACTIONS_CIDR && \
 unset TF_LOG
 
 if [[ "${status_tfplan}" != "0" ]]; then

@@ -16,6 +16,10 @@ variable "key_name" {}
 
 variable "default_sg" {}
 
+variable "cdirs_acesso_remoto" {}
+
+variable "GITHUB_ACTIONS_CIDR" {}
+
 variable "ADMIN_USER_ARN" {
   sensitive = true
 }
