@@ -34,12 +34,12 @@ jobs:
   checkov:
     name: Checkov Security check
     uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
-    
+
   plan:
     name: 'Terraform plan'
     needs: [tflint]
     runs-on: ubuntu-latest
-    
+
     defaults:
       run:
         shell: bash
@@ -48,11 +48,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      # Ref: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
+      - name: Get GitActions egress CIDR blocks
+        run: |
+          source ./lib/github-meta-info
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "TF_VAR_GITHUB_ACTIONS_CIDR<<$EOF" >> $GITHUB_ENV
+          function_get_cidr >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
+
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.4
 
-      - name: Terraform fmt
+      - name: Terraform Fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
@@ -69,7 +79,7 @@ jobs:
         id: plan
         run: terraform plan -no-color -var-file="global/terraform.tfvars"
         continue-on-error: true
-        
+
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
         # env:
@@ -90,7 +100,7 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
-        
+
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1

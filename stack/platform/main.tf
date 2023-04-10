@@ -125,4 +125,6 @@ module "platform_k8s" {
   default_sg          = aws_security_group.default_platform.id
   ADMIN_USER_ARN      = var.ADMIN_USER_ARN
   ADMIN_USER_NAME     = var.ADMIN_USER_NAME
+  cdirs_acesso_remoto = var.cdirs_acesso_remoto
+  GITHUB_ACTIONS_CIDR = var.GITHUB_ACTIONS_CIDR
 }

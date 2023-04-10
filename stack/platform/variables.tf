@@ -19,6 +19,8 @@ variable "cdirs_acesso_remoto" {
   ]
 }
 
+variable "GITHUB_ACTIONS_CIDR" {}
+
 variable "environment" {
   type = string
 }
