@@ -8,7 +8,10 @@ set -o nounset
 
 status_tfplan="0"
 tf_log=""
-git_actions_cidr=$(function_get_cidr)
+
+# GitActionsCIDR commented because aws have a limit of 40 entries, with free runner there is no way to get the egress IP to allow public connections to EKS clusters
+# git_actions_cidr=$(function_get_cidr)
+git_actions_cidr="0.0.0.0/0"
 
 color_echo_blue "Planning with Terraform..."
 terraform init -backend=true -backend-config="global/backend.hcl" || status_tfplan="1" && \

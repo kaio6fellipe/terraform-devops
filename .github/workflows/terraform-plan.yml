@@ -49,14 +49,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      # GitActions CIDR commented because aws have a limit of 40 entries, with free runner there is no way to get the egress IP to allow public connections to EKS clusters
       # Ref: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
-      - name: Get GitActions egress CIDR blocks
-        run: |
-          source ./lib/github-meta-info
-          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
-          echo "TF_VAR_GITHUB_ACTIONS_CIDR<<$EOF" >> $GITHUB_ENV
-          function_get_cidr >> $GITHUB_ENV
-          echo "$EOF" >> $GITHUB_ENV
+      # - name: Get GitActions egress CIDR blocks
+      #   run: |
+      #     source ./lib/github-meta-info
+      #     EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+      #     echo "TF_VAR_GITHUB_ACTIONS_CIDR<<$EOF" >> $GITHUB_ENV
+      #     function_get_cidr >> $GITHUB_ENV
+      #     echo "$EOF" >> $GITHUB_ENV
 
       - uses: hashicorp/setup-terraform@v2
         with:
