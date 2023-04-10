@@ -8,6 +8,7 @@ ENV KUBECTL_VERSION=v1.26.0
 ENV TERRAFORM_VERSION=1.2.4
 ENV TFLINT_VERSION=v0.42.2
 ENV TFSEC_VERSION=v1.28.1
+ENV HELM_VERSION=v3.11.2
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -35,6 +36,9 @@ RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x ./kubectl && \
   mv ./kubectl /usr/local/bin/kubectl
+
+RUN curl "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" | tar -xzO linux-amd64/helm > /usr/local/bin/helm && \
+  chmod +x /usr/local/bin/helm
 
 COPY ./lib /lib
 
