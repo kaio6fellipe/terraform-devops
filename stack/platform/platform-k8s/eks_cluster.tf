@@ -64,6 +64,9 @@ module "eks" {
         },
         {
           namespace = "default"
+        },
+        {
+          namespace = "*"
         }
       ]
 
