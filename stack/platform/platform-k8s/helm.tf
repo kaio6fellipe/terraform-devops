@@ -6,7 +6,7 @@ resource "helm_release" "argocd" {
   version    = "5.28.1"
 
   values = [
-    "${file("${path.module}/argo-cd-values.yaml")}"
+    data.github_repository_file.argocd.content
   ]
 
   depends_on = [
