@@ -56,15 +56,15 @@ module "eks" {
     default = {
       name = "default"
       selectors = [
-        {
-          namespace = "kube-system"
-          labels = {
-            k8s-app = "kube-dns"
-          }
-        },
-        {
-          namespace = "default"
-        },
+        # {
+        #   namespace = "kube-system"
+        #   labels = {
+        #     k8s-app = "kube-dns"
+        #   }
+        # },
+        # {
+        #   namespace = "default"
+        # },
         {
           namespace = "*"
         }
