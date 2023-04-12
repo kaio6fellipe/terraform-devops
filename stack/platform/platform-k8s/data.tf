@@ -60,3 +60,15 @@ data "external" "aws_eks_cluster_token" {
     #time_sleep.wait_1_minutes,
   ]
 }
+
+data "github_repository_file" "argocd" {
+  repository          = "kaio6fellipe/argo"
+  branch              = "main"
+  file                = "config/argo-cd-values.yaml"
+}
+
+data "github_repository_file" "argocd_apps" {
+  repository          = "kaio6fellipe/argo"
+  branch              = "main"
+  file                = "config/argocd-apps-values.yaml"
+}
