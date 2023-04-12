@@ -9,6 +9,7 @@ ENV TERRAFORM_VERSION=1.2.4
 ENV TFLINT_VERSION=v0.42.2
 ENV TFSEC_VERSION=v1.28.1
 ENV HELM_VERSION=v3.11.2
+ENV K9S_VERSION=v0.26.7
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -50,6 +51,8 @@ RUN curl -L https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWS_CLI_VERSI
   unzip awscli.zip && \
   ./aws/install && \
   rm -f awscli.zip
+
+RUN curl -fsSL "https://github.com/derailed/k9s/releases/download/${K9S_VERSION}/k9s_Linux_x86_64.tar.gz" | tar -xz --directory /usr/local/bin/
 
 CMD ["/bin/sh", "-c", "tail -f /dev/null"]
 
