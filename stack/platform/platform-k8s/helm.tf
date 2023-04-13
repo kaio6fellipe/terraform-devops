@@ -1,3 +1,30 @@
+resource "helm_release" "aws_load_balancer_controller" {
+  chart      = "aws-load-balancer-controller"
+  name       = "aws-load-balancer-controller"
+  namespace  = "kube-system"
+  repository = "https://aws.github.io/eks-charts"
+  version    = "1.4.8"
+
+  set {
+    name  = "clusterName"
+    value = local.name
+  }
+
+  set {
+    name  = "region"
+    value = var.region
+  }
+
+  set {
+    name  = "vpcId"
+    value = var.vpc_id
+  }
+
+  depends_on = [
+    module.eks.aws_eks_cluster,
+  ]
+}
+
 resource "helm_release" "argocd" {
   chart      = "argo-cd"
   name       = "argocd"
@@ -10,7 +37,8 @@ resource "helm_release" "argocd" {
   ]
 
   depends_on = [
-    kubernetes_namespace.argocd
+    kubernetes_namespace.argocd,
+    helm_release.aws_load_balancer_controller
   ]
 }
 
