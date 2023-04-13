@@ -1,9 +1,10 @@
 resource "helm_release" "aws_load_balancer_controller" {
-  chart      = "aws-load-balancer-controller"
-  name       = "aws-load-balancer-controller"
-  namespace  = "kube-system"
-  repository = "https://aws.github.io/eks-charts"
-  version    = "1.4.8"
+  chart            = "aws-load-balancer-controller"
+  name             = "aws-load-balancer-controller"
+  namespace        = "kube-system"
+  create_namespace = true
+  repository       = "https://aws.github.io/eks-charts"
+  version          = "1.4.8"
 
   set {
     name  = "clusterName"
@@ -21,40 +22,40 @@ resource "helm_release" "aws_load_balancer_controller" {
   }
 
   depends_on = [
-    kubernetes_namespace.argocd,
+    data.external.aws_eks_cluster_token,
   ]
 }
 
 resource "helm_release" "argocd" {
-  chart      = "argo-cd"
-  name       = "argocd"
-  namespace  = kubernetes_namespace.argocd.metadata[0].name
-  repository = "https://argoproj.github.io/argo-helm"
-  version    = "5.28.1"
+  chart            = "argo-cd"
+  name             = "argocd"
+  namespace        = "argocd"
+  create_namespace = true
+  repository       = "https://argoproj.github.io/argo-helm"
+  version          = "5.28.1"
 
   values = [
     data.github_repository_file.argocd.content
   ]
 
   depends_on = [
-    kubernetes_namespace.argocd,
     helm_release.aws_load_balancer_controller
   ]
 }
 
 resource "helm_release" "argocd_apps" {
-  chart      = "argocd-apps"
-  name       = "argocd-apps"
-  namespace  = kubernetes_namespace.argocd.metadata[0].name
-  repository = "https://argoproj.github.io/argo-helm"
-  version    = "0.0.9"
+  chart            = "argocd-apps"
+  name             = "argocd-apps"
+  namespace        = "argocd"
+  create_namespace = true
+  repository       = "https://argoproj.github.io/argo-helm"
+  version          = "0.0.9"
 
   values = [
     data.github_repository_file.argocd_apps.content
   ]
 
   depends_on = [
-    kubernetes_namespace.argocd,
     helm_release.argocd,
   ]
 }
