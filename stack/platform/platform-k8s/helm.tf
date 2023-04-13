@@ -21,7 +21,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   }
 
   depends_on = [
-    module.eks.aws_eks_cluster,
+    kubernetes_namespace.argocd,
   ]
 }
 
