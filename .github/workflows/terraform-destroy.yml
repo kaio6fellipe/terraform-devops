@@ -49,5 +49,8 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
+      - name: Terraform Refresh
+        run: terraform refresh -var-file="global/terraform.tfvars"
+
       - name: Terraform Destroy
         run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
