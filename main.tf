@@ -17,6 +17,7 @@ module "us-east-1" {
   database_subnet_a         = var.database_subnet_a
   database_subnet_b         = var.database_subnet_b
   database_subnet_c         = var.database_subnet_c
+  platform_eks_services     = var.platform_eks_services
   SSH_PRIVATE_KEY           = var.SSH_PRIVATE_KEY
   AWS_RDS_PASSWORD          = var.AWS_RDS_PASSWORD
   ANSIBLE_VAULT_PASSWORD    = var.ANSIBLE_VAULT_PASSWORD

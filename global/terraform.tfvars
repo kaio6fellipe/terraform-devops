@@ -12,5 +12,6 @@ public_subnet_c           = "10.1.103.0/24"
 database_subnet_a         = "10.1.201.0/24"
 database_subnet_b         = "10.1.202.0/24"
 database_subnet_c         = "10.1.203.0/24"
+platform_eks_services     = "10.2.0.0/16"
 rds_allocated_storage     = 10
 rds_max_allocated_storage = 20
