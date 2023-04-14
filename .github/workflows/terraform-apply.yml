@@ -115,13 +115,13 @@ jobs:
           channel-id: 'C03PQ7DSHA9'
           payload: |
             {
-              "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nCommit message: ${{ github.event.head_commit.message }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nCommit message: ${{ github.event.head_commit.message }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                   }
                 }
               ]
