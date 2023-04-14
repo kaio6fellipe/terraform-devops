@@ -33,5 +33,5 @@ module "vpc" {
 
 resource "aws_default_vpc" "default" {
   #checkov:skip=CKV_AWS_148: Default VPC it's going to be destroyed
-  force_destroy = true
+  #force_destroy = true
 }
