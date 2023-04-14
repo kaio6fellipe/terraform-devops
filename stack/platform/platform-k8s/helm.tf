@@ -21,6 +21,11 @@ resource "helm_release" "aws_load_balancer_controller" {
     value = var.vpc_id
   }
 
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.load_balancer_controller_targetgroup_binding_only_irsa_role.iam_role_arn
+  }
+
   depends_on = [
     data.external.aws_eks_cluster_token,
   ]
