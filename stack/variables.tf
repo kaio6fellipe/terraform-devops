@@ -67,6 +67,10 @@ variable "database_subnet_c" {
   type = string
 }
 
+variable "platform_eks_services" {
+  type = string
+}
+
 variable "SSH_PRIVATE_KEY" {
   description = "SSH Private Key for Ansible Server (Controller)"
   type        = string

@@ -8,6 +8,8 @@ variable "vpc_private_subnets" {}
 
 variable "vpc_public_subnets" {}
 
+variable "platform_eks_services" {}
+
 variable "region" {}
 
 variable "availability_zones" {}

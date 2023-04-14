@@ -78,6 +78,8 @@ variable "database_subnet_id_0" {}
 
 variable "db_subnet_group_name" {}
 
+variable "platform_eks_services" {}
+
 variable "vpc_cidr" {}
 
 variable "SSH_PRIVATE_KEY" {
