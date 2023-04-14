@@ -25,6 +25,7 @@
 
 | Name | Type |
 |------|------|
+| [aws_default_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/resources/default_vpc) | resource |
 | [aws_key_pair.terraform-aws](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/resources/key_pair) | resource |
 | [aws_ami.amazon_linux_2](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/ami) | data source |
 | [aws_ami.ubuntu2004](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/ami) | data source |
@@ -49,6 +50,7 @@
 | <a name="input_environment"></a> [environment](#input\_environment) | n/a | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name prefix | `string` | `"terraform-aws"` | no |
+| <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | n/a | `string` | n/a | yes |
 | <a name="input_private_subnet_a"></a> [private\_subnet\_a](#input\_private\_subnet\_a) | n/a | `string` | n/a | yes |
 | <a name="input_private_subnet_b"></a> [private\_subnet\_b](#input\_private\_subnet\_b) | n/a | `string` | n/a | yes |
 | <a name="input_private_subnet_c"></a> [private\_subnet\_c](#input\_private\_subnet\_c) | n/a | `string` | n/a | yes |
