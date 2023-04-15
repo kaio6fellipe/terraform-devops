@@ -1,3 +1,9 @@
+resource "time_sleep" "wait_destroy_3_min" {
+  depends_on = [helm_release.aws_load_balancer_controller]
+
+  destroy_duration = "5m"
+}
+
 resource "helm_release" "aws_load_balancer_controller" {
   chart            = "aws-load-balancer-controller"
   name             = "aws-load-balancer-controller"
@@ -5,6 +11,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   create_namespace = true
   repository       = "https://aws.github.io/eks-charts"
   version          = "1.4.8"
+  force_update     = true
 
   set {
     name  = "clusterName"
@@ -32,10 +39,11 @@ resource "helm_release" "aws_load_balancer_controller" {
 }
 
 resource "helm_release" "external_dns" {
-  chart            = "external-dns"
-  name             = "external-dns"
-  repository       = "https://kubernetes-sigs.github.io/external-dns"
-  version          = "1.12.2"
+  chart        = "external-dns"
+  name         = "external-dns"
+  repository   = "https://kubernetes-sigs.github.io/external-dns"
+  version      = "1.12.2"
+  force_update = true
 
   depends_on = [
     module.eks.eks_managed_node_groups,
@@ -49,13 +57,15 @@ resource "helm_release" "argocd" {
   create_namespace = true
   repository       = "https://argoproj.github.io/argo-helm"
   version          = "5.28.1"
+  force_update     = true
 
   values = [
     data.github_repository_file.argocd.content
   ]
 
   depends_on = [
-    helm_release.aws_load_balancer_controller
+    helm_release.aws_load_balancer_controller,
+    time_sleep.wait_destroy_3_min,
   ]
 }
 
@@ -66,6 +76,7 @@ resource "helm_release" "argocd_apps" {
   create_namespace = true
   repository       = "https://argoproj.github.io/argo-helm"
   version          = "0.0.9"
+  force_update     = true
 
   values = [
     data.github_repository_file.argocd_apps.content
