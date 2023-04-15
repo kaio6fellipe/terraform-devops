@@ -31,6 +31,17 @@ resource "helm_release" "aws_load_balancer_controller" {
   ]
 }
 
+resource "helm_release" "external_dns" {
+  chart            = "external-dns"
+  name             = "external-dns"
+  repository       = "https://kubernetes-sigs.github.io/external-dns"
+  version          = "1.12.2"
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
+}
+
 resource "helm_release" "argocd" {
   chart            = "argo-cd"
   name             = "argocd"
