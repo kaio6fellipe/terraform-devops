@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "additional" {
-  name = "${local.name}-additional-fargate-policy"
+  name = "${local.name}-additional-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -19,7 +19,7 @@ module "load_balancer_controller_targetgroup_binding_only_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.17.0"
 
-  role_name                              = "load-balancer-controller-${var.environment}"
+  role_name                              = "aws-load-balancer-controller-${var.environment}"
   attach_load_balancer_controller_policy = true
 
   oidc_providers = {

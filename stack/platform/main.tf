@@ -119,6 +119,7 @@ module "platform_k8s" {
   vpc_cidr              = var.vpc_cidr
   vpc_private_subnets   = var.vpc_private_subnets
   vpc_public_subnets    = var.vpc_public_subnets
+  vpc_intra_subnets     = var.vpc_intra_subnets
   platform_eks_services = var.platform_eks_services
   region                = var.region
   availability_zones    = [var.availability_zone_1, var.availability_zone_2]

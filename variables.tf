@@ -48,6 +48,21 @@ variable "private_subnet_b" {
   type        = string
 }
 
+variable "intra_subnet_a" {
+  description = "Intra Subnet in AZ (a)"
+  type        = string
+}
+
+variable "intra_subnet_b" {
+  description = "Intra Subnet in AZ (b)"
+  type        = string
+}
+
+variable "intra_subnet_c" {
+  description = "Intra Subnet in AZ (c)"
+  type        = string
+}
+
 variable "public_subnet_b" {
   description = "Public Subnet in AZ (a)"
   type        = string

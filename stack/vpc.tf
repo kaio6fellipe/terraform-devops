@@ -7,6 +7,7 @@ module "vpc" {
 
   azs              = ["${var.region}a", "${var.region}b", "${var.region}c"]
   private_subnets  = ["${var.private_subnet_a}", "${var.private_subnet_b}", "${var.private_subnet_c}"]
+  intra_subnets    = ["${var.intra_subnet_a}", "${var.intra_subnet_b}", "${var.intra_subnet_c}"]
   public_subnets   = ["${var.public_subnet_a}", "${var.public_subnet_b}", "${var.public_subnet_c}"]
   database_subnets = ["${var.database_subnet_a}", "${var.database_subnet_b}", "${var.database_subnet_c}"]
 
