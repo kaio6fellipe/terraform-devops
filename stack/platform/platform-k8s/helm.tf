@@ -27,7 +27,7 @@ resource "helm_release" "aws_load_balancer_controller" {
   }
 
   depends_on = [
-    data.external.aws_eks_cluster_token,
+    module.eks.eks_managed_node_groups,
   ]
 }
 
