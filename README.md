@@ -53,6 +53,9 @@ No resources.
 | <a name="input_db_instance_type"></a> [db\_instance\_type](#input\_db\_instance\_type) | The default instance type to use in all RDS instances | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment variable passed to all the modules | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | The default instance type to use in all the instances | `string` | n/a | yes |
+| <a name="input_intra_subnet_a"></a> [intra\_subnet\_a](#input\_intra\_subnet\_a) | Intra Subnet in AZ (a) | `string` | n/a | yes |
+| <a name="input_intra_subnet_b"></a> [intra\_subnet\_b](#input\_intra\_subnet\_b) | Intra Subnet in AZ (b) | `string` | n/a | yes |
+| <a name="input_intra_subnet_c"></a> [intra\_subnet\_c](#input\_intra\_subnet\_c) | Intra Subnet in AZ (c) | `string` | n/a | yes |
 | <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | Platform EKS cluster subnet (Services) | `string` | n/a | yes |
 | <a name="input_private_subnet_a"></a> [private\_subnet\_a](#input\_private\_subnet\_a) | Private Subnet in AZ (a) | `string` | n/a | yes |
 | <a name="input_private_subnet_b"></a> [private\_subnet\_b](#input\_private\_subnet\_b) | Private Subnet in AZ (b) | `string` | n/a | yes |

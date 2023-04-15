@@ -49,6 +49,9 @@
 | <a name="input_db_instance_type"></a> [db\_instance\_type](#input\_db\_instance\_type) | n/a | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | n/a | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | n/a | yes |
+| <a name="input_intra_subnet_a"></a> [intra\_subnet\_a](#input\_intra\_subnet\_a) | n/a | `string` | n/a | yes |
+| <a name="input_intra_subnet_b"></a> [intra\_subnet\_b](#input\_intra\_subnet\_b) | n/a | `string` | n/a | yes |
+| <a name="input_intra_subnet_c"></a> [intra\_subnet\_c](#input\_intra\_subnet\_c) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name prefix | `string` | `"terraform-aws"` | no |
 | <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | n/a | `string` | n/a | yes |
 | <a name="input_private_subnet_a"></a> [private\_subnet\_a](#input\_private\_subnet\_a) | n/a | `string` | n/a | yes |

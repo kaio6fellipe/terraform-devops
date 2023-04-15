@@ -22,7 +22,8 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | terraform-aws-modules/eks/aws | 19.11.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | terraform-aws-modules/eks/aws | 19.13.0 |
+| <a name="module_eks_managed_node_group"></a> [eks\_managed\_node\_group](#module\_eks\_managed\_node\_group) | terraform-aws-modules/eks/aws//modules/eks-managed-node-group | 19.13.0 |
 | <a name="module_load_balancer_controller_targetgroup_binding_only_irsa_role"></a> [load\_balancer\_controller\_targetgroup\_binding\_only\_irsa\_role](#module\_load\_balancer\_controller\_targetgroup\_binding\_only\_irsa\_role) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.17.0 |
 | <a name="module_vpc_cni_irsa"></a> [vpc\_cni\_irsa](#module\_vpc\_cni\_irsa) | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.0 |
 
@@ -30,7 +31,6 @@
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.additional](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [helm_release.argocd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.argocd_apps](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.aws_load_balancer_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
@@ -56,14 +56,15 @@
 | <a name="input_environment"></a> [environment](#input\_environment) | n/a | `any` | n/a | yes |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | n/a | `list` | <pre>[<br>  "t3.small"<br>]</pre> | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | n/a | `any` | n/a | yes |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod | `string` | `"1.24"` | no |
-| <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `3` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod | `string` | `"1.25"` | no |
+| <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `10` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | n/a | `number` | `2` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"platform-eks"` | no |
 | <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | n/a | `any` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `any` | n/a | yes |
+| <a name="input_vpc_intra_subnets"></a> [vpc\_intra\_subnets](#input\_vpc\_intra\_subnets) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_private_subnets"></a> [vpc\_private\_subnets](#input\_vpc\_private\_subnets) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_public_subnets"></a> [vpc\_public\_subnets](#input\_vpc\_public\_subnets) | n/a | `any` | n/a | yes |
 

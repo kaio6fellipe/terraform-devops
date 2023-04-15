@@ -67,6 +67,7 @@ No requirements.
 | <a name="input_region"></a> [region](#input\_region) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | n/a | `any` | n/a | yes |
+| <a name="input_vpc_intra_subnets"></a> [vpc\_intra\_subnets](#input\_vpc\_intra\_subnets) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_private_subnets"></a> [vpc\_private\_subnets](#input\_vpc\_private\_subnets) | n/a | `any` | n/a | yes |
 | <a name="input_vpc_public_subnets"></a> [vpc\_public\_subnets](#input\_vpc\_public\_subnets) | n/a | `any` | n/a | yes |
 
