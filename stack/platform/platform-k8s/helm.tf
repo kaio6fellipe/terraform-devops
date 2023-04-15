@@ -1,5 +1,8 @@
 resource "time_sleep" "wait_destroy_3_min" {
-  depends_on = [helm_release.aws_load_balancer_controller]
+  depends_on = [
+    helm_release.aws_load_balancer_controller,
+    helm_release.external_dns,
+  ]
 
   destroy_duration = "5m"
 }
