@@ -41,9 +41,15 @@ resource "helm_release" "aws_load_balancer_controller" {
 resource "helm_release" "external_dns" {
   chart        = "external-dns"
   name         = "external-dns"
+  namespace    = "kube-system"
   repository   = "https://kubernetes-sigs.github.io/external-dns"
   version      = "1.12.2"
   force_update = true
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.external_dns_irsa.iam_role_arn
+  }
 
   depends_on = [
     module.eks.eks_managed_node_groups,
