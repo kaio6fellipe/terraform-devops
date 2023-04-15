@@ -11,12 +11,24 @@ module "eks" {
   # cluster_ip_family = "ipv4"
 
   cluster_addons = {
-    kube-proxy = {}
-    vpc-cni    = {}
+    kube-proxy = {
+      most_recent = true
+    }
+    vpc-cni = {
+      most_recent              = true
+      before_compute           = true
+      service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
+    }
     coredns = {
-      configuration_values = jsonencode({
-        computeType = "Fargate"
-      })
+      preserve    = true
+      most_recent = true
+      timeouts = {
+        create = "10m"
+        delete = "10m"
+      }
+      depends_on = [
+        module.eks.eks_managed_node_groups
+      ]
     }
   }
 
@@ -24,8 +36,8 @@ module "eks" {
   subnet_ids               = var.vpc_private_subnets
   control_plane_subnet_ids = var.vpc_private_subnets
 
-  create_cluster_security_group = false
-  create_node_security_group    = false
+  create_cluster_security_group = true
+  create_node_security_group    = true
 
   manage_aws_auth_configmap = true
 
@@ -47,34 +59,32 @@ module "eks" {
     },
   ]
 
-  fargate_profile_defaults = {
-    iam_role_additional_policies = {
-      additional = aws_iam_policy.additional.arn
+  cluster_identity_providers = {
+    sts = {
+      client_id = "sts.amazonaws.com"
     }
   }
 
-  fargate_profiles = {
-    default = {
-      name = "default"
-      selectors = [
-        # {
-        #   namespace = "kube-system"
-        #   labels = {
-        #     k8s-app = "kube-dns"
-        #   }
-        # },
-        # {
-        #   namespace = "default"
-        # },
-        {
-          namespace = "*"
-        }
-      ]
+  iam_role_additional_policies = {
+    additional = aws_iam_policy.additional.arn
+  }
 
-      timeouts = {
-        create = "20m"
-        delete = "20m"
-      }
+  # EKS Managed Node Group(s)
+  eks_managed_node_group_defaults = {
+    instance_types             = var.instance_types
+    iam_role_attach_cni_policy = true
+  }
+
+  eks_managed_node_groups = {
+    default = {
+      name            = "${local.name}-green"
+      use_name_prefix = true
+      min_size        = var.min_size
+      max_size        = var.max_size
+      desired_size    = var.desired_size
+
+      instance_types = var.instance_types
+      capacity_type  = "SPOT"
     }
   }
 

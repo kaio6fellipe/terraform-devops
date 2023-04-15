@@ -8,6 +8,8 @@ variable "vpc_private_subnets" {}
 
 variable "vpc_public_subnets" {}
 
+variable "vpc_intra_subnets" {}
+
 variable "platform_eks_services" {}
 
 variable "region" {}
@@ -48,7 +50,7 @@ variable "desired_size" {
 }
 
 variable "max_size" {
-  default = 3
+  default = 10
 }
 
 variable "min_size" {

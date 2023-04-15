@@ -10,10 +10,13 @@ module "us-east-1" {
   vpc_cidr                  = var.vpc_cidr
   private_subnet_a          = var.private_subnet_a
   public_subnet_a           = var.public_subnet_a
+  intra_subnet_a            = var.intra_subnet_a
   private_subnet_b          = var.private_subnet_b
   public_subnet_b           = var.public_subnet_b
+  intra_subnet_b            = var.intra_subnet_b
   private_subnet_c          = var.private_subnet_c
   public_subnet_c           = var.public_subnet_c
+  intra_subnet_c            = var.intra_subnet_c
   database_subnet_a         = var.database_subnet_a
   database_subnet_b         = var.database_subnet_b
   database_subnet_c         = var.database_subnet_c
