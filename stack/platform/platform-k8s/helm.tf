@@ -59,6 +59,21 @@ resource "helm_release" "external_dns" {
   ]
 }
 
+resource "null_resource" "external_dns" {
+
+  triggers = {
+    external_dns = helm_release.external_dns.name
+  }
+
+  provisioner "local-exec" {
+    when        = destroy
+    working_dir = "${path.root}/lib/python"
+
+    command     = "remove_route_53_stateless_resources.py"
+    interpreter = ["python3"]
+  }
+}
+
 resource "helm_release" "argocd" {
   chart            = "argo-cd"
   name             = "argocd"

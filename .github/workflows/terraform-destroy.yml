@@ -32,6 +32,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install boto3 and other packages
+        run: pip install boto3==1.26.114
+
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.2.4

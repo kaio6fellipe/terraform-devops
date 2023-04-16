@@ -29,7 +29,7 @@ init: guard-reset ##@repository Init repository config and hooks and reset .terr
 ifeq ($(reset), true)
 	$(shell cp hooks/pre-push .git/hooks/pre-push)
 	$(shell chmod +x .git/hooks/pre-push)
-	rm -rfd .terraform/
+	sudo rm -rfd .terraform/
 	chmod +x stack/platform/platform-k8s/eks-cluster-ca-certificate.sh
 	chmod +x stack/platform/platform-k8s/eks-cluster-endpoint.sh
 	chmod +x stack/platform/platform-k8s/eks-cluster-token.sh
