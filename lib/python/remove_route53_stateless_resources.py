@@ -26,8 +26,6 @@ def enumerate_records():
                 record["ZoneId"] = managed_record["ZoneId"]
                 stateless_dns_record.append(record)
 
-# print(json.dumps(stateless_dns_record, indent=2))
-
 def delete_record(json_record):
     zone_id = json_record["ZoneId"]
     json_payload = {
