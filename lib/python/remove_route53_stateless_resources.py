@@ -54,6 +54,10 @@ def delete_record(json_record):
     return response
 
 if __name__ == "__main__":
-    enumerate_records()
-    for record in stateless_dns_record:
-        delete_record(record)
+    try:
+        enumerate_records()
+        for record in stateless_dns_record:
+            delete_record(record)
+    except Exception as ex:
+        print(ex)
+        exit(0)

@@ -48,18 +48,23 @@ def delete_security_group(security_group):
     return response
 
 if __name__ == "__main__":
-    client = client_connect()
-    load_balancers = get_load_balancers(client)
-    for load_balancer in load_balancers["LoadBalancers"]:
-        load_balancer_arn = load_balancer["LoadBalancerArn"]
-        tags = get_tags(client, load_balancer_arn)
-        if "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack" in str(tags):
-            target_groups = get_target_groups(client, load_balancer_arn)
-            target_groups = target_groups["TargetGroups"]
-            security_groups = load_balancer["SecurityGroups"]
-            for target_group in target_groups:
-                target_group_arn = target_group["TargetGroupArn"]
-                delete_target_group(client, target_group_arn)
-            for security_group in security_groups:
-                delete_security_group(security_group)
-            delete_load_balancer(client, load_balancer_arn)
+    try:
+        client = client_connect()
+        load_balancers = get_load_balancers(client)
+        for load_balancer in load_balancers["LoadBalancers"]:
+            load_balancer_arn = load_balancer["LoadBalancerArn"]
+            tags = get_tags(client, load_balancer_arn)
+            if "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack" in str(tags):
+                target_groups = get_target_groups(client, load_balancer_arn)
+                target_groups = target_groups["TargetGroups"]
+                security_groups = load_balancer["SecurityGroups"]
+                delete_load_balancer(client, load_balancer_arn)
+                for target_group in target_groups:
+                    target_group_arn = target_group["TargetGroupArn"]
+                    delete_target_group(client, target_group_arn)
+                for security_group in security_groups:
+                    delete_security_group(security_group)
+    except Exception as ex:
+        print(ex)
+        exit(0)
+            

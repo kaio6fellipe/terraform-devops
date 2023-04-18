@@ -1,11 +1,11 @@
-resource "time_sleep" "wait_destroy_3_min" {
-  depends_on = [
-    helm_release.aws_load_balancer_controller,
-    helm_release.external_dns,
-  ]
-
-  destroy_duration = "5m"
-}
+# resource "time_sleep" "wait_destroy_3_min" {
+#   depends_on = [
+#     helm_release.aws_load_balancer_controller,
+#     helm_release.external_dns,
+#   ]
+# 
+#   destroy_duration = "3m"
+# }
 
 resource "helm_release" "aws_load_balancer_controller" {
   chart            = "aws-load-balancer-controller"
@@ -84,7 +84,7 @@ resource "null_resource" "external_dns" {
     when        = destroy
     working_dir = "${path.root}/lib/python"
 
-    command     = "remove_route_53_stateless_resources.py"
+    command     = "remove_route53_stateless_resources.py"
     interpreter = ["python3"]
   }
 }
@@ -104,7 +104,7 @@ resource "helm_release" "argocd" {
 
   depends_on = [
     helm_release.aws_load_balancer_controller,
-    time_sleep.wait_destroy_3_min,
+    # time_sleep.wait_destroy_3_min,
   ]
 }
 
