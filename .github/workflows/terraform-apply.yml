@@ -102,32 +102,32 @@ jobs:
         run: terraform apply -auto-approve -var-file="global/terraform.tfvars"
         continue-on-error: true
 
-      # Configure resources that depends on data sources for authentication, like eks-cluster auth
+      # Second apply to configure resources that depends on data sources for authentication, like eks-cluster auth
       - name: Terraform Apply (Double check)
         id: apply2
         run: terraform apply -auto-approve -var-file="global/terraform.tfvars"
         continue-on-error: true
 
-      - name: Post to a Slack channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.19.0
-        with:
-          channel-id: 'C03PQ7DSHA9'
-          payload: |
-            {
-              "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      # - name: Post to a Slack channel
+      #   id: slack
+      #   uses: slackapi/slack-github-action@v1.19.0
+      #   with:
+      #     channel-id: 'C03PQ7DSHA9'
+      #     payload: |
+      #       {
+      #         "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Terraform apply on repo terraform-devops result: ${{ steps.apply2.outcome }}\nURL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: Terraform Apply Status
         if: steps.apply2.outcome == 'failure'

@@ -41,6 +41,21 @@ resource "helm_release" "aws_load_balancer_controller" {
   ]
 }
 
+resource "null_resource" "aws_load_balancer_controller" {
+
+  triggers = {
+    external_dns = helm_release.aws_load_balancer_controller.name
+  }
+
+  provisioner "local-exec" {
+    when        = destroy
+    working_dir = "${path.root}/lib/python"
+
+    command     = "remove_loadbalancer_stateless_resources.py"
+    interpreter = ["python3"]
+  }
+}
+
 resource "helm_release" "external_dns" {
   chart        = "external-dns"
   name         = "external-dns"
@@ -57,6 +72,21 @@ resource "helm_release" "external_dns" {
   depends_on = [
     module.eks.eks_managed_node_groups,
   ]
+}
+
+resource "null_resource" "external_dns" {
+
+  triggers = {
+    external_dns = helm_release.external_dns.name
+  }
+
+  provisioner "local-exec" {
+    when        = destroy
+    working_dir = "${path.root}/lib/python"
+
+    command     = "remove_route_53_stateless_resources.py"
+    interpreter = ["python3"]
+  }
 }
 
 resource "helm_release" "argocd" {
