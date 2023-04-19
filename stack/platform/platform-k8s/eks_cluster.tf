@@ -46,3 +46,18 @@ module "eks" {
 
   tags = local.tags
 }
+
+resource "null_resource" "route53_external_dns" {
+  provisioner "local-exec" {
+    when        = destroy
+    working_dir = "${path.root}/lib/python"
+
+    command     = "remove_route53_stateless_resources.py"
+    on_failure  = continue
+    interpreter = ["python3"]
+  }
+
+  depends_on = [
+    module.eks,
+  ]
+}

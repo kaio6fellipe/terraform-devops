@@ -104,7 +104,6 @@ if __name__ == "__main__":
                 target_groups = get_target_groups(client, load_balancer_arn)
                 target_groups = target_groups["TargetGroups"]
                 security_groups = load_balancer["SecurityGroups"]
-                delete_load_balancer(client, load_balancer_arn)
                 listeners = get_listeners(client, load_balancer_arn)
                 for listener in listeners["Listeners"]:
                     listener_arn = listener["ListenerArn"]
@@ -113,6 +112,7 @@ if __name__ == "__main__":
                         rule_arn = rule["RuleArn"]
                         delete_rule(client, rule_arn)
                     delete_listener(client, listener_arn)
+                delete_load_balancer(client, load_balancer_arn)
                 for target_group in target_groups:
                     target_group_arn = target_group["TargetGroupArn"]
                     delete_target_group(client, target_group_arn)
@@ -122,3 +122,4 @@ if __name__ == "__main__":
         print(ex)
         exit(0)
             
+# Change the order and way the code fetches information from AWS and deleting out-of-state resources from Terraform
