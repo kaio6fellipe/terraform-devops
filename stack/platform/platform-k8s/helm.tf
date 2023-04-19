@@ -1,12 +1,3 @@
-# resource "time_sleep" "wait_destroy_3_min" {
-#   depends_on = [
-#     helm_release.aws_load_balancer_controller,
-#     helm_release.external_dns,
-#   ]
-# 
-#   destroy_duration = "3m"
-# }
-
 resource "helm_release" "aws_load_balancer_controller" {
   chart            = "aws-load-balancer-controller"
   name             = "aws-load-balancer-controller"
@@ -36,24 +27,18 @@ resource "helm_release" "aws_load_balancer_controller" {
     value = module.load_balancer_controller_targetgroup_binding_only_irsa_role.iam_role_arn
   }
 
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
-}
-
-resource "null_resource" "aws_load_balancer_controller" {
-
-  triggers = {
-    external_dns = helm_release.aws_load_balancer_controller.name
-  }
-
   provisioner "local-exec" {
     when        = destroy
     working_dir = "${path.root}/lib/python"
 
     command     = "remove_loadbalancer_stateless_resources.py"
+    on_failure  = continue
     interpreter = ["python3"]
   }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
 }
 
 resource "helm_release" "external_dns" {
@@ -69,24 +54,18 @@ resource "helm_release" "external_dns" {
     value = module.external_dns_irsa.iam_role_arn
   }
 
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
-}
-
-resource "null_resource" "external_dns" {
-
-  triggers = {
-    external_dns = helm_release.external_dns.name
-  }
-
   provisioner "local-exec" {
     when        = destroy
     working_dir = "${path.root}/lib/python"
 
     command     = "remove_route53_stateless_resources.py"
+    on_failure  = continue
     interpreter = ["python3"]
   }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
 }
 
 resource "helm_release" "argocd" {

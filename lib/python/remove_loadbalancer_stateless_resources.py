@@ -47,6 +47,32 @@ def delete_security_group(security_group):
     print(response)
     return response
 
+def get_listeners(client, load_balancer_arn):
+    listeners = client.describe_listeners(
+        LoadBalancerArn=str(load_balancer_arn)
+    )
+    return listeners
+
+def delete_listener(client, listener_arn):
+    response = client.delete_listener(
+        ListenerArn=str(listener_arn)
+    )
+    print(response)
+    return response
+
+def get_rules(client, listener_arn):
+    rules = client.describe_rules(
+        ListenerArn=str(listener_arn)
+    )
+    return rules
+
+def delete_rule(client, rule_arn):
+    response = client.delete_rule(
+        RuleArn=str(rule_arn)
+    )
+    print(response)
+    return response
+
 if __name__ == "__main__":
     try:
         client = client_connect()
@@ -59,6 +85,14 @@ if __name__ == "__main__":
                 target_groups = target_groups["TargetGroups"]
                 security_groups = load_balancer["SecurityGroups"]
                 delete_load_balancer(client, load_balancer_arn)
+                listeners = get_listeners(client, load_balancer_arn)
+                for listener in listeners["Listeners"]:
+                    listener_arn = listener["ListenerArn"]
+                    rules = get_rules(client, listener_arn)
+                    for rule in rules["Rules"]:
+                        rule_arn = rule["RuleArn"]
+                        delete_rule(client, rule_arn)
+                    delete_listener(client, listener_arn)
                 for target_group in target_groups:
                     target_group_arn = target_group["TargetGroupArn"]
                     delete_target_group(client, target_group_arn)
