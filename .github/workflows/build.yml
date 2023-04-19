@@ -3,6 +3,9 @@ name: Create and publish a Docker image
 on:
   push:
     branches: ['development']
+    paths:
+      - 'Dockerfile'
+      - '.github/workflows/build.yml'
 
 env:
   REGISTRY: ghcr.io
@@ -38,5 +41,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: development
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/platform-ops:development
           labels: ${{ steps.meta.outputs.labels }}

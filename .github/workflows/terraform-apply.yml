@@ -3,6 +3,11 @@ name: Terraform apply
 on:
   push:
     branches: [development]
+    paths-ignore:
+      - 'Dockerfile'
+      - 'Makefile'
+      - 'help.mk'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
     inputs:
       log_level:
