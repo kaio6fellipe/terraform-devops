@@ -1,12 +1,22 @@
 name: Terraform destroy
 
-on: 
+on:
   workflow_dispatch:
     inputs:
       dir:
         description: 'Directory with resources to be destroyed'
         required: true
         default: .
+      log_level:
+        type: choice
+        description: Log Level
+        required: false
+        options:
+          - ERROR
+          - WARN
+          - INFO
+          - DEBUG
+          - TRACE
     branches: [development]
 
 env:
