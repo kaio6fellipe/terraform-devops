@@ -1,6 +1,6 @@
 name: Terraform apply
 
-on: 
+on:
   push:
     branches: [development]
   workflow_dispatch:

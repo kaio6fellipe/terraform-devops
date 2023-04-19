@@ -11,11 +11,15 @@ def get_load_balancers(client):
     return load_balancers
 
 def delete_load_balancer(client, load_balancer_arn):
-    response = client.delete_load_balancer(
-        LoadBalancerArn=str(load_balancer_arn)
-    )
-    print(response)
-    return response
+    try:
+        response = client.delete_load_balancer(
+            LoadBalancerArn=str(load_balancer_arn)
+        )
+        print(response)
+        return response
+    except Exception as ex:
+        print(ex)
+        pass
 
 def get_tags(client, load_balancer_arn):
     tags = client.describe_tags(
@@ -32,20 +36,28 @@ def get_target_groups(client, load_balancer_arn):
     return target_groups
 
 def delete_target_group(client, target_group_arn):
-    response = client.delete_target_group(
-        TargetGroupArn=str(target_group_arn)
-    )
-    print(response)
-    return response
+    try:
+        response = client.delete_target_group(
+            TargetGroupArn=str(target_group_arn)
+        )
+        print(response)
+        return response
+    except Exception as ex:
+        print(ex)
+        pass
 
 def delete_security_group(security_group):
-    client = boto3.client('ec2', region_name='us-east-1')
-    response = client.delete_security_group(
-        GroupId=str(security_group),
-        GroupName=str(security_group),
-    )
-    print(response)
-    return response
+    try:
+        client = boto3.client('ec2', region_name='us-east-1')
+        response = client.delete_security_group(
+            GroupId=str(security_group),
+            GroupName=str(security_group),
+        )
+        print(response)
+        return response
+    except Exception as ex:
+        print(ex)
+        pass
 
 def get_listeners(client, load_balancer_arn):
     listeners = client.describe_listeners(
@@ -54,11 +66,15 @@ def get_listeners(client, load_balancer_arn):
     return listeners
 
 def delete_listener(client, listener_arn):
-    response = client.delete_listener(
-        ListenerArn=str(listener_arn)
-    )
-    print(response)
-    return response
+    try:
+        response = client.delete_listener(
+            ListenerArn=str(listener_arn)
+        )
+        print(response)
+        return response
+    except Exception as ex:
+        print(ex)
+        pass
 
 def get_rules(client, listener_arn):
     rules = client.describe_rules(
@@ -67,11 +83,15 @@ def get_rules(client, listener_arn):
     return rules
 
 def delete_rule(client, rule_arn):
-    response = client.delete_rule(
-        RuleArn=str(rule_arn)
-    )
-    print(response)
-    return response
+    try:
+        response = client.delete_rule(
+            RuleArn=str(rule_arn)
+        )
+        print(response)
+        return response
+    except Exception as ex:
+        print(ex)
+        pass
 
 if __name__ == "__main__":
     try:
