@@ -1,4 +1,5 @@
-# Script used to exclude stateless load balancers during Terraform Destroy, records created by AWS load balancer controller
+# Script used to exclude stateless load balancers during Terraform Destroy, 
+# records created by AWS load balancer controller
 
 import boto3
 
