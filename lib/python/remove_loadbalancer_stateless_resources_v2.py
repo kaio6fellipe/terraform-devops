@@ -1,17 +1,50 @@
 # Script used to exclude stateless load balancers during Terraform Destroy, records created by AWS load balancer controller
 
-import boto3
+import logging
+from aws.ec2 import EC2 as EC2Class
+from aws.load_balancer import LoadBalancer as LoadBalancerClass
+from aws.load_balancer import TargetGroup as TargetGroupClass
+
+logging.basicConfig(
+    format='{"asctime": "%(asctime)s", "name": "%(name)s", "loglevel":"%(levelname)s", "message":"%(message)s"}',
+    level=logging.INFO
+)
 
 if __name__ == "__main__":
     try:
-        client = client_connect()
-        # load_balancers = get_load_balancers(client)
-        # for load_balancer in load_balancers["LoadBalancers"]:
-        #     load_balancer_arn = load_balancer["LoadBalancerArn"]
-        #     tags = get_tags(client, load_balancer_arn)
-        #     if "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack" in str(tags):
-        #         target_groups = get_target_groups(client, load_balancer_arn)
-        #         target_groups = target_groups["TargetGroups"]
+        load_balancer_to_delete = []
+        target_groups_to_delete = []
+        security_groups_to_delete = []
+        listeners_to_delete = []
+
+        lb_stateless = LoadBalancerClass(region="us-east-1")
+        lb_stateless.client_connect()
+        load_balancers = lb_stateless.get_load_balancers()
+        logging.info("Load balancers: %s", str(load_balancers))
+
+        for load_balancer in load_balancers["LoadBalancers"]:
+            load_balancer_arn = load_balancer["LoadBalancerArn"]
+            logging.info("Load balancer ARN: %s", str(load_balancer_arn))
+            tags = lb_stateless.get_tags(load_balancer_arn)
+            logging.info("Tags: %s", str(tags))
+            if "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack" in str(tags):
+                load_balancer_to_delete.append(load_balancer_arn)
+        
+        tg_stateless = TargetGroupClass(region="us-east-1")
+        tg_stateless.client_connect()
+        target_groups = tg_stateless.get_target_groups()
+        logging.info("Target groups: %s", str(target_groups))
+
+        for target_group in target_groups["TargetGroups"]:
+            target_group_arn = target_group["TargetGroupArn"]
+            logging.info("Target Group ARN: %s", str(target_group_arn))
+            tags = tg_stateless.get_tags(target_group_arn)
+            logging.info("Tags: %s", str(tags))
+            if "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack" in str(tags):
+                target_groups_to_delete.append(target_group_arn)
+
+        ec2_stateless = EC2Class(region="us-east-1")
+        ec2_stateless.client_connect()
         #         security_groups = load_balancer["SecurityGroups"]
         #         listeners = get_listeners(client, load_balancer_arn)
         #         for listener in listeners["Listeners"]:
