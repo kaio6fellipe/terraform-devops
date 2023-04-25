@@ -6,7 +6,7 @@ import sys
 import logging
 from aws.ec2 import EC2 as EC2Class # pylint: disable=import-error
 from aws.load_balancer import LoadBalancer as LoadBalancerClass # pylint: disable=import-error
-from aws.load_balancer import TargetGroup as TargetGroupClass # pylint: disable=import-error
+from aws.target_group import TargetGroup as TargetGroupClass # pylint: disable=import-error
 
 logging.basicConfig(
     format='{"asctime": "%(asctime)s", "name": "%(name)s", "loglevel":"%(levelname)s", "message":"%(message)s"}', # pylint: disable=line-too-long
