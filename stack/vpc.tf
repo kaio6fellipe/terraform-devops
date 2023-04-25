@@ -30,6 +30,22 @@ module "vpc" {
   vpc_tags = {
     Name = "vpc-${var.region}-${var.environment}"
   }
+  
+  depends_on = [
+    null_resource.stateless_loadbalancer
+  ]
+}
+
+resource "null_resource" "stateless_loadbalancer" {
+  # triggers = module.vpc.vpc_id
+  provisioner "local-exec" {
+    when        = destroy
+    working_dir = "${path.root}/lib/python"
+
+    command     = "remove_loadbalancer_stateless_resources.py"
+    on_failure  = continue
+    interpreter = ["python3"]
+  }
 }
 
 resource "aws_default_vpc" "default" {

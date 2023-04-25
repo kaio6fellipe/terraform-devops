@@ -1,124 +1,110 @@
-# Script used to exclude stateless load balancers during Terraform Destroy, records created by AWS load balancer controller
+"""
+Script used to exclude stateless load balancers during Terraform Destroy,
+records created by AWS load balancer controller
+"""
+import sys
+import logging
+from aws.ec2 import EC2 as EC2Class # pylint: disable=import-error
+from aws.load_balancer import LoadBalancer as LoadBalancerClass # pylint: disable=import-error
+from aws.target_group import TargetGroup as TargetGroupClass # pylint: disable=import-error
 
-import boto3
-
-def client_connect():
-    client = boto3.client('elbv2', region_name='us-east-1')
-    return client
-
-def get_load_balancers(client):
-    load_balancers = client.describe_load_balancers()
-    return load_balancers
-
-def delete_load_balancer(client, load_balancer_arn):
-    try:
-        response = client.delete_load_balancer(
-            LoadBalancerArn=str(load_balancer_arn)
-        )
-        print(response)
-        return response
-    except Exception as ex:
-        print(ex)
-        pass
-
-def get_tags(client, load_balancer_arn):
-    tags = client.describe_tags(
-        ResourceArns=[
-            str(load_balancer_arn),
-        ],
-    )
-    return tags
-
-def get_target_groups(client, load_balancer_arn):
-    target_groups = client.describe_target_groups(
-        LoadBalancerArn=str(load_balancer_arn),
-    )
-    return target_groups
-
-def delete_target_group(client, target_group_arn):
-    try:
-        response = client.delete_target_group(
-            TargetGroupArn=str(target_group_arn)
-        )
-        print(response)
-        return response
-    except Exception as ex:
-        print(ex)
-        pass
-
-def delete_security_group(security_group):
-    try:
-        client = boto3.client('ec2', region_name='us-east-1')
-        response = client.delete_security_group(
-            GroupId=str(security_group),
-            GroupName=str(security_group),
-        )
-        print(response)
-        return response
-    except Exception as ex:
-        print(ex)
-        pass
-
-def get_listeners(client, load_balancer_arn):
-    listeners = client.describe_listeners(
-        LoadBalancerArn=str(load_balancer_arn)
-    )
-    return listeners
-
-def delete_listener(client, listener_arn):
-    try:
-        response = client.delete_listener(
-            ListenerArn=str(listener_arn)
-        )
-        print(response)
-        return response
-    except Exception as ex:
-        print(ex)
-        pass
-
-def get_rules(client, listener_arn):
-    rules = client.describe_rules(
-        ListenerArn=str(listener_arn)
-    )
-    return rules
-
-def delete_rule(client, rule_arn):
-    try:
-        response = client.delete_rule(
-            RuleArn=str(rule_arn)
-        )
-        print(response)
-        return response
-    except Exception as ex:
-        print(ex)
-        pass
+logging.basicConfig(
+    format='{"asctime": "%(asctime)s", "name": "%(name)s", "loglevel":"%(levelname)s", "message":"%(message)s"}', # pylint: disable=line-too-long
+    level=logging.INFO
+)
 
 if __name__ == "__main__":
     try:
-        client = client_connect()
-        load_balancers = get_load_balancers(client)
+        load_balancer_to_delete = []
+        target_groups_to_delete = []
+        security_groups_to_delete = []
+        listeners_to_delete = []
+        rules_to_delete = []
+
+        CONDITION_CLUSTER = "elbv2.k8s.aws/cluster"
+        CONDITION_RESOURCE = "ingress.k8s.aws/resource"
+        CONDITION_STACK = "ingress.k8s.aws/stack"
+
+        # Get Load Balancers to delete
+        lb_stateless = LoadBalancerClass(region="us-east-1")
+        lb_stateless.client_connect()
+        load_balancers = lb_stateless.get_load_balancers()
+        logging.info("Load balancers: %s", str(load_balancers))
         for load_balancer in load_balancers["LoadBalancers"]:
             load_balancer_arn = load_balancer["LoadBalancerArn"]
-            tags = get_tags(client, load_balancer_arn)
-            if "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack" in str(tags):
-                target_groups = get_target_groups(client, load_balancer_arn)
-                target_groups = target_groups["TargetGroups"]
-                security_groups = load_balancer["SecurityGroups"]
-                delete_load_balancer(client, load_balancer_arn)
-                listeners = get_listeners(client, load_balancer_arn)
-                for listener in listeners["Listeners"]:
-                    listener_arn = listener["ListenerArn"]
-                    rules = get_rules(client, listener_arn)
-                    for rule in rules["Rules"]:
-                        rule_arn = rule["RuleArn"]
-                        delete_rule(client, rule_arn)
-                    delete_listener(client, listener_arn)
-                for target_group in target_groups:
-                    target_group_arn = target_group["TargetGroupArn"]
-                    delete_target_group(client, target_group_arn)
-                for security_group in security_groups:
-                    delete_security_group(security_group)
-    except Exception as ex:
-        print(ex)
-        exit(0)
-            
+            logging.info("Load Balancer ARN: %s", str(load_balancer_arn))
+            tags = lb_stateless.get_tags(load_balancer_arn)
+            logging.info("Load Balancer Tags: %s", str(tags))
+            if (CONDITION_CLUSTER and
+                CONDITION_RESOURCE and
+                CONDITION_STACK) in str(tags):
+                load_balancer_to_delete.append(load_balancer_arn)
+
+        # Get listeners to delete
+        for load_balancer_arn in load_balancer_to_delete:
+            listeners = lb_stateless.get_listeners(load_balancer_arn)
+            logging.info("Listeners (%s) at Load Balancer: %s ",
+                str(listeners), str(load_balancer_arn))
+            for listener in listeners["Listeners"]:
+                listener_arn = listener["ListenerArn"]
+                listeners_to_delete.append(listener_arn)
+
+        # Get Listener rules to delete
+        for listener_arn in listeners_to_delete:
+            rules = lb_stateless.get_rules(listener_arn)
+            logging.info("Rules (%s) at Listener: %s", str(rules), str(listener_arn))
+            for rule in rules["Rules"]:
+                rule_arn = rule["RulesArn"]
+                rules_to_delete.append(rule_arn)
+
+        # Get Target Groups to delete
+        tg_stateless = TargetGroupClass(region="us-east-1")
+        tg_stateless.client_connect()
+        target_groups = tg_stateless.get_target_groups()
+        logging.info("Target groups: %s", str(target_groups))
+        for target_group in target_groups["TargetGroups"]:
+            target_group_arn = target_group["TargetGroupArn"]
+            logging.info("Target Group ARN: %s", str(target_group_arn))
+            tags = tg_stateless.get_tags(target_group_arn)
+            logging.info("Target Group Tags: %s", str(tags))
+            if (CONDITION_CLUSTER and
+                CONDITION_RESOURCE and
+                CONDITION_STACK) in str(tags):
+                target_groups_to_delete.append(target_group_arn)
+
+        # Get Security Groups to delete
+        ec2_stateless = EC2Class(region="us-east-1")
+        ec2_stateless.client_connect()
+        security_groups = ec2_stateless.get_security_group()
+        logging.info("Security Groups: %s", str(security_groups))
+        for security_group in security_groups["SecurityGroups"]:
+            security_group_id = security_group["GroupId"]
+            tags = security_group["Tags"]
+            logging.info("Security Group Tags: %s", str(tags))
+            if (CONDITION_CLUSTER and
+                CONDITION_RESOURCE and
+                CONDITION_STACK) in str(tags):
+                security_groups_to_delete.append(security_group_id)
+
+        # Exclusion sequence:
+        # - Rule
+        for rule_arn in rules_to_delete:
+            lb_stateless.delete_rule(rule_arn)
+        # - Listener
+        for listener_arn in listeners_to_delete:
+            lb_stateless.delete_listener(listener_arn)
+        # - Load Balancer
+        for load_balancer_arn in load_balancer_to_delete:
+            lb_stateless.delete_load_balancer(load_balancer_arn)
+        # - Target Group
+        for target_group_arn in target_groups_to_delete:
+            tg_stateless.delete_target_group(target_group_arn)
+        # - Security Group
+        #   - Before exclude Security Group, update all SGs to exclude dependencies references
+        for security_group_id in security_groups_to_delete:
+            ec2_stateless.remove_security_group_dependencies(security_group_id)
+            ec2_stateless.delete_security_group(security_group_id)
+
+    except Exception as ex: # pylint: disable=broad-except
+        logging.error(ex)
+        sys.exit(0)

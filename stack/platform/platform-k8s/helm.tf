@@ -85,6 +85,10 @@ resource "helm_release" "argocd" {
     helm_release.aws_load_balancer_controller,
     # time_sleep.wait_destroy_3_min,
   ]
+
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "helm_release" "argocd_apps" {
