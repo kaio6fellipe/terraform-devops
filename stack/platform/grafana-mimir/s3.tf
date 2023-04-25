@@ -30,6 +30,14 @@ resource "aws_s3_bucket_acl" "mimir_bucket" {
   acl    = "private"
 }
 
+resource "aws_s3_bucket_ownership_controls" "mimir_bucket" {
+  bucket = aws_s3_bucket.mimir_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
 resource "aws_s3_bucket_versioning" "mimir_bucket"{
   bucket = aws_s3_bucket.mimir_bucket.id
 

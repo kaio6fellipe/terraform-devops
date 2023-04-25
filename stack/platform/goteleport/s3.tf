@@ -26,6 +26,14 @@ resource "aws_s3_bucket_acl" "storage" {
   acl    = "private"
 }
 
+resource "aws_s3_bucket_ownership_controls" "goteleport" {
+  bucket = aws_s3_bucket.storage.bucket
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
 // For demo purposes, CMK is not needed
 // tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "storage" {

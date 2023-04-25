@@ -38,6 +38,14 @@ resource "aws_s3_bucket_acl" "codepipeline_bucket" {
   acl    = "private"
 }
 
+resource "aws_s3_bucket_ownership_controls" "codepipeline_bucket" {
+  bucket = aws_s3_bucket.codepipeline_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
 resource "aws_s3_bucket_versioning" "codepipeline_bucket" {
   bucket = aws_s3_bucket.codepipeline_bucket.id
 
