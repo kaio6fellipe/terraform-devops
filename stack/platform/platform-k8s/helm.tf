@@ -107,4 +107,8 @@ resource "helm_release" "argocd_apps" {
   depends_on = [
     helm_release.argocd,
   ]
+
+  lifecycle {
+    ignore_changes = all
+  }
 }

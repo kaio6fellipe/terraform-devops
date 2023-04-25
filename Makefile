@@ -8,6 +8,7 @@ reset?=false
 region?="us-east-1"
 cluster?=""
 version?=development
+script?=""
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
@@ -95,3 +96,7 @@ image-pull: ##@docker Pull the container image used for local development and op
 .PHONY: run
 run: ##@docker Run the container image used for local development and operation
 	$(docker_run_interactive) /bin/bash
+
+.PHONY: python
+python: guard-script ##@python Run external scripts with Python
+	$(docker_run) bash -c "python3 ./lib/python/$(script)"

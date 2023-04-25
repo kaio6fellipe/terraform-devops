@@ -78,39 +78,39 @@ module "grafana_dashboards" {
   AWS_RDS_PASSWORD          = var.AWS_RDS_PASSWORD
 }
 
-module "grafana_loki" {
-  source                = "./grafana-loki"
-  instance_type         = var.instance_type
-  environment           = var.environment
-  amazon_linux_2        = var.amazon_linux_2
-  key_name              = var.key_name
-  vpc_id                = var.vpc_id
-  vpc_cidr              = var.vpc_cidr
-  availability_zone_1   = var.availability_zone_1
-  private_subnet_id_1   = var.private_subnet_id_1
-  availability_zone_2   = var.availability_zone_2
-  private_subnet_id_2   = var.private_subnet_id_2
-  default_sg            = aws_security_group.default_platform.id
-  private_dns_zone_id   = var.private_dns_zone_id
-  private_dns_zone_name = var.private_dns_zone_name
-}
+# module "grafana_loki" {
+#   source                = "./grafana-loki"
+#   instance_type         = var.instance_type
+#   environment           = var.environment
+#   amazon_linux_2        = var.amazon_linux_2
+#   key_name              = var.key_name
+#   vpc_id                = var.vpc_id
+#   vpc_cidr              = var.vpc_cidr
+#   availability_zone_1   = var.availability_zone_1
+#   private_subnet_id_1   = var.private_subnet_id_1
+#   availability_zone_2   = var.availability_zone_2
+#   private_subnet_id_2   = var.private_subnet_id_2
+#   default_sg            = aws_security_group.default_platform.id
+#   private_dns_zone_id   = var.private_dns_zone_id
+#   private_dns_zone_name = var.private_dns_zone_name
+# }
 
-module "grafana_mimir" {
-  source                = "./grafana-mimir"
-  instance_type         = var.instance_type
-  environment           = var.environment
-  amazon_linux_2        = var.amazon_linux_2
-  key_name              = var.key_name
-  vpc_id                = var.vpc_id
-  vpc_cidr              = var.vpc_cidr
-  availability_zone_1   = var.availability_zone_1
-  private_subnet_id_1   = var.private_subnet_id_1
-  availability_zone_2   = var.availability_zone_2
-  private_subnet_id_2   = var.private_subnet_id_2
-  default_sg            = aws_security_group.default_platform.id
-  private_dns_zone_id   = var.private_dns_zone_id
-  private_dns_zone_name = var.private_dns_zone_name
-}
+# module "grafana_mimir" {
+#   source                = "./grafana-mimir"
+#   instance_type         = var.instance_type
+#   environment           = var.environment
+#   amazon_linux_2        = var.amazon_linux_2
+#   key_name              = var.key_name
+#   vpc_id                = var.vpc_id
+#   vpc_cidr              = var.vpc_cidr
+#   availability_zone_1   = var.availability_zone_1
+#   private_subnet_id_1   = var.private_subnet_id_1
+#   availability_zone_2   = var.availability_zone_2
+#   private_subnet_id_2   = var.private_subnet_id_2
+#   default_sg            = aws_security_group.default_platform.id
+#   private_dns_zone_id   = var.private_dns_zone_id
+#   private_dns_zone_name = var.private_dns_zone_name
+# }
 
 module "platform_k8s" {
   source                = "./platform-k8s"
