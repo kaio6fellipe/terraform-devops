@@ -25,17 +25,28 @@ class EC2:
             return self.client
         except botocore.exceptions.ClientError as ex:
             logging.error("Client Error: %s", ex)
+            return None
         except botocore.exceptions.ConnectTimeoutError as ex:
             logging.error("Connection Timeout Error: %s", ex)
+            return None
         except botocore.exceptions.ConnectionError as ex:
             logging.error("Connection Error: %s", ex)
+            return None
         except Exception as ex:
             logging.error("Failed to connect: %s", ex)
+            return None
 
-    def get_security_group(self, region):
+    def get_security_group(self):
         """
-        dockstring
+        Get a list of security groups
         """
+        try:
+            security_groups = self.client.describe_security_groups()
+            logging.info("Security group list generated")
+            return security_groups
+        except Exception as ex:
+            logging.error(ex)
+            return None
 
     def delete_security_group(self, security_group):
         """
@@ -46,17 +57,49 @@ class EC2:
                 GroupId=str(security_group),
                 GroupName=str(security_group),
             )
-            logging.info(response)
+            logging.info(str(response))
+            logging.info("Security Group %s deleted", security_group)
             return response
         except Exception as ex:
             logging.error(ex)
+            return None
 
-    def get_security_group_dependencies(self, region):
-        """
-        dockstring
-        """
+    # def get_security_group_dependencies(self, security_group):
+    #     """
+    #     Get Security Group UserIdGroupPairs of IpPermissions and IpPermissionsEgress
+    #     """
+    #     try:
+    #         sg_dependencies_list = []
+    #         if len(security_group["IpPermissions"]) > 0:
+    #             for permission in security_group["IpPermissions"]:
+    #                 for group_pairs in permission["UserIdGroupPairs"]:
+    #                     sg_dependencies_list.append(group_pairs["GroupId"])
+    #         if len(security_group["IpPermissionsEgress"]) > 0:
+    #             for permission in security_group["IpPermissionsEgress"]:
+    #                 for group_pairs in permission["UserIdGroupPairs"]:
+    #                     sg_dependencies_list.append(group_pairs["GroupId"])
+    #         return sg_dependencies_list
+    #     except Exception as ex:
+    #         logging.error(ex)
+    #         return None
 
-    def remove_security_group_dependencies(self, region):
+    def remove_security_group_dependencies(self, security_group):
         """
-        dockstring
+        Remove Egress and Ingress Security Group dependencies
         """
+        try:
+            if len(security_group["IpPermissions"]) > 0:
+                ingress_response = self.client.revoke_security_group_ingress(
+                    GroupId=str(security_group),
+                )
+            if len(security_group["IpPermissionsEgress"]) > 0:
+                egress_response = self.client.revoke_security_group_egress(
+                    GroupId=str(security_group),
+                )
+            logging.info("Ingress deleted: %s", str(ingress_response))
+            logging.info("Egress deleted: %s", str(egress_response))
+            logging.info("Dependencies removed of Security Group: %s", str(security_group))
+            return ingress_response, egress_response
+        except Exception as ex:
+            logging.error(ex)
+            return None

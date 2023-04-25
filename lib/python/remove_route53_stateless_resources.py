@@ -16,21 +16,21 @@ def enumerate_records():
     for zone in raw_hosted_zones["HostedZones"]:
         zone_id = zone["Id"]
         zone_records = client.list_resource_record_sets(HostedZoneId=str(zone_id))
-        for record in zone_records["ResourceRecordSets"]:
+        for dns_record in zone_records["ResourceRecordSets"]:
             try:
-                if ("external-dns" in str(record["ResourceRecords"][0]["Value"])
-                        and str(record["Type"]) == "TXT"
-                        and "cname" not in str(record["Name"])):
-                    record["ZoneId"] = zone_id
-                    external_dns_managed_record.append(record)
+                if ("external-dns" in str(dns_record["ResourceRecords"][0]["Value"])
+                        and str(dns_record["Type"]) == "TXT"
+                        and "cname" not in str(dns_record["Name"])):
+                    dns_record["ZoneId"] = zone_id
+                    external_dns_managed_record.append(dns_record)
             except Exception:
                 pass
 
     for managed_record in external_dns_managed_record:
-        for record in zone_records["ResourceRecordSets"]:
-            if managed_record["Name"] in record["Name"]:
-                record["ZoneId"] = managed_record["ZoneId"]
-                stateless_dns_record.append(record)
+        for dns_record in zone_records["ResourceRecordSets"]:
+            if managed_record["Name"] in dns_record["Name"]:
+                dns_record["ZoneId"] = managed_record["ZoneId"]
+                stateless_dns_record.append(dns_record)
 
 def delete_record(json_record):
     """Delete Route53 record"""

@@ -25,12 +25,16 @@ class LoadBalancer:
             return self.client
         except botocore.exceptions.ClientError as ex:
             logging.error("Client Error: %s", ex)
+            return None
         except botocore.exceptions.ConnectTimeoutError as ex:
             logging.error("Connection Timeout Error: %s", ex)
+            return None
         except botocore.exceptions.ConnectionError as ex:
             logging.error("Connection Error: %s", ex)
+            return None
         except Exception as ex:
             logging.error("Failed to connect: %s", ex)
+            return None
 
     def get_load_balancers(self):
         """
@@ -42,6 +46,7 @@ class LoadBalancer:
             return load_balancers
         except Exception as ex:
             logging.error("Failed to get Load Balancers list: %s", ex)
+            return None
 
     def delete_load_balancer(self, load_balancer_arn):
         """
@@ -56,6 +61,7 @@ class LoadBalancer:
             return response
         except Exception as ex:
             logging.error("Failed to delete Load Balancer: %s, Exception: %s", load_balancer_arn, ex)
+            return None
 
     def get_tags(self, load_balancer_arn):
         """
@@ -71,6 +77,7 @@ class LoadBalancer:
             return tags
         except Exception as ex:
             logging.error("Failed to get Tags list of Load balancer: %s, Exception: %s", load_balancer_arn, ex)
+            return None
 
     def get_listeners(self, load_balancer_arn):
         """
@@ -84,6 +91,7 @@ class LoadBalancer:
             return listeners
         except Exception as ex:
             logging.error("Failed to get Listeners list of load balancer: %s, Exception: %s", load_balancer_arn, ex)
+            return None
 
     def delete_listener(self, listener_arn):
         """
@@ -98,6 +106,7 @@ class LoadBalancer:
             return response
         except Exception as ex:
             logging.error("Failed to delete listener: %s, Exception: %s", listener_arn, ex)
+            return None
 
     def get_rules(self, listener_arn):
         """
@@ -111,6 +120,7 @@ class LoadBalancer:
             return rules
         except Exception as ex:
             logging.error("Failed to get Rules of listener: %s, Exception: %s", listener_arn, ex)
+            return None
 
     def delete_rule(self, rule_arn):
         """
@@ -125,6 +135,7 @@ class LoadBalancer:
             return response
         except Exception as ex:
             logging.error("Failed to delete Rule: %s, Exception: %s", rule_arn, ex)
+            return None
 
 class TargetGroup:
     """
@@ -144,12 +155,16 @@ class TargetGroup:
             return self.client
         except botocore.exceptions.ClientError as ex:
             logging.error("Client Error: %s", ex)
+            return None
         except botocore.exceptions.ConnectTimeoutError as ex:
             logging.error("Connection Timeout Error: %s", ex)
+            return None
         except botocore.exceptions.ConnectionError as ex:
             logging.error("Connection Error: %s", ex)
+            return None
         except Exception as ex:
             logging.error("Failed to connect: %s", ex)
+            return None
 
     def get_target_groups(self):
         """
@@ -161,6 +176,7 @@ class TargetGroup:
             return target_groups
         except Exception as ex:
             logging.error("Failed to get the list of Target Groups %s", ex)
+            return None
 
     def get_tags(self, target_group_arn):
         """
@@ -176,6 +192,7 @@ class TargetGroup:
             return tags
         except Exception as ex:
             logging.error("Failed to get Tags list of Target group: %s, Exception: %s", target_group_arn, ex)
+            return None
 
     def delete_target_group(self, target_group_arn):
         """
@@ -190,3 +207,4 @@ class TargetGroup:
             return response
         except Exception as ex:
             logging.error("Failed to delete Target Group: %s, Exception: %s", target_group_arn, ex)
+            return None
