@@ -20,6 +20,10 @@ if __name__ == "__main__":
         listeners_to_delete = []
         rules_to_delete = []
 
+        CONDITION_CLUSTER = "elbv2.k8s.aws/cluster"
+        CONDITION_RESOURCE = "ingress.k8s.aws/resource"
+        CONDITION_STACK = "ingress.k8s.aws/stack"
+
         # Get Load Balancers to delete
         lb_stateless = LoadBalancerClass(region="us-east-1")
         lb_stateless.client_connect()
@@ -30,9 +34,9 @@ if __name__ == "__main__":
             logging.info("Load Balancer ARN: %s", str(load_balancer_arn))
             tags = lb_stateless.get_tags(load_balancer_arn)
             logging.info("Load Balancer Tags: %s", str(tags))
-            if ("elbv2.k8s.aws/cluster" and
-                "ingress.k8s.aws/resource" and
-                "ingress.k8s.aws/stack") in str(tags):
+            if (CONDITION_CLUSTER and
+                CONDITION_RESOURCE and
+                CONDITION_STACK) in str(tags):
                 load_balancer_to_delete.append(load_balancer_arn)
         
         # Get listeners to delete
@@ -61,9 +65,9 @@ if __name__ == "__main__":
             logging.info("Target Group ARN: %s", str(target_group_arn))
             tags = tg_stateless.get_tags(target_group_arn)
             logging.info("Target Group Tags: %s", str(tags))
-            if ("elbv2.k8s.aws/cluster" and
-                "ingress.k8s.aws/resource" and
-                "ingress.k8s.aws/stack") in str(tags):
+            if (CONDITION_CLUSTER and
+                CONDITION_RESOURCE and
+                CONDITION_STACK) in str(tags):
                 target_groups_to_delete.append(target_group_arn)
 
         # Get Security Groups to delete
@@ -75,9 +79,9 @@ if __name__ == "__main__":
             security_group_id = security_group["GroupId"]
             tags = security_group["Tags"]
             logging.info("Security Group Tags: %s", str(tags))
-            if ("elbv2.k8s.aws/cluster" and
-                "ingress.k8s.aws/resource" and
-                "ingress.k8s.aws/stack") in str(tags):
+            if (CONDITION_CLUSTER and
+                CONDITION_RESOURCE and
+                CONDITION_STACK) in str(tags):
                 security_groups_to_delete.append(security_group_id)
 
         # Exclusion sequence:
@@ -99,42 +103,6 @@ if __name__ == "__main__":
             ec2_stateless.remove_security_group_dependencies(security_group_id)
             ec2_stateless.delete_security_group(security_group_id)
 
-
-
-        #                 delete_rule(client, rule_arn)
-        #             delete_listener(client, listener_arn)
-        #         delete_load_balancer(client, load_balancer_arn)
-        #         for target_group in target_groups:
-        #             target_group_arn = target_group["TargetGroupArn"]
-        #             delete_target_group(client, target_group_arn)
-        #         for security_group in security_groups:
-        #             delete_security_group(security_group)
-
-        #             ec2 = boto3.client('ec2', region_name='us-east-1')
-        #             response = ec2.describe_security_groups( GroupIds=[sg] )
-        #             for res in response['SecurityGroups']:
-        #                 if len( res['IpPermissions'] ) > 0:
-        #                     for item in res['IpPermissions']:
-        #                         for sg in item['UserIdGroupPairs']:
-        #                             sg_list.append( sg['GroupId'] )
-        #             print(sg_list)
     except Exception as ex:
         logging.error(ex)
         sys.exit(0)
-            
-# Change the order and the way that code fetches information from AWS and delete stateless resources from Terraform
-# Get SGs, Target Groups, Load Balancers based on strings: "elbv2.k8s.aws/cluster" and "ingress.k8s.aws/resource" and "ingress.k8s.aws/stack
-# Exclusion sequence:
-# - Rule
-# - Listener
-# - Load Balancer
-# - Target Group
-# - Security Group
-#   - Before exclude Security Group, update all SGs to exclude dependencies references based on this code:
-#             ec2 = boto3.client('ec2', region_name='us-east-1')
-#             response = ec2.describe_security_groups( GroupIds=[sg] )
-#             for res in response['SecurityGroups']:
-#                 if len( res['IpPermissions'] ) > 0:
-#                     for item in res['IpPermissions']:
-#                         for sg in item['UserIdGroupPairs']:
-#                             sg_list.append( sg['GroupId'] )
