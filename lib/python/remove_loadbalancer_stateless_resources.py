@@ -1,14 +1,15 @@
-# Script used to exclude stateless load balancers during Terraform Destroy,
-# records created by AWS load balancer controller
-
+"""
+Script used to exclude stateless load balancers during Terraform Destroy,
+records created by AWS load balancer controller
+"""
 import sys
 import logging
-from aws.ec2 import EC2 as EC2Class
-from aws.load_balancer import LoadBalancer as LoadBalancerClass
-from aws.load_balancer import TargetGroup as TargetGroupClass
+from aws.ec2 import EC2 as EC2Class # pylint: disable=import-error
+from aws.load_balancer import LoadBalancer as LoadBalancerClass # pylint: disable=import-error
+from aws.load_balancer import TargetGroup as TargetGroupClass # pylint: disable=import-error
 
 logging.basicConfig(
-    format='{"asctime": "%(asctime)s", "name": "%(name)s", "loglevel":"%(levelname)s", "message":"%(message)s"}',
+    format='{"asctime": "%(asctime)s", "name": "%(name)s", "loglevel":"%(levelname)s", "message":"%(message)s"}', # pylint: disable=line-too-long
     level=logging.INFO
 )
 
@@ -38,11 +39,12 @@ if __name__ == "__main__":
                 CONDITION_RESOURCE and
                 CONDITION_STACK) in str(tags):
                 load_balancer_to_delete.append(load_balancer_arn)
-        
+
         # Get listeners to delete
         for load_balancer_arn in load_balancer_to_delete:
             listeners = lb_stateless.get_listeners(load_balancer_arn)
-            logging.info("Listeners (%s) at Load Balancer: %s ", str(listeners), str(load_balancer_arn))
+            logging.info("Listeners (%s) at Load Balancer: %s ",
+                str(listeners), str(load_balancer_arn))
             for listener in listeners["Listeners"]:
                 listener_arn = listener["ListenerArn"]
                 listeners_to_delete.append(listener_arn)
@@ -103,6 +105,6 @@ if __name__ == "__main__":
             ec2_stateless.remove_security_group_dependencies(security_group_id)
             ec2_stateless.delete_security_group(security_group_id)
 
-    except Exception as ex:
+    except Exception as ex: # pylint: disable=broad-except
         logging.error(ex)
         sys.exit(0)

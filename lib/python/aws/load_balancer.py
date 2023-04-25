@@ -32,7 +32,7 @@ class LoadBalancer:
         except botocore.exceptions.ConnectionError as ex:
             logging.error("Connection Error: %s", ex)
             return None
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to connect: %s", ex)
             return None
 
@@ -44,7 +44,7 @@ class LoadBalancer:
             load_balancers = self.client.describe_load_balancers()
             logging.info("Load Balancers list generated and described")
             return load_balancers
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to get Load Balancers list: %s", ex)
             return None
 
@@ -59,8 +59,9 @@ class LoadBalancer:
             logging.info(response)
             logging.info("Load balancer deleted with no errors: %s", load_balancer_arn)
             return response
-        except Exception as ex:
-            logging.error("Failed to delete Load Balancer: %s, Exception: %s", load_balancer_arn, ex)
+        except Exception as ex: # pylint: disable=broad-except
+            logging.error("Failed to delete Load Balancer: %s, Exception: %s",
+                load_balancer_arn, ex)
             return None
 
     def get_tags(self, load_balancer_arn):
@@ -75,8 +76,9 @@ class LoadBalancer:
             )
             logging.info("Tags from Load Balancer %s generated", load_balancer_arn)
             return tags
-        except Exception as ex:
-            logging.error("Failed to get Tags list of Load balancer: %s, Exception: %s", load_balancer_arn, ex)
+        except Exception as ex: # pylint: disable=broad-except
+            logging.error("Failed to get Tags list of Load balancer: %s, Exception: %s",
+                load_balancer_arn, ex)
             return None
 
     def get_listeners(self, load_balancer_arn):
@@ -89,8 +91,9 @@ class LoadBalancer:
             )
             logging.info("Listeners from Load Balancer %s generated", load_balancer_arn)
             return listeners
-        except Exception as ex:
-            logging.error("Failed to get Listeners list of load balancer: %s, Exception: %s", load_balancer_arn, ex)
+        except Exception as ex: # pylint: disable=broad-except
+            logging.error("Failed to get Listeners list of load balancer: %s, Exception: %s",
+                load_balancer_arn, ex)
             return None
 
     def delete_listener(self, listener_arn):
@@ -104,7 +107,7 @@ class LoadBalancer:
             logging.info(response)
             logging.info("Listener deleted with no errors: %s", listener_arn)
             return response
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to delete listener: %s, Exception: %s", listener_arn, ex)
             return None
 
@@ -118,7 +121,7 @@ class LoadBalancer:
             )
             logging.info("Rules from Listener %s generated", listener_arn)
             return rules
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to get Rules of listener: %s, Exception: %s", listener_arn, ex)
             return None
 
@@ -133,7 +136,7 @@ class LoadBalancer:
             logging.info(response)
             logging.info("Rule deleted with no errors: %s", rule_arn)
             return response
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to delete Rule: %s, Exception: %s", rule_arn, ex)
             return None
 
@@ -162,7 +165,7 @@ class TargetGroup:
         except botocore.exceptions.ConnectionError as ex:
             logging.error("Connection Error: %s", ex)
             return None
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to connect: %s", ex)
             return None
 
@@ -174,7 +177,7 @@ class TargetGroup:
             target_groups = self.client.describe_target_groups()
             logging.info("Target group list generated")
             return target_groups
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to get the list of Target Groups %s", ex)
             return None
 
@@ -190,8 +193,9 @@ class TargetGroup:
             )
             logging.info("Tags from Target group %s generated", target_group_arn)
             return tags
-        except Exception as ex:
-            logging.error("Failed to get Tags list of Target group: %s, Exception: %s", target_group_arn, ex)
+        except Exception as ex: # pylint: disable=broad-except
+            logging.error("Failed to get Tags list of Target group: %s, Exception: %s",
+                target_group_arn, ex)
             return None
 
     def delete_target_group(self, target_group_arn):
@@ -205,6 +209,6 @@ class TargetGroup:
             logging.info(response)
             logging.info("Target Group deleted: %s", target_group_arn)
             return response
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to delete Target Group: %s, Exception: %s", target_group_arn, ex)
             return None

@@ -32,7 +32,7 @@ class EC2:
         except botocore.exceptions.ConnectionError as ex:
             logging.error("Connection Error: %s", ex)
             return None
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error("Failed to connect: %s", ex)
             return None
 
@@ -44,7 +44,7 @@ class EC2:
             security_groups = self.client.describe_security_groups()
             logging.info("Security group list generated")
             return security_groups
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error(ex)
             return None
 
@@ -60,7 +60,7 @@ class EC2:
             logging.info(str(response))
             logging.info("Security Group %s deleted", security_group)
             return response
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error(ex)
             return None
 
@@ -81,6 +81,6 @@ class EC2:
             logging.info("Egress deleted: %s", str(egress_response))
             logging.info("Dependencies removed of Security Group: %s", str(security_group))
             return ingress_response, egress_response
-        except Exception as ex:
+        except Exception as ex: # pylint: disable=broad-except
             logging.error(ex)
             return None

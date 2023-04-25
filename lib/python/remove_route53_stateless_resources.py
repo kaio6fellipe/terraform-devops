@@ -23,7 +23,7 @@ def enumerate_records():
                         and "cname" not in str(dns_record["Name"])):
                     dns_record["ZoneId"] = zone_id
                     external_dns_managed_record.append(dns_record)
-            except Exception:
+            except Exception: # pylint: disable=broad-except
                 pass
 
     for managed_record in external_dns_managed_record:
@@ -52,7 +52,7 @@ def delete_record(json_record):
     if "TTL" in str(json_record):
         json_payload["Changes"][0]["ResourceRecordSet"]["TTL"] = json_record["TTL"]
     if "ResourceRecords" in str(json_record):
-        json_payload["Changes"][0]["ResourceRecordSet"]["ResourceRecords"] = json_record["ResourceRecords"]
+        json_payload["Changes"][0]["ResourceRecordSet"]["ResourceRecords"] = json_record["ResourceRecords"] # pylint: disable=line-too-long
 
     response = client.change_resource_record_sets(
         HostedZoneId=zone_id,
@@ -65,6 +65,6 @@ if __name__ == "__main__":
         enumerate_records()
         for record in stateless_dns_record:
             delete_record(record)
-    except Exception as ex:
+    except Exception as ex: # pylint: disable=broad-except
         print(ex)
         sys.exit(0)
