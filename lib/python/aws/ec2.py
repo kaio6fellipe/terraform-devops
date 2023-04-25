@@ -1,10 +1,9 @@
 """
-botocore used to catch specific excepctions
-boto3 used to communicate with AWS API
+logging used to stdout info, errors, warning, etc
+aws used to manage botocore and boto3 interface
 """
 import logging
-import botocore
-import boto3
+from aws.aws import AWS as AWSClass # pylint: disable=import-error
 
 class EC2:
     """
@@ -17,23 +16,14 @@ class EC2:
 
     def client_connect(self):
         """
-        Connects to AWS
+        Connects to AWS with EC2
         """
         try:
-            self.client = boto3.client('ec2', region_name=self.region)
-            logging.info("Connected to AWS API with ec2 on region: %s", self.region)
+            ec2 = AWSClass(client_type="ec2", region=self.region)
+            self.client = ec2.client_connect()
             return self.client
-        except botocore.exceptions.ClientError as ex:
-            logging.error("Client Error: %s", ex)
-            return None
-        except botocore.exceptions.ConnectTimeoutError as ex:
-            logging.error("Connection Timeout Error: %s", ex)
-            return None
-        except botocore.exceptions.ConnectionError as ex:
-            logging.error("Connection Error: %s", ex)
-            return None
         except Exception as ex: # pylint: disable=broad-except
-            logging.error("Failed to connect: %s", ex)
+            logging.error("Failed to connect with client on AWS Class: %s", ex)
             return None
 
     def get_security_group(self):
