@@ -64,25 +64,6 @@ class EC2:
             logging.error(ex)
             return None
 
-    # def get_security_group_dependencies(self, security_group):
-    #     """
-    #     Get Security Group UserIdGroupPairs of IpPermissions and IpPermissionsEgress
-    #     """
-    #     try:
-    #         sg_dependencies_list = []
-    #         if len(security_group["IpPermissions"]) > 0:
-    #             for permission in security_group["IpPermissions"]:
-    #                 for group_pairs in permission["UserIdGroupPairs"]:
-    #                     sg_dependencies_list.append(group_pairs["GroupId"])
-    #         if len(security_group["IpPermissionsEgress"]) > 0:
-    #             for permission in security_group["IpPermissionsEgress"]:
-    #                 for group_pairs in permission["UserIdGroupPairs"]:
-    #                     sg_dependencies_list.append(group_pairs["GroupId"])
-    #         return sg_dependencies_list
-    #     except Exception as ex:
-    #         logging.error(ex)
-    #         return None
-
     def remove_security_group_dependencies(self, security_group):
         """
         Remove Egress and Ingress Security Group dependencies
