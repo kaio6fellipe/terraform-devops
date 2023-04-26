@@ -131,5 +131,8 @@ def remove_stateless_resources():
         except Exception as ex: # pylint: disable=broad-exception-caught
             logging.error("Failed to exclude resources: %s", ex)
 
+        remaining_resources = load_balancer_to_delete + target_groups_to_delete + security_groups_to_delete + listeners_to_delete + rules_to_delete
+        return remaining_resources
+
     except Exception as ex: # pylint: disable=broad-except
         logging.error("General error on remove_loadbalancer_stateless_resources: %s", ex)

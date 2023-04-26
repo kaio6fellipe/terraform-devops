@@ -30,6 +30,24 @@ env:
   TF_WARN_OUTPUT_ERRORS: 1
 
 jobs:
+  destroy-stateless-resources:
+    name: 'Terraform destroy stateless resources'
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Destroy Stateless Resources
+        id: destroy-stateless
+        run: |
+          make python script=destroy_stateless_resources.py
+
   destroy:
     name: 'Terraform destroy'
     runs-on: ubuntu-latest
@@ -55,7 +73,7 @@ jobs:
         with:
           terraform_version: 1.2.4
 
-      - name: Terraform fmt
+      - name: Terraform Fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
