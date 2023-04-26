@@ -12,7 +12,9 @@ script?=""
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
-  --env KEY_FILE
+  --env KEY_FILE \
+  --env AWS_ACCESS_KEY_ID \
+  --env AWS_SECRET_ACCESS_KEY
 base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
 development_imagename=$(base_imagename):development
 
