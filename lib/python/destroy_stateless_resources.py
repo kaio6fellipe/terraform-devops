@@ -33,6 +33,7 @@ def remove_route53_resources():
     for record in route53_remaining_resources:
         route53.delete_record(route53_client, record)
     while (len(route53_remaining_resources) > 0):
+        route53_client = route53.connect_client()
         route53_remaining_resources = route53.enumerate_records(route53_client)
         for record in route53_remaining_resources:
             route53.delete_record(route53_client, record)

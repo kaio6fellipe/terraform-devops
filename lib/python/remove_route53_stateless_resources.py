@@ -5,9 +5,6 @@ Terraform Destroy, records created by external-dns
 import logging
 import boto3
 
-external_dns_managed_record = []
-stateless_dns_record = []
-
 def connect_client():
     try:
         client = boto3.client('route53')
@@ -27,6 +24,8 @@ def get_hosted_zones(client):
 
 def enumerate_records(client):
     """Enumerate Route53 records based on hosted zones"""
+    external_dns_managed_record = []
+    stateless_dns_record = []
     try:
         raw_hosted_zones = get_hosted_zones(client)
         logging.info("Starting enumeration of Route53 records...")
