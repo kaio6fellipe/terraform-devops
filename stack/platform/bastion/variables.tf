@@ -1,5 +1,7 @@
 variable "cdirs_acesso_remoto" {}
 
+variable "cdirs_uptime_robot_monitoring" {}
+
 variable "environment" {
   type = string
 }

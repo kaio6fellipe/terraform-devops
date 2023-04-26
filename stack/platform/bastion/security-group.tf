@@ -15,3 +15,22 @@ resource "aws_security_group" "bastion_public_ssh" {
     Name = "ssh"
   }
 }
+
+resource "aws_security_group" "bastion_uptimerobot_ssh" {
+  #checkov:skip=CKV2_AWS_5: SG attached to bastion EC2 module
+  name        = "bastion_uptimerobot_ssh-${var.environment}"
+  description = "Permit uptimerobot ssh monitoring on bastion in env: ${var.environment}"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow ICMP in egress just to attach this rule to default ingress in others instances"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.cdirs_uptime_robot_monitoring
+  }
+  tags = {
+    Name = "uptime-robot"
+  }
+}
+

@@ -19,6 +19,39 @@ variable "cdirs_acesso_remoto" {
   ]
 }
 
+variable "cdirs_uptime_robot_monitoring" {
+  description = "Remote monitoring CIDR for SGs in hosts associated with public subnets"
+  # default     = ["0.0.0.0/0"]
+  default     = [
+    "69.162.124.224/28", #UptimeRobot
+    "63.143.42.240/28", #UptimeRobot
+    "216.245.221.80/28", #UptimeRobot
+    "208.115.199.16/28", #UptimeRobot
+    "216.144.248.16/28", #UptimeRobot
+    "104.131.107.63/32", #UptimeRobot
+    "122.248.234.23/32", #UptimeRobot
+    "128.199.195.156/32", #UptimeRobot
+    "138.197.150.151/32", #UptimeRobot
+    "139.59.173.249/32", #UptimeRobot
+    "146.185.143.14/32", #UptimeRobot
+    "159.203.30.41/32", #UptimeRobot
+    "159.89.8.111/32", #UptimeRobot
+    "165.227.83.148/32", #UptimeRobot
+    "178.62.52.237/32", #UptimeRobot
+    "18.221.56.27/32", #UptimeRobot
+    "167.99.209.234/32", #UptimeRobot
+    "216.144.250.150/32", #UptimeRobot
+    "34.233.66.117/32", #UptimeRobot
+    "46.101.250.135/32", #UptimeRobot
+    "46.137.190.132/32", #UptimeRobot
+    "52.60.129.180/32", #UptimeRobot
+    "54.64.67.106/32", #UptimeRobot
+    "54.67.10.127/32", #UptimeRobot
+    "54.79.28.129/32", #UptimeRobot
+    "54.94.142.218/32", #UptimeRobot
+  ]
+}
+
 variable "GITHUB_ACTIONS_CIDR" {}
 
 variable "environment" {
