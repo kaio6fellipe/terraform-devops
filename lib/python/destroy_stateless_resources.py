@@ -4,6 +4,7 @@ this script should be run alongside Terraform Destroy, being a complement to the
 """
 import sys
 import logging
+import time
 import remove_loadbalancer_stateless_resources as loadbalancer # pylint: disable=import-error
 import remove_route53_stateless_resources as route53 # pylint: disable=import-error
 
@@ -20,6 +21,7 @@ def remove_load_balancer_resources():
     while (len(loadbalancer_remaining_resources) > 0):
         loadbalancer_remaining_resources = loadbalancer.remove_stateless_resources()
         logging.critical("Load Balancer Remaining Resources: %s", str(loadbalancer_remaining_resources))
+        time.sleep(5)
     logging.info("Finished Load Balancer destroy...")
 
 def remove_route53_resources():
@@ -34,6 +36,7 @@ def remove_route53_resources():
         route53_remaining_resources = route53.enumerate_records(route53_client)
         for record in route53_remaining_resources:
             route53.delete_record(route53_client, record)
+        time.sleep(5)
         logging.critical("Route53 Remaining Resources: %s", str(route53_remaining_resources))
     logging.info("Finished Route53 destroy...")
 

@@ -50,7 +50,7 @@ variable "desired_size" {
 }
 
 variable "max_size" {
-  default = 10
+  default = 20
 }
 
 variable "min_size" {

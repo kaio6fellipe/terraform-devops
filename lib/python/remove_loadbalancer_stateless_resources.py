@@ -107,13 +107,16 @@ def remove_stateless_resources():
                 else:
                     logging.info("Security Group Tags: %s, SG: %s",
                         str(tags), str(security_group_id))
-                if ((sg_cluster and
-                    sg_resource) or (
-                        sg_ingress_cluster and
-                        sg_ingress_resource and
-                        sg_ingress_stack
-                    )) in str(tags):
+                if (sg_cluster and
+                    sg_resource) in str(tags):
                     security_groups_to_delete.append(security_group_id)
+                    logging.info("SG to Delete: %s", security_group_id)
+                    ec2_stateless.remove_security_group_dependencies(security_group)
+                if (sg_ingress_cluster and
+                    sg_ingress_resource and
+                    sg_ingress_stack) in str(tags):
+                    security_groups_to_delete.append(security_group_id)
+                    logging.info("SG to Delete: %s", security_group_id)
                     ec2_stateless.remove_security_group_dependencies(security_group)
         except Exception as ex: # pylint: disable=broad-exception-caught
             logging.error("Failed to get security groups to delete: %s", ex)
