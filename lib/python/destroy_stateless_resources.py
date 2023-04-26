@@ -4,7 +4,6 @@ this script should be run alongside Terraform Destroy, being a complement to the
 """
 import sys
 import logging
-from threading import Thread
 import remove_loadbalancer_stateless_resources as loadbalancer # pylint: disable=import-error
 import remove_route53_stateless_resources as route53 # pylint: disable=import-error
 
@@ -41,9 +40,9 @@ def remove_route53_resources():
 if __name__ == "__main__":
     try:
         #LoadBalancer
-        Thread(target = remove_load_balancer_resources).start()
+        remove_load_balancer_resources()
         #Route53
-        Thread(target = remove_route53_resources).start()
+        remove_route53_resources()
     except Exception as ex: # pylint: disable=broad-exception-caught
         logging.error("General error on stateless.py: %s", ex)
         sys.exit(0)

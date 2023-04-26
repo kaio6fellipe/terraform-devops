@@ -26,6 +26,10 @@ def remove_stateless_resources():
         sg_cluster = "elbv2.k8s.aws/cluster"
         sg_resource = "elbv2.k8s.aws/resource"
 
+        sg_ingress_cluster = "elbv2.k8s.aws/cluster"
+        sg_ingress_resource = "ingress.k8s.aws/resource"
+        sg_ingress_stack = "ingress.k8s.aws/stack"
+
         try:
             # Get Load Balancers to delete
             lb_stateless = LoadBalancerClass(region="us-east-1")
@@ -103,8 +107,12 @@ def remove_stateless_resources():
                 else:
                     logging.info("Security Group Tags: %s, SG: %s",
                         str(tags), str(security_group_id))
-                if (sg_cluster and
-                    sg_resource) in str(tags):
+                if ((sg_cluster and
+                    sg_resource) or (
+                        sg_ingress_cluster and
+                        sg_ingress_resource and
+                        sg_ingress_stack
+                    )) in str(tags):
                     security_groups_to_delete.append(security_group_id)
                     ec2_stateless.remove_security_group_dependencies(security_group)
         except Exception as ex: # pylint: disable=broad-exception-caught

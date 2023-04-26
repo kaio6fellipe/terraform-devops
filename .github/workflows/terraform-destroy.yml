@@ -90,4 +90,15 @@ jobs:
         run: terraform refresh -var-file="global/terraform.tfvars"
 
       - name: Terraform Destroy
+        id: destroy1
         run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
+        continue-on-error: true
+
+      - name: Terraform Destroy (Double check)
+        id: destroy2
+        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
+        continue-on-error: true
+
+      - name: Terraform Destroy Status
+        if: steps.destroy2.outcome == 'failure'
+        run: exit 1
