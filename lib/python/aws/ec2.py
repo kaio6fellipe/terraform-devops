@@ -35,7 +35,7 @@ class EC2:
             logging.info("Security group list generated")
             return security_groups
         except Exception as ex: # pylint: disable=broad-except
-            logging.error(ex)
+            logging.error("Failed to get security group list: %s", ex)
             return None
 
     def delete_security_group(self, security_group):
@@ -51,7 +51,7 @@ class EC2:
             logging.info("Security Group %s deleted", security_group)
             return response
         except Exception as ex: # pylint: disable=broad-except
-            logging.error(ex)
+            logging.error("Failed to delete security group: %s", ex)
             return None
 
     def remove_security_group_dependencies(self, security_group):
@@ -60,17 +60,23 @@ class EC2:
         """
         try:
             if len(security_group["IpPermissions"]) > 0:
+                logging.info("Trying to delete Ingress resource of Security Group: %s",
+                    security_group["GroupId"])
                 ingress_response = self.client.revoke_security_group_ingress(
-                    GroupId=str(security_group),
+                    GroupId=str(security_group["GroupId"]),
+                    IpPermissions=security_group["IpPermissions"]
                 )
+                logging.info("Ingress deleted: %s", str(ingress_response))
             if len(security_group["IpPermissionsEgress"]) > 0:
+                logging.info("Trying to delete Ingress resource of Security Group: %s",
+                    security_group["GroupId"])
                 egress_response = self.client.revoke_security_group_egress(
-                    GroupId=str(security_group),
+                    GroupId=str(security_group["GroupId"]),
+                    IpPermissions=security_group["IpPermissionsEgress"]
                 )
-            logging.info("Ingress deleted: %s", str(ingress_response))
-            logging.info("Egress deleted: %s", str(egress_response))
-            logging.info("Dependencies removed of Security Group: %s", str(security_group))
-            return ingress_response, egress_response
+                logging.info("Egress deleted: %s", str(egress_response))
+            logging.info("Dependencies removed of Security Group: %s",
+                str(security_group))
         except Exception as ex: # pylint: disable=broad-except
-            logging.error(ex)
-            return None
+            logging.error("Failed to delete Dependencies from %s : %s",
+                security_group["GroupId"] , ex)

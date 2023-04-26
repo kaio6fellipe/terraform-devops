@@ -27,15 +27,6 @@ resource "helm_release" "aws_load_balancer_controller" {
     value = module.load_balancer_controller_targetgroup_binding_only_irsa_role.iam_role_arn
   }
 
-  provisioner "local-exec" {
-    when        = destroy
-    working_dir = "${path.root}/lib/python"
-
-    command     = "remove_loadbalancer_stateless_resources.py"
-    on_failure  = continue
-    interpreter = ["python3"]
-  }
-
   depends_on = [
     module.eks.eks_managed_node_groups,
   ]
@@ -52,15 +43,6 @@ resource "helm_release" "external_dns" {
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.external_dns_irsa.iam_role_arn
-  }
-
-  provisioner "local-exec" {
-    when        = destroy
-    working_dir = "${path.root}/lib/python"
-
-    command     = "remove_route53_stateless_resources.py"
-    on_failure  = continue
-    interpreter = ["python3"]
   }
 
   depends_on = [
@@ -107,4 +89,8 @@ resource "helm_release" "argocd_apps" {
   depends_on = [
     helm_release.argocd,
   ]
+
+  lifecycle {
+    ignore_changes = all
+  }
 }
