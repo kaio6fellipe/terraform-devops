@@ -15,7 +15,6 @@ No requirements.
 |------|--------|---------|
 | <a name="module_ansible_server"></a> [ansible\_server](#module\_ansible\_server) | ./ansible-server | n/a |
 | <a name="module_bastion"></a> [bastion](#module\_bastion) | ./bastion | n/a |
-| <a name="module_goteleport"></a> [goteleport](#module\_goteleport) | ./goteleport | n/a |
 | <a name="module_grafana_dashboards"></a> [grafana\_dashboards](#module\_grafana\_dashboards) | ./grafana-dashboards | n/a |
 | <a name="module_platform_k8s"></a> [platform\_k8s](#module\_platform\_k8s) | ./platform-k8s | n/a |
 
@@ -44,6 +43,7 @@ No requirements.
 | <a name="input_availability_zone_1"></a> [availability\_zone\_1](#input\_availability\_zone\_1) | n/a | `any` | n/a | yes |
 | <a name="input_availability_zone_2"></a> [availability\_zone\_2](#input\_availability\_zone\_2) | n/a | `any` | n/a | yes |
 | <a name="input_cdirs_acesso_remoto"></a> [cdirs\_acesso\_remoto](#input\_cdirs\_acesso\_remoto) | Remote access CIDR for SGs in hosts associated with public subnets | `list` | <pre>[<br>  "168.196.72.0/22",<br>  "45.239.100.0/22",<br>  "170.233.164.0/22",<br>  "201.131.68.0/22",<br>  "131.255.68.0/22",<br>  "201.33.192.0/20",<br>  "168.227.32.0/22",<br>  "186.209.64.0/20",<br>  "131.0.200.0/22",<br>  "143.255.232.0/22",<br>  "177.125.200.0/22",<br>  "191.253.32.0/21",<br>  "170.244.252.0/22",<br>  "163.116.224.0/24"<br>]</pre> | no |
+| <a name="input_cdirs_uptime_robot_monitoring"></a> [cdirs\_uptime\_robot\_monitoring](#input\_cdirs\_uptime\_robot\_monitoring) | Remote monitoring CIDR for SGs in hosts associated with public subnets | `list` | <pre>[<br>  "69.162.124.224/28",<br>  "63.143.42.240/28",<br>  "216.245.221.80/28",<br>  "208.115.199.16/28",<br>  "216.144.248.16/28",<br>  "104.131.107.63/32",<br>  "122.248.234.23/32",<br>  "128.199.195.156/32",<br>  "138.197.150.151/32",<br>  "139.59.173.249/32",<br>  "146.185.143.14/32",<br>  "159.203.30.41/32",<br>  "159.89.8.111/32",<br>  "165.227.83.148/32",<br>  "178.62.52.237/32",<br>  "18.221.56.27/32",<br>  "167.99.209.234/32",<br>  "216.144.250.150/32",<br>  "34.233.66.117/32",<br>  "46.101.250.135/32",<br>  "46.137.190.132/32",<br>  "52.60.129.180/32",<br>  "54.64.67.106/32",<br>  "54.67.10.127/32",<br>  "54.79.28.129/32",<br>  "54.94.142.218/32"<br>]</pre> | no |
 | <a name="input_database_subnet_id_0"></a> [database\_subnet\_id\_0](#input\_database\_subnet\_id\_0) | n/a | `any` | n/a | yes |
 | <a name="input_db_instance_type"></a> [db\_instance\_type](#input\_db\_instance\_type) | n/a | `string` | n/a | yes |
 | <a name="input_db_subnet_group_name"></a> [db\_subnet\_group\_name](#input\_db\_subnet\_group\_name) | n/a | `any` | n/a | yes |

@@ -58,7 +58,7 @@
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | n/a | `list` | <pre>[<br>  "t3.small"<br>]</pre> | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | n/a | `any` | n/a | yes |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod | `string` | `"1.25"` | no |
-| <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `10` | no |
+| <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `20` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | n/a | `number` | `2` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"platform-eks"` | no |
 | <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | n/a | `any` | n/a | yes |
