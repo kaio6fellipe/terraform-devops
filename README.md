@@ -6,9 +6,9 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
 ![](https://img.shields.io/github/commit-activity/w/kaio6fellipe/terraform-devops)
   
-| Env | Status |
-|-----|--------|
-| Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/terraform-apply.yml/badge.svg) |
+| Env | Status | Availability |
+|-----|--------|--------------|
+| Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/terraform-apply.yml/badge.svg) | [![Platform Lab](https://img.shields.io/uptimerobot/status/m794238146-c9373c4202f6118fe629cdb1?label=Platform%20Lab&logo=terraform&style=flat)](https://stats.uptimerobot.com/oklm0fDgvD)
 
 The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state). Each environment has a separate remote state.
 
