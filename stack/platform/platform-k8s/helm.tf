@@ -1,3 +1,48 @@
+resource "helm_release" "argocd" {
+  chart            = "argo-cd"
+  name             = "argocd"
+  namespace        = "argocd"
+  create_namespace = true
+  repository       = "https://argoproj.github.io/argo-helm"
+  version          = "5.28.1"
+  force_update     = true
+
+  values = [
+    data.github_repository_file.argocd.content
+  ]
+
+  depends_on = [
+    helm_release.aws_load_balancer_controller,
+    # time_sleep.wait_destroy_3_min,
+  ]
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "helm_release" "argocd_apps" {
+  chart            = "argocd-apps"
+  name             = "argocd-apps"
+  namespace        = "argocd"
+  create_namespace = true
+  repository       = "https://argoproj.github.io/argo-helm"
+  version          = "0.0.9"
+  force_update     = true
+
+  values = [
+    data.github_repository_file.argocd_apps.content
+  ]
+
+  depends_on = [
+    helm_release.argocd,
+  ]
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
 resource "helm_release" "aws_load_balancer_controller" {
   chart            = "aws-load-balancer-controller"
   name             = "aws-load-balancer-controller"
@@ -48,49 +93,4 @@ resource "helm_release" "external_dns" {
   depends_on = [
     module.eks.eks_managed_node_groups,
   ]
-}
-
-resource "helm_release" "argocd" {
-  chart            = "argo-cd"
-  name             = "argocd"
-  namespace        = "argocd"
-  create_namespace = true
-  repository       = "https://argoproj.github.io/argo-helm"
-  version          = "5.28.1"
-  force_update     = true
-
-  values = [
-    data.github_repository_file.argocd.content
-  ]
-
-  depends_on = [
-    helm_release.aws_load_balancer_controller,
-    # time_sleep.wait_destroy_3_min,
-  ]
-
-  lifecycle {
-    ignore_changes = all
-  }
-}
-
-resource "helm_release" "argocd_apps" {
-  chart            = "argocd-apps"
-  name             = "argocd-apps"
-  namespace        = "argocd"
-  create_namespace = true
-  repository       = "https://argoproj.github.io/argo-helm"
-  version          = "0.0.9"
-  force_update     = true
-
-  values = [
-    data.github_repository_file.argocd_apps.content
-  ]
-
-  depends_on = [
-    helm_release.argocd,
-  ]
-
-  lifecycle {
-    ignore_changes = all
-  }
 }
