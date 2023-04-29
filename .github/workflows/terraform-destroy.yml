@@ -98,12 +98,7 @@ jobs:
         id: destroy2
         run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
         continue-on-error: true
-      
-      - name: Terraform Destroy (Tripple check =X)
-        id: destroy3
-        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
-        continue-on-error: true
 
       - name: Terraform Destroy Status
-        if: steps.destroy3.outcome == 'failure'
+        if: steps.destroy2.outcome == 'failure'
         run: exit 1
