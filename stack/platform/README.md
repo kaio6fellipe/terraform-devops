@@ -15,7 +15,6 @@ No requirements.
 |------|--------|---------|
 | <a name="module_ansible_server"></a> [ansible\_server](#module\_ansible\_server) | ./ansible-server | n/a |
 | <a name="module_bastion"></a> [bastion](#module\_bastion) | ./bastion | n/a |
-| <a name="module_grafana_dashboards"></a> [grafana\_dashboards](#module\_grafana\_dashboards) | ./grafana-dashboards | n/a |
 | <a name="module_platform_k8s"></a> [platform\_k8s](#module\_platform\_k8s) | ./platform-k8s | n/a |
 
 ## Resources
