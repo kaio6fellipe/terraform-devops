@@ -38,6 +38,7 @@ module "sg_grafana_db" {
 
 resource "aws_security_group" "sg_grafana_http" {
   #checkov:skip=CKV2_AWS_5: SG attached to Grafana ALB Module
+  #checkov:skip=CKV_AWS_260: SG used to redirect to port 443
   name        = "alb_grafana_http-${var.environment}"
   description = "alb_grafana_http-${var.environment}"
   vpc_id      = var.vpc_id
