@@ -46,7 +46,7 @@ variable "instance_types" {
 }
 
 variable "desired_size" {
-  default = 3
+  default = 4
 }
 
 variable "max_size" {
@@ -54,5 +54,5 @@ variable "max_size" {
 }
 
 variable "min_size" {
-  default = 3
+  default = 2
 }
