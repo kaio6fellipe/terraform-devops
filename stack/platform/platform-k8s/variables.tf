@@ -54,5 +54,5 @@ variable "max_size" {
 }
 
 variable "min_size" {
-  default = 2
+  default = 3
 }
