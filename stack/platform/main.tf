@@ -123,6 +123,7 @@ module "platform_k8s" {
   vpc_intra_subnets     = var.vpc_intra_subnets
   platform_eks_services = var.platform_eks_services
   region                = var.region
+  private_dns_zone_arn  = var.private_dns_zone_arn
   availability_zones    = [var.availability_zone_1, var.availability_zone_2]
   key_name              = var.key_name
   default_sg            = aws_security_group.default_platform.id

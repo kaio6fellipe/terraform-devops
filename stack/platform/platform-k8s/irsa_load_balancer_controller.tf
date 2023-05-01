@@ -1,4 +1,4 @@
-module "load_balancer_controller_targetgroup_binding_only_irsa_role" {
+module "load_balancer_controller_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.17.0"
 

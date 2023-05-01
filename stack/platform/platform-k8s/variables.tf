@@ -14,6 +14,8 @@ variable "platform_eks_services" {}
 
 variable "region" {}
 
+variable "private_dns_zone_arn" {}
+
 variable "availability_zones" {}
 
 variable "key_name" {}

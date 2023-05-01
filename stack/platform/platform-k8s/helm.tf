@@ -24,7 +24,7 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.load_balancer_controller_targetgroup_binding_only_irsa_role.iam_role_arn
+    value = module.load_balancer_controller_irsa.iam_role_arn
   }
 
   depends_on = [
