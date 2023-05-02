@@ -18,8 +18,9 @@
 |------|--------|---------|
 | <a name="module_apps"></a> [apps](#module\_apps) | ./apps | n/a |
 | <a name="module_platform"></a> [platform](#module\_platform) | ./platform | n/a |
+| <a name="module_stack-secrets-manager"></a> [stack-secrets-manager](#module\_stack-secrets-manager) | lgallard/secrets-manager/aws | 0.8.0 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 3.14.2 |
-| <a name="module_zones"></a> [zones](#module\_zones) | terraform-aws-modules/route53/aws//modules/zones | 2.9.0 |
+| <a name="module_zones"></a> [zones](#module\_zones) | terraform-aws-modules/route53/aws//modules/zones | 2.10.2 |
 
 ## Resources
 

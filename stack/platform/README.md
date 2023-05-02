@@ -15,10 +15,6 @@ No requirements.
 |------|--------|---------|
 | <a name="module_ansible_server"></a> [ansible\_server](#module\_ansible\_server) | ./ansible-server | n/a |
 | <a name="module_bastion"></a> [bastion](#module\_bastion) | ./bastion | n/a |
-| <a name="module_goteleport"></a> [goteleport](#module\_goteleport) | ./goteleport | n/a |
-| <a name="module_grafana_dashboards"></a> [grafana\_dashboards](#module\_grafana\_dashboards) | ./grafana-dashboards | n/a |
-| <a name="module_grafana_loki"></a> [grafana\_loki](#module\_grafana\_loki) | ./grafana-loki | n/a |
-| <a name="module_grafana_mimir"></a> [grafana\_mimir](#module\_grafana\_mimir) | ./grafana-mimir | n/a |
 | <a name="module_platform_k8s"></a> [platform\_k8s](#module\_platform\_k8s) | ./platform-k8s | n/a |
 
 ## Resources
@@ -54,6 +50,7 @@ No requirements.
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name prefix | `string` | n/a | yes |
 | <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | n/a | `any` | n/a | yes |
+| <a name="input_private_dns_zone_arn"></a> [private\_dns\_zone\_arn](#input\_private\_dns\_zone\_arn) | n/a | `any` | n/a | yes |
 | <a name="input_private_dns_zone_id"></a> [private\_dns\_zone\_id](#input\_private\_dns\_zone\_id) | n/a | `any` | n/a | yes |
 | <a name="input_private_dns_zone_name"></a> [private\_dns\_zone\_name](#input\_private\_dns\_zone\_name) | n/a | `any` | n/a | yes |
 | <a name="input_private_subnet_cidr_block_0"></a> [private\_subnet\_cidr\_block\_0](#input\_private\_subnet\_cidr\_block\_0) | n/a | `any` | n/a | yes |
