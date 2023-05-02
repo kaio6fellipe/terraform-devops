@@ -50,6 +50,24 @@ resource "helm_release" "external_dns" {
   ]
 }
 
+resource "helm_release" "external_secrets" {
+  chart        = "external-secrets"
+  name         = "external-secrets"
+  namespace    = "kube-system"
+  repository   = "https://charts.external-secrets.io"
+  version      = "0.8.1"
+  force_update = true
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.external_secrets_irsa.iam_role_arn
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
+}
+
 resource "helm_release" "argocd" {
   chart            = "argo-cd"
   name             = "argocd"
@@ -67,6 +85,8 @@ resource "helm_release" "argocd" {
 
   depends_on = [
     helm_release.aws_load_balancer_controller,
+    helm_release.external_dns,
+    helm_release.external_secrets,
     # time_sleep.wait_destroy_3_min,
   ]
 
@@ -91,6 +111,9 @@ resource "helm_release" "argocd_apps" {
   ]
 
   depends_on = [
+    helm_release.aws_load_balancer_controller,
+    helm_release.external_dns,
+    helm_release.external_secrets,
     helm_release.argocd,
   ]
 
