@@ -21,10 +21,6 @@ resource "aws_cloudwatch_metric_alarm" "too_many_pods" {
   statistic           = "Sum"
   threshold           = 1
 
-  dimensions = {
-    AutoScalingGroupName = module.eks.eks_managed_node_groups_autoscaling_group_names[0]
-  }
-
-  alarm_description = "This metric monitors ec2 cpu utilization"
+  alarm_description = "This metric monitors too many pods logs from EKS control plane"
   alarm_actions     = [aws_autoscaling_policy.too_many_pods.arn]
 }
