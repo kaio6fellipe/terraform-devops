@@ -1,6 +1,6 @@
 module "zones" {
   source  = "terraform-aws-modules/route53/aws//modules/zones"
-  version = "2.9.0"
+  version = "2.10.2"
 
   zones = {
     "${var.environment}.private.ktech-br.com" = {
