@@ -48,6 +48,11 @@ jobs:
         run: |
           make python script=destroy_stateless_resources.py
 
+      - name: Destroy Stateless Resources (Double check)
+        id: destroy-stateless
+        run: |
+          make python script=destroy_stateless_resources.py
+
   destroy:
     name: 'Terraform destroy'
     runs-on: ubuntu-latest
