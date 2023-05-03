@@ -13,6 +13,17 @@ module "zones" {
       tags = {
         Name = "${var.environment}.private.ktech-br.com"
       }
+    },
+    "ktech-devops.com.br" = {
+      comment = "ktech-devops.com.br (Private zone for env: ${var.environment})"
+      vpc = [
+        {
+          vpc_id = module.vpc.vpc_id
+        }
+      ]
+      tags = {
+        Name = "ktech-devops.com.br"
+      }
     }
   }
 }
