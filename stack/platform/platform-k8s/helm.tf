@@ -82,8 +82,18 @@ resource "helm_release" "cluster_autoscaler" {
   }
 
   set {
+    name  = "fullnameOverride"
+    value = "cluster-autoscaler"
+  }
+
+  set {
     name  = "awsRegion"
     value = var.region
+  }
+
+  set {
+    name = "rbac.serviceAccount.name"
+    value = "cluster-autoscaler"
   }
 
   set {

@@ -43,8 +43,8 @@ module "eks" {
       desired_size = var.desired_size
 
       tags = {
-        "k8s.io/cluster-autoscaler/enabled" = true
-        "k8s.io/cluster-autoscaler/${local.name}" = true
+        "k8s.io/cluster-autoscaler/enabled" = "true"
+        "k8s.io/cluster-autoscaler/${local.name}" = "owned"
       }
     }
   }
