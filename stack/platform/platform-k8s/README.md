@@ -35,9 +35,6 @@
 
 | Name | Type |
 |------|------|
-| [aws_autoscaling_policy.too_many_pods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/autoscaling_policy) | resource |
-| [aws_cloudwatch_log_metric_filter.too_many_pods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_metric_filter) | resource |
-| [aws_cloudwatch_metric_alarm.too_many_pods](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm) | resource |
 | [helm_release.argocd](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.argocd_apps](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.aws_load_balancer_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
@@ -62,7 +59,7 @@
 | <a name="input_availability_zones"></a> [availability\_zones](#input\_availability\_zones) | n/a | `any` | n/a | yes |
 | <a name="input_cdirs_acesso_remoto"></a> [cdirs\_acesso\_remoto](#input\_cdirs\_acesso\_remoto) | n/a | `any` | n/a | yes |
 | <a name="input_default_sg"></a> [default\_sg](#input\_default\_sg) | n/a | `any` | n/a | yes |
-| <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | n/a | `number` | `3` | no |
+| <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | n/a | `number` | `4` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | n/a | `any` | n/a | yes |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | n/a | `list` | <pre>[<br>  "t3.small"<br>]</pre> | no |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | n/a | `any` | n/a | yes |
