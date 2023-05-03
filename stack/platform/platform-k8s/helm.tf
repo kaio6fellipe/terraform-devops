@@ -68,6 +68,34 @@ resource "helm_release" "external_secrets" {
   ]
 }
 
+resource "helm_release" "cluster_autoscaler" {
+  chart        = "cluster-autoscaler"
+  name         = "cluster-autoscaler"
+  namespace    = "kube-system"
+  repository   = "https://kubernetes.github.io/autoscaler"
+  version      = "9.28.0"
+  force_update = true
+
+  set {
+    name  = "autoDiscovery.clusterName"
+    value = module.eks.cluster_name
+  }
+
+  set {
+    name  = "awsRegion"
+    value = var.region
+  }
+
+  set {
+    name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.cluster_autoscaler_irsa.iam_role_arn
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
+}
+
 resource "helm_release" "argocd" {
   chart            = "argo-cd"
   name             = "argocd"
