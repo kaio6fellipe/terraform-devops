@@ -49,6 +49,7 @@ No requirements.
 | <a name="input_environment"></a> [environment](#input\_environment) | n/a | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | Key name prefix | `string` | n/a | yes |
+| <a name="input_ktech_devops_private_zone_id"></a> [ktech\_devops\_private\_zone\_id](#input\_ktech\_devops\_private\_zone\_id) | n/a | `any` | n/a | yes |
 | <a name="input_platform_eks_services"></a> [platform\_eks\_services](#input\_platform\_eks\_services) | n/a | `any` | n/a | yes |
 | <a name="input_private_dns_zone_arn"></a> [private\_dns\_zone\_arn](#input\_private\_dns\_zone\_arn) | n/a | `any` | n/a | yes |
 | <a name="input_private_dns_zone_id"></a> [private\_dns\_zone\_id](#input\_private\_dns\_zone\_id) | n/a | `any` | n/a | yes |

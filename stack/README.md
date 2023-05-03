@@ -31,6 +31,7 @@
 | [aws_ami.amazon_linux_2](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/ami) | data source |
 | [aws_ami.ubuntu2004](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/ami) | data source |
 | [aws_availability_zones.az_zones](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/availability_zones) | data source |
+| [aws_route53_zone.ktech_devops_private_zone](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/route53_zone) | data source |
 | [aws_route53_zone.private_zone](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/route53_zone) | data source |
 
 ## Inputs
