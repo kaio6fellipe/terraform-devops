@@ -4,7 +4,7 @@ module "cert_manager_irsa" {
 
   role_name                     = "cert-manager-${var.environment}"
   attach_cert_manager_policy    = true
-  cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/${var.private_dns_zone_id}"]
+  cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/${var.ktech_devops_private_zone_id}"]
 
   oidc_providers = {
     main = {

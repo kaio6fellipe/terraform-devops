@@ -114,22 +114,23 @@ module "bastion" {
 # }
 
 module "platform_k8s" {
-  source                = "./platform-k8s"
-  environment           = var.environment
-  vpc_id                = var.vpc_id
-  vpc_cidr              = var.vpc_cidr
-  vpc_private_subnets   = var.vpc_private_subnets
-  vpc_public_subnets    = var.vpc_public_subnets
-  vpc_intra_subnets     = var.vpc_intra_subnets
-  platform_eks_services = var.platform_eks_services
-  region                = var.region
-  private_dns_zone_id   = var.private_dns_zone_id
-  private_dns_zone_arn  = var.private_dns_zone_arn
-  availability_zones    = [var.availability_zone_1, var.availability_zone_2]
-  key_name              = var.key_name
-  default_sg            = aws_security_group.default_platform.id
-  ADMIN_USER_ARN        = var.ADMIN_USER_ARN
-  ADMIN_USER_NAME       = var.ADMIN_USER_NAME
-  cdirs_acesso_remoto   = var.cdirs_acesso_remoto
-  GITHUB_ACTIONS_CIDR   = var.GITHUB_ACTIONS_CIDR
+  source                       = "./platform-k8s"
+  environment                  = var.environment
+  vpc_id                       = var.vpc_id
+  vpc_cidr                     = var.vpc_cidr
+  vpc_private_subnets          = var.vpc_private_subnets
+  vpc_public_subnets           = var.vpc_public_subnets
+  vpc_intra_subnets            = var.vpc_intra_subnets
+  platform_eks_services        = var.platform_eks_services
+  region                       = var.region
+  ktech_devops_private_zone_id = var.ktech_devops_private_zone_id
+  private_dns_zone_id          = var.private_dns_zone_id
+  private_dns_zone_arn         = var.private_dns_zone_arn
+  availability_zones           = [var.availability_zone_1, var.availability_zone_2]
+  key_name                     = var.key_name
+  default_sg                   = aws_security_group.default_platform.id
+  ADMIN_USER_ARN               = var.ADMIN_USER_ARN
+  ADMIN_USER_NAME              = var.ADMIN_USER_NAME
+  cdirs_acesso_remoto          = var.cdirs_acesso_remoto
+  GITHUB_ACTIONS_CIDR          = var.GITHUB_ACTIONS_CIDR
 }

@@ -16,6 +16,8 @@ variable "region" {}
 
 variable "private_dns_zone_id" {}
 
+variable "ktech_devops_private_zone_id" {}
+
 variable "private_dns_zone_arn" {}
 
 variable "availability_zones" {}

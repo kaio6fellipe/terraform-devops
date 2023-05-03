@@ -92,13 +92,62 @@ resource "helm_release" "cluster_autoscaler" {
   }
 
   set {
-    name = "rbac.serviceAccount.name"
+    name  = "rbac.serviceAccount.name"
     value = "cluster-autoscaler"
   }
 
   set {
     name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.cluster_autoscaler_irsa.iam_role_arn
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
+}
+
+resource "helm_release" "cert_manager" {
+  chart            = "cert-manager"
+  name             = "cert-manager"
+  namespace        = "cert-manager"
+  create_namespace = true
+  repository       = "https://charts.jetstack.io"
+  version          = "v1.11.1"
+  force_update     = true
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.cert_manager_irsa.iam_role_arn
+  }
+
+  set {
+    name  = "nameOverride"
+    value = "cert-manager"
+  }
+
+  set {
+    name  = "fullnameOverride"
+    value = "cert-manager"
+  }
+
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
+
+  set {
+    name  = "serviceAccount.create"
+    value = "true"
+  }
+
+  set {
+    name  = "serviceAccount.name"
+    value = "cert-manager"
+  }
+
+  set {
+    name  = "securityContext.fsGroup"
+    value = "65534"
   }
 
   depends_on = [
@@ -126,6 +175,7 @@ resource "helm_release" "argocd" {
     helm_release.external_dns,
     helm_release.external_secrets,
     helm_release.cluster_autoscaler,
+    helm_release.cert_manager,
     # time_sleep.wait_destroy_3_min,
   ]
 
@@ -154,6 +204,7 @@ resource "helm_release" "argocd_apps" {
     helm_release.external_dns,
     helm_release.external_secrets,
     helm_release.cluster_autoscaler,
+    helm_release.cert_manager,
     helm_release.argocd,
   ]
 
