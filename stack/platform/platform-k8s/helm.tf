@@ -115,6 +115,7 @@ resource "helm_release" "argocd" {
     helm_release.aws_load_balancer_controller,
     helm_release.external_dns,
     helm_release.external_secrets,
+    helm_release.cluster_autoscaler,
     # time_sleep.wait_destroy_3_min,
   ]
 
@@ -142,6 +143,7 @@ resource "helm_release" "argocd_apps" {
     helm_release.aws_load_balancer_controller,
     helm_release.external_dns,
     helm_release.external_secrets,
+    helm_release.cluster_autoscaler,
     helm_release.argocd,
   ]
 
