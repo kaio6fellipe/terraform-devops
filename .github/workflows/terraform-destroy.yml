@@ -44,12 +44,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Destroy Stateless Resources
-        id: destroy-stateless
+        id: destroy-stateless1
         run: |
           make python script=destroy_stateless_resources.py
 
       - name: Destroy Stateless Resources (Double check)
-        id: destroy-stateless
+        id: destroy-stateless2
         run: |
           make python script=destroy_stateless_resources.py
 
