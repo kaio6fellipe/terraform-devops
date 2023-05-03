@@ -155,6 +155,39 @@ resource "helm_release" "cert_manager" {
   ]
 }
 
+resource "helm_release" "node_termination_handler" {
+  chart        = "aws-node-termination-handler"
+  name         = "aws-node-termination-handler"
+  namespace    = "kube-system"
+  repository   = "https://aws.github.io/eks-charts"
+  version      = "0.21.0"
+  force_update = true
+
+  set {
+    name  = "awsRegion"
+    value = var.region
+  }
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.node_termination_handler_irsa.iam_role_arn
+  }
+
+  set {
+    name  = "serviceAccount.name"
+    value = "aws-node-termination-handler"
+  }
+
+  set {
+    name  = "fullnameOverride"
+    value = "aws-node-termination-handler"
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
+}
+
 resource "helm_release" "argocd" {
   chart            = "argo-cd"
   name             = "argocd"
@@ -176,6 +209,7 @@ resource "helm_release" "argocd" {
     helm_release.external_secrets,
     helm_release.cluster_autoscaler,
     helm_release.cert_manager,
+    helm_release.node_termination_handler,
     # time_sleep.wait_destroy_3_min,
   ]
 
@@ -205,6 +239,7 @@ resource "helm_release" "argocd_apps" {
     helm_release.external_secrets,
     helm_release.cluster_autoscaler,
     helm_release.cert_manager,
+    helm_release.node_termination_handler,
     helm_release.argocd,
   ]
 
