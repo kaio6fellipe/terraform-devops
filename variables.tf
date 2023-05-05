@@ -133,3 +133,9 @@ variable "GITHUB_ACTIONS_CIDR" {
   default     = ["0.0.0.0/0"]
   type        = list(string)
 }
+
+variable "ARGO_GITHUB_SSO_SECRET_KEY" {
+  description = "GitHub SSO for ArgoCD Application "
+  type        = string
+  sensitive   = true
+}

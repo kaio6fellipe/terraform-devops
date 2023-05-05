@@ -109,4 +109,8 @@ variable "ADMIN_USER_NAME" {
   sensitive = true
 }
 
+variable "ARGO_GITHUB_SSO_SECRET_KEY" {
+  sensitive = true
+}
+
 variable "GITHUB_ACTIONS_CIDR" {}

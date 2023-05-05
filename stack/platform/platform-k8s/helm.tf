@@ -51,12 +51,13 @@ resource "helm_release" "external_dns" {
 }
 
 resource "helm_release" "external_secrets" {
-  chart        = "external-secrets"
-  name         = "external-secrets"
-  namespace    = "kube-system"
-  repository   = "https://charts.external-secrets.io"
-  version      = "0.8.1"
-  force_update = true
+  chart            = "external-secrets"
+  name             = "external-secrets"
+  namespace        = "external-secrets"
+  create_namespace = true
+  repository       = "https://charts.external-secrets.io"
+  version          = "0.8.1"
+  force_update     = true
 
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
