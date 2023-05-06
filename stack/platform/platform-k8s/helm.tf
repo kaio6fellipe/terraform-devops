@@ -197,7 +197,7 @@ resource "helm_release" "argocd" {
   repository       = "https://argoproj.github.io/argo-helm"
   version          = "5.28.1"
   force_update     = true
-  timeout          = 600
+  timeout          = 300
   wait             = false
 
   values = [
@@ -227,7 +227,7 @@ resource "helm_release" "argocd_apps" {
   repository       = "https://argoproj.github.io/argo-helm"
   version          = "0.0.9"
   force_update     = true
-  timeout          = 600
+  timeout          = 300
   wait             = false
 
   values = [
