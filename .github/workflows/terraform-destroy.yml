@@ -100,6 +100,7 @@ jobs:
         run: | 
           terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd &&
           terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd_apps
+        continue-on-error: true
 
       - name: Terraform Destroy
         id: destroy1
