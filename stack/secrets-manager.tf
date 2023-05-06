@@ -25,6 +25,11 @@ module "stack-secrets-manager" {
       description             = "GitHub SSO Secret Key for Argo Application"
       recovery_window_in_days = 0
       secret_string           = var.ARGO_GITHUB_SSO_SECRET_KEY
+    },
+    crossplane-aws-secret-credentials = {
+      description             = "Crossplane credentials"
+      recovery_window_in_days = 0
+      secret_string           = var.CROSSPLANE_AWS_CREDENTIALS_CONTENT
     }
   }
 }

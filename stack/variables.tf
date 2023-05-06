@@ -113,4 +113,8 @@ variable "ARGO_GITHUB_SSO_SECRET_KEY" {
   sensitive = true
 }
 
+variable "CROSSPLANE_AWS_CREDENTIALS_CONTENT" {
+  sensitive = true
+}
+
 variable "GITHUB_ACTIONS_CIDR" {}
