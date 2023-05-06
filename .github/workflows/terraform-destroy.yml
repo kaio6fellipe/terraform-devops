@@ -96,10 +96,35 @@ jobs:
       - name: Terraform Refresh
         run: terraform refresh -var-file="global/terraform.tfvars"
 
-      - name: Remove ArgoCD Helm Releases from remote state
+      - name: Remove Helm Releases from remote state (ArgoCD)
         run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd &&
+          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd
           terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd_apps
+        continue-on-error: true
+
+      - name: Remove Helm Releases from remote state (AWS Load Balancer Controller)
+        run: | 
+          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.aws_load_balancer_controller
+        continue-on-error: true
+
+      - name: Remove Helm Releases from remote state (External DNS)
+        run: | 
+          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.external_dns
+        continue-on-error: true
+
+      - name: Remove Helm Releases from remote state (External Secrets)
+        run: | 
+          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.external_secrets
+        continue-on-error: true
+
+      - name: Remove Helm Releases from remote state (Cluster Autoscaler)
+        run: | 
+          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cluster_autoscaler
+        continue-on-error: true
+
+      - name: Remove Helm Releases from remote state (Cert Manager)
+        run: | 
+          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cert_manager
         continue-on-error: true
 
       - name: Terraform Destroy
