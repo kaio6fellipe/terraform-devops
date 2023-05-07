@@ -48,7 +48,7 @@ variable "kubernetes_version" {
 }
 
 variable "instance_types" {
-  default = ["t3.small", "t3.medium"]
+  default = ["t3.small", "t3.medium", "c6i.xlarge"]
 }
 
 variable "desired_size" {
