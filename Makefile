@@ -9,6 +9,7 @@ region?="us-east-1"
 cluster?=""
 version?=development
 script?=""
+args?=--help
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
@@ -102,3 +103,7 @@ run: ##@docker Run the container image used for local development and operation
 .PHONY: python
 python: guard-script ##@python Run external scripts with Python
 	$(docker_run) bash -c "python3 ./lib/python/$(script)"
+
+.PHONY: terramate
+terramate: guard-args
+	$(docker_run) bash -c "terramate $(args)"
