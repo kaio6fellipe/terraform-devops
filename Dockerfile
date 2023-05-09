@@ -10,6 +10,7 @@ ENV TESTFIXTURES_VERSION=7.1.0
 ENV ANSIBLE_VERSION=7.4.0
 ENV KUBECTL_VERSION=v1.26.0
 ENV TERRAFORM_VERSION=1.2.4
+ENV TERRAMATE_VERSION=v0.2.18
 ENV TFLINT_VERSION=v0.42.2
 ENV TFSEC_VERSION=v1.28.1
 ENV HELM_VERSION=v3.11.2
@@ -26,6 +27,7 @@ RUN apt-get update && apt-get install -y \
         lsof \
         python3 \
         python3-pip \ 
+        golang-go \
         tree \
         unzip \
         vim \
@@ -40,6 +42,8 @@ RUN pip3 install --no-cache-dir \
 RUN curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
   unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
   rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+RUN GOBIN=/usr/local/bin/ go install github.com/mineiros-io/terramate/cmd/terramate@${TERRAMATE_VERSION}
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x ./kubectl && \
