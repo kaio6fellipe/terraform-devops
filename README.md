@@ -1,6 +1,6 @@
 # A project to practice Terraform
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
+[![infracost](https://img.shields.io/endpoint?url=https://dashboard.api.infracost.io/shields/json/fa2ad560-15ac-4983-a9b3-5235495c687f/repos/eda353d9-3112-4958-8a4c-b53d2afe8c8d/branch/1bc7a1df-a512-44f3-8e34-546c9eb13b70/kaio6fellipe%252Fterraform-devops)](https://dashboard.infracost.io/org/kaio6fellipe/repos/eda353d9-3112-4958-8a4c-b53d2afe8c8d) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=kaio6fellipe_terraform-devops&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=kaio6fellipe_terraform-devops)
