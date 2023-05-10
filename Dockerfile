@@ -26,12 +26,12 @@ RUN apt-get update && apt-get install -y \
         jq \
         lsof \
         python3 \
-        python3-pip \ 
+        python3-pip \
         golang-go \
         tree \
         unzip \
         vim \
-        zip 
+        zip
 
 RUN pip3 install --no-cache-dir \
       ansible==${ANSIBLE_VERSION} \

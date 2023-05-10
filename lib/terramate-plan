@@ -90,7 +90,7 @@ fi
 color_echo_green "...HCL code generated with success."
 
 color_echo_blue "Initializing the stacks with Terramate running terraform init..."
-git add . && terramate run --changed terraform init || status_tfinit="1"
+git add . && terramate run --changed terraform init -backend=true || status_tfinit="1"
 if [[ "${status_tfinit}" != "0" ]]; then
     color_echo_red "...Terramate running terraform init failed."
     exit 1

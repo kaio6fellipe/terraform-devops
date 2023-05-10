@@ -103,10 +103,9 @@ image-pull: ##@docker Pull the container image used for local development and op
 .PHONY: run
 run: ##@docker Run the container image used for local development and operation
 	$(docker_run_interactive) /bin/bash
-# export KEY_FILE_PUB="$(shell cat $(keyfile_public))" && \
-# export KEY_FILE="$(shell cat $(keyfile))" && \
+# export KEY_FILE_PUB="$(shell cat $(keyfile_public))" && \ 
+# export KEY_FILE="$(shell cat $(keyfile))" && \ 
 	
-
 .PHONY: python
 python: guard-script ##@python (args: script) Run external scripts with Python
 	$(docker_run) bash -c "python3 ./lib/python/$(script)"
@@ -126,5 +125,5 @@ terramate-chown: guard-current_user ##@terramate (args: current_user) Change own
 terramate-plan: guard-keyname ##@terramate Execute terramate generate and terramate run with init and plan on each stack that has detected differences
 	git add . && \
 	$(docker_run) ./lib/terramate-plan --keyname $(keyname) --log_level $(log_level)
-# export KEY_FILE_PUB="$(shell cat $(keyfile_public))" && \
-# export KEY_FILE="$(shell cat $(keyfile))" && \
+# export KEY_FILE_PUB="$(shell cat $(keyfile_public))" && \ 
+# export KEY_FILE="$(shell cat $(keyfile))" && \ 

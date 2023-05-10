@@ -48,11 +48,16 @@ variable "kubernetes_version" {
 }
 
 variable "instance_types" {
-  default = ["t3.small", "t3.medium", "c6i.xlarge"]
+  # default = ["t3.small", "t3.medium", "c6i.xlarge"]
+  default = [
+    "t3.small", # 11 pods
+    "t3.medium", # 17 pods
+    "t3.xlarge", # 58 pods
+  ]
 }
 
 variable "desired_size" {
-  default = 4
+  default = 3
 }
 
 variable "max_size" {

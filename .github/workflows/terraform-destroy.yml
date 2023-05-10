@@ -80,21 +80,28 @@ jobs:
         with:
           terraform_version: 1.2.4
 
-      - name: Terraform Fmt
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.18.0'
+
+      - name: Terramate Setup
+        run: GOBIN=/usr/local/bin/ go install github.com/mineiros-io/terramate/cmd/terramate@v0.2.18
+
+      - name: Terramate Fmt
         id: fmt
-        run: terraform fmt -check
+        run: terramate run --reverse terraform fmt -check
         continue-on-error: true
 
-      - name: Terraform Init
+      - name: Terramate Init
         id: init
-        run: terraform init -backend=true -backend-config="global/backend.hcl"
+        run: terramate run --reverse terraform init -backend=true
 
-      - name: Terraform Validate
+      - name: Terramate Validate
         id: validate
-        run: terraform validate -no-color
+        run: terramate run --reverse terraform validate -no-color
 
-      - name: Terraform Refresh
-        run: terraform refresh -var-file="global/terraform.tfvars"
+      - name: Terramate Refresh
+        run: terramate run --reverse terraform refresh
 
       - name: Remove Helm Releases from remote state (ArgoCD)
         run: | 
@@ -127,16 +134,16 @@ jobs:
           terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cert_manager
         continue-on-error: true
 
-      - name: Terraform Destroy
+      - name: Terramate Destroy
         id: destroy1
-        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
+        run: terramate run --reverse terraform destroy -auto-approve
         continue-on-error: true
 
-      - name: Terraform Destroy (Double check)
+      - name: Terramate Destroy (Double check)
         id: destroy2
-        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
+        run: terramate run --reverse terraform destroy -auto-approve
         continue-on-error: true
 
-      - name: Terraform Destroy Status
+      - name: Terramate Destroy Status
         if: steps.destroy2.outcome == 'failure'
         run: exit 1
