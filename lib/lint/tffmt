@@ -10,7 +10,7 @@ status_tffmt="0"
 TERRAFORM=$(command -v terraform)
 
 color_echo_blue "Formating check with Terraform..."
-${TERRAFORM} fmt -check || status_tffmt="1"
+${TERRAFORM} fmt -check -recursive || status_tffmt="1"
 if [[ "${status_tffmt}" != "0" ]]; then
     color_echo_red "...Terraform format check failed."
     exit 1

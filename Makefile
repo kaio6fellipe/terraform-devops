@@ -116,6 +116,10 @@ terramate: guard-args ##@terramate (args: args) Run terramate with additional ar
 	$(docker_run) bash -c "terramate $(args)" && \
 	make terramate-chown
 
+.PHONY: terramate-fmt
+terramate-fmt: ##@terramate Run terramate fmt to format all terramate files
+	$(docker_run) bash -c "terramate fmt"
+
 .PHONY: terramate-chown
 terramate-chown: guard-current_user ##@terramate (args: current_user) Change owner of terramate generated files inside platform-ops container
 	sudo find . -type f -name '*.tm.hcl' | sudo xargs chown $(current_user):$(current_user) && \
