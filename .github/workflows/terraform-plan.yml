@@ -83,6 +83,7 @@ jobs:
       - name: Terramate Fmt
         id: tm-fmt
         run: terramate fmt --check
+        continue-on-error: true
 
       - name: List all Stacks
         run: terramate list

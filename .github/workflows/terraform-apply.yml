@@ -98,28 +98,59 @@ jobs:
         id: aws-version
         run: aws --version
 
-      - name: Terramate fmt
+      - name: Terraform Fmt
         id: fmt
-        run: terramate run --changed terraform fmt -check
+        run: terraform fmt -check
         continue-on-error: true
 
-      - name: Terramate Init
-        id: init
+      - name: Terramate Fmt
+        id: tm-fmt
+        run: terramate fmt --check
+        continue-on-error: true
+
+      - name: Terramate Init (Changed)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: init-changed
         run: terramate run --changed terraform init -backend=true
 
-      - name: Terramate Validate
-        id: validate
+      - name: Terramate Init (Workflow dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: init-workflow-dispatch
+        run: terramate run terraform init -backend=true
+
+      - name: Terramate Validate (Changed)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: validate-changed
         run: terramate run --changed terraform validate -no-color
 
-      - name: Terramate Apply
-        id: apply1
+      - name: Terramate Validate (Workflow dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: validate-workflow-dispatch
+        run: terramate run terraform validate -no-color
+
+      - name: Terramate Apply (Changed)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: apply1-changed
         run: terramate run --changed terraform apply -auto-approve
+        continue-on-error: true
+
+      - name: Terramate Apply (Workflow dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: apply1-workflow-dispatch
+        run: terramate run terraform apply -auto-approve
         continue-on-error: true
 
       # Second apply to configure resources that depends on data sources for authentication, like eks-cluster auth
-      - name: Terramate Apply (Double check)
-        id: apply2
+      - name: Terramate Apply (Double check [Changed])
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: apply2-changed
         run: terramate run --changed terraform apply -auto-approve
+        continue-on-error: true
+
+      - name: Terramate Apply (Double check [Workflow dispatch])
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: apply2-workflow-dispatch
+        run: terramate run terraform apply -auto-approve
         continue-on-error: true
 
       # - name: Post to a Slack channel
@@ -144,7 +175,7 @@ jobs:
       #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: Terramate Apply Status
-        if: steps.apply2.outcome == 'failure'
+        if: ${{ steps.apply2-changed.outcome == 'failure' | steps.apply2-workflow-dispatch.outcome == 'failure' }}
         run: exit 1
 
   documentation:
