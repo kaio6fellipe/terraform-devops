@@ -12,7 +12,7 @@ resource "aws_instance" "cluster" {
   iam_instance_profile        = aws_iam_role.cluster.id
 
   user_data = templatefile(
-    "${abspath(path.cwd)}/stack/platform/goteleport/data.tpl",
+    "${abspath(path.cwd)}/platform/goteleport/data.tpl",
     {
       region                   = var.region
       cluster_name             = local.cluster_name

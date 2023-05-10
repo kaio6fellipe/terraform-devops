@@ -20,5 +20,4 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           directory: .
-          framework: terraform 
-          var_file: global/terraform.tfvars 
+          framework: terraform

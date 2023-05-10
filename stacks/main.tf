@@ -1,20 +1,14 @@
-module "apps" {
-  source        = "./apps"
-  instance_type = var.instance_type
-  environment   = var.environment
-}
-
 module "platform" {
   source                       = "./platform"
-  instance_type                = var.instance_type
-  ansible_instance_type        = var.ansible_instance_type
-  db_instance_type             = var.db_instance_type
-  rds_allocated_storage        = var.rds_allocated_storage
-  rds_max_allocated_storage    = var.rds_max_allocated_storage
-  environment                  = var.environment
-  region                       = var.region
+  instance_type                = local.instance_type
+  ansible_instance_type        = local.ansible_instance_type
+  db_instance_type             = local.db_instance_type
+  rds_allocated_storage        = local.rds_allocated_storage
+  rds_max_allocated_storage    = local.rds_max_allocated_storage
+  environment                  = local.environment
+  region                       = local.region
   amazon_linux_2               = data.aws_ami.amazon_linux_2.id
-  key_name                     = "${var.key_name}-${var.environment}"
+  key_name                     = "${local.key_name}-${local.environment}"
   vpc_id                       = local.vpc_id
   vpc_private_subnets          = local.vpc_private_subnets
   vpc_public_subnets           = local.vpc_public_subnets
@@ -31,7 +25,7 @@ module "platform" {
   private_subnet_cidr_block_0  = local.private_subnet_cidr_block_0
   database_subnet_id_0         = local.database_subnet_id_0
   db_subnet_group_name         = local.db_subnet_group_name
-  vpc_cidr                     = var.vpc_cidr
+  vpc_cidr                     = local.vpc_cidr
   SSH_PRIVATE_KEY              = var.SSH_PRIVATE_KEY
   AWS_RDS_PASSWORD             = var.AWS_RDS_PASSWORD
   ANSIBLE_VAULT_PASSWORD       = var.ANSIBLE_VAULT_PASSWORD
@@ -42,5 +36,5 @@ module "platform" {
   private_dns_zone_name        = sort(keys(module.zones.route53_zone_zone_id))[0]
   private_dns_zone_arn         = sort(keys(module.zones.route53_zone_zone_arn))[0]
   GITHUB_ACTIONS_CIDR          = var.GITHUB_ACTIONS_CIDR
-  platform_eks_services        = var.platform_eks_services
+  platform_eks_services        = local.platform_eks_services
 }

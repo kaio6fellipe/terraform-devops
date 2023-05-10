@@ -1,88 +1,3 @@
-variable "key_name" {
-  description = "Key name prefix"
-  default     = "terraform-aws"
-}
-
-variable "environment" {
-  type = string
-}
-
-variable "instance_type" {
-  type = string
-}
-
-variable "ansible_instance_type" {
-  type = string
-}
-
-variable "db_instance_type" {
-  type = string
-}
-
-variable "rds_allocated_storage" {}
-
-variable "rds_max_allocated_storage" {}
-
-variable "region" {
-  type = string
-}
-
-variable "vpc_cidr" {
-  type = string
-}
-
-variable "private_subnet_a" {
-  type = string
-}
-
-variable "public_subnet_a" {
-  type = string
-}
-
-variable "private_subnet_b" {
-  type = string
-}
-
-variable "intra_subnet_a" {
-  type = string
-}
-
-variable "intra_subnet_b" {
-  type = string
-}
-
-variable "intra_subnet_c" {
-  type = string
-}
-
-variable "public_subnet_b" {
-  type = string
-}
-
-variable "private_subnet_c" {
-  type = string
-}
-
-variable "public_subnet_c" {
-  type = string
-}
-
-variable "database_subnet_a" {
-  type = string
-}
-
-variable "database_subnet_b" {
-  type = string
-}
-
-variable "database_subnet_c" {
-  type = string
-}
-
-variable "platform_eks_services" {
-  type = string
-}
-
 variable "SSH_PRIVATE_KEY" {
   description = "SSH Private Key for Ansible Server (Controller)"
   type        = string
@@ -102,19 +17,31 @@ variable "ANSIBLE_VAULT_PASSWORD" {
 }
 
 variable "ADMIN_USER_ARN" {
-  sensitive = true
+  description = "EKS admin user ARN"
+  type        = string
+  sensitive   = true
 }
 
 variable "ADMIN_USER_NAME" {
-  sensitive = true
+  description = "EKS admin user name"
+  type        = string
+  sensitive   = true
+}
+
+variable "GITHUB_ACTIONS_CIDR" {
+  description = "GitHub Actions egress CIDR Block"
+  default     = ["0.0.0.0/0"]
+  type        = list(string)
 }
 
 variable "ARGO_GITHUB_SSO_SECRET_KEY" {
-  sensitive = true
+  description = "GitHub SSO for ArgoCD Application "
+  type        = string
+  sensitive   = true
 }
 
 variable "CROSSPLANE_AWS_CREDENTIALS_CONTENT" {
-  sensitive = true
+  description = "Crossplane AWS Credentials content file"
+  type        = string
+  sensitive   = true
 }
-
-variable "GITHUB_ACTIONS_CIDR" {}

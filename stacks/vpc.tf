@@ -2,14 +2,14 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.14.2"
 
-  name = "vpc-${var.region}-${var.environment}"
-  cidr = var.vpc_cidr
+  name = "vpc-${local.region}-${local.environment}"
+  cidr = local.vpc_cidr
 
-  azs              = ["${var.region}a", "${var.region}b", "${var.region}c"]
-  private_subnets  = ["${var.private_subnet_a}", "${var.private_subnet_b}", "${var.private_subnet_c}"]
-  intra_subnets    = ["${var.intra_subnet_a}", "${var.intra_subnet_b}", "${var.intra_subnet_c}"]
-  public_subnets   = ["${var.public_subnet_a}", "${var.public_subnet_b}", "${var.public_subnet_c}"]
-  database_subnets = ["${var.database_subnet_a}", "${var.database_subnet_b}", "${var.database_subnet_c}"]
+  azs              = ["${local.region}a", "${local.region}b", "${local.region}c"]
+  private_subnets  = ["${local.private_subnet_a}", "${local.private_subnet_b}", "${local.private_subnet_c}"]
+  intra_subnets    = ["${local.intra_subnet_a}", "${local.intra_subnet_b}", "${local.intra_subnet_c}"]
+  public_subnets   = ["${local.public_subnet_a}", "${local.public_subnet_b}", "${local.public_subnet_c}"]
+  database_subnets = ["${local.database_subnet_a}", "${local.database_subnet_b}", "${local.database_subnet_c}"]
 
   create_database_subnet_group = true
   enable_ipv6                  = false
@@ -28,7 +28,7 @@ module "vpc" {
   }
 
   vpc_tags = {
-    Name = "vpc-${var.region}-${var.environment}"
+    Name = "vpc-${local.region}-${local.environment}"
   }
 }
 
