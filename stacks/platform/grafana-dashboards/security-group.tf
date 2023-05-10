@@ -5,10 +5,10 @@ resource "aws_security_group" "grafana_http_instance" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "Allow requests to port 3000 from Grafana Load Balancer"
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
+    description     = "Allow requests to port 3000 from Grafana Load Balancer"
+    from_port       = 3000
+    to_port         = 3000
+    protocol        = "tcp"
     security_groups = [aws_security_group.sg_grafana_http.id, aws_security_group.sg_grafana_https.id]
   }
   tags = {

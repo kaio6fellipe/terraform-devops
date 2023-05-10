@@ -104,7 +104,7 @@ variable "kms_alias_name" {
 
 // Instance type for cluster
 variable "instance_type" {
-  type    = string
+  type = string
   # default = "t3.micro"
 }
 

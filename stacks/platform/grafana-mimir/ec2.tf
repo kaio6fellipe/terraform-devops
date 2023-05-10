@@ -4,10 +4,10 @@ module "ec2-instance01" {
 
   name = "grafana-mimir01-${var.environment}"
 
-  ami           = var.amazon_linux_2
-  instance_type = var.instance_type
-  key_name      = var.key_name
-  monitoring    = false
+  ami                  = var.amazon_linux_2
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  monitoring           = false
   iam_instance_profile = aws_iam_instance_profile.mimir_ec2_profile.id
 
   availability_zone      = var.availability_zone_1

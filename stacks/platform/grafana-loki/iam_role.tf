@@ -7,14 +7,14 @@ resource "aws_iam_role" "loki_ec2_role" {
   name = "ec2_loki_role-${var.environment}"
 
   assume_role_policy = jsonencode({
-    Version: "2012-10-17",
-    Statement: [
+    Version : "2012-10-17",
+    Statement : [
       {
-        Effect: "Allow",
-        Principal: {
-          Service: "ec2.amazonaws.com"
+        Effect : "Allow",
+        Principal : {
+          Service : "ec2.amazonaws.com"
         },
-        Action: "sts:AssumeRole"
+        Action : "sts:AssumeRole"
       }
     ]
   })
@@ -25,29 +25,29 @@ resource "aws_iam_role_policy" "loki_ec2_policy" {
   role = aws_iam_role.loki_ec2_role.id
 
   policy = jsonencode({
-    Version: "2012-10-17",
-    Statement: [
+    Version : "2012-10-17",
+    Statement : [
       {
-        Effect:"Allow",
-        Action: [
+        Effect : "Allow",
+        Action : [
           "s3:*"
           # "s3:GetObject",
           # "s3:ListBucket",
           # "s3:PutObject",
           # "s3:DeleteObject"
         ],
-        Resource: [
+        Resource : [
           "${aws_s3_bucket.loki_bucket.arn}",
           "${aws_s3_bucket.loki_bucket.arn}/*"
         ]
       },
       {
-        Effect:"Allow",
-        Action: [
+        Effect : "Allow",
+        Action : [
           "kms:GenerateDataKey",
           "kms:Decrypt"
         ],
-        Resource: [
+        Resource : [
           "${aws_kms_key.loki_bucket_key.arn}"
         ]
       }

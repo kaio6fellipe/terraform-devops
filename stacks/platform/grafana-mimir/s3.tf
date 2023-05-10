@@ -38,7 +38,7 @@ resource "aws_s3_bucket_ownership_controls" "mimir_bucket" {
   }
 }
 
-resource "aws_s3_bucket_versioning" "mimir_bucket"{
+resource "aws_s3_bucket_versioning" "mimir_bucket" {
   bucket = aws_s3_bucket.mimir_bucket.id
 
   versioning_configuration {
@@ -47,10 +47,10 @@ resource "aws_s3_bucket_versioning" "mimir_bucket"{
 }
 
 resource "aws_s3_bucket_public_access_block" "block" {
-    bucket = aws_s3_bucket.mimir_bucket.id
+  bucket = aws_s3_bucket.mimir_bucket.id
 
-    block_public_acls       = true
-    block_public_policy     = true
-    ignore_public_acls      = true
-    restrict_public_buckets = true
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }

@@ -2,9 +2,9 @@ module "external_secrets_irsa" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.17.0"
 
-  role_name                             = "external-secrets-${var.environment}"
-  attach_external_secrets_policy        = true
-  cluster_autoscaler_cluster_ids        = [module.eks.cluster_id]
+  role_name                      = "external-secrets-${var.environment}"
+  attach_external_secrets_policy = true
+  cluster_autoscaler_cluster_ids = [module.eks.cluster_id]
 
   oidc_providers = {
     ex = {

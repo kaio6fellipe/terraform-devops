@@ -51,6 +51,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # GitActions CIDR commented because aws have a limit of 40 entries, with free runner there is no way to get the egress IP to allow public connections to EKS clusters
       # Ref: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
@@ -73,10 +75,17 @@ jobs:
       - name: Terramate Setup
         run: GOBIN=/usr/local/bin/ go install github.com/mineiros-io/terramate/cmd/terramate@v0.2.18
 
-      - name: Terramate Fmt
+      - name: Terraform Fmt
         id: fmt
-        run: terramate run --changed terraform fmt -check
+        run: terraform fmt -recursive -check
         continue-on-error: true
+
+      - name: Terramate Fmt
+        id: tm-fmt
+        run: terramate fmt --check
+
+      - name: List all Stacks
+        run: terramate list
 
       - name: Terramate Init
         id: init
