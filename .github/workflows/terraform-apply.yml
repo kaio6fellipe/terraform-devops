@@ -177,7 +177,7 @@ jobs:
       #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
       - name: Terramate Apply Status
-        if: ${{ steps.apply2-changed.outcome == 'failure' | steps.apply2-workflow-dispatch.outcome == 'failure' }}
+        if: ${{ steps.apply2-changed.outcome == 'failure' || steps.apply2-workflow-dispatch.outcome == 'failure' }}
         run: exit 1
 
   documentation:
