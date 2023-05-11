@@ -72,7 +72,7 @@ kubectl: guard-region guard-cluster ##@eks (args: region, cluster) Connect to an
 	$(docker_run_interactive) ./lib/eks-connect --region $(region) --cluster $(cluster)
 
 .PHONY: lint
-lint: check tflint tfsec tffmt terramate-plan  ##@check Execute linters, security check and Terramate Plan
+lint: check tflint tfsec tffmt terramate-plan ##@check Execute linters, security check and Terramate Plan
 
 .PHONY: check
 check: ##@check Check pre-push integrity

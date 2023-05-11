@@ -48,10 +48,10 @@ jobs:
       run: tflint --version
 
     - name: Terramate Init
-      run: terramate run terraform init -backend=true
+      run: terramate run --changed terraform init -backend=true
 
     - name: Init TFLint
-      run: terramate run tflint --init 
+      run: terramate run --changed tflint --init 
       
     - name: Run TFLint
-      run: terramate run tflint --module -f compact
+      run: terramate run --changed tflint --module -f compact

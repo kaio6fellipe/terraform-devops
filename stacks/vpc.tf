@@ -6,10 +6,10 @@ module "vpc" {
   cidr = local.vpc_cidr
 
   azs              = ["${local.region}a", "${local.region}b", "${local.region}c"]
-  private_subnets  = ["${local.private_subnet_a}", "${local.private_subnet_b}", "${local.private_subnet_c}"]
-  intra_subnets    = ["${local.intra_subnet_a}", "${local.intra_subnet_b}", "${local.intra_subnet_c}"]
-  public_subnets   = ["${local.public_subnet_a}", "${local.public_subnet_b}", "${local.public_subnet_c}"]
-  database_subnets = ["${local.database_subnet_a}", "${local.database_subnet_b}", "${local.database_subnet_c}"]
+  private_subnets  = [local.private_subnet_a, local.private_subnet_b, local.private_subnet_c]
+  intra_subnets    = [local.intra_subnet_a, local.intra_subnet_b, local.intra_subnet_c]
+  public_subnets   = [local.public_subnet_a, local.public_subnet_b, local.public_subnet_c]
+  database_subnets = [local.database_subnet_a, local.database_subnet_b, local.database_subnet_c]
 
   create_database_subnet_group = true
   enable_ipv6                  = false
