@@ -22,25 +22,26 @@ jobs:
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  # tflint:
-  #   name: Lint check
-  #   # uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
-  #   uses: ./.github/workflows/tflint.yml
-  #   secrets:
-  #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  tflint:
+    name: Lint check
+    # uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
+    uses: ./.github/workflows/tflint.yml
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  # tfsec:
-  #   name: Terraform Security check
-  #   uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@development
+  tfsec:
+    name: Terraform Security check
+    # uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@development
+    uses: ./.github/workflows/tfsec.yml
 
-  # checkov:
-  #   name: Checkov Security check
-  #   uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
+  checkov:
+    name: Checkov Security check
+    uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
 
   plan:
     name: 'Terraform plan'
-    # needs: [tflint]
+    needs: [tflint]
     runs-on: ubuntu-latest
 
     defaults:

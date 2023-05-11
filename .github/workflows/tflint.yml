@@ -19,6 +19,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       name: Checkout source code
+      with:
+          fetch-depth: 0
 
     - uses: actions/cache@v2
       name: Cache plugin dir
@@ -46,10 +48,7 @@ jobs:
       run: tflint --version
 
     - name: Terramate Init
-      run: terramate run --changed terraform init -backend=true
+      run: terramate run terraform init -backend=true
 
-    - name: Init TFLint
-      run: terramate run --changed tflint --init
-
-    - name: Run TFLint
-      run: terramate run --changed tflint --module -f compact
+    - name: Init TFLint and Run
+      run: terramate run tflint --init && tflint --module -f compact

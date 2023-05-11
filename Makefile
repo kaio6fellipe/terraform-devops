@@ -37,19 +37,21 @@ init: guard-reset ##@repository (args: reset)Init repository config and hooks an
 ifeq ($(reset), true)
 	$(shell cp hooks/pre-push .git/hooks/pre-push)
 	$(shell chmod +x .git/hooks/pre-push)
-	sudo rm -rfd .terraform/
-	chmod +x stack/platform/platform-k8s/eks-cluster-ca-certificate.sh
-	chmod +x stack/platform/platform-k8s/eks-cluster-endpoint.sh
-	chmod +x stack/platform/platform-k8s/eks-cluster-token.sh
-	$(docker_run) /bin/bash -c "terraform init -upgrade -backend=true -backend-config='global/backend.hcl'"
+	find . -type d -wholename '*/.terraform/*' | xargs sudo rm -rfd
+	chmod +x stacks/platform/platform-k8s/eks-cluster-ca-certificate.sh
+	chmod +x stacks/platform/platform-k8s/eks-cluster-endpoint.sh
+	chmod +x stacks/platform/platform-k8s/eks-cluster-token.sh
+	git add .
+	$(docker_run) /bin/bash -c "terramate run terraform init -upgrade -backend=true"
 	@echo "Repository initialized with success..."
 else
 	@echo "To init the repository pass the parameter reset=true"
 endif
 
 .PHONY: plan
-plan: ##@terraform Execute Terraform Plan
-	$(docker_run) ./lib/plan
+plan: ##@terraform (Deprectated, use terramate-plan) Execute Terraform Plan
+	@echo "Deprectated, use terramate-plan"	
+# $(docker_run) ./lib/plan
 
 .PHONY: bastion
 bastion: guard-keyname guard-user ##@bastion (args: keyname, user) Get access directly to bastion server
@@ -70,7 +72,7 @@ kubectl: guard-region guard-cluster ##@eks (args: region, cluster) Connect to an
 	$(docker_run_interactive) ./lib/eks-connect --region $(region) --cluster $(cluster)
 
 .PHONY: lint
-lint: check tflint tfsec tffmt plan  ##@check Execute linters, security check and Terraform Plan
+lint: check tflint tfsec tffmt terramate-plan  ##@check Execute linters, security check and Terramate Plan
 
 .PHONY: check
 check: ##@check Check pre-push integrity
@@ -116,8 +118,15 @@ terramate: guard-args ##@terramate (args: args) Run terramate with additional ar
 	$(docker_run) bash -c "terramate $(args)" && \
 	make terramate-chown
 
+.PHONY: terramate-generate
+terramate-generate: ##@terramate Run terramate generate to generate stack files managed by Terramate
+	git add . && \
+	$(docker_run) bash -c "terramate generate" && \
+	make terramate-chown
+
 .PHONY: terramate-fmt
 terramate-fmt: ##@terramate Run terramate fmt to format all terramate files
+	git add . && \
 	$(docker_run) bash -c "terramate fmt"
 
 .PHONY: terramate-chown

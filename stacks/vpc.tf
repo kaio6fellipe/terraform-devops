@@ -31,8 +31,3 @@ module "vpc" {
     Name = "vpc-${local.region}-${local.environment}"
   }
 }
-
-resource "aws_default_vpc" "default" {
-  #checkov:skip=CKV_AWS_148: Default VPC it's going to be destroyed
-  #force_destroy = true
-}
