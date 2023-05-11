@@ -67,6 +67,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -80,63 +82,80 @@ jobs:
         with:
           terraform_version: 1.2.4
 
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.18.0'
+
+      - name: Terramate Setup
+        run: GOBIN=/usr/local/bin/ go install github.com/mineiros-io/terramate/cmd/terramate@v0.2.18
+
       - name: Terraform Fmt
         id: fmt
-        run: terraform fmt -check
+        run: terraform fmt -recursive -check
         continue-on-error: true
 
-      - name: Terraform Init
+      - name: Terramate Fmt
+        id: tm-fmt
+        run: terramate fmt --check
+        continue-on-error: true
+
+      - name: Terramate Init
         id: init
-        run: terraform init -backend=true -backend-config="global/backend.hcl"
+        run: terramate run --reverse terraform init -backend=true
 
-      - name: Terraform Validate
+      - name: Terramate Validate
         id: validate
-        run: terraform validate -no-color
+        run: terramate run --reverse terraform validate -no-color
 
-      - name: Terraform Refresh
-        run: terraform refresh -var-file="global/terraform.tfvars"
+      - name: Terramate Refresh
+        run: terramate run --reverse terraform refresh
 
-      - name: Remove Helm Releases from remote state (ArgoCD)
-        run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd_apps
+      - name: Remove Helm Releases from remote state of each Terramate stack
+        run: |
+          terramate run --reverse --continue-on-error terraform state rm 'helm_release'
         continue-on-error: true
 
-      - name: Remove Helm Releases from remote state (AWS Load Balancer Controller)
-        run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.aws_load_balancer_controller
-        continue-on-error: true
+      # - name: Remove Helm Releases from remote state (ArgoCD)
+      #   run: | 
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.argocd_apps
+      #   continue-on-error: true
 
-      - name: Remove Helm Releases from remote state (External DNS)
-        run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.external_dns
-        continue-on-error: true
+      # - name: Remove Helm Releases from remote state (AWS Load Balancer Controller)
+      #   run: | 
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.aws_load_balancer_controller
+      #   continue-on-error: true
 
-      - name: Remove Helm Releases from remote state (External Secrets)
-        run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.external_secrets
-        continue-on-error: true
+      # - name: Remove Helm Releases from remote state (External DNS)
+      #   run: | 
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.external_dns
+      #   continue-on-error: true
 
-      - name: Remove Helm Releases from remote state (Cluster Autoscaler)
-        run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cluster_autoscaler
-        continue-on-error: true
+      # - name: Remove Helm Releases from remote state (External Secrets)
+      #   run: | 
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.external_secrets
+      #   continue-on-error: true
 
-      - name: Remove Helm Releases from remote state (Cert Manager)
-        run: | 
-          terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cert_manager
-        continue-on-error: true
+      # - name: Remove Helm Releases from remote state (Cluster Autoscaler)
+      #   run: | 
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cluster_autoscaler
+      #   continue-on-error: true
 
-      - name: Terraform Destroy
+      # - name: Remove Helm Releases from remote state (Cert Manager)
+      #   run: | 
+      #     terraform state rm module.us-east-1.module.platform.module.platform_k8s.helm_release.cert_manager
+      #   continue-on-error: true
+
+      - name: Terramate Destroy
         id: destroy1
-        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
+        run: terramate run --reverse terraform destroy -auto-approve
         continue-on-error: true
 
-      - name: Terraform Destroy (Double check)
+      - name: Terramate Destroy (Double check)
         id: destroy2
-        run: terraform destroy -auto-approve -var-file="global/terraform.tfvars"
+        run: terramate run --reverse terraform destroy -auto-approve
         continue-on-error: true
 
-      - name: Terraform Destroy Status
+      - name: Terramate Destroy Status
         if: steps.destroy2.outcome == 'failure'
         run: exit 1

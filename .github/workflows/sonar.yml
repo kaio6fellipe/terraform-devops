@@ -6,7 +6,7 @@ on:
         required: true
 
   workflow_dispatch:
-  
+
 jobs:
   sonarcloud:
     name: 'Sonar Cloud validation'

@@ -1,15 +1,14 @@
 version: 0.1
 
 projects:
-  - path: .
-    terraform_workspace: global
-    terraform_var_files:
-      - global/terraform.tfvars
+  - path: stacks
+    terraform_workspace: root
 
-  # - path: .
-  #   terraform_workspace: dev
-  #   terraform_var_files:
-  #     - config/dev/terraform.tfvars
+  # - path: stacks/platform
+  #   terraform_workspace: platform
+
+  - path: stacks/apps
+    terraform_workspace: apps
 
   # - path: .
   #   terraform_workspace: staging

@@ -1,0 +1,126 @@
+#!/bin/bash
+
+source ./lib/colors
+source ./lib/github-meta-info
+
+set -o errexit
+set -o nounset
+
+status_tfplan="0"
+status_tfinit="0"
+status_tm_generate="0"
+tf_log=""
+
+function help() {
+
+    cat << EOF
+
+Usage: ${0} [OPTIONS]
+
+Plan with Terramate orchestrating Terraform
+
+Options:
+        --help      Print help
+        --keyname   Private key used to connect to GitHub
+        --log_level Log level to used with Terraform plan
+EOF
+
+}
+
+case "${1-}" in
+    --help)
+        help
+        exit
+        ;;
+esac
+
+keyname=""
+
+set +o errexit
+
+while [ "${1-}" ]; do
+    case "${1}" in
+        --keyname)
+            keyname="${2-}"
+            shift
+            ;;
+        --log_level)
+            log_level="${2-}"
+            shift
+            ;;
+        *)
+            printf "unknown flag: %s\n" "${1}"
+            help
+            exit
+    esac
+    shift
+done
+
+set -o errexit
+
+if [[ -z  "${keyname}" ]]; then
+    printf "missing --keyname parameter\n"
+    help
+    exit 1
+fi
+
+# key_file_path="/root/.ssh/${keyname}"
+# key_file_pub_path="/root/.ssh/${keyname}.pub"
+# mkdir /root/.ssh
+# touch ${key_file_path} && touch ${key_file_pub_path}
+# echo "${KEY_FILE}" > ${key_file_path} && echo "${KEY_FILE_PUB}" > ${key_file_pub_path}
+# chmod 400 ${key_file_path} && chmod 400 ${key_file_pub_path}
+# touch /root/.ssh/config
+# cat <<EOF > /root/.ssh/config
+# Host *
+#     StrictHostKeyChecking no
+# EOF
+# chmod 400 /root/.ssh/config
+
+# GitActionsCIDR commented because aws have a limit of 40 entries, with free runner there is no way to get the egress IP to allow public connections to EKS clusters
+# git_actions_cidr=$(function_get_cidr)
+# git_actions_cidr="0.0.0.0/0"
+
+color_echo_blue "Generating HCL code with Terramate generate..."
+terramate generate || status_tm_generate="1"
+if [[ "${status_tm_generate}" != "0" ]]; then
+    color_echo_red "...Failed to generate HCL code with Terramate."
+    exit 1
+fi
+color_echo_green "...HCL code generated with success."
+
+color_echo_blue "Initializing the stacks with Terramate running terraform init..."
+git add . && terramate run --changed terraform init -backend=true || status_tfinit="1"
+if [[ "${status_tfinit}" != "0" ]]; then
+    color_echo_red "...Terramate running terraform init failed."
+    exit 1
+fi
+color_echo_green "...Terramate running terraform init succeeded."
+
+color_echo_blue "Planning with Terramate + Terraform..."
+export TF_VAR_SSH_PRIVATE_KEY="" && \
+export TF_VAR_AWS_RDS_PASSWORD="" && \
+export TF_VAR_ANSIBLE_VAULT_PASSWORD="" && \
+export TF_VAR_ADMIN_USER_ARN="" && \
+export TF_VAR_ADMIN_USER_NAME="" && \
+export TF_VAR_ARGO_GITHUB_SSO_SECRET_KEY="" && \
+export TF_VAR_CROSSPLANE_AWS_CREDENTIALS_CONTENT="" && \
+# export TF_VAR_GITHUB_ACTIONS_CIDR=${git_actions_cidr} && \
+export TF_LOG=${tf_log} && \
+terramate run --changed terraform plan || status_tfplan="1" && \
+unset TF_VAR_SSH_PRIVATE_KEY && \
+unset TF_VAR_AWS_RDS_PASSWORD && \
+unset TF_VAR_ANSIBLE_VAULT_PASSWORD && \
+unset TF_VAR_ADMIN_USER_ARN && \
+unset TF_VAR_ADMIN_USER_NAME && \
+unset TF_VAR_ARGO_GITHUB_SSO_SECRET_KEY && \
+unset TF_VAR_CROSSPLANE_AWS_CREDENTIALS_CONTENT && \
+# unset TF_VAR_GITHUB_ACTIONS_CIDR && \
+unset TF_LOG
+
+if [[ "${status_tfplan}" != "0" ]]; then
+    color_echo_red "...Terramate + Terraform plan failed. Maybe your user don't have all the access needed to execute this..."
+    exit 0
+fi
+color_echo_green "...Terramate + Terraform plan succeeded."
+exit 0

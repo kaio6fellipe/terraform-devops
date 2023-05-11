@@ -10,8 +10,6 @@ config {
   #   "terraform-aws-modules/vpc/aws"            = true
   #   "terraform-aws-modules/security-group/aws" = true
   # }
-
-  varfile = ["global/terraform.tfvars"]
 }
 
 # plugin "terraform" {

@@ -11,8 +11,7 @@ TFSEC=$(command -v tfsec)
 
 color_echo_blue "Linting with TFSec..."
 #TODO: Remove soft-fail parameter and check every alert
-"${TFSEC}" . --tfvars-file global/terraform.tfvars --soft-fail || status_tfsec="1"
-
+"${TFSEC}" . --soft-fail || status_tfsec="1"
 if [[ "${status_tfsec}" != "0" ]]; then
     color_echo_red "...TFSec failed."
     exit 1

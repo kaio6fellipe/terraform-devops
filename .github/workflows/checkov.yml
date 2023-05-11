@@ -10,15 +10,9 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      # - name: Set up Python 3.8
-      #   uses: actions/setup-python@v1
-      #   with:
-      #     python-version: 3.8
-
       - name: Run checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@master
         with:
           directory: .
-          framework: terraform 
-          var_file: global/terraform.tfvars 
+          framework: terraform

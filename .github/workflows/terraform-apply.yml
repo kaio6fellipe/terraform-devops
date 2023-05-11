@@ -68,6 +68,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # - name: Echo github obj
       #   run: echo ${{ toJson(github.event) }}
@@ -87,32 +89,70 @@ jobs:
         with:
           terraform_version: 1.2.4
 
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.18.0'
+
+      - name: Terramate Setup
+        run: GOBIN=/usr/local/bin/ go install github.com/mineiros-io/terramate/cmd/terramate@v0.2.18
+
       - name: Check AWS CLI version
         id: aws-version
         run: aws --version
 
-      - name: Terraform fmt
+      - name: Terraform Fmt
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
 
-      - name: Terraform Init
-        id: init
-        run: terraform init -backend=true -backend-config="global/backend.hcl"
+      - name: Terramate Fmt
+        id: tm-fmt
+        run: terramate fmt --check
+        continue-on-error: true
 
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
+      - name: Terramate Init (Changed)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: init-changed
+        run: terramate run --changed terraform init -backend=true
 
-      - name: Terraform Apply
-        id: apply1
-        run: terraform apply -auto-approve -var-file="global/terraform.tfvars"
+      - name: Terramate Init (Workflow dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: init-workflow-dispatch
+        run: terramate run terraform init -backend=true
+
+      - name: Terramate Validate (Changed)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: validate-changed
+        run: terramate run --changed terraform validate -no-color
+
+      - name: Terramate Validate (Workflow dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: validate-workflow-dispatch
+        run: terramate run terraform validate -no-color
+
+      - name: Terramate Apply (Changed)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: apply1-changed
+        run: terramate run --changed terraform apply -auto-approve
+        continue-on-error: true
+
+      - name: Terramate Apply (Workflow dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: apply1-workflow-dispatch
+        run: terramate run terraform apply -auto-approve
         continue-on-error: true
 
       # Second apply to configure resources that depends on data sources for authentication, like eks-cluster auth
-      - name: Terraform Apply (Double check)
-        id: apply2
-        run: terraform apply -auto-approve -var-file="global/terraform.tfvars"
+      - name: Terramate Apply (Double check [Changed])
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        id: apply2-changed
+        run: terramate run --changed terraform apply -auto-approve
+        continue-on-error: true
+
+      - name: Terramate Apply (Double check [Workflow dispatch])
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        id: apply2-workflow-dispatch
+        run: terramate run terraform apply -auto-approve
         continue-on-error: true
 
       # - name: Post to a Slack channel
@@ -136,8 +176,8 @@ jobs:
       #   env:
       #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
-      - name: Terraform Apply Status
-        if: steps.apply2.outcome == 'failure'
+      - name: Terramate Apply Status
+        if: ${{ steps.apply2-changed.outcome == 'failure' | steps.apply2-workflow-dispatch.outcome == 'failure' }}
         run: exit 1
 
   documentation:

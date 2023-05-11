@@ -25,6 +25,7 @@ jobs:
   tflint:
     name: Lint check
     uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
+    # uses: ./.github/workflows/tflint.yml
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -32,6 +33,7 @@ jobs:
   tfsec:
     name: Terraform Security check
     uses: kaio6fellipe/terraform-devops/.github/workflows/tfsec.yml@development
+    # uses: ./.github/workflows/tfsec.yml
 
   checkov:
     name: Checkov Security check
@@ -50,6 +52,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       # GitActions CIDR commented because aws have a limit of 40 entries, with free runner there is no way to get the egress IP to allow public connections to EKS clusters
       # Ref: https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-of-a-multiline-string
@@ -65,22 +69,37 @@ jobs:
         with:
           terraform_version: 1.2.4
 
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>=1.18.0'
+
+      - name: Terramate Setup
+        run: GOBIN=/usr/local/bin/ go install github.com/mineiros-io/terramate/cmd/terramate@v0.2.18
+
       - name: Terraform Fmt
         id: fmt
-        run: terraform fmt -check
+        run: terraform fmt -recursive -check
         continue-on-error: true
 
-      - name: Terraform Init
+      - name: Terramate Fmt
+        id: tm-fmt
+        run: terramate fmt --check
+        continue-on-error: true
+
+      - name: List all Stacks
+        run: terramate list
+
+      - name: Terramate Init
         id: init
-        run: terraform init -backend=true -backend-config="global/backend.hcl"
+        run: terramate run --changed terraform init -backend=true
 
-      - name: Terraform Validate
+      - name: Terramate Validate
         id: validate
-        run: terraform validate -no-color
+        run: terramate run --changed terraform validate -no-color
 
-      - name: Terraform Plan
+      - name: Terramate Plan
         id: plan
-        run: terraform plan -no-color -var-file="global/terraform.tfvars"
+        run: terramate run --changed terraform plan
         continue-on-error: true
 
       - uses: actions/github-script@v6
@@ -90,10 +109,10 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            const output = `#### Terramate Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terramate Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terramate Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terramate Plan 📖\`${{ steps.plan.outcome }}\`
             
             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
             
@@ -104,6 +123,6 @@ jobs:
               body: output
             })
 
-      - name: Terraform Plan Status
+      - name: Terramate Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1

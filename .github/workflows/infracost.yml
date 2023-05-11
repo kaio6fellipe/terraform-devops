@@ -16,7 +16,7 @@ jobs:
       #   complements the open source CLI by giving teams advanced visibility and controls.
       #   The cost estimates are transmitted in JSON format and do not contain any cloud 
       #   credentials or secrets (see https://infracost.io/docs/faq/ for more information).
-      INFRACOST_ENABLE_CLOUD: false
+      INFRACOST_ENABLE_CLOUD: true
 
     steps:
       # If you use private modules, add an environment variable or secret
@@ -69,3 +69,7 @@ jobs:
                                    --github-token=${{ secrets.GITHUB_TOKEN }} \
                                    --pull-request=${{github.event.pull_request.number}} \
                                    --behavior=update
+
+      - name: Upload Infracost file to Infracost Cloud
+        run: |
+          infracost upload --path=/tmp/infracost.json

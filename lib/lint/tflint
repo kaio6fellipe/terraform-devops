@@ -10,8 +10,9 @@ status_tflint="0"
 TFLINT=$(command -v tflint)
 
 color_echo_blue "Linting with TFLint..."
-"${TFLINT}" --init
-"${TFLINT}" --var-file=./global/terraform.tfvars --module || status_tflint="1"
+git add . && \
+terramate run --changed "${TFLINT}" --init || status_tflint="1"
+terramate run --changed "${TFLINT}" --module -f compact || status_tflint="1"
 if [[ "${status_tflint}" != "0" ]]; then
     color_echo_red "...TFLint failed."
     exit 1
