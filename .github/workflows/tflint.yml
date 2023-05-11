@@ -50,5 +50,8 @@ jobs:
     - name: Terramate Init
       run: terramate run terraform init -backend=true
 
-    - name: Init TFLint and Run
-      run: terramate run tflint --init && tflint --module -f compact
+    - name: Init TFLint
+      run: terramate run tflint --init 
+      
+    - name: Run TFLint
+      run: terramate run tflint --module -f compact
