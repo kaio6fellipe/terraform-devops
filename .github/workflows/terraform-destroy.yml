@@ -112,7 +112,7 @@ jobs:
 
       - name: Remove Helm Releases from remote state of each Terramate stack
         run: |
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release'
+          terramate run --reverse --continue-on-error terraform state rm 'module.platform.module.platform_k8s.helm_release'
         continue-on-error: true
 
       # - name: Remove Helm Releases from remote state (ArgoCD)
