@@ -45,9 +45,5 @@ No requirements.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_bastion_private_ipv4"></a> [bastion\_private\_ipv4](#output\_bastion\_private\_ipv4) | n/a |
-| <a name="output_bastion_public_ipv4"></a> [bastion\_public\_ipv4](#output\_bastion\_public\_ipv4) | n/a |
-| <a name="output_bastion_sg_id"></a> [bastion\_sg\_id](#output\_bastion\_sg\_id) | n/a |
+No outputs.
 <!-- END_TF_DOCS -->

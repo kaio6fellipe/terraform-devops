@@ -67,8 +67,5 @@ No requirements.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_ansible_private_ipv4"></a> [ansible\_private\_ipv4](#output\_ansible\_private\_ipv4) | n/a |
-| <a name="output_ansible_sg_id"></a> [ansible\_sg\_id](#output\_ansible\_sg\_id) | n/a |
+No outputs.
 <!-- END_TF_DOCS -->
