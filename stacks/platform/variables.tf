@@ -1,5 +1,6 @@
 variable "cdirs_acesso_remoto" {
   description = "Remote access CIDR for SGs in hosts associated with public subnets"
+  type        = list(string)
   # default     = ["0.0.0.0/0"]
   default = [
     "168.196.72.0/22",  #TurboNet
@@ -21,6 +22,7 @@ variable "cdirs_acesso_remoto" {
 
 variable "cdirs_uptime_robot_monitoring" {
   description = "Remote monitoring CIDR for SGs in hosts associated with public subnets"
+  type        = list(string)
   # default     = ["0.0.0.0/0"]
   default = [
     "69.162.124.224/28",  #UptimeRobot
@@ -52,97 +54,38 @@ variable "cdirs_uptime_robot_monitoring" {
   ]
 }
 
-variable "GITHUB_ACTIONS_CIDR" {}
-
-variable "environment" {
-  type = string
-}
-
-variable "instance_type" {
-  type = string
-}
-
-variable "ansible_instance_type" {
-  type = string
-}
-
-variable "db_instance_type" {
-  type = string
-}
-
-variable "rds_allocated_storage" {}
-
-variable "rds_max_allocated_storage" {}
-
-variable "key_name" {
-  description = "Key name prefix"
-  type        = string
-}
-
-variable "amazon_linux_2" {}
-
-variable "vpc_id" {}
-
-variable "vpc_private_subnets" {}
-
-variable "vpc_public_subnets" {}
-
-variable "vpc_intra_subnets" {}
-
-variable "availability_zone_0" {}
-
-variable "private_subnet_id_0" {}
-
-variable "availability_zone_1" {}
-
-variable "private_subnet_id_1" {}
-
-variable "availability_zone_2" {}
-
-variable "private_subnet_id_2" {}
-
-variable "public_subnet_id_0" {}
-
-variable "public_subnet_id_1" {}
-
-variable "public_subnet_id_2" {}
-
-variable "private_subnet_cidr_block_0" {}
-
-variable "database_subnet_id_0" {}
-
-variable "db_subnet_group_name" {}
-
-variable "platform_eks_services" {}
-
-variable "vpc_cidr" {}
-
-variable "SSH_PRIVATE_KEY" {
-  sensitive = true
-}
-
-variable "region" {}
-
-variable "private_dns_zone_name" {}
-
-variable "private_dns_zone_id" {}
-
-variable "ktech_devops_private_zone_id" {}
-
-variable "private_dns_zone_arn" {}
-
-variable "AWS_RDS_PASSWORD" {
-  sensitive = true
-}
-
-variable "ANSIBLE_VAULT_PASSWORD" {
-  sensitive = true
-}
-
-variable "ADMIN_USER_ARN" {
-  sensitive = true
-}
-
-variable "ADMIN_USER_NAME" {
-  sensitive = true
-}
+# variable "SSH_PRIVATE_KEY" {
+#   description = "SSH Private Key for Ansible Server (Controller)"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "AWS_RDS_PASSWORD" {
+#   description = "AWS RDS generic root password"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "ANSIBLE_VAULT_PASSWORD" {
+#   description = "Ansible vault root password"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "ADMIN_USER_ARN" {
+#   description = "EKS admin user ARN"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "ADMIN_USER_NAME" {
+#   description = "EKS admin user name"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "GITHUB_ACTIONS_CIDR" {
+#   description = "GitHub Actions egress CIDR Block"
+#   default     = ["0.0.0.0/0"]
+#   type        = list(string)
+# }

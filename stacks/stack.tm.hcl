@@ -3,7 +3,8 @@ stack {
   description = "Stack responsible for the first layer and base network configurations like VPC and Route53"
 
   before = [
-    "/stacks/apps"
+    "/stacks/apps",
+    "/stacks/platform",
   ]
 }
 
@@ -21,4 +22,8 @@ import {
 
 import {
   source = "/modules/terramate/globals.tm.hcl"
+}
+
+import {
+  source = "/modules/terramate/remote-data.tm.hcl"
 }

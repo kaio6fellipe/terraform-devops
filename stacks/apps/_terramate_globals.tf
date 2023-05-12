@@ -4,7 +4,7 @@ locals {
   # tflint-ignore: terraform_unused_declarations
   environment = "dev"
   # tflint-ignore: terraform_unused_declarations
-  key_name = "terraform-aws"
+  key_name = "terraform-aws-dev"
   # tflint-ignore: terraform_unused_declarations
   region = "us-east-1"
   # tflint-ignore: terraform_unused_declarations

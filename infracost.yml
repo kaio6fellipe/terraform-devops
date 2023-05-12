@@ -4,8 +4,8 @@ projects:
   - path: stacks
     terraform_workspace: root
 
-  # - path: stacks/platform
-  #   terraform_workspace: platform
+  - path: stacks/platform
+    terraform_workspace: platform
 
   - path: stacks/apps
     terraform_workspace: apps
