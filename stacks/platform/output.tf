@@ -1,9 +1,9 @@
-output "cdirs_acesso_remoto" {
-  value = var.cdirs_acesso_remoto
+output "cidrs_remote_access" {
+  value = var.cidrs_remote_access
 }
 
-output "cdirs_uptime_robot_monitoring" {
-  value = var.cdirs_uptime_robot_monitoring
+output "cidrs_uptime_robot_monitoring" {
+  value = var.cidrs_uptime_robot_monitoring
 }
 
 output "public_dns_zone_name" {
