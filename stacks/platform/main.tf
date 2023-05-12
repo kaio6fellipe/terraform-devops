@@ -1,37 +1,37 @@
-module "ansible_server" {
-  source                 = "./ansible-server"
-  ansible_instance_type  = var.ansible_instance_type
-  environment            = var.environment
-  region                 = var.region
-  amazon_linux_2         = var.amazon_linux_2
-  key_name               = var.key_name
-  vpc_id                 = var.vpc_id
-  availability_zone_0    = var.availability_zone_0
-  private_subnet_id_0    = var.private_subnet_id_0
-  default_sg             = aws_security_group.default_ansible.id
-  SSH_PRIVATE_KEY        = var.SSH_PRIVATE_KEY
-  private_dns_zone_id    = var.private_dns_zone_id
-  private_dns_zone_name  = var.private_dns_zone_name
-  ANSIBLE_VAULT_PASSWORD = var.ANSIBLE_VAULT_PASSWORD
-}
+# module "ansible_server" {
+#   source                 = "./ansible-server"
+#   ansible_instance_type  = var.ansible_instance_type
+#   environment            = var.environment
+#   region                 = var.region
+#   amazon_linux_2         = data.aws_ami.amazon_linux_2.id
+#   key_name               = var.key_name
+#   vpc_id                 = var.vpc_id
+#   availability_zone_0    = var.availability_zone_0
+#   private_subnet_id_0    = var.private_subnet_id_0
+#   default_sg             = aws_security_group.default_ansible.id
+#   SSH_PRIVATE_KEY        = var.SSH_PRIVATE_KEY
+#   private_dns_zone_id    = var.private_dns_zone_id
+#   private_dns_zone_name  = var.private_dns_zone_name
+#   ANSIBLE_VAULT_PASSWORD = var.ANSIBLE_VAULT_PASSWORD
+# }
 
-module "bastion" {
-  source                        = "./bastion"
-  instance_type                 = var.instance_type
-  environment                   = var.environment
-  amazon_linux_2                = var.amazon_linux_2
-  key_name                      = var.key_name
-  vpc_id                        = var.vpc_id
-  availability_zone_0           = var.availability_zone_0
-  public_subnet_id_0            = var.public_subnet_id_0
-  default_sg                    = aws_security_group.default_bastion.id
-  cdirs_acesso_remoto           = var.cdirs_acesso_remoto
-  cdirs_uptime_robot_monitoring = var.cdirs_uptime_robot_monitoring
-  private_dns_zone_id           = var.private_dns_zone_id
-  private_dns_zone_name         = var.private_dns_zone_name
-  public_dns_zone_name          = data.aws_route53_zone.ktech_public.name
-  public_dns_zone_id            = data.aws_route53_zone.ktech_public.zone_id
-}
+# module "bastion" {
+#   source                        = "./bastion"
+#   instance_type                 = var.instance_type
+#   environment                   = var.environment
+#   amazon_linux_2                = data.aws_ami.amazon_linux_2.id
+#   key_name                      = var.key_name
+#   vpc_id                        = var.vpc_id
+#   availability_zone_0           = var.availability_zone_0
+#   public_subnet_id_0            = var.public_subnet_id_0
+#   default_sg                    = aws_security_group.default_bastion.id
+#   cdirs_acesso_remoto           = var.cdirs_acesso_remoto
+#   cdirs_uptime_robot_monitoring = var.cdirs_uptime_robot_monitoring
+#   private_dns_zone_id           = var.private_dns_zone_id
+#   private_dns_zone_name         = var.private_dns_zone_name
+#   public_dns_zone_name          = data.aws_route53_zone.ktech_public.name
+#   public_dns_zone_id            = data.aws_route53_zone.ktech_public.zone_id
+# }
 
 # module "goteleport" {
 #   source        = "./goteleport"
@@ -58,7 +58,7 @@ module "bastion" {
 #   rds_allocated_storage     = var.rds_allocated_storage
 #   rds_max_allocated_storage = var.rds_max_allocated_storage
 #   environment               = var.environment
-#   amazon_linux_2            = var.amazon_linux_2
+#   amazon_linux_2            = data.aws_ami.amazon_linux_2.id
 #   key_name                  = var.key_name
 #   vpc_id                    = var.vpc_id
 #   vpc_cidr                  = var.vpc_cidr
@@ -83,7 +83,7 @@ module "bastion" {
 #   source                = "./grafana-loki"
 #   instance_type         = var.instance_type
 #   environment           = var.environment
-#   amazon_linux_2        = var.amazon_linux_2
+#   amazon_linux_2        = data.aws_ami.amazon_linux_2.id
 #   key_name              = var.key_name
 #   vpc_id                = var.vpc_id
 #   vpc_cidr              = var.vpc_cidr
@@ -100,7 +100,7 @@ module "bastion" {
 #   source                = "./grafana-mimir"
 #   instance_type         = var.instance_type
 #   environment           = var.environment
-#   amazon_linux_2        = var.amazon_linux_2
+#   amazon_linux_2        = data.aws_ami.amazon_linux_2.id
 #   key_name              = var.key_name
 #   vpc_id                = var.vpc_id
 #   vpc_cidr              = var.vpc_cidr
@@ -113,24 +113,24 @@ module "bastion" {
 #   private_dns_zone_name = var.private_dns_zone_name
 # }
 
-module "platform_k8s" {
-  source                       = "./platform-k8s"
-  environment                  = var.environment
-  vpc_id                       = var.vpc_id
-  vpc_cidr                     = var.vpc_cidr
-  vpc_private_subnets          = var.vpc_private_subnets
-  vpc_public_subnets           = var.vpc_public_subnets
-  vpc_intra_subnets            = var.vpc_intra_subnets
-  platform_eks_services        = var.platform_eks_services
-  region                       = var.region
-  ktech_devops_private_zone_id = var.ktech_devops_private_zone_id
-  private_dns_zone_id          = var.private_dns_zone_id
-  private_dns_zone_arn         = var.private_dns_zone_arn
-  availability_zones           = [var.availability_zone_1, var.availability_zone_2]
-  key_name                     = var.key_name
-  default_sg                   = aws_security_group.default_platform.id
-  ADMIN_USER_ARN               = var.ADMIN_USER_ARN
-  ADMIN_USER_NAME              = var.ADMIN_USER_NAME
-  cdirs_acesso_remoto          = var.cdirs_acesso_remoto
-  GITHUB_ACTIONS_CIDR          = var.GITHUB_ACTIONS_CIDR
-}
+# module "platform_k8s" {
+#   source                       = "./platform-k8s"
+#   environment                  = var.environment
+#   vpc_id                       = var.vpc_id
+#   vpc_cidr                     = var.vpc_cidr
+#   vpc_private_subnets          = var.vpc_private_subnets
+#   vpc_public_subnets           = var.vpc_public_subnets
+#   vpc_intra_subnets            = var.vpc_intra_subnets
+#   platform_eks_services        = var.platform_eks_services
+#   region                       = var.region
+#   ktech_devops_private_zone_id = var.ktech_devops_private_zone_id
+#   private_dns_zone_id          = var.private_dns_zone_id
+#   private_dns_zone_arn         = var.private_dns_zone_arn
+#   availability_zones           = [var.availability_zone_1, var.availability_zone_2]
+#   key_name                     = var.key_name
+#   default_sg                   = aws_security_group.default_platform.id
+#   ADMIN_USER_ARN               = var.ADMIN_USER_ARN
+#   ADMIN_USER_NAME              = var.ADMIN_USER_NAME
+#   cdirs_acesso_remoto          = var.cdirs_acesso_remoto
+#   GITHUB_ACTIONS_CIDR          = var.GITHUB_ACTIONS_CIDR
+# }

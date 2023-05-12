@@ -6,7 +6,7 @@ generate_file "_terramate_globals.tf" {
       # tflint-ignore: terraform_unused_declarations
       environment = "${global.environment}"
       # tflint-ignore: terraform_unused_declarations
-      key_name = "${global.key_name}"
+      key_name = "${global.key_name}-${global.environment}"
       # tflint-ignore: terraform_unused_declarations
       region = "${global.region}"
       # tflint-ignore: terraform_unused_declarations

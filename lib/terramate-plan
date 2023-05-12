@@ -90,7 +90,7 @@ fi
 color_echo_green "...HCL code generated with success."
 
 color_echo_blue "Initializing the stacks with Terramate running terraform init..."
-git add . && terramate run --changed terraform init -backend=true || status_tfinit="1"
+git add . && terramate run terraform init -backend=true || status_tfinit="1"
 if [[ "${status_tfinit}" != "0" ]]; then
     color_echo_red "...Terramate running terraform init failed."
     exit 1
@@ -107,7 +107,7 @@ export TF_VAR_ARGO_GITHUB_SSO_SECRET_KEY="" && \
 export TF_VAR_CROSSPLANE_AWS_CREDENTIALS_CONTENT="" && \
 # export TF_VAR_GITHUB_ACTIONS_CIDR=${git_actions_cidr} && \
 export TF_LOG=${tf_log} && \
-terramate run --changed terraform plan || status_tfplan="1" && \
+terramate run terraform plan || status_tfplan="1" && \
 unset TF_VAR_SSH_PRIVATE_KEY && \
 unset TF_VAR_AWS_RDS_PASSWORD && \
 unset TF_VAR_ANSIBLE_VAULT_PASSWORD && \

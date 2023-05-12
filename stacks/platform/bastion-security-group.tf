@@ -1,12 +1,12 @@
 // Bastion Default Rule
 resource "aws_security_group" "default_bastion" {
   #checkov:skip=CKV2_AWS_5: SG attached to all instances managed by Bastion
-  name        = "default_bastion_sg-${var.environment}"
-  description = "Default SG for Bastion in env: ${var.environment}"
+  name        = "default_bastion_sg-${local.environment}"
+  description = "Default SG for Bastion in env: ${local.environment}"
   vpc_id      = var.vpc_id
 
   egress {
-    description = "Permit all outbound traffic in env: ${var.environment}"
+    description = "Permit all outbound traffic in env: ${local.environment}"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -14,19 +14,19 @@ resource "aws_security_group" "default_bastion" {
   }
 
   ingress {
-    description = "Permit inbound ping in env: ${var.environment}"
+    description = "Permit inbound ping in env: ${local.environment}"
     from_port   = -1
     to_port     = -1
     protocol    = "icmp"
-    cidr_blocks = ["${var.vpc_cidr}"]
+    cidr_blocks = [local.vpc_cidr]
   }
 
   ingress {
-    description     = "Permit inbound ssh from ansible host in env: ${var.environment}"
+    description     = "Permit inbound ssh from ansible host in env: ${local.environment}"
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
-    security_groups = [local.ansible_sg_id]
+    security_groups = [aws_security_group.default_ansible.id]
   }
 
   tags = {
