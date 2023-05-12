@@ -11,6 +11,7 @@ module "vpc" {
   public_subnets   = [local.public_subnet_a, local.public_subnet_b, local.public_subnet_c]
   database_subnets = [local.database_subnet_a, local.database_subnet_b, local.database_subnet_c]
 
+  enable_flow_log              = true
   create_database_subnet_group = true
   enable_ipv6                  = false
   enable_nat_gateway           = true

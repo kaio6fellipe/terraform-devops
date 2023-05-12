@@ -10,3 +10,6 @@ data "terraform_remote_state" "stacks" {
     dynamodb_table = "terraform-state"
   }
 }
+locals {
+  stacks_outputs = data.terraform_remote_state.stacks.outputs
+}

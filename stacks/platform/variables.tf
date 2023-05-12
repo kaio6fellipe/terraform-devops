@@ -1,5 +1,6 @@
 variable "cdirs_acesso_remoto" {
   description = "Remote access CIDR for SGs in hosts associated with public subnets"
+  type        = list(string)
   # default     = ["0.0.0.0/0"]
   default = [
     "168.196.72.0/22",  #TurboNet
@@ -21,6 +22,7 @@ variable "cdirs_acesso_remoto" {
 
 variable "cdirs_uptime_robot_monitoring" {
   description = "Remote monitoring CIDR for SGs in hosts associated with public subnets"
+  type        = list(string)
   # default     = ["0.0.0.0/0"]
   default = [
     "69.162.124.224/28",  #UptimeRobot
@@ -52,38 +54,38 @@ variable "cdirs_uptime_robot_monitoring" {
   ]
 }
 
-variable "SSH_PRIVATE_KEY" {
-  description = "SSH Private Key for Ansible Server (Controller)"
-  type        = string
-  sensitive   = true
-}
-
-variable "AWS_RDS_PASSWORD" {
-  description = "AWS RDS generic root password"
-  type        = string
-  sensitive   = true
-}
-
-variable "ANSIBLE_VAULT_PASSWORD" {
-  description = "Ansible vault root password"
-  type        = string
-  sensitive   = true
-}
-
-variable "ADMIN_USER_ARN" {
-  description = "EKS admin user ARN"
-  type        = string
-  sensitive   = true
-}
-
-variable "ADMIN_USER_NAME" {
-  description = "EKS admin user name"
-  type        = string
-  sensitive   = true
-}
-
-variable "GITHUB_ACTIONS_CIDR" {
-  description = "GitHub Actions egress CIDR Block"
-  default     = ["0.0.0.0/0"]
-  type        = list(string)
-}
+# variable "SSH_PRIVATE_KEY" {
+#   description = "SSH Private Key for Ansible Server (Controller)"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "AWS_RDS_PASSWORD" {
+#   description = "AWS RDS generic root password"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "ANSIBLE_VAULT_PASSWORD" {
+#   description = "Ansible vault root password"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "ADMIN_USER_ARN" {
+#   description = "EKS admin user ARN"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "ADMIN_USER_NAME" {
+#   description = "EKS admin user name"
+#   type        = string
+#   sensitive   = true
+# }
+# 
+# variable "GITHUB_ACTIONS_CIDR" {
+#   description = "GitHub Actions egress CIDR Block"
+#   default     = ["0.0.0.0/0"]
+#   type        = list(string)
+# }

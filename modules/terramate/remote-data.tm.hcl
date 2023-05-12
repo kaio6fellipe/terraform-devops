@@ -18,5 +18,15 @@ generate_hcl "_terramate_remote-data.tf" {
         }
       }
     }
+
+    tm_dynamic "locals" {
+      for_each  = global.remote_state_datasources
+      condition = tm_can(global.remote_state_datasources)
+      iterator  = datasource
+
+      attributes = {
+        "${tm_replace(datasource.value, "/", "_")}_outputs" = tm_hcl_expression("data.terraform_remote_state.${tm_replace(datasource.value, "/", "_")}.outputs")
+      }
+    }
   }
 }

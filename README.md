@@ -10,7 +10,7 @@
 |-----|--------|--------------|--------|
 | Development | ![Apply dev](https://github.com/kaio6fellipe/terraform-devops/actions/workflows/terraform-apply.yml/badge.svg) | [![Platform Lab](https://img.shields.io/uptimerobot/status/m794238146-c9373c4202f6118fe629cdb1?label=Platform%20Lab&logo=terraform&style=flat)](https://stats.uptimerobot.com/oklm0fDgvD) | [![SLI](https://img.shields.io/uptimerobot/ratio/m794238146-c9373c4202f6118fe629cdb1?label=Last%2030%20days)](https://stats.uptimerobot.com/oklm0fDgvD)
 
-> Who came first, the egg or the chicken?
+> What came first, the egg or the chicken?
 >
 > In my case, the infrastructure that maintains the remote state of this Terraform repository 😁
 >

@@ -2,7 +2,7 @@ resource "aws_security_group" "default_platform" {
   #checkov:skip=CKV2_AWS_5: SG attached to All instances, except Ansible Controller and Bastion
   name        = "default_platform_sg-${local.environment}"
   description = "Default SG for env: ${local.environment}"
-  vpc_id      = var.vpc_id
+  vpc_id      = local.vpc_id
 
   egress {
     description = "Permit all outbound traffic in env: ${local.environment}"
