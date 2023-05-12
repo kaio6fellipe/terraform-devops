@@ -113,7 +113,7 @@ jobs:
       - name: Terramate Init (Changed)
         if: ${{ github.event_name != 'workflow_dispatch' }}
         id: init-changed
-        run: terramate run terraform init -backend=true
+        run: terramate run --changed terraform init -backend=true
 
       - name: Terramate Init (Workflow dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -123,7 +123,7 @@ jobs:
       - name: Terramate Validate (Changed)
         if: ${{ github.event_name != 'workflow_dispatch' }}
         id: validate-changed
-        run: terramate run terraform validate -no-color
+        run: terramate run --changed terraform validate -no-color
 
       - name: Terramate Validate (Workflow dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' }}
@@ -133,7 +133,7 @@ jobs:
       - name: Terramate Apply (Changed)
         if: ${{ github.event_name != 'workflow_dispatch' }}
         id: apply1-changed
-        run: terramate run terraform apply -auto-approve
+        run: terramate run --changed terraform apply -auto-approve
         continue-on-error: true
 
       - name: Terramate Apply (Workflow dispatch)
@@ -146,7 +146,7 @@ jobs:
       - name: Terramate Apply (Double check [Changed])
         if: ${{ github.event_name != 'workflow_dispatch' }}
         id: apply2-changed
-        run: terramate run terraform apply -auto-approve
+        run: terramate run --changed terraform apply -auto-approve
         continue-on-error: true
 
       - name: Terramate Apply (Double check [Workflow dispatch])
