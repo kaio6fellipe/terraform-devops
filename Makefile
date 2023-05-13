@@ -26,7 +26,7 @@ development_imagename=$(base_imagename):development
 
 docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
 docker_run_interactive=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
-terramate_run=docker run --rm $(dockerenv) --volume `pwd` $(terramate_image)
+terramate_run=docker run --rm $(dockerenv) --volume `pwd`:/workdir $(terramate_image) --chdir="/workdir" --log-level="info"
 
 guard-%:
 	@ if [ "${${*}}" = "" ]; then \
