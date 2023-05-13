@@ -100,29 +100,44 @@ jobs:
       - name: Terramate Plan
         id: plan
         run: terramate run --changed terraform plan
-        continue-on-error: true
 
-      - uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
-        # env:
-        #   PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      - name: Post Plan on PR
+        if: always() && (steps.plan.outcome == 'success' || steps.plan.outcome == 'failure')
+        uses: robburger/terraform-pr-commenter@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `#### Terramate Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terramate Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terramate Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terramate Plan 📖\`${{ steps.plan.outcome }}\`
-            
-            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
+          commenter_type: plan
+          commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}
+          commenter_exitcode: ${{ steps.plan.outputs.exitcode }}
 
-      - name: Terramate Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
+      # - uses: actions/github-script@v6
+      #   if: github.event_name == 'pull_request'
+      #   env:
+      #     PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       const output = `#### Terramate Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+      #       #### Terramate Initialization ⚙️\`${{ steps.init.outcome }}\`
+      #       #### Terramate Validation 🤖\`${{ steps.validate.outcome }}\`
+      #       #### Terramate Plan 📖\`${{ steps.plan.outcome }}\`
+      #       
+      #       <details><summary>Show Plan</summary>
+      #       
+      #       \`\`\`${process.env.PLAN}\`\`\`
+      #       
+      #       </details>
+      #       
+      #       *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+      #       
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: output
+      #       })
+
+      # - name: Terramate Plan Status
+      #   if: steps.plan.outcome == 'failure'
+      #   run: exit 1
