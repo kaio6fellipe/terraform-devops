@@ -106,6 +106,7 @@ jobs:
         uses: robburger/terraform-pr-commenter@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TF_IN_AUTOMATION: true
         with:
           commenter_type: plan
           commenter_input: ${{ format('{0}{1}', steps.plan.outputs.stdout, steps.plan.outputs.stderr) }}

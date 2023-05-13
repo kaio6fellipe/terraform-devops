@@ -21,10 +21,12 @@ dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env AWS_ACCESS_KEY_ID \
   --env AWS_SECRET_ACCESS_KEY
 base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
+terramate_image=ghcr.io/mineiros-io/terramate:0.2.18
 development_imagename=$(base_imagename):development
 
 docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
 docker_run_interactive=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
+terramate_run=docker run --rm $(dockerenv) --volume `pwd` $(terramate_image)
 
 guard-%:
 	@ if [ "${${*}}" = "" ]; then \
@@ -116,6 +118,12 @@ python: guard-script ##@python (args: script) Run external scripts with Python
 terramate: guard-args ##@terramate (args: args) Run terramate with additional args
 	git add . && \
 	$(docker_run) bash -c "terramate $(args)" && \
+	make terramate-chown
+
+.PHONY: terramate-docker
+terramate-docker: guard-args ##@terramate (args: args) Run terramate with additional args with docker
+	git add . && \
+	$(terramate_run) $(args)
 	make terramate-chown
 
 .PHONY: terramate-generate
