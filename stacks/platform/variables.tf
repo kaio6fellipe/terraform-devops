@@ -1,23 +1,23 @@
 variable "cidrs_remote_access" {
   description = "Remote access CIDR for SGs in hosts associated with public subnets"
   type        = list(string)
-  default     = ["0.0.0.0/0"]
-  # default = [
-  #   "168.196.72.0/22",  #TurboNet
-  #   "45.239.100.0/22",  #TurboNet
-  #   "170.233.164.0/22", #TurboNet
-  #   "201.131.68.0/22",  #TurboNet
-  #   "131.255.68.0/22",  #TurboNet
-  #   "201.33.192.0/20",  #VBTelecom
-  #   "168.227.32.0/22",  #VBTelecom
-  #   "186.209.64.0/20",  #Cligue
-  #   "131.0.200.0/22",   #Cligue
-  #   "143.255.232.0/22", #Cligue
-  #   "177.125.200.0/22", #Cligue
-  #   "191.253.32.0/21",  #Cligue
-  #   "170.244.252.0/22", #Cligue
-  #   "163.116.224.0/24", #Proxy
-  # ]
+  # default     = ["0.0.0.0/0"]
+  default = [
+    "168.196.72.0/22",  #TurboNet
+    "45.239.100.0/22",  #TurboNet
+    "170.233.164.0/22", #TurboNet
+    "201.131.68.0/22",  #TurboNet
+    "131.255.68.0/22",  #TurboNet
+    "201.33.192.0/20",  #VBTelecom
+    "168.227.32.0/22",  #VBTelecom
+    "186.209.64.0/20",  #Cligue
+    "131.0.200.0/22",   #Cligue
+    "143.255.232.0/22", #Cligue
+    "177.125.200.0/22", #Cligue
+    "191.253.32.0/21",  #Cligue
+    "170.244.252.0/22", #Cligue
+    "163.116.224.0/24", #Proxy
+  ]
 }
 
 variable "cidrs_uptime_robot_monitoring" {
