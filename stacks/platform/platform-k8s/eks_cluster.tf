@@ -5,7 +5,7 @@ module "eks" {
   cluster_name                   = local.name
   cluster_version                = local.cluster_version
   cluster_endpoint_public_access = true
-  cluster_service_ipv4_cidr      = var.platform_eks_services
+  cluster_service_ipv4_cidr      = local.platform_eks_services
 
   # EKS Addons
   cluster_addons = {
@@ -15,9 +15,9 @@ module "eks" {
   }
 
   cluster_ip_family                    = "ipv4"
-  vpc_id                               = var.vpc_id
-  subnet_ids                           = var.vpc_private_subnets
-  control_plane_subnet_ids             = var.vpc_intra_subnets
+  vpc_id                               = local.vpc_id
+  subnet_ids                           = local.vpc_private_subnets
+  control_plane_subnet_ids             = local.vpc_intra_subnets
   manage_aws_auth_configmap            = true
   cluster_endpoint_public_access_cidrs = local.public_cidr_allow_list
 

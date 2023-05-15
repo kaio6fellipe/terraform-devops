@@ -2,7 +2,7 @@
 #   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 #   version = "5.17.0"
 # 
-#   role_name                              = "node-termination-handler-${var.environment}"
+#   role_name                              = "node-termination-handler-${local.environment}"
 #   attach_node_termination_handler_policy = true
 # 
 #   oidc_providers = {

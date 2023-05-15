@@ -10,4 +10,9 @@ locals {
   tags = {
     App = "platform-eks-${var.environment}"
   }
+
+  vpc_id                       = try(local.stacks_outputs.vpc_id, "[null]")
+  vpc_private_subnets          = try(local.stacks_outputs.vpc_private_subnets, "[null]")
+  vpc_intra_subnets            = try(local.stacks_outputs.vpc_intra_subnets, "[null]")
+  ktech_devops_private_zone_id = try(local.stacks_outputs.ktech_devops_private_zone_id, "[null]")
 }
