@@ -21,3 +21,7 @@ output "amazon_linux_2" {
 output "bastion_default_sg" {
   value = aws_security_group.default_bastion.id
 }
+
+output "ansible_default_sg" {
+  value = aws_security_group.default_ansible.id
+}

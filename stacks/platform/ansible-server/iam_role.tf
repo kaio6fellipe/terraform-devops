@@ -1,7 +1,7 @@
 # Code Pipeline
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline_ansible_role-${var.environment}"
+  name = "codepipeline_ansible_role-${local.environment}"
 
   assume_role_policy = jsonencode({
     Version : "2012-10-17",
@@ -18,7 +18,7 @@ resource "aws_iam_role" "codepipeline_role" {
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "codepipeline_policy-${var.environment}"
+  name = "codepipeline_policy-${local.environment}"
   role = aws_iam_role.codepipeline_role.id
 
   policy = jsonencode({
@@ -42,7 +42,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "s3:GetBucketVersioning"
         ],
         Resource : [
-          "${aws_s3_bucket.codepipeline_bucket.arn}"
+          aws_s3_bucket.codepipeline_bucket.arn
         ]
       },
       {
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "kms:Decrypt"
         ],
         Resource : [
-          "${aws_kms_key.ansible_bucket_key.arn}"
+          aws_kms_key.ansible_bucket_key.arn
         ]
       },
       {
@@ -62,7 +62,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codedeploy:GetDeployment"
         ],
         Resource : [
-          "${aws_codedeploy_deployment_group.ansible.arn}"
+          aws_codedeploy_deployment_group.ansible.arn
         ]
       },
       {
@@ -71,7 +71,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codedeploy:GetDeploymentConfig"
         ],
         Resource : [
-          "arn:aws:codedeploy:${var.region}:${data.aws_caller_identity.current.account_id}:deploymentconfig:${aws_codedeploy_deployment_config.ansible.id}"
+          "arn:aws:codedeploy:${local.region}:${data.aws_caller_identity.current.account_id}:deploymentconfig:${aws_codedeploy_deployment_config.ansible.id}"
         ]
       },
       {
@@ -81,7 +81,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codedeploy:GetApplicationRevision"
         ],
         Resource : [
-          "${aws_codedeploy_app.ansible.arn}"
+          aws_codedeploy_app.ansible.arn
         ]
       }
     ]
@@ -96,7 +96,7 @@ resource "aws_iam_role_policy_attachment" "AWSCodeDeployRole" {
 }
 
 resource "aws_iam_role" "codedeploy_role" {
-  name = "ansible_codedeploy_role-${var.environment}"
+  name = "ansible_codedeploy_role-${local.environment}"
 
   assume_role_policy = <<EOF
 {
@@ -118,7 +118,7 @@ EOF
 # GitHub Actions
 
 resource "aws_iam_role" "github_role" {
-  name = "github_ansible_role-${var.environment}"
+  name = "github_ansible_role-${local.environment}"
   path = "/"
 
   assume_role_policy = jsonencode({
@@ -128,7 +128,7 @@ resource "aws_iam_role" "github_role" {
         Effect : "Allow",
         Action : "sts:AssumeRoleWithWebIdentity",
         Principal : {
-          Federated : "${aws_iam_openid_connect_provider.github_actions.arn}"
+          Federated : aws_iam_openid_connect_provider.github_actions.arn
         },
         Condition : {
           StringLike : {
@@ -141,7 +141,7 @@ resource "aws_iam_role" "github_role" {
 }
 
 resource "aws_iam_role_policy" "github_policy" {
-  name = "github_ansible_policy-${var.environment}"
+  name = "github_ansible_policy-${local.environment}"
   role = aws_iam_role.github_role.id
 
   policy = jsonencode({
@@ -163,12 +163,12 @@ resource "aws_iam_role_policy" "github_policy" {
 # EC2
 
 resource "aws_iam_instance_profile" "ansible_ec2_profile" {
-  name = "ec2_ansible_profile-${var.environment}"
+  name = "ec2_ansible_profile-${local.environment}"
   role = aws_iam_role.ansible_ec2_role.name
 }
 
 resource "aws_iam_role" "ansible_ec2_role" {
-  name = "ec2_ansible_role-${var.environment}"
+  name = "ec2_ansible_role-${local.environment}"
 
   assume_role_policy = jsonencode({
     Version : "2012-10-17",
@@ -185,7 +185,7 @@ resource "aws_iam_role" "ansible_ec2_role" {
 }
 
 resource "aws_iam_role_policy" "ansible_ec2_policy" {
-  name = "ec2_ansible_policy-${var.environment}"
+  name = "ec2_ansible_policy-${local.environment}"
   role = aws_iam_role.ansible_ec2_role.id
 
   policy = jsonencode({
@@ -199,7 +199,7 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
         ],
         Resource : [
           "${aws_s3_bucket.codepipeline_bucket.arn}/*",
-          "arn:aws:s3:::aws-codedeploy-${var.region}/*",
+          "arn:aws:s3:::aws-codedeploy-${local.region}/*",
         ]
       },
       {
@@ -209,7 +209,7 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
           "kms:Decrypt"
         ],
         Resource : [
-          "${aws_kms_key.ansible_bucket_key.arn}"
+          aws_kms_key.ansible_bucket_key.arn
         ]
       }
     ]
@@ -217,7 +217,7 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
 }
 
 resource "aws_iam_role_policy" "ansible_ec2_policy_inventory" {
-  name = "ec2_ansible_policy_inventory-${var.environment}"
+  name = "ec2_ansible_policy_inventory-${local.environment}"
   role = aws_iam_role.ansible_ec2_role.id
 
   policy = jsonencode({

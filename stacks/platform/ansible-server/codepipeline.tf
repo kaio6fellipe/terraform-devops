@@ -1,5 +1,5 @@
 resource "aws_codepipeline" "codepipeline" {
-  name     = "ansible-deploy-pipeline-${var.environment}"
+  name     = "ansible-deploy-pipeline-${local.environment}"
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
