@@ -54,20 +54,8 @@ variable "cidrs_uptime_robot_monitoring" {
   ]
 }
 
-# variable "SSH_PRIVATE_KEY" {
-#   description = "SSH Private Key for Ansible Server (Controller)"
-#   type        = string
-#   sensitive   = true
-# }
-# 
 # variable "AWS_RDS_PASSWORD" {
 #   description = "AWS RDS generic root password"
-#   type        = string
-#   sensitive   = true
-# }
-# 
-# variable "ANSIBLE_VAULT_PASSWORD" {
-#   description = "Ansible vault root password"
 #   type        = string
 #   sensitive   = true
 # }
