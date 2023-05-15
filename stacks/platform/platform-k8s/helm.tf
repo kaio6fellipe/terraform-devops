@@ -201,7 +201,7 @@ resource "helm_release" "argocd" {
   wait             = false
 
   values = [
-    data.github_repository_file.argocd.content
+    sensitive(data.github_repository_file.argocd.content)
   ]
 
   depends_on = [
@@ -231,7 +231,7 @@ resource "helm_release" "argocd_apps" {
   wait             = false
 
   values = [
-    data.github_repository_file.argocd_apps.content
+    sensitive(data.github_repository_file.argocd_apps.content)
   ]
 
   depends_on = [
