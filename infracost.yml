@@ -7,6 +7,9 @@ projects:
   - path: stacks/platform
     terraform_workspace: platform
 
+  - path: stacks/platform/bastion
+    terraform_workspace: bastion
+
   - path: stacks/apps
     terraform_workspace: apps
 
