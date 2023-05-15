@@ -9,7 +9,7 @@ resource "aws_security_group" "bastion_public_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = local.cdirs_acesso_remoto
+    cidr_blocks = local.cidrs_remote_access
   }
   tags = {
     Name = "ssh"
@@ -27,7 +27,7 @@ resource "aws_security_group" "bastion_uptimerobot_ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = local.cdirs_uptime_robot_monitoring
+    cidr_blocks = local.cidrs_uptime_robot_monitoring
   }
   tags = {
     Name = "uptime-robot"

@@ -1,6 +1,6 @@
 data "aws_caller_identity" "current" {}
 
-data "aws_availability_zones" "available" {}
+# data "aws_availability_zones" "available" {}
 
 #data "aws_eks_cluster" "default" {
 #  name = module.eks.cluster_name
@@ -28,8 +28,8 @@ data "aws_availability_zones" "available" {}
 data "external" "aws_eks_cluster_endpoint" {
   program = [
     "${abspath(path.cwd)}/eks-cluster-endpoint.sh",
-    "${module.eks.cluster_name}",
-    "${local.region}",
+    module.eks.cluster_name,
+    local.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,
@@ -39,8 +39,8 @@ data "external" "aws_eks_cluster_endpoint" {
 data "external" "aws_eks_cluster_ca_certificate" {
   program = [
     "${abspath(path.cwd)}/eks-cluster-ca-certificate.sh",
-    "${module.eks.cluster_name}",
-    "${local.region}",
+    module.eks.cluster_name,
+    local.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,
@@ -50,8 +50,8 @@ data "external" "aws_eks_cluster_ca_certificate" {
 data "external" "aws_eks_cluster_token" {
   program = [
     "${abspath(path.cwd)}/eks-cluster-token.sh",
-    "${module.eks.cluster_name}",
-    "${local.region}",
+    module.eks.cluster_name,
+    local.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,

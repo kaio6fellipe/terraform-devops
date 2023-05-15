@@ -21,5 +21,13 @@ globals {
       source  = "integrations/github"
       version = "~> 5.0"
     }
+    external = {
+      source  = "hashicorp/external"
+      version = "2.3.1"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.20.0"
+    }
   }
 }
