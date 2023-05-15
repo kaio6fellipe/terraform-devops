@@ -17,3 +17,7 @@ output "public_dns_zone_id" {
 output "amazon_linux_2" {
   value = data.aws_ami.amazon_linux_2.id
 }
+
+output "bastion_default_sg" {
+  value = aws_security_group.default_bastion.id
+}
