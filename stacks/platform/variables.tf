@@ -59,21 +59,3 @@ variable "cidrs_uptime_robot_monitoring" {
 #   type        = string
 #   sensitive   = true
 # }
-# 
-# variable "ADMIN_USER_ARN" {
-#   description = "EKS admin user ARN"
-#   type        = string
-#   sensitive   = true
-# }
-# 
-# variable "ADMIN_USER_NAME" {
-#   description = "EKS admin user name"
-#   type        = string
-#   sensitive   = true
-# }
-# 
-# variable "GITHUB_ACTIONS_CIDR" {
-#   description = "GitHub Actions egress CIDR Block"
-#   default     = ["0.0.0.0/0"]
-#   type        = list(string)
-# }
