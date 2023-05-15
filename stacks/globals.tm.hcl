@@ -1,6 +1,11 @@
 globals {
-  terraform_version         = "1.2.4"
-  hashcorp_aws_version      = "4.57.1"
+  terraform_version = ["1.2.4"]
+  required_providers = {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.57.1"
+    }
+  }
   remote_state_bucket       = "terraform-state20220711040913053000000001"
   remote_state_dynamodb     = "terraform-state"
   key_name                  = "terraform-aws"

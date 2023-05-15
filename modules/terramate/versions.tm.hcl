@@ -1,12 +1,11 @@
 generate_hcl "_terramate_versions.tf" {
   content {
     terraform {
-      required_version = global.terraform_version
-      required_providers {
-        aws = {
-          source  = "hashicorp/aws"
-          version = global.hashcorp_aws_version
-        }
+      required_version = global.terraform_version[0]
+      tm_dynamic "required_providers" {
+        for_each   = global.terraform_version
+        iterator   = terraform
+        attributes = global.required_providers
       }
     }
   }
