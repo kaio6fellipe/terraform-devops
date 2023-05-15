@@ -46,6 +46,7 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_amazon_linux_2"></a> [amazon\_linux\_2](#output\_amazon\_linux\_2) | n/a |
+| <a name="output_bastion_default_sg"></a> [bastion\_default\_sg](#output\_bastion\_default\_sg) | n/a |
 | <a name="output_cidrs_remote_access"></a> [cidrs\_remote\_access](#output\_cidrs\_remote\_access) | n/a |
 | <a name="output_cidrs_uptime_robot_monitoring"></a> [cidrs\_uptime\_robot\_monitoring](#output\_cidrs\_uptime\_robot\_monitoring) | n/a |
 | <a name="output_public_dns_zone_id"></a> [public\_dns\_zone\_id](#output\_public\_dns\_zone\_id) | n/a |
