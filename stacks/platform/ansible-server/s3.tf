@@ -34,8 +34,9 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "codepipeline_buck
 }
 
 resource "aws_s3_bucket_acl" "codepipeline_bucket" {
-  bucket = aws_s3_bucket.codepipeline_bucket.id
-  acl    = "private"
+  bucket     = aws_s3_bucket.codepipeline_bucket.id
+  acl        = "private"
+  depends_on = [aws_s3_bucket_ownership_controls.codepipeline_bucket]
 }
 
 resource "aws_s3_bucket_ownership_controls" "codepipeline_bucket" {
