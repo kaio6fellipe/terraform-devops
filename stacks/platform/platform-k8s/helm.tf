@@ -255,11 +255,10 @@ resource "helm_release" "argocd_apps" {
 }
 
 resource "helm_release" "crossplane" {
-  chart            = "crossplane"
+  chart            = "https://github.com/kaio6fellipe/argo/raw/main/clusters/platform-eks-dev/crossplane/charts/crossplane-1.12.0.tgz"
   name             = "crossplane"
   namespace        = "crossplane-system"
   create_namespace = true
-  repository       = "https://github.com/kaio6fellipe/argo/clusters/platform-eks-dev/crossplane/charts"
   force_update     = true
   timeout          = 300
   wait             = false
@@ -273,11 +272,11 @@ resource "helm_release" "crossplane" {
     value = module.crossplane_irsa.iam_role_arn
   }
 
-  set {
-    # ControllerConfig annotation
-    name  = "extraObjects[1].metadata.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.crossplane_irsa.iam_role_arn
-  }
+  # set {
+  #   # ControllerConfig annotation
+  #   name  = "extraObjects[1].metadata.annotations.eks\\.amazonaws\\.com/role-arn"
+  #   value = module.crossplane_irsa.iam_role_arn
+  # }
 
   depends_on = [
     module.eks.eks_managed_node_groups,
