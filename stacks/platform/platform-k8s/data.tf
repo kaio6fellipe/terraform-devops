@@ -69,3 +69,9 @@ data "github_repository_file" "argocd_apps" {
   branch     = "main"
   file       = "config/argocd-apps-values.yaml"
 }
+
+data "github_repository_file" "crossplane" {
+  repository = "kaio6fellipe/argo"
+  branch     = "main"
+  file       = "clusters/platform-eks-dev/crossplane/crossplane-values.yaml"
+}

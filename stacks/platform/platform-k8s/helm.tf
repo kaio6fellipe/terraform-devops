@@ -98,7 +98,7 @@ resource "helm_release" "cluster_autoscaler" {
   }
 
   set {
-    name = "replicaCount"
+    name  = "replicaCount"
     value = "2"
   }
 
@@ -247,6 +247,41 @@ resource "helm_release" "argocd_apps" {
     helm_release.cert_manager,
     # helm_release.node_termination_handler,
     helm_release.argocd,
+  ]
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "helm_release" "crossplane" {
+  chart            = "crossplane"
+  name             = "crossplane"
+  namespace        = "crossplane-system"
+  create_namespace = true
+  repository       = "https://github.com/kaio6fellipe/argo/clusters/platform-eks-dev/crossplane/charts"
+  force_update     = true
+  timeout          = 300
+  wait             = false
+
+  values = [
+    sensitive(data.github_repository_file.crossplane.content)
+  ]
+
+  set {
+    name  = "serviceAccount.customAnnotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.crossplane_irsa.iam_role_arn
+  }
+
+  set {
+    # ControllerConfig annotation
+    name  = "extraObjects[1].metadata.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.crossplane_irsa.iam_role_arn
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+    helm_release.argocd_apps
   ]
 
   lifecycle {

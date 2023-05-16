@@ -7,7 +7,7 @@ module "cluster_autoscaler_irsa" {
   cluster_autoscaler_cluster_ids   = [module.eks.cluster_name]
 
   oidc_providers = {
-    ex = {
+    main = {
       provider_arn               = module.eks.oidc_provider_arn
       namespace_service_accounts = ["kube-system:cluster-autoscaler"]
     }
