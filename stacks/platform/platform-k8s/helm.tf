@@ -98,6 +98,11 @@ resource "helm_release" "cluster_autoscaler" {
   }
 
   set {
+    name = "replicaCount"
+    value = "2"
+  }
+
+  set {
     name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.cluster_autoscaler_irsa.iam_role_arn
   }
