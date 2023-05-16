@@ -110,6 +110,11 @@ jobs:
       # - name: Terramate Refresh
       #   run: terramate run --reverse terraform refresh
 
+      - name: Remove Helm Releases from remote state (Crossplane)
+        run: |
+          terramate run --reverse --continue-on-error terraform state rm 'helm_release.crossplane'
+        continue-on-error: true
+
       - name: Remove Helm Releases from remote state (ArgoCD)
         run: | 
           terramate run --reverse --continue-on-error terraform state rm 'helm_release.argocd'
