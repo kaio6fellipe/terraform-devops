@@ -161,38 +161,68 @@ resource "helm_release" "cert_manager" {
   ]
 }
 
-# resource "helm_release" "node_termination_handler" {
-#   chart        = "aws-node-termination-handler"
-#   name         = "aws-node-termination-handler"
-#   namespace    = "kube-system"
-#   repository   = "https://aws.github.io/eks-charts"
-#   version      = "0.21.0"
-#   force_update = true
-# 
-#   set {
-#     name  = "awsRegion"
-#     value = local.region
-#   }
-# 
-#   set {
-#     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-#     value = module.node_termination_handler_irsa.iam_role_arn
-#   }
-# 
-#   set {
-#     name  = "serviceAccount.name"
-#     value = "aws-node-termination-handler"
-#   }
-# 
-#   set {
-#     name  = "fullnameOverride"
-#     value = "aws-node-termination-handler"
-#   }
-# 
-#   depends_on = [
-#     module.eks.eks_managed_node_groups,
-#   ]
-# }
+resource "helm_release" "node_termination_handler" {
+  chart        = "aws-node-termination-handler"
+  name         = "aws-node-termination-handler"
+  namespace    = "kube-system"
+  repository   = "https://aws.github.io/eks-charts"
+  version      = "0.21.0"
+  force_update = true
+
+  set {
+    name  = "awsRegion"
+    value = local.region
+  }
+
+  set {
+    name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.node_termination_handler_irsa.iam_role_arn
+  }
+
+  set {
+    name  = "serviceAccount.name"
+    value = "aws-node-termination-handler"
+  }
+
+  set {
+    name  = "fullnameOverride"
+    value = "aws-node-termination-handler"
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups,
+  ]
+}
+
+resource "helm_release" "crossplane" {
+  chart            = "crossplane"
+  name             = "crossplane"
+  namespace        = "crossplane-system"
+  create_namespace = true
+  repository       = "https://charts.crossplane.io/stable"
+  version          = "1.12.0"
+  force_update     = true
+  timeout          = 300
+  wait             = false
+
+  set {
+    name  = "serviceAccount.customAnnotations.eks\\.amazonaws\\.com/role-arn"
+    value = module.crossplane_irsa.iam_role_arn
+  }
+
+  set {
+    name  = "args[0]"
+    value = "--enable-environment-configs"
+  }
+
+  depends_on = [
+    module.eks.eks_managed_node_groups
+  ]
+
+  lifecycle {
+    ignore_changes = all
+  }
+}
 
 resource "helm_release" "argocd" {
   chart            = "argo-cd"
@@ -215,8 +245,8 @@ resource "helm_release" "argocd" {
     helm_release.external_secrets,
     helm_release.cluster_autoscaler,
     helm_release.cert_manager,
-    # helm_release.node_termination_handler,
-    # time_sleep.wait_destroy_3_min,
+    helm_release.node_termination_handler,
+    helm_release.crossplane,
   ]
 
   lifecycle {
@@ -245,42 +275,9 @@ resource "helm_release" "argocd_apps" {
     helm_release.external_secrets,
     helm_release.cluster_autoscaler,
     helm_release.cert_manager,
-    # helm_release.node_termination_handler,
+    helm_release.node_termination_handler,
+    helm_release.crossplane,
     helm_release.argocd,
-  ]
-
-  lifecycle {
-    ignore_changes = all
-  }
-}
-
-resource "helm_release" "crossplane" {
-  chart            = "https://github.com/kaio6fellipe/argo/raw/main/clusters/platform-eks-dev/crossplane/charts/crossplane-1.12.0.tgz"
-  name             = "crossplane"
-  namespace        = "crossplane-system"
-  create_namespace = true
-  force_update     = true
-  timeout          = 300
-  wait             = false
-
-  values = [
-    sensitive(data.github_repository_file.crossplane.content)
-  ]
-
-  set {
-    name  = "serviceAccount.customAnnotations.eks\\.amazonaws\\.com/role-arn"
-    value = module.crossplane_irsa.iam_role_arn
-  }
-
-  # set {
-  #   # ControllerConfig annotation
-  #   name  = "extraObjects[1].metadata.annotations.eks\\.amazonaws\\.com/role-arn"
-  #   value = module.crossplane_irsa.iam_role_arn
-  # }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-    helm_release.argocd_apps
   ]
 
   lifecycle {

@@ -10,9 +10,10 @@ status_tffmt="0"
 TERRAFORM=$(command -v terraform)
 
 color_echo_blue "Formating check with Terraform..."
-${TERRAFORM} fmt -check -recursive || status_tffmt="1"
+${TERRAFORM} fmt -check -recursive -diff || status_tffmt="1"
 if [[ "${status_tffmt}" != "0" ]]; then
-    color_echo_red "...Terraform format check failed."
+    color_echo_red "...Terraform format check failed. Commit changes again."
+    ${TERRAFORM} fmt -recursive
     exit 1
 fi
 color_echo_green "...Terraform format check succeeded."

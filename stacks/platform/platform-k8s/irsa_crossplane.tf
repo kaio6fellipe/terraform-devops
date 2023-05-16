@@ -32,7 +32,7 @@ module "crossplane_irsa" {
   oidc_providers = {
     main = {
       provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["crossplane-system:crossplane"]
+      namespace_service_accounts = ["crossplane-system:*"]
     }
   }
 
