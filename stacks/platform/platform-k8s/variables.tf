@@ -1,50 +1,30 @@
-variable "environment" {}
-
-variable "vpc_id" {}
-
-variable "vpc_cidr" {}
-
-variable "vpc_private_subnets" {}
-
-variable "vpc_public_subnets" {}
-
-variable "vpc_intra_subnets" {}
-
-variable "platform_eks_services" {}
-
-variable "region" {}
-
-variable "private_dns_zone_id" {}
-
-variable "ktech_devops_private_zone_id" {}
-
-variable "private_dns_zone_arn" {}
-
-variable "availability_zones" {}
-
-variable "key_name" {}
-
-variable "default_sg" {}
-
-variable "cdirs_acesso_remoto" {}
-
-variable "GITHUB_ACTIONS_CIDR" {}
+variable "GITHUB_ACTIONS_CIDR" {
+  description = "GitHub Actions egress CIDR Block"
+  default     = ["0.0.0.0/0"]
+  type        = list(string)
+}
 
 variable "ADMIN_USER_ARN" {
-  sensitive = true
+  description = "EKS admin user ARN"
+  type        = string
+  sensitive   = true
 }
 
 variable "ADMIN_USER_NAME" {
-  sensitive = true
+  description = "EKS admin user name"
+  type        = string
+  sensitive   = true
 }
 
 variable "name" {
   default = "platform-eks"
+  type    = string
 }
 
 # When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod
 variable "kubernetes_version" {
   default = "1.25"
+  type    = string
 }
 
 variable "instance_types" {
@@ -54,16 +34,20 @@ variable "instance_types" {
     "t3.medium", # 17 pods
     "t3.xlarge", # 58 pods
   ]
+  type = list(string)
 }
 
 variable "desired_size" {
   default = 3
+  type    = number
 }
 
 variable "max_size" {
   default = 20
+  type    = number
 }
 
 variable "min_size" {
   default = 3
+  type    = number
 }

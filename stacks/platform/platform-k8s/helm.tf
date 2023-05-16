@@ -14,12 +14,12 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "region"
-    value = var.region
+    value = local.region
   }
 
   set {
     name  = "vpcId"
-    value = var.vpc_id
+    value = local.vpc_id
   }
 
   set {
@@ -89,7 +89,7 @@ resource "helm_release" "cluster_autoscaler" {
 
   set {
     name  = "awsRegion"
-    value = var.region
+    value = local.region
   }
 
   set {
@@ -166,7 +166,7 @@ resource "helm_release" "cert_manager" {
 # 
 #   set {
 #     name  = "awsRegion"
-#     value = var.region
+#     value = local.region
 #   }
 # 
 #   set {
@@ -201,7 +201,7 @@ resource "helm_release" "argocd" {
   wait             = false
 
   values = [
-    data.github_repository_file.argocd.content
+    sensitive(data.github_repository_file.argocd.content)
   ]
 
   depends_on = [
@@ -231,7 +231,7 @@ resource "helm_release" "argocd_apps" {
   wait             = false
 
   values = [
-    data.github_repository_file.argocd_apps.content
+    sensitive(data.github_repository_file.argocd_apps.content)
   ]
 
   depends_on = [

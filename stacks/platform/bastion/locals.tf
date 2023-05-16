@@ -8,6 +8,6 @@ locals {
   public_dns_zone_name          = try(local.stacks_platform_outputs.public_dns_zone_name, "[null]")
   private_dns_zone_id           = try(local.stacks_outputs.private_dns_zone_id, "[null]")
   private_dns_zone_name         = try(local.stacks_outputs.private_dns_zone_name, "[null]")
-  cdirs_acesso_remoto           = try(local.stacks_platform_outputs.cdirs_acesso_remoto, ["0.0.0.0/0"])
-  cdirs_uptime_robot_monitoring = try(local.stacks_platform_outputs.cidrs_uptime_robot_monitoring, ["0.0.0.0/0"])
+  cidrs_remote_access           = try(local.stacks_platform_outputs.cidrs_remote_access, ["0.0.0.0/0"])
+  cidrs_uptime_robot_monitoring = try(local.stacks_platform_outputs.cidrs_uptime_robot_monitoring, ["0.0.0.0/0"])
 }

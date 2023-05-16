@@ -5,11 +5,11 @@ resource "aws_security_group" "bastion_public_ssh" {
   vpc_id      = local.vpc_id
 
   ingress {
-    description = "Allow ICMP in egress just to attach this rule to default ingress in others instances"
+    description = "SSH public access on Bastion Host for remote access CIDRs"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = local.cdirs_acesso_remoto
+    cidr_blocks = local.cidrs_remote_access
   }
   tags = {
     Name = "ssh"
@@ -23,11 +23,11 @@ resource "aws_security_group" "bastion_uptimerobot_ssh" {
   vpc_id      = local.vpc_id
 
   ingress {
-    description = "Allow ICMP in egress just to attach this rule to default ingress in others instances"
+    description = "SSH Public access on uptime robot monitoring range"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = local.cdirs_uptime_robot_monitoring
+    cidr_blocks = local.cidrs_uptime_robot_monitoring
   }
   tags = {
     Name = "uptime-robot"
