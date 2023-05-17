@@ -53,9 +53,3 @@ variable "cidrs_uptime_robot_monitoring" {
     "54.94.142.218/32",   #UptimeRobot
   ]
 }
-
-# variable "AWS_RDS_PASSWORD" {
-#   description = "AWS RDS generic root password"
-#   type        = string
-#   sensitive   = true
-# }

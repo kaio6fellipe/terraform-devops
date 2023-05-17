@@ -9,3 +9,9 @@ variable "CROSSPLANE_AWS_CREDENTIALS_CONTENT" {
   type        = string
   sensitive   = true
 }
+
+variable "AWS_RDS_PASSWORD" {
+  description = "AWS RDS generic root password"
+  type        = string
+  sensitive   = true
+}
