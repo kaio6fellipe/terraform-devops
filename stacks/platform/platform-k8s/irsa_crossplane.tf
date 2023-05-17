@@ -11,9 +11,7 @@ module "crossplane_iam_policy" {
     Statement = [
       {
         Effect = "Allow"
-        Action = [
-          "*",
-        ]
+        Action = "*"
         Resource = "*"
       }
     ]
@@ -32,9 +30,11 @@ module "crossplane_irsa" {
   oidc_providers = {
     main = {
       provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["crossplane-system:*"]
+      namespace_service_accounts = ["crossplane-system:provider-aws-*"]
     }
   }
+
+  assume_role_condition_test = "StringLike"
 
   tags = local.tags
 }
