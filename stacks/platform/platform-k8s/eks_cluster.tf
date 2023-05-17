@@ -6,6 +6,7 @@ module "eks" {
   cluster_version                = local.cluster_version
   cluster_endpoint_public_access = true
   cluster_service_ipv4_cidr      = local.platform_eks_services
+  create_cloudwatch_log_group    = false
 
   # EKS Addons
   cluster_addons = {
