@@ -33,6 +33,7 @@
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_ARGO_GITHUB_SSO_SECRET_KEY"></a> [ARGO\_GITHUB\_SSO\_SECRET\_KEY](#input\_ARGO\_GITHUB\_SSO\_SECRET\_KEY) | GitHub SSO for ArgoCD Application | `string` | n/a | yes |
+| <a name="input_AWS_RDS_PASSWORD"></a> [AWS\_RDS\_PASSWORD](#input\_AWS\_RDS\_PASSWORD) | AWS RDS generic root password | `string` | n/a | yes |
 | <a name="input_CROSSPLANE_AWS_CREDENTIALS_CONTENT"></a> [CROSSPLANE\_AWS\_CREDENTIALS\_CONTENT](#input\_CROSSPLANE\_AWS\_CREDENTIALS\_CONTENT) | Crossplane AWS Credentials content file | `string` | n/a | yes |
 
 ## Outputs
