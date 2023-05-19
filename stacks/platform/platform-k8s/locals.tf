@@ -8,9 +8,8 @@ locals {
     App = "platform-eks-${local.environment}"
   }
 
-  vpc_id                       = try(local.stacks_outputs.vpc_id, "[null]")
-  vpc_private_subnets          = try(local.stacks_outputs.vpc_private_subnets, ["null"])
-  vpc_intra_subnets            = try(local.stacks_outputs.vpc_intra_subnets, ["null"])
-  ktech_devops_private_zone_id = try(local.stacks_outputs.ktech_devops_private_zone_id, "[null]")
-  cidrs_remote_access          = try(local.stacks_platform_outputs.cidrs_remote_access, ["0.0.0.0/0"])
+  vpc_id              = try(local.stacks_outputs.vpc_id, "[null]")
+  vpc_private_subnets = try(local.stacks_outputs.vpc_private_subnets, ["null"])
+  vpc_intra_subnets   = try(local.stacks_outputs.vpc_intra_subnets, ["null"])
+  cidrs_remote_access = try(local.stacks_platform_outputs.cidrs_remote_access, ["0.0.0.0/0"])
 }

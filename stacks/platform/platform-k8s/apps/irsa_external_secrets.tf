@@ -4,11 +4,11 @@ module "external_secrets_irsa" {
 
   role_name                      = "external-secrets-${local.environment}"
   attach_external_secrets_policy = true
-  cluster_autoscaler_cluster_ids = [module.eks.cluster_id]
+  cluster_autoscaler_cluster_ids = [local.cluster_id]
 
   oidc_providers = {
     main = {
-      provider_arn               = module.eks.oidc_provider_arn
+      provider_arn               = local.oidc_provider_arn
       namespace_service_accounts = ["external-secrets:external-secrets"]
     }
   }
