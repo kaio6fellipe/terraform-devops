@@ -11,6 +11,14 @@ terraform {
       source  = "hashicorp/external"
       version = "2.3.1"
     }
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.0"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.7"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.20.0"

@@ -24,10 +24,9 @@ data "aws_caller_identity" "current" {}
 #   create_duration = "1m"
 # }
 
-# External data sources for testing
 data "external" "aws_eks_cluster_endpoint" {
   program = [
-    "${abspath(path.cwd)}/eks-cluster-endpoint.sh",
+    "../../../lib/eks-cluster-endpoint",
     module.eks.cluster_name,
     local.region,
   ]
@@ -38,7 +37,7 @@ data "external" "aws_eks_cluster_endpoint" {
 
 data "external" "aws_eks_cluster_ca_certificate" {
   program = [
-    "${abspath(path.cwd)}/eks-cluster-ca-certificate.sh",
+    "../../../lib/eks-cluster-ca-certificate",
     module.eks.cluster_name,
     local.region,
   ]
@@ -49,23 +48,11 @@ data "external" "aws_eks_cluster_ca_certificate" {
 
 data "external" "aws_eks_cluster_token" {
   program = [
-    "${abspath(path.cwd)}/eks-cluster-token.sh",
+    "../../../lib/eks-cluster-token",
     module.eks.cluster_name,
     local.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,
   ]
-}
-
-data "github_repository_file" "argocd" {
-  repository = "kaio6fellipe/argo"
-  branch     = "main"
-  file       = "config/argo-cd-values.yaml"
-}
-
-data "github_repository_file" "argocd_apps" {
-  repository = "kaio6fellipe/argo"
-  branch     = "main"
-  file       = "config/argocd-apps-values.yaml"
 }

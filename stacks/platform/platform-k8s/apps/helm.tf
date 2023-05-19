@@ -9,7 +9,7 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "clusterName"
-    value = local.name
+    value = local.cluster_name
   }
 
   set {
@@ -26,10 +26,6 @@ resource "helm_release" "aws_load_balancer_controller" {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.load_balancer_controller_irsa.iam_role_arn
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
 }
 
 resource "helm_release" "external_dns" {
@@ -44,10 +40,6 @@ resource "helm_release" "external_dns" {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.external_dns_irsa.iam_role_arn
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
 }
 
 resource "helm_release" "external_secrets" {
@@ -63,10 +55,6 @@ resource "helm_release" "external_secrets" {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.external_secrets_irsa.iam_role_arn
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
 }
 
 resource "helm_release" "cluster_autoscaler" {
@@ -79,7 +67,7 @@ resource "helm_release" "cluster_autoscaler" {
 
   set {
     name  = "autoDiscovery.clusterName"
-    value = module.eks.cluster_name
+    value = local.cluster_name
   }
 
   set {
@@ -106,10 +94,6 @@ resource "helm_release" "cluster_autoscaler" {
     name  = "rbac.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
     value = module.cluster_autoscaler_irsa.iam_role_arn
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
 }
 
 resource "helm_release" "cert_manager" {
@@ -155,10 +139,6 @@ resource "helm_release" "cert_manager" {
     name  = "securityContext.fsGroup"
     value = "65534"
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
 }
 
 resource "helm_release" "node_termination_handler" {
@@ -188,10 +168,6 @@ resource "helm_release" "node_termination_handler" {
     name  = "fullnameOverride"
     value = "aws-node-termination-handler"
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups,
-  ]
 }
 
 resource "helm_release" "crossplane" {
@@ -214,10 +190,6 @@ resource "helm_release" "crossplane" {
     name  = "args[0]"
     value = "--enable-environment-configs"
   }
-
-  depends_on = [
-    module.eks.eks_managed_node_groups
-  ]
 
   lifecycle {
     ignore_changes = all
