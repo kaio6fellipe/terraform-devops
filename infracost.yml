@@ -14,7 +14,13 @@ projects:
     terraform_workspace: ansible-server
 
   - path: stacks/platform/platform-k8s
-    terraform_workspace: ansible-server
+    terraform_workspace: platform-k8s
+
+  - path: stacks/platform/platform-k8s/node-group
+    terraform_workspace: platform-k8s-node-group
+
+  - path: stacks/platform/platform-k8s/apps
+    terraform_workspace: platform-k8s-apps
 
   - path: stacks/apps
     terraform_workspace: apps
