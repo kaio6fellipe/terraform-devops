@@ -17,7 +17,7 @@ def connect_client():
 def get_hosted_zones(client):
     try:
         raw_hosted_zones = client.list_hosted_zones()
-        logging.info("Hosted Zones extracted from Route53")
+        logging.info("Hosted Zones extracted from Route53, %s", raw_hosted_zones)
         return raw_hosted_zones
     except Exception as ex:
         logging.error("Failed to get hosted Zones in Route53: %s", ex)
@@ -41,8 +41,8 @@ def enumerate_records(client):
                         dns_record["ZoneId"] = zone_id
                         external_dns_managed_record.append(dns_record)
                 except Exception as ex_enumerate: # pylint: disable=broad-except
-                    logging.error("Failed to generate external_dns_managed_record list: %s",
-                        ex_enumerate)
+                    logging.error("Failed to generate external_dns_managed_record list: %s, dns_record not parsed: %s, external_dns_list: %s",
+                        ex_enumerate, dns_record, external_dns_managed_record)
 
         for managed_record in external_dns_managed_record:
             for dns_record in zone_records["ResourceRecordSets"]:
@@ -50,7 +50,7 @@ def enumerate_records(client):
                     dns_record["ZoneId"] = managed_record["ZoneId"]
                     stateless_dns_record.append(dns_record)
 
-        logging.info("Finished the enumeration of Route53 records...")
+        logging.info("Finished the enumeration of Route53 records... Stateless DNS Records: %s", stateless_dns_record)
         return stateless_dns_record
     except Exception as ex:
         logging.error("Failed to Enumerate Route53 records: %s", ex)
@@ -78,10 +78,12 @@ def delete_record(client, json_record):
         if "ResourceRecords" in str(json_record):
             json_payload["Changes"][0]["ResourceRecordSet"]["ResourceRecords"] = json_record["ResourceRecords"] # pylint: disable=line-too-long
 
+        logging.info("DNS Record that will be deleted: %s", json_payload)
         response = client.change_resource_record_sets(
             HostedZoneId=zone_id,
             ChangeBatch=json_payload
         )
+        logging.info("DNS Record deleted response: %s", response)
         return response
     except Exception as ex_delete_record: # pylint: disable=broad-exception-caught
         logging.error("Failed to delete DNS Record: %s, Exception: %s",

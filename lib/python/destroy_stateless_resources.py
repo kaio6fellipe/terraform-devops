@@ -21,7 +21,7 @@ def remove_load_balancer_resources():
     while (len(loadbalancer_remaining_resources) > 0):
         loadbalancer_remaining_resources = loadbalancer.remove_stateless_resources()
         logging.critical("Load Balancer Remaining Resources: %s", str(loadbalancer_remaining_resources))
-        time.sleep(5)
+        time.sleep(60)
     logging.info("Finished Load Balancer destroy...")
 
 def remove_route53_resources():
@@ -35,9 +35,11 @@ def remove_route53_resources():
     while (len(route53_remaining_resources) > 0):
         route53_client = route53.connect_client()
         route53_remaining_resources = route53.enumerate_records(route53_client)
+        if route53_remaining_resources is None:
+            route53_remaining_resources = []
         for record in route53_remaining_resources:
             route53.delete_record(route53_client, record)
-        time.sleep(5)
+        time.sleep(60)
         logging.critical("Route53 Remaining Resources: %s", str(route53_remaining_resources))
     logging.info("Finished Route53 destroy...")
 
@@ -48,5 +50,5 @@ if __name__ == "__main__":
         #Route53
         remove_route53_resources()
     except Exception as ex: # pylint: disable=broad-exception-caught
-        logging.error("General error on stateless.py: %s", ex)
+        logging.error("General error on stateless functions: %s", ex)
         sys.exit(0)

@@ -1,5 +1,5 @@
 """
-botocore used to catch specific excepctions
+botocore used to catch specific exceptions
 boto3 used to communicate with AWS API
 """
 import logging
