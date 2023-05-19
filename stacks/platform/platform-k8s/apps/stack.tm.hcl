@@ -5,6 +5,6 @@ stack {
   after = [
     "/stacks/platform/bastion",
     "/stacks/platform/ansible-server",
-    "/stacks/platform/platform-k8s/node-group"
+    # "/stacks/platform/platform-k8s/node-group"
   ]
 }

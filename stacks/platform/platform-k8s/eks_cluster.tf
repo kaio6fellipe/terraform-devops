@@ -29,5 +29,26 @@ module "eks" {
       groups   = ["system:masters"]
     },
   ]
+
+  eks_managed_node_groups = {
+    default = {
+      # By default, the module creates a launch template to ensure tags are propagated to instances, etc.,
+      # so we need to disable it to use the default template provided by the AWS EKS managed node group service
+      use_custom_launch_template = false
+
+      instance_types = var.instance_types
+      capacity_type  = "SPOT"
+
+      min_size     = var.min_size
+      max_size     = var.max_size
+      desired_size = var.desired_size
+
+      tags = {
+        "k8s.io/cluster-autoscaler/enabled"       = "true"
+        "k8s.io/cluster-autoscaler/${local.name}" = "owned"
+      }
+    }
+  }
+
   tags = local.tags
 }
