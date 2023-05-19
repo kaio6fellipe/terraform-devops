@@ -30,6 +30,7 @@ env:
   TF_VAR_ARGO_GITHUB_SSO_SECRET_KEY: ${{ secrets.ARGO_GITHUB_SSO_SECRET_KEY }}
   TF_VAR_CROSSPLANE_AWS_CREDENTIALS_CONTENT: ${{ secrets.CROSSPLANE_AWS_CREDENTIALS_CONTENT }}
   TF_WARN_OUTPUT_ERRORS: 1
+  TF_LOG: ${{ inputs.log_level }}
 
 jobs:
   destroy-stateless-resources:
