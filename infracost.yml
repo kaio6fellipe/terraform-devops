@@ -22,6 +22,9 @@ projects:
   - path: stacks/platform/platform-k8s/apps
     terraform_workspace: platform-k8s-apps
 
+  - path: stacks/platform/platform-k8s/apps/grafana-dashboards
+    terraform_workspace: grafana-dashboards
+
   - path: stacks/apps
     terraform_workspace: apps
 
