@@ -105,6 +105,10 @@ export TF_VAR_ADMIN_USER_ARN="" && \
 export TF_VAR_ADMIN_USER_NAME="" && \
 export TF_VAR_ARGO_GITHUB_SSO_SECRET_KEY="" && \
 export TF_VAR_CROSSPLANE_AWS_CREDENTIALS_CONTENT="" && \
+export TF_VAR_GF_AUTH_GITHUB_CLIENT_ID="" && \
+export TF_VAR_GF_AUTH_GITHUB_CLIENT_SECRET="" && \
+export TF_VAR_GF_SECURITY_ADMIN_USER="" && \
+export TF_VAR_GF_SECURITY_ADMIN_PASSWORD="" && \
 # export TF_VAR_GITHUB_ACTIONS_CIDR=${git_actions_cidr} && \
 export TF_LOG=${tf_log} && \
 terramate run --changed terraform plan || status_tfplan="1" && \
@@ -115,6 +119,10 @@ unset TF_VAR_ADMIN_USER_ARN && \
 unset TF_VAR_ADMIN_USER_NAME && \
 unset TF_VAR_ARGO_GITHUB_SSO_SECRET_KEY && \
 unset TF_VAR_CROSSPLANE_AWS_CREDENTIALS_CONTENT && \
+unset TF_VAR_GF_AUTH_GITHUB_CLIENT_ID && \
+unset TF_VAR_GF_AUTH_GITHUB_CLIENT_SECRET && \
+unset TF_VAR_GF_SECURITY_ADMIN_USER && \
+unset TF_VAR_GF_SECURITY_ADMIN_PASSWORD && \
 # unset TF_VAR_GITHUB_ACTIONS_CIDR && \
 unset TF_LOG
 

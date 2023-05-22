@@ -31,10 +31,16 @@ module "stack-secrets-manager" {
       recovery_window_in_days = 0
       secret_string           = var.CROSSPLANE_AWS_CREDENTIALS_CONTENT
     },
-    aws-rds-password = {
-      description             = "AWS RDS Password (Grafana)"
+    grafana-secrets = {
+      description             = "Grafana Secrets"
       recovery_window_in_days = 0
-      secret_string           = var.AWS_RDS_PASSWORD
+      secret_key_value = {
+        GF_DATABASE_PASSWORD         = var.AWS_RDS_PASSWORD
+        GF_AUTH_GITHUB_CLIENT_ID     = var.GF_AUTH_GITHUB_CLIENT_ID
+        GF_AUTH_GITHUB_CLIENT_SECRET = var.GF_AUTH_GITHUB_CLIENT_SECRET
+        GF_SECURITY_ADMIN_USER       = var.GF_SECURITY_ADMIN_USER
+        GF_SECURITY_ADMIN_PASSWORD   = var.GF_SECURITY_ADMIN_PASSWORD
+      }
     }
   }
 }
