@@ -35,6 +35,10 @@
 | <a name="input_ARGO_GITHUB_SSO_SECRET_KEY"></a> [ARGO\_GITHUB\_SSO\_SECRET\_KEY](#input\_ARGO\_GITHUB\_SSO\_SECRET\_KEY) | GitHub SSO for ArgoCD Application | `string` | n/a | yes |
 | <a name="input_AWS_RDS_PASSWORD"></a> [AWS\_RDS\_PASSWORD](#input\_AWS\_RDS\_PASSWORD) | AWS RDS generic root password | `string` | n/a | yes |
 | <a name="input_CROSSPLANE_AWS_CREDENTIALS_CONTENT"></a> [CROSSPLANE\_AWS\_CREDENTIALS\_CONTENT](#input\_CROSSPLANE\_AWS\_CREDENTIALS\_CONTENT) | Crossplane AWS Credentials content file | `string` | n/a | yes |
+| <a name="input_GF_AUTH_GITHUB_CLIENT_ID"></a> [GF\_AUTH\_GITHUB\_CLIENT\_ID](#input\_GF\_AUTH\_GITHUB\_CLIENT\_ID) | Grafana's GitHub authentication ClientID | `string` | n/a | yes |
+| <a name="input_GF_AUTH_GITHUB_CLIENT_SECRET"></a> [GF\_AUTH\_GITHUB\_CLIENT\_SECRET](#input\_GF\_AUTH\_GITHUB\_CLIENT\_SECRET) | Grafana's GitHub authentication ClientSecret | `string` | n/a | yes |
+| <a name="input_GF_SECURITY_ADMIN_PASSWORD"></a> [GF\_SECURITY\_ADMIN\_PASSWORD](#input\_GF\_SECURITY\_ADMIN\_PASSWORD) | Grafana's security admin password | `string` | n/a | yes |
+| <a name="input_GF_SECURITY_ADMIN_USER"></a> [GF\_SECURITY\_ADMIN\_USER](#input\_GF\_SECURITY\_ADMIN\_USER) | Grafana's security admin user | `string` | n/a | yes |
 
 ## Outputs
 
@@ -43,6 +47,7 @@
 | <a name="output_availability_zone_0"></a> [availability\_zone\_0](#output\_availability\_zone\_0) | n/a |
 | <a name="output_availability_zone_1"></a> [availability\_zone\_1](#output\_availability\_zone\_1) | n/a |
 | <a name="output_availability_zone_2"></a> [availability\_zone\_2](#output\_availability\_zone\_2) | n/a |
+| <a name="output_database_subnet_group_name"></a> [database\_subnet\_group\_name](#output\_database\_subnet\_group\_name) | n/a |
 | <a name="output_database_subnet_id_0"></a> [database\_subnet\_id\_0](#output\_database\_subnet\_id\_0) | n/a |
 | <a name="output_db_subnet_group_name"></a> [db\_subnet\_group\_name](#output\_db\_subnet\_group\_name) | n/a |
 | <a name="output_ktech_devops_private_zone_id"></a> [ktech\_devops\_private\_zone\_id](#output\_ktech\_devops\_private\_zone\_id) | n/a |

@@ -42,7 +42,7 @@
 | <a name="input_ADMIN_USER_ARN"></a> [ADMIN\_USER\_ARN](#input\_ADMIN\_USER\_ARN) | EKS admin user ARN | `string` | n/a | yes |
 | <a name="input_ADMIN_USER_NAME"></a> [ADMIN\_USER\_NAME](#input\_ADMIN\_USER\_NAME) | EKS admin user name | `string` | n/a | yes |
 | <a name="input_GITHUB_ACTIONS_CIDR"></a> [GITHUB\_ACTIONS\_CIDR](#input\_GITHUB\_ACTIONS\_CIDR) | GitHub Actions egress CIDR Block | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
-| <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | n/a | `number` | `3` | no |
+| <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | n/a | `number` | `4` | no |
 | <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | n/a | `list(string)` | <pre>[<br>  "t3.small",<br>  "t3.medium",<br>  "t3.xlarge"<br>]</pre> | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod | `string` | `"1.25"` | no |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `20` | no |
@@ -56,6 +56,7 @@
 | <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | n/a |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | n/a |
 | <a name="output_cluster_primary_security_group_id"></a> [cluster\_primary\_security\_group\_id](#output\_cluster\_primary\_security\_group\_id) | n/a |
+| <a name="output_cluster_security_group_id"></a> [cluster\_security\_group\_id](#output\_cluster\_security\_group\_id) | n/a |
 | <a name="output_cluster_version"></a> [cluster\_version](#output\_cluster\_version) | n/a |
 | <a name="output_current_identity_account_id"></a> [current\_identity\_account\_id](#output\_current\_identity\_account\_id) | n/a |
 | <a name="output_current_identity_arn"></a> [current\_identity\_arn](#output\_current\_identity\_arn) | n/a |
