@@ -13,6 +13,8 @@ script?=""
 args?=--help
 current_user?=$(shell echo $$USER)
 log_level?=""
+user_id?=$(shell id -g $$USER)
+group_id?=$(shell id -u $$USER)
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
@@ -139,8 +141,7 @@ terramate-fmt: ##@terramate Run terramate fmt to format all terramate files
 
 .PHONY: terramate-chown
 terramate-chown: guard-current_user ##@terramate (args: current_user) Change owner of terramate generated files inside platform-ops container
-	sudo find . -type f -name '*.tm.hcl' | sudo xargs chown $(current_user):$(current_user) && \
-	sudo find . -type f -name '*.tf' | sudo xargs chown $(current_user):$(current_user)
+	$(docker_run) bash -c 'find . -type f -name "*.tm.hcl" | xargs chown $(user_id):$(group_id) && find . -type f -name "*.tf" | xargs chown $(user_id):$(group_id)'
 
 .PHONY: terramate-plan
 terramate-plan: guard-keyname ##@terramate Execute terramate generate and terramate run with init and plan on each stack that has detected differences
