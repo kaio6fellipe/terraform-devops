@@ -70,6 +70,6 @@ jobs:
                                    --pull-request=${{github.event.pull_request.number}} \
                                    --behavior=update
 
-      - name: Upload Infracost file to Infracost Cloud
-        run: |
-          infracost upload --path=/tmp/infracost.json
+      # - name: Upload Infracost file to Infracost Cloud
+      #   run: |
+      #     infracost upload --path=/tmp/infracost.json
