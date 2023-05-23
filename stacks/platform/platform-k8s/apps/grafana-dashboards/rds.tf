@@ -25,7 +25,7 @@ module "grafana_rds" {
 
   deletion_protection = false
   storage_encrypted   = false
-  # snapshot_identifier = "${data.aws_db_snapshot.db_snapshot.id}"
+  snapshot_identifier = data.aws_db_snapshot.db_snapshot.id
 
   # restore_to_point_in_time = {
   #   use_latest_restorable_time = true
