@@ -13,14 +13,7 @@ module "sg_grafana_db" {
       to_port                  = 5432
       protocol                 = "tcp"
       description              = "PostgreSQL access from within VPC for Platform EKS Nodes"
-      source_security_group_id = local.node_security_group_id
-    },
-    {
-      from_port                = 5432
-      to_port                  = 5432
-      protocol                 = "tcp"
-      description              = "PostgreSQL access from within VPC for Platform EKS Cluster"
-      source_security_group_id = local.cluster_security_group_id
+      source_security_group_id = local.cluster_primary_security_group_id
     },
   ]
 }
