@@ -77,3 +77,7 @@ output "private_dns_zone_name" {
 output "private_dns_zone_arn" {
   value = sort(keys(module.zones.route53_zone_zone_arn))[0]
 }
+
+output "database_subnet_group_name" {
+  value = module.vpc.database_subnet_group_name
+}
