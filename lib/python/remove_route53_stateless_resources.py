@@ -35,11 +35,15 @@ def enumerate_records(client):
 
             for dns_record in zone_records["ResourceRecordSets"]:
                 try:
-                    if ("external-dns" in str(dns_record["ResourceRecords"][0]["Value"])
+                    if dns_record["ResourceRecords"][0]["Value"] is None or dns_record["Type"] is None or dns_record["Name"] is None:
+                        pass
+                    elif ("external-dns" in str(dns_record["ResourceRecords"][0]["Value"])
                             and str(dns_record["Type"]) == "TXT"
                             and "cname" not in str(dns_record["Name"])):
                         dns_record["ZoneId"] = zone_id
                         external_dns_managed_record.append(dns_record)
+                    else:
+                        pass
                 except Exception as ex_enumerate: # pylint: disable=broad-except
                     logging.error("Failed to generate external_dns_managed_record list: %s, dns_record not parsed: %s, external_dns_list: %s",
                         ex_enumerate, dns_record, external_dns_managed_record)
