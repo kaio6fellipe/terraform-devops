@@ -4,9 +4,9 @@ generate_file "/infracost.yml" {
     infracost = {
       version = "0.1"
       projects = [for stack in terramate.stacks.list : {
-        path = stack
+        path = tm_substr(stack, 1, 999)
       }]
     }
   }
-  content = tm_yamlencode(let.infracost)
+  content = tm_replace(tm_yamlencode(let.infracost), "\"", "")
 }
