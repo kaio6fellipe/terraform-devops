@@ -5,7 +5,8 @@ provider "aws" {
   default_tags {
     tags = {
       Env            = "dev"
-      Stack          = "platform-k8s-apps"
+      Stack          = "apps"
+      StackID        = "BETjPJxNR6AlqDWc8K3HFXSudy1GbhJ0XJpa"
       StackPath      = "/stacks/platform/platform-k8s/apps"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"

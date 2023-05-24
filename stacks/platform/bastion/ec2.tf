@@ -2,11 +2,11 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "4.1.1"
 
-  name = "bastion01-${local.environment}"
+  name = "bastion01-${local.globals.environment}"
 
   ami           = local.amazon_linux_2
-  instance_type = local.instance_type
-  key_name      = local.key_name
+  instance_type = local.globals.instance_type
+  key_name      = local.globals.key_name
   monitoring    = false
 
   availability_zone      = local.availability_zone_0
@@ -16,8 +16,8 @@ module "ec2-instance" {
   user_data = <<EOF
 #!/bin/bash
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Changing Hostname of Bastion Server" >> /var/log/terraform.log
-sudo hostname "bastion01-${local.environment}"
-sudo echo "bastion01-${local.environment}" > /etc/hostname
+sudo hostname "bastion01-${local.globals.environment}"
+sudo echo "bastion01-${local.globals.environment}" > /etc/hostname
 
 sudo echo "$(date '+%d%m%Y_%Hh%M') - Running updates with apt update and upgrade" >> /var/log/terraform.log
 sudo yum update -y
@@ -25,7 +25,7 @@ sudo yum upgrade -y
 EOF
 
   tags = {
-    Type = local.instance_type
+    Type = local.globals.instance_type
     App  = "bastion"
   }
 }

@@ -8,10 +8,10 @@ module "grafana_rds" {
   engine_version       = "14.1"
   family               = "postgres14"
   major_engine_version = "14"
-  instance_class       = local.db_instance_type
+  instance_class       = local.globals.db_instance_type
 
-  allocated_storage     = local.rds_allocated_storage
-  max_allocated_storage = local.rds_max_allocated_storage
+  allocated_storage     = local.globals.rds_allocated_storage
+  max_allocated_storage = local.globals.rds_max_allocated_storage
 
   db_name                = "grafana"
   username               = "grafana_usr"

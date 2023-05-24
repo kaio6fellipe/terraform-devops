@@ -8,7 +8,7 @@ globals {
   }
   remote_state_bucket       = "terraform-state20220711040913053000000001"
   remote_state_dynamodb     = "terraform-state"
-  key_name                  = "terraform-aws"
+  key_name                  = "terraform-aws-dev"
   environment               = "dev"
   region                    = "us-east-1"
   ansible_instance_type     = "t3.small"

@@ -1,8 +1,8 @@
 // Bastion Default Rule
 resource "aws_security_group" "default_bastion" {
   #checkov:skip=CKV2_AWS_5: SG attached to all instances managed by Bastion
-  name        = "default_bastion_sg-${local.environment}"
-  description = "Default SG for Bastion in env: ${local.environment}"
+  name        = "default_bastion_sg-${local.globals.environment}"
+  description = "Default SG for Bastion in env: ${local.globals.environment}"
   vpc_id      = local.vpc_id
 
   tags = {
@@ -12,7 +12,7 @@ resource "aws_security_group" "default_bastion" {
 
 resource "aws_security_group_rule" "bastion_egress" {
   type              = "egress"
-  description       = "Permit all outbound traffic in env: ${local.environment}"
+  description       = "Permit all outbound traffic in env: ${local.globals.environment}"
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
@@ -22,17 +22,17 @@ resource "aws_security_group_rule" "bastion_egress" {
 
 resource "aws_security_group_rule" "bastion_ingress" {
   type              = "ingress"
-  description       = "Permit inbound ping in env: ${local.environment}"
+  description       = "Permit inbound ping in env: ${local.globals.environment}"
   from_port         = -1
   to_port           = -1
   protocol          = "icmp"
-  cidr_blocks       = [local.vpc_cidr]
+  cidr_blocks       = [local.globals.vpc_cidr]
   security_group_id = aws_security_group.default_bastion.id
 }
 
 resource "aws_security_group_rule" "ansible_to_bastion_ssh" {
   type                     = "ingress"
-  description              = "Permit inbound ssh from ansible host in env: ${local.environment}"
+  description              = "Permit inbound ssh from ansible host in env: ${local.globals.environment}"
   from_port                = 22
   to_port                  = 22
   protocol                 = "tcp"

@@ -1,28 +1,28 @@
 // TERRAMATE: GENERATED AUTOMATICALLY DO NOT EDIT
 
-data "terraform_remote_state" "stacks" {
+data "terraform_remote_state" "vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks" {
   backend = "s3"
   config = {
     bucket         = "terraform-state20220711040913053000000001"
-    key            = "stacks/terraform.tfstate"
+    key            = "vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "terraform-state"
   }
 }
-data "terraform_remote_state" "stacks_platform_platform-k8s" {
+data "terraform_remote_state" "PzaQTyLp7RV3UkOuNO7yJ33MXBmqEaMy7maC-platform-k8s" {
   backend = "s3"
   config = {
     bucket         = "terraform-state20220711040913053000000001"
-    key            = "stacks/platform/platform-k8s/terraform.tfstate"
+    key            = "PzaQTyLp7RV3UkOuNO7yJ33MXBmqEaMy7maC-platform-k8s/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "terraform-state"
   }
 }
 locals {
-  stacks_outputs = data.terraform_remote_state.stacks.outputs
+  vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks_outputs = data.terraform_remote_state.vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks.outputs
 }
 locals {
-  stacks_platform_platform-k8s_outputs = data.terraform_remote_state.stacks_platform_platform-k8s.outputs
+  PzaQTyLp7RV3UkOuNO7yJ33MXBmqEaMy7maC-platform-k8s_outputs = data.terraform_remote_state.PzaQTyLp7RV3UkOuNO7yJ33MXBmqEaMy7maC-platform-k8s.outputs
 }

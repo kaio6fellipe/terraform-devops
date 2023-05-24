@@ -26,8 +26,8 @@ base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
 terramate_image=ghcr.io/mineiros-io/terramate:0.2.18
 development_imagename=$(base_imagename):development
 
-docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
-docker_run_interactive=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
+docker_run=docker run --rm $(dockerenv) --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
+docker_run_interactive=docker run --rm $(dockerenv) --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
 terramate_run=docker run --rm $(dockerenv) --volume `pwd`:/workdir $(terramate_image) --chdir="/workdir" --log-level="info"
 
 guard-%:
@@ -149,3 +149,7 @@ terramate-plan: guard-keyname ##@terramate Execute terramate generate and terram
 	$(docker_run) ./lib/terramate-plan --keyname $(keyname) --log_level $(log_level)
 # export KEY_FILE_PUB="$(shell cat $(keyfile_public))" && \ 
 # export KEY_FILE="$(shell cat $(keyfile))" && \ 
+
+.PHONY: generate-id
+generate-id: ##@terramate Generate an ID to use on stacks
+	cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 36 | head -n 1

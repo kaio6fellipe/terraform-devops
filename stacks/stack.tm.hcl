@@ -1,11 +1,7 @@
 stack {
-  name        = "root"
+  name        = "stacks"
   description = "Stack responsible for the first layer and base network configurations like VPC and Route53"
-
-  before = [
-    "/stacks/apps",
-    "/stacks/platform",
-  ]
+  id          = "vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN"
 }
 
 import {

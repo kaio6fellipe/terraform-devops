@@ -1,7 +1,7 @@
 resource "aws_security_group" "bastion_public_ssh" {
   #checkov:skip=CKV2_AWS_5: SG attached to bastion EC2 module
-  name        = "bastion_public_ssh-${local.environment}"
-  description = "Permit public ssh access on bastion in env: ${local.environment}"
+  name        = "bastion_public_ssh-${local.globals.environment}"
+  description = "Permit public ssh access on bastion in env: ${local.globals.environment}"
   vpc_id      = local.vpc_id
 
   ingress {
@@ -18,8 +18,8 @@ resource "aws_security_group" "bastion_public_ssh" {
 
 resource "aws_security_group" "bastion_uptimerobot_ssh" {
   #checkov:skip=CKV2_AWS_5: SG attached to bastion EC2 module
-  name        = "bastion_uptimerobot_ssh-${local.environment}"
-  description = "Permit uptimerobot ssh monitoring on bastion in env: ${local.environment}"
+  name        = "bastion_uptimerobot_ssh-${local.globals.environment}"
+  description = "Permit uptimerobot ssh monitoring on bastion in env: ${local.globals.environment}"
   vpc_id      = local.vpc_id
 
   ingress {

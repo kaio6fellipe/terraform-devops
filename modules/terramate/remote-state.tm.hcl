@@ -3,7 +3,7 @@ generate_hcl "_terramate_remote-state.tf" {
     terraform {
       backend "s3" {
         bucket         = global.remote_state_bucket
-        key            = "${terramate.stack.path.relative}/terraform.tfstate"
+        key            = "${terramate.stack.id}-${terramate.stack.name}/terraform.tfstate"
         region         = global.region
         encrypt        = true
         kms_key_id     = "alias/terraform-bucket-key"

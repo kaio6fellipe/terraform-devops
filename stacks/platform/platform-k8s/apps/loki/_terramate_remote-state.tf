@@ -5,7 +5,7 @@ terraform {
     bucket         = "terraform-state20220711040913053000000001"
     dynamodb_table = "terraform-state"
     encrypt        = true
-    key            = "stacks/platform/platform-k8s/apps/loki/terraform.tfstate"
+    key            = "dHwJdgxsWxl9iiz4YiPxZYv52l4Eu4YY528f-loki/terraform.tfstate"
     kms_key_id     = "alias/terraform-bucket-key"
     region         = "us-east-1"
   }
