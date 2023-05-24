@@ -6,6 +6,7 @@ provider "aws" {
     tags = {
       Env            = "dev"
       Stack          = "apps"
+      StackID        = "AsWNLnODc4DMylCwref8vh84Q4e3oB3ypJbC"
       StackPath      = "/stacks/apps"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"

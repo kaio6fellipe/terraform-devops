@@ -1,10 +1,10 @@
 resource "aws_codedeploy_app" "ansible" {
   compute_platform = "Server"
-  name             = "ansible-app-${local.environment}"
+  name             = "ansible-app-${local.globals.environment}"
 }
 
 resource "aws_codedeploy_deployment_config" "ansible" {
-  deployment_config_name = "ansible-deployment-config-${local.environment}"
+  deployment_config_name = "ansible-deployment-config-${local.globals.environment}"
 
   minimum_healthy_hosts {
     type  = "HOST_COUNT"
@@ -14,7 +14,7 @@ resource "aws_codedeploy_deployment_config" "ansible" {
 
 resource "aws_codedeploy_deployment_group" "ansible" {
   app_name               = aws_codedeploy_app.ansible.name
-  deployment_group_name  = "ansible-group-${local.environment}"
+  deployment_group_name  = "ansible-group-${local.globals.environment}"
   service_role_arn       = aws_iam_role.codedeploy_role.arn
   deployment_config_name = aws_codedeploy_deployment_config.ansible.id
 
@@ -22,7 +22,7 @@ resource "aws_codedeploy_deployment_group" "ansible" {
     ec2_tag_filter {
       key   = "App"
       type  = "KEY_AND_VALUE"
-      value = "ansible-${local.environment}"
+      value = "ansible-${local.globals.environment}"
     }
   }
 }

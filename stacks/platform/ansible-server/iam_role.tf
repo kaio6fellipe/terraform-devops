@@ -1,7 +1,7 @@
 # Code Pipeline
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = "codepipeline_ansible_role-${local.environment}"
+  name = "codepipeline_ansible_role-${local.globals.environment}"
 
   assume_role_policy = jsonencode({
     Version : "2012-10-17",
@@ -18,7 +18,7 @@ resource "aws_iam_role" "codepipeline_role" {
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
-  name = "codepipeline_policy-${local.environment}"
+  name = "codepipeline_policy-${local.globals.environment}"
   role = aws_iam_role.codepipeline_role.id
 
   policy = jsonencode({
@@ -71,7 +71,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codedeploy:GetDeploymentConfig"
         ],
         Resource : [
-          "arn:aws:codedeploy:${local.region}:${data.aws_caller_identity.current.account_id}:deploymentconfig:${aws_codedeploy_deployment_config.ansible.id}"
+          "arn:aws:codedeploy:${local.globals.region}:${data.aws_caller_identity.current.account_id}:deploymentconfig:${aws_codedeploy_deployment_config.ansible.id}"
         ]
       },
       {
@@ -96,7 +96,7 @@ resource "aws_iam_role_policy_attachment" "AWSCodeDeployRole" {
 }
 
 resource "aws_iam_role" "codedeploy_role" {
-  name = "ansible_codedeploy_role-${local.environment}"
+  name = "ansible_codedeploy_role-${local.globals.environment}"
 
   assume_role_policy = <<EOF
 {
@@ -118,7 +118,7 @@ EOF
 # GitHub Actions
 
 resource "aws_iam_role" "github_role" {
-  name = "github_ansible_role-${local.environment}"
+  name = "github_ansible_role-${local.globals.environment}"
   path = "/"
 
   assume_role_policy = jsonencode({
@@ -141,7 +141,7 @@ resource "aws_iam_role" "github_role" {
 }
 
 resource "aws_iam_role_policy" "github_policy" {
-  name = "github_ansible_policy-${local.environment}"
+  name = "github_ansible_policy-${local.globals.environment}"
   role = aws_iam_role.github_role.id
 
   policy = jsonencode({
@@ -163,12 +163,12 @@ resource "aws_iam_role_policy" "github_policy" {
 # EC2
 
 resource "aws_iam_instance_profile" "ansible_ec2_profile" {
-  name = "ec2_ansible_profile-${local.environment}"
+  name = "ec2_ansible_profile-${local.globals.environment}"
   role = aws_iam_role.ansible_ec2_role.name
 }
 
 resource "aws_iam_role" "ansible_ec2_role" {
-  name = "ec2_ansible_role-${local.environment}"
+  name = "ec2_ansible_role-${local.globals.environment}"
 
   assume_role_policy = jsonencode({
     Version : "2012-10-17",
@@ -185,7 +185,7 @@ resource "aws_iam_role" "ansible_ec2_role" {
 }
 
 resource "aws_iam_role_policy" "ansible_ec2_policy" {
-  name = "ec2_ansible_policy-${local.environment}"
+  name = "ec2_ansible_policy-${local.globals.environment}"
   role = aws_iam_role.ansible_ec2_role.id
 
   policy = jsonencode({
@@ -199,7 +199,7 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
         ],
         Resource : [
           "${aws_s3_bucket.codepipeline_bucket.arn}/*",
-          "arn:aws:s3:::aws-codedeploy-${local.region}/*",
+          "arn:aws:s3:::aws-codedeploy-${local.globals.region}/*",
         ]
       },
       {
@@ -217,7 +217,8 @@ resource "aws_iam_role_policy" "ansible_ec2_policy" {
 }
 
 resource "aws_iam_role_policy" "ansible_ec2_policy_inventory" {
-  name = "ec2_ansible_policy_inventory-${local.environment}"
+  #checkov:skip=CKV_AWS_355: It's Ok that ansible server has access to all resources
+  name = "ec2_ansible_policy_inventory-${local.globals.environment}"
   role = aws_iam_role.ansible_ec2_role.id
 
   policy = jsonencode({

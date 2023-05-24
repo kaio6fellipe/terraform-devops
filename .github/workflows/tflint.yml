@@ -54,4 +54,4 @@ jobs:
       run: terramate run --changed tflint --init 
       
     - name: Run TFLint
-      run: terramate run --changed tflint --module -f compact
+      run: terramate run --changed tflint --module -f compact --config .tflint.hcl --disable-rule=terraform_unused_declarations

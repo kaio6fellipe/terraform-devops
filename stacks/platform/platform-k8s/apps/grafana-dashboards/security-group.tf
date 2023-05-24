@@ -2,7 +2,7 @@ module "sg_grafana_db" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "4.0"
 
-  name        = "grafana_db-${local.environment}"
+  name        = "grafana_db-${local.globals.environment}"
   description = "Allow connections from Platform K8S Cluster to Grafana Database"
   vpc_id      = local.vpc_id
 

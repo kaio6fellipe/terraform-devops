@@ -1,6 +1,7 @@
 # stack {
-#   name        = "platform-k8s-node-group"
+#   name        = "node-group"
 #   description = "Stack responsible for the node-group management of the platform K8S cluster"
+#   id          = "h39PH9E01hAEstIPdf4725zs1FNPEOCBE3b1"
 # 
 #   after = [
 #     "/stacks/platform/bastion",

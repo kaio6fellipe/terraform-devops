@@ -2,11 +2,11 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "4.1.1"
 
-  name = "ansible-server01-${local.environment}"
+  name = "ansible-server01-${local.globals.environment}"
 
   ami                  = local.amazon_linux_2
-  instance_type        = local.ansible_instance_type
-  key_name             = local.key_name
+  instance_type        = local.globals.ansible_instance_type
+  key_name             = local.globals.key_name
   monitoring           = false
   iam_instance_profile = aws_iam_instance_profile.ansible_ec2_profile.id
 
@@ -17,15 +17,15 @@ module "ec2-instance" {
   user_data = templatefile(
     "${abspath(path.cwd)}/user_data.tpl",
     {
-      environment            = local.environment
-      region                 = local.region
+      environment            = local.globals.environment
+      region                 = local.globals.region
       SSH_PRIVATE_KEY        = var.SSH_PRIVATE_KEY
       ANSIBLE_VAULT_PASSWORD = var.ANSIBLE_VAULT_PASSWORD
     }
   )
 
   tags = {
-    Type = local.ansible_instance_type
-    App  = "ansible-${local.environment}"
+    Type = local.globals.ansible_instance_type
+    App  = "ansible-${local.globals.environment}"
   }
 }

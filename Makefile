@@ -13,6 +13,8 @@ script?=""
 args?=--help
 current_user?=$(shell echo $$USER)
 log_level?=""
+user_id?=$(shell id -g $$USER)
+group_id?=$(shell id -u $$USER)
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
@@ -24,8 +26,8 @@ base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
 terramate_image=ghcr.io/mineiros-io/terramate:0.2.18
 development_imagename=$(base_imagename):development
 
-docker_run=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
-docker_run_interactive=docker run --rm $(dockerenv) --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
+docker_run=docker run --rm $(dockerenv) --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
+docker_run_interactive=docker run --rm $(dockerenv) --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
 terramate_run=docker run --rm $(dockerenv) --volume `pwd`:/workdir $(terramate_image) --chdir="/workdir" --log-level="info"
 
 guard-%:
@@ -139,8 +141,7 @@ terramate-fmt: ##@terramate Run terramate fmt to format all terramate files
 
 .PHONY: terramate-chown
 terramate-chown: guard-current_user ##@terramate (args: current_user) Change owner of terramate generated files inside platform-ops container
-	sudo find . -type f -name '*.tm.hcl' | sudo xargs chown $(current_user):$(current_user) && \
-	sudo find . -type f -name '*.tf' | sudo xargs chown $(current_user):$(current_user)
+	$(docker_run) bash -c 'find . -type f -name "*.tm.hcl" | xargs chown $(user_id):$(group_id) && find . -type f -name "*.tf" | xargs chown $(user_id):$(group_id)'
 
 .PHONY: terramate-plan
 terramate-plan: guard-keyname ##@terramate Execute terramate generate and terramate run with init and plan on each stack that has detected differences
@@ -148,3 +149,7 @@ terramate-plan: guard-keyname ##@terramate Execute terramate generate and terram
 	$(docker_run) ./lib/terramate-plan --keyname $(keyname) --log_level $(log_level)
 # export KEY_FILE_PUB="$(shell cat $(keyfile_public))" && \ 
 # export KEY_FILE="$(shell cat $(keyfile))" && \ 
+
+.PHONY: generate-id
+generate-id: ##@terramate Generate an ID to use on stacks
+	cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 36 | head -n 1

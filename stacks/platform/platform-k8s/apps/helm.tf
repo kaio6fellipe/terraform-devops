@@ -14,7 +14,7 @@ resource "helm_release" "aws_load_balancer_controller" {
 
   set {
     name  = "region"
-    value = local.region
+    value = local.globals.region
   }
 
   set {
@@ -77,7 +77,7 @@ resource "helm_release" "cluster_autoscaler" {
 
   set {
     name  = "awsRegion"
-    value = local.region
+    value = local.globals.region
   }
 
   set {
@@ -151,7 +151,7 @@ resource "helm_release" "node_termination_handler" {
 
   set {
     name  = "awsRegion"
-    value = local.region
+    value = local.globals.region
   }
 
   set {

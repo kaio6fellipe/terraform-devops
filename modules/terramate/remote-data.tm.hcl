@@ -25,7 +25,7 @@ generate_hcl "_terramate_remote-data.tf" {
       iterator  = datasource
 
       attributes = {
-        "${tm_replace(datasource.value, "/", "_")}_outputs" = tm_hcl_expression("data.terraform_remote_state.${tm_replace(datasource.value, "/", "_")}.outputs")
+        "${datasource.value}_outputs" = tm_hcl_expression("data.terraform_remote_state.${datasource.value}.outputs")
       }
     }
   }
