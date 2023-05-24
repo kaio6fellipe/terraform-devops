@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "loki-data" {
   #checkov:skip=CKV2_AWS_61: This bucket don't need lifecycle configuration
   #checkov:skip=CKV_AWS_21: This bucket don't need versioning
   #checkov:skip=CKV_AWS_145: This bucket don't need KMS
-  bucket = local.bucket_name
+  bucket        = local.bucket_name
   force_destroy = true
 }
 

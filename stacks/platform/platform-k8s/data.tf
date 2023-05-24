@@ -28,7 +28,7 @@ data "external" "aws_eks_cluster_endpoint" {
   program = [
     "../../../lib/eks-cluster-endpoint",
     module.eks.cluster_name,
-    local.region,
+    local.globals.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,
@@ -39,7 +39,7 @@ data "external" "aws_eks_cluster_ca_certificate" {
   program = [
     "../../../lib/eks-cluster-ca-certificate",
     module.eks.cluster_name,
-    local.region,
+    local.globals.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,
@@ -50,7 +50,7 @@ data "external" "aws_eks_cluster_token" {
   program = [
     "../../../lib/eks-cluster-token",
     module.eks.cluster_name,
-    local.region,
+    local.globals.region,
   ]
   depends_on = [
     module.eks.aws_eks_cluster,
