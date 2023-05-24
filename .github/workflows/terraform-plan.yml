@@ -28,8 +28,8 @@ jobs:
 
   tflint:
     name: Lint check
-    # uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
-    uses: ./.github/workflows/tflint.yml
+    uses: kaio6fellipe/terraform-devops/.github/workflows/tflint.yml@development
+    # uses: ./.github/workflows/tflint.yml
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
