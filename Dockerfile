@@ -31,7 +31,8 @@ RUN apt-get update && apt-get install -y \
         tree \
         unzip \
         vim \
-        zip
+        zip \
+        graphviz
 
 RUN pip3 install --no-cache-dir \
       ansible==${ANSIBLE_VERSION} \

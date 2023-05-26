@@ -5,9 +5,9 @@ provider "aws" {
   default_tags {
     tags = {
       Env            = "dev"
-      Stack          = "apps"
-      StackID        = "BETjPJxNR6AlqDWc8K3HFXSudy1GbhJ0XJpa"
-      StackPath      = "/stacks/platform/platform-k8s/apps"
+      Stack          = "loki"
+      StackID        = "dHwJdgxsWxl9iiz4YiPxZYv52l4Eu4YY528f"
+      StackPath      = "/stacks/platform/platform-k8s/tools/loki"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"
     }

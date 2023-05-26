@@ -15,6 +15,7 @@ current_user?=$(shell echo $$USER)
 log_level?=""
 user_id?=$(shell id -g $$USER)
 group_id?=$(shell id -u $$USER)
+path?=""
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
@@ -128,11 +129,29 @@ terramate-docker: guard-args ##@terramate (args: args) Run terramate with additi
 	$(terramate_run) $(args)
 	make terramate-chown
 
+.PHONY: terramate-create
+terramate-create: guard-path ##@terramate (path: args) Run terramate create to bootstrap a new stack
+	$(docker_run) bash -c "terramate create $(path) --id=$(shell cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 36 | head -n 1)" && \
+	make terramate-chown && \
+	$(docker_run) bash -c "chown -R $(user_id):$(group_id) $(path)"
+
 .PHONY: terramate-generate
 terramate-generate: ##@terramate Run terramate generate to generate stack files managed by Terramate
 	git add . && \
 	$(docker_run) bash -c "terramate generate" && \
-	make terramate-chown
+	make terramate-chown && \
+	make terramate-graph
+
+.PHONY: terramate-graph
+terramate-graph: ##@terramate Run terramate experimental run-graph and output the value to a svg file
+	git add . && \
+	$(docker_run) bash -c "terramate experimental run-graph | dot -Tsvg -Nfontcolor=red -o dependency_graph.svg && chown $(user_id):$(group_id) dependency_graph.svg"
+
+# .PHONY: terraform-graph
+# terraform-graph: ##@terramate Run terraform graph with terramate run and generate a svg file
+# 	git add . && \
+#     $(docker_run) bash -c "terramate run terraform graph"
+# $(docker_run) bash -c "terramate run terraform graph | dot -Tpng > stack.png && chown $(user_id):$(group_id) stack.png"
 
 .PHONY: terramate-fmt
 terramate-fmt: ##@terramate Run terramate fmt to format all terramate files
