@@ -13,6 +13,7 @@ stack {
     "/stacks/apps",
     "/stacks/platform/platform-k8s/tools/grafana-dashboards",
     "/stacks/platform/platform-k8s/tools/loki",
-    "/stacks/platform/platform-k8s/tools/mimir"
+    "/stacks/platform/platform-k8s/tools/mimir",
+    "/stacks/platform/platform-k8s/tools/tempo"
   ]
 }

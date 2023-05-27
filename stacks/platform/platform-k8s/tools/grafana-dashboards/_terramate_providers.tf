@@ -7,7 +7,6 @@ provider "aws" {
       Env            = "dev"
       Stack          = "grafana-dashboards"
       StackID        = "lMWsTEy5u8HwYc7swz9Et81tlPMORBxBMviD"
-      StackPath      = "/stacks/platform/platform-k8s/tools/grafana-dashboards"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"
     }

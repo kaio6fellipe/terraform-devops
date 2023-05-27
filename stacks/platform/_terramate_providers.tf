@@ -7,7 +7,6 @@ provider "aws" {
       Env            = "dev"
       Stack          = "platform"
       StackID        = "RnbMbZULGoHWEauYKXoSoXHIWT1lJ6yqBg0Y"
-      StackPath      = "/stacks/platform"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"
     }
