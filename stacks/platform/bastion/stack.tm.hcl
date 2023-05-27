@@ -5,5 +5,10 @@ stack {
 
   before = [
     "/stacks/apps",
+    "/stacks/platform/platform-k8s"
+  ]
+
+  after = [
+    "/stacks/platform/ansible-server"
   ]
 }

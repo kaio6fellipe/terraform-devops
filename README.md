@@ -66,3 +66,9 @@ With that in hand, I also had to request a public wildcar SSL certificate for my
 ## ⭐️ Show your support
 
 Please ⭐️ this repository if this project helped you!
+
+## Dependency graph between Terramate stacks
+
+Each stack will run after all dependencies.
+
+![graph](dependency_graph.svg)

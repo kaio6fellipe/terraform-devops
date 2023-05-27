@@ -5,7 +5,8 @@ projects:
 - path: stacks/platform/ansible-server
 - path: stacks/platform/bastion
 - path: stacks/platform/platform-k8s
-- path: stacks/platform/platform-k8s/apps
-- path: stacks/platform/platform-k8s/apps/grafana-dashboards
-- path: stacks/platform/platform-k8s/apps/loki
+- path: stacks/platform/platform-k8s/tools
+- path: stacks/platform/platform-k8s/tools/grafana-dashboards
+- path: stacks/platform/platform-k8s/tools/loki
+- path: stacks/platform/platform-k8s/tools/mimir
 version: 0.1

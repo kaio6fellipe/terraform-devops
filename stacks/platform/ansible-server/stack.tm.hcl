@@ -5,6 +5,7 @@ stack {
 
   before = [
     "/stacks/apps",
-    "/stacks/platform/bastion"
+    "/stacks/platform/bastion",
+    "/stacks/platform/platform-k8s"
   ]
 }
