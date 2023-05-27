@@ -6,9 +6,9 @@ resource "aws_iam_role" "mimir" {
 }
 
 resource "aws_iam_policy" "mimir" {
-  name        = "MimirStorageAccessPolicy-${local.bucket_name}"
+  name        = "MimirStorageAccessPolicy-all-mimir-buckets-${local.globals.environment}"
   path        = "/"
-  description = "Allows mimir to access bucket"
+  description = "Allows Mimir to access Mimir owned bucket"
 
   policy = jsonencode({
     Version : "2012-10-17",
@@ -22,8 +22,12 @@ resource "aws_iam_policy" "mimir" {
           "s3:DeleteObject"
         ],
         Resource : [
-          aws_s3_bucket.mimir-data.arn,
-          "${aws_s3_bucket.mimir-data.arn}/*"
+          aws_s3_bucket.mimir-alertmanager.arn,
+          "${aws_s3_bucket.mimir-alertmanager.arn}/*",
+          aws_s3_bucket.mimir-blocks.arn,
+          "${aws_s3_bucket.mimir-blocks.arn}/*",
+          aws_s3_bucket.mimir-ruler.arn,
+          "${aws_s3_bucket.mimir-ruler.arn}/*",
         ]
       }
     ]

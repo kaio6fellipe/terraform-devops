@@ -1,16 +1,16 @@
-resource "aws_s3_bucket" "mimir-data" {
+resource "aws_s3_bucket" "loki-ruler" {
   #checkov:skip=CKV_AWS_144: This bucket don't need cross-region replication
-  #checkov:skip=CKV_AWS_18: This bucket don't need logging enabled because only mimir application will access it
+  #checkov:skip=CKV_AWS_18: This bucket don't need logging enabled because only loki application will access it
   #checkov:skip=CKV2_AWS_62: This bucket don't need notifications
   #checkov:skip=CKV2_AWS_61: This bucket don't need lifecycle configuration
   #checkov:skip=CKV_AWS_21: This bucket don't need versioning
   #checkov:skip=CKV_AWS_145: This bucket don't need KMS
-  bucket        = local.bucket_name
+  bucket        = local.bucket_names.ruler
   force_destroy = true
 }
 
-resource "aws_s3_bucket_public_access_block" "block" {
-  bucket = aws_s3_bucket.mimir-data.id
+resource "aws_s3_bucket_public_access_block" "block-ruler" {
+  bucket = aws_s3_bucket.loki-ruler.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -18,8 +18,8 @@ resource "aws_s3_bucket_public_access_block" "block" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_policy" "grant-access" {
-  bucket = aws_s3_bucket.mimir-data.id
+resource "aws_s3_bucket_policy" "grant-access-ruler" {
+  bucket = aws_s3_bucket.loki-ruler.id
   policy = jsonencode({
     Version : "2012-10-17",
     Statement : [
@@ -27,7 +27,7 @@ resource "aws_s3_bucket_policy" "grant-access" {
         Sid : "Statement1",
         Effect : "Allow",
         Principal : {
-          AWS : aws_iam_role.mimir.arn
+          AWS : aws_iam_role.loki.arn
         },
         Action : [
           "s3:PutObject",
@@ -36,8 +36,8 @@ resource "aws_s3_bucket_policy" "grant-access" {
           "s3:ListBucket"
         ],
         Resource : [
-          aws_s3_bucket.mimir-data.arn,
-          "${aws_s3_bucket.mimir-data.arn}/*"
+          aws_s3_bucket.loki-ruler.arn,
+          "${aws_s3_bucket.loki-ruler.arn}/*"
         ]
       }
     ]

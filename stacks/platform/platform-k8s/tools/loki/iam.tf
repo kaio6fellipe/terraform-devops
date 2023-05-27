@@ -6,9 +6,9 @@ resource "aws_iam_role" "loki" {
 }
 
 resource "aws_iam_policy" "loki" {
-  name        = "LokiStorageAccessPolicy-${local.bucket_name}"
+  name        = "LokiStorageAccessPolicy-all-loki-buckets-${local.globals.environment}"
   path        = "/"
-  description = "Allows Loki to access bucket"
+  description = "Allows Loki to access Loki owned buckets"
 
   policy = jsonencode({
     Version : "2012-10-17",
@@ -22,8 +22,12 @@ resource "aws_iam_policy" "loki" {
           "s3:DeleteObject"
         ],
         Resource : [
-          aws_s3_bucket.loki-data.arn,
-          "${aws_s3_bucket.loki-data.arn}/*"
+          aws_s3_bucket.loki-chunks.arn,
+          "${aws_s3_bucket.loki-chunks.arn}/*",
+          aws_s3_bucket.loki-admin.arn,
+          "${aws_s3_bucket.loki-admin.arn}/*",
+          aws_s3_bucket.loki-ruler.arn,
+          "${aws_s3_bucket.loki-ruler.arn}/*",
         ]
       }
     ]

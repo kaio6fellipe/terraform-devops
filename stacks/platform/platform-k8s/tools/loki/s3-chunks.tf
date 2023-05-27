@@ -1,16 +1,16 @@
-resource "aws_s3_bucket" "loki-data" {
+resource "aws_s3_bucket" "loki-chunks" {
   #checkov:skip=CKV_AWS_144: This bucket don't need cross-region replication
   #checkov:skip=CKV_AWS_18: This bucket don't need logging enabled because only loki application will access it
   #checkov:skip=CKV2_AWS_62: This bucket don't need notifications
   #checkov:skip=CKV2_AWS_61: This bucket don't need lifecycle configuration
   #checkov:skip=CKV_AWS_21: This bucket don't need versioning
   #checkov:skip=CKV_AWS_145: This bucket don't need KMS
-  bucket        = local.bucket_name
+  bucket        = local.bucket_names.chunks
   force_destroy = true
 }
 
-resource "aws_s3_bucket_public_access_block" "block" {
-  bucket = aws_s3_bucket.loki-data.id
+resource "aws_s3_bucket_public_access_block" "block-chunks" {
+  bucket = aws_s3_bucket.loki-chunks.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -18,8 +18,8 @@ resource "aws_s3_bucket_public_access_block" "block" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_policy" "grant-access" {
-  bucket = aws_s3_bucket.loki-data.id
+resource "aws_s3_bucket_policy" "grant-access-chunks" {
+  bucket = aws_s3_bucket.loki-chunks.id
   policy = jsonencode({
     Version : "2012-10-17",
     Statement : [
@@ -36,8 +36,8 @@ resource "aws_s3_bucket_policy" "grant-access" {
           "s3:ListBucket"
         ],
         Resource : [
-          aws_s3_bucket.loki-data.arn,
-          "${aws_s3_bucket.loki-data.arn}/*"
+          aws_s3_bucket.loki-chunks.arn,
+          "${aws_s3_bucket.loki-chunks.arn}/*"
         ]
       }
     ]
