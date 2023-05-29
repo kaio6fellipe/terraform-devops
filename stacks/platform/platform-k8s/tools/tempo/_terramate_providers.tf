@@ -5,8 +5,8 @@ provider "aws" {
   default_tags {
     tags = {
       Env            = "dev"
-      Stack          = "ansible-server"
-      StackID        = "j0JZtFqC1PZUpGs1P4M6cymb44E5hR6Bwffn"
+      Stack          = "tempo"
+      StackID        = "IVFwJP4sZcHD6AHJ34ut8XLHtjNgwXKB5gZV"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"
     }

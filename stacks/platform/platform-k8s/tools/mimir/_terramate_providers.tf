@@ -7,7 +7,6 @@ provider "aws" {
       Env            = "dev"
       Stack          = "mimir"
       StackID        = "6hZm58EmZwhTgkCUwwP6Snd3Y5I0gvMvtEJL"
-      StackPath      = "/stacks/platform/platform-k8s/tools/mimir"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"
     }
