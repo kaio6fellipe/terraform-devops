@@ -6,8 +6,4 @@ projects:
 - path: stacks/platform/bastion
 - path: stacks/platform/platform-k8s
 - path: stacks/platform/platform-k8s/tools
-- path: stacks/platform/platform-k8s/tools/grafana-dashboards
-- path: stacks/platform/platform-k8s/tools/loki
-- path: stacks/platform/platform-k8s/tools/mimir
-- path: stacks/platform/platform-k8s/tools/tempo
 version: 0.1
