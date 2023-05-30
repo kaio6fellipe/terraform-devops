@@ -1,6 +1,7 @@
 projects:
 - path: stacks
 - path: stacks/apps
+- path: stacks/grafana-cloud
 - path: stacks/platform
 - path: stacks/platform/ansible-server
 - path: stacks/platform/bastion

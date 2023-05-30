@@ -8,7 +8,7 @@ locals {
     database_subnet_c         = "10.1.203.0/24"
     db_instance_type          = "db.t3.small"
     environment               = "dev"
-    grafana_provider          = false
+    grafana_provider          = true
     instance_type             = "t3.small"
     intra_subnet_a            = "10.1.51.0/24"
     intra_subnet_b            = "10.1.52.0/24"
@@ -25,16 +25,16 @@ locals {
     rds_max_allocated_storage = 20
     region                    = "us-east-1"
     remote_state_bucket       = "terraform-state20220711040913053000000001"
-    remote_state_data_enabled = true
-    remote_state_datasources = [
-      "vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks",
-      "RnbMbZULGoHWEauYKXoSoXHIWT1lJ6yqBg0Y-platform",
-    ]
-    remote_state_dynamodb = "terraform-state"
+    remote_state_data_enabled = false
+    remote_state_dynamodb     = "terraform-state"
     required_providers = {
       aws = {
         source  = "hashicorp/aws"
         version = "4.57.1"
+      }
+      grafana = {
+        source  = "grafana/grafana"
+        version = "1.40.1"
       }
     }
     terraform_version = [

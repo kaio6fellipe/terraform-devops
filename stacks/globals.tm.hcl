@@ -1,5 +1,6 @@
 globals {
   terraform_version = ["1.2.4"]
+  grafana_provider = false
   required_providers = {
     aws = {
       source  = "hashicorp/aws"

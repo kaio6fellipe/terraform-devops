@@ -8,6 +8,7 @@ locals {
     database_subnet_c         = "10.1.203.0/24"
     db_instance_type          = "db.t3.small"
     environment               = "dev"
+    grafana_provider          = false
     instance_type             = "t3.small"
     intra_subnet_a            = "10.1.51.0/24"
     intra_subnet_b            = "10.1.52.0/24"

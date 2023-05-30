@@ -5,7 +5,8 @@ stack {
 
   before = [
     "/stacks/apps",
-    "/stacks/platform"
+    "/stacks/platform",
+    "/stacks/grafana-cloud"
   ]
 }
 

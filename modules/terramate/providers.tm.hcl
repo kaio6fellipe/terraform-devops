@@ -13,5 +13,14 @@ generate_hcl "_terramate_providers.tf" {
         }
       }
     }
+
+    tm_dynamic "provider" {
+      condition = global.grafana_provider == true
+      labels    = ["grafana"]
+
+      attributes = {
+        alias = "cloud"
+      }
+    }
   }
 }

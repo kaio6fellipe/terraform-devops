@@ -41,6 +41,15 @@ module "stack-secrets-manager" {
         GF_SECURITY_ADMIN_USER       = var.GF_SECURITY_ADMIN_USER
         GF_SECURITY_ADMIN_PASSWORD   = var.GF_SECURITY_ADMIN_PASSWORD
       }
+    },
+    grafana-cloud = {
+      description             = "Grafana Cloud Integration Secrets"
+      recovery_window_in_days = 0
+      secret_key_value = {
+        GRAFANA_CLOUD_METRICSUSER = var.GRAFANA_CLOUD_METRICSUSER
+        GRAFANA_CLOUD_LOGSUSER    = var.GRAFANA_CLOUD_LOGSUSER
+        GRAFANA_CLOUD_TOKEN       = var.GRAFANA_CLOUD_TOKEN
+      }
     }
   }
 }
