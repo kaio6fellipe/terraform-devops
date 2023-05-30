@@ -5,5 +5,6 @@ stack {
 
   before = [
     "/stacks/apps",
+    "/stacks/platform"
   ]
 }

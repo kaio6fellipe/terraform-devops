@@ -93,7 +93,13 @@ jobs:
         run: terramate fmt --check
 
       - name: List all Stacks
+        id: terramate-list
         run: terramate list
+
+      - name: Generate terramate run-order
+        id: terramate-order
+        run: |
+          terramate experimental run-order
 
       - name: Terramate Init
         id: init
@@ -106,6 +112,13 @@ jobs:
       - name: Terramate Plan
         id: plan
         run: terramate run --changed terraform plan -no-color
+
+      - name: Echo terramate-order output to a file
+        if: always()
+        run: |
+          cat <<EOF > terramate-order.out
+          "${{ steps.terramate-order.outputs.stdout }}"
+          EOF
 
       - name: Echo plan output to a file
         if: always()
@@ -125,7 +138,9 @@ jobs:
           script: |
             const { readFile } = require("fs/promises")
             const data = await readFile('plan.out')
+            const order_data = await readFile('terramate-order.out')
             const plan = "terraform\n" + data.length > 60000 ? `${data.substring(0, 60000)}...` : data
+            const terramate_order = "terramate\n" + order_data
             // 1. Retrieve existing bot comments for the PR
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -138,34 +153,11 @@ jobs:
 
             // 2. Prepare format of the comment
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-
-            <details><summary>Format Output</summary>
-
-            \`\`\`\n
-            ${{ steps.fmt.outputs.stdout }}
-            \`\`\`
-
-            </details>
-
+            #### Terramate Format and Style 🖌\`${{ steps.tm-fmt.outcome }}\`
+            #### Terramate Run Order 🔀\`${{ steps.terramate-order.outcome }}\`
             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            <details><summary>Validation Output</summary>
-
-            \`\`\`\n
-            ${{ steps.validate.outputs.stdout }}
-            \`\`\`
-
-            </details>
-
             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-
-            <details><summary>Show Plan</summary>
-
-            \`\`\`\n
-            ${plan}
-            \`\`\`
-
-            </details>
 
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
