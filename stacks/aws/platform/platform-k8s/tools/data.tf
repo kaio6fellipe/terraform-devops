@@ -12,7 +12,8 @@ data "github_repository_file" "argocd_apps" {
 
 data "external" "aws_eks_cluster_endpoint" {
   program = [
-    "../../../../lib/eks-cluster-endpoint",
+    "bash",
+    "../eks-cluster-endpoint",
     local.cluster_name,
     local.globals.region,
   ]
@@ -20,7 +21,8 @@ data "external" "aws_eks_cluster_endpoint" {
 
 data "external" "aws_eks_cluster_ca_certificate" {
   program = [
-    "../../../../lib/eks-cluster-ca-certificate",
+    "bash",
+    "../eks-cluster-ca-certificate",
     local.cluster_name,
     local.globals.region,
   ]
@@ -28,7 +30,8 @@ data "external" "aws_eks_cluster_ca_certificate" {
 
 data "external" "aws_eks_cluster_token" {
   program = [
-    "../../../../lib/eks-cluster-token",
+    "bash",
+    "../eks-cluster-token",
     local.cluster_name,
     local.globals.region,
   ]

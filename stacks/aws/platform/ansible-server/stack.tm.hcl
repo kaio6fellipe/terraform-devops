@@ -4,8 +4,8 @@ stack {
   id          = "j0JZtFqC1PZUpGs1P4M6cymb44E5hR6Bwffn"
 
   before = [
-    "/stacks/apps",
-    "/stacks/platform/bastion",
-    "/stacks/platform/platform-k8s"
+    "/stacks/aws/apps",
+    "/stacks/aws/platform/bastion",
+    "/stacks/aws/platform/platform-k8s"
   ]
 }

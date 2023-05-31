@@ -46,9 +46,9 @@ ifeq ($(reset), true)
 	$(shell cp hooks/pre-push .git/hooks/pre-push)
 	$(shell chmod +x .git/hooks/pre-push)
 	find . -type d -wholename '*/.terraform/*' | xargs sudo rm -rfd
-	chmod +x stacks/platform/platform-k8s/eks-cluster-ca-certificate.sh
-	chmod +x stacks/platform/platform-k8s/eks-cluster-endpoint.sh
-	chmod +x stacks/platform/platform-k8s/eks-cluster-token.sh
+	chmod +x stacks/aws/platform/platform-k8s/eks-cluster-ca-certificate
+	chmod +x stacks/aws/platform/platform-k8s/eks-cluster-endpoint
+	chmod +x stacks/aws/platform/platform-k8s/eks-cluster-token
 	git add .
 	$(docker_run) /bin/bash -c "terramate run terraform init -upgrade -backend=true"
 	@echo "Repository initialized with success..."

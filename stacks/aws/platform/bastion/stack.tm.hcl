@@ -4,11 +4,11 @@ stack {
   id          = "ZPxdlGum35QVZgsSSmKTVPp85ayZ9qXtnhnX"
 
   before = [
-    "/stacks/apps",
-    "/stacks/platform/platform-k8s"
+    "/stacks/aws/apps",
+    "/stacks/aws/platform/platform-k8s"
   ]
 
   after = [
-    "/stacks/platform/ansible-server"
+    "/stacks/aws/platform/ansible-server"
   ]
 }

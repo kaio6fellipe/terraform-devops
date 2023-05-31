@@ -4,9 +4,9 @@ stack {
   id          = "RnbMbZULGoHWEauYKXoSoXHIWT1lJ6yqBg0Y"
 
   before = [
-    "/stacks/apps",
-    "/stacks/platform/ansible-server",
-    "/stacks/platform/bastion",
-    "/stacks/platform/platform-k8s"
+    "/stacks/aws/apps",
+    "/stacks/aws/platform/ansible-server",
+    "/stacks/aws/platform/bastion",
+    "/stacks/aws/platform/platform-k8s"
   ]
 }

@@ -26,7 +26,8 @@ data "aws_caller_identity" "current" {}
 
 data "external" "aws_eks_cluster_endpoint" {
   program = [
-    "../../../lib/eks-cluster-endpoint",
+    "bash",
+    "./eks-cluster-endpoint",
     module.eks.cluster_name,
     local.globals.region,
   ]
@@ -37,7 +38,8 @@ data "external" "aws_eks_cluster_endpoint" {
 
 data "external" "aws_eks_cluster_ca_certificate" {
   program = [
-    "../../../lib/eks-cluster-ca-certificate",
+    "bash",
+    "./eks-cluster-ca-certificate",
     module.eks.cluster_name,
     local.globals.region,
   ]
@@ -48,7 +50,8 @@ data "external" "aws_eks_cluster_ca_certificate" {
 
 data "external" "aws_eks_cluster_token" {
   program = [
-    "../../../lib/eks-cluster-token",
+    "bash",
+    "./eks-cluster-token",
     module.eks.cluster_name,
     local.globals.region,
   ]
