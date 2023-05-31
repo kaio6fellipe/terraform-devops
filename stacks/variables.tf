@@ -42,18 +42,21 @@ variable "GF_SECURITY_ADMIN_PASSWORD" {
 
 variable "GRAFANA_CLOUD_METRICSUSER" {
   description = "Grafana Cloud metrics user used for integrations (Grafana Agent)"
+  default     = ""
   type        = string
   sensitive   = true
 }
 
 variable "GRAFANA_CLOUD_LOGSUSER" {
   description = "Grafana Cloud logs user used for integrations (Grafana Agent)"
+  default     = ""
   type        = string
   sensitive   = true
 }
 
 variable "GRAFANA_CLOUD_TOKEN" {
   description = "Grafana Cloud token used for integrations (Grafana Agent)"
+  default     = ""
   type        = string
   sensitive   = true
 }

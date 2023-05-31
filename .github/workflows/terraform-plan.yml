@@ -22,6 +22,7 @@ env:
   TF_VAR_GRAFANA_CLOUD_METRICSUSER: ${{ secrets.GRAFANA_CLOUD_METRICSUSER }}  
   TF_VAR_GRAFANA_CLOUD_LOGSUSER: ${{ secrets.GRAFANA_CLOUD_LOGSUSER }}
   TF_VAR_GRAFANA_CLOUD_TOKEN: ${{ secrets.GRAFANA_CLOUD_TOKEN }}
+  TF_VAR_GITHUB_PAT: ${{ secrets.GRAFANA_CLOUD_GITHUB_PAT }}
 
 jobs:
   sonarcloud:
@@ -155,9 +156,9 @@ jobs:
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
             #### Terramate Format and Style 🖌\`${{ steps.tm-fmt.outcome }}\`
             #### Terramate Run Order 🔀\`${{ steps.terramate-order.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            #### Terramate Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terramate Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terramate Plan 📖\`${{ steps.plan.outcome }}\`
 
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 

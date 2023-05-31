@@ -16,19 +16,22 @@ log_level?=""
 user_id?=$(shell id -g $$USER)
 group_id?=$(shell id -u $$USER)
 path?=""
+export GRAFANA_CLOUD_API_KEY = $(shell cat ~/.grafana/auth)
 
 dockerenv=--env GROUP_ID="$(shell id -g $$USER)" \
   --env USER_ID="$(shell id -u $$USER)" \
   --env KEY_FILE \
   --env KEY_FILE_PUB \
   --env AWS_ACCESS_KEY_ID \
-  --env AWS_SECRET_ACCESS_KEY
+  --env AWS_SECRET_ACCESS_KEY \
+  --env GRAFANA_CLOUD_API_KEY
 base_imagename=ghcr.io/kaio6fellipe/terraform-devops/platform-ops
 terramate_image=ghcr.io/mineiros-io/terramate:0.2.18
 development_imagename=$(base_imagename):development
 
-docker_run=docker run --rm $(dockerenv) --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws $(base_imagename):$(version)
-docker_run_interactive=docker run --rm $(dockerenv) --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws --tty --interactive $(base_imagename):$(version)
+base_run=docker run --rm $(dockerenv) --volume ~/.grafana:/root/.grafana --volume ~/.ssh:/root/.ssh --volume `pwd`:/platform --volume ~/.aws:/root/.aws
+docker_run=$(base_run) $(base_imagename):$(version)
+docker_run_interactive=$(base_run) --tty --interactive $(base_imagename):$(version)
 terramate_run=docker run --rm $(dockerenv) --volume `pwd`:/workdir $(terramate_image) --chdir="/workdir" --log-level="info"
 
 guard-%:
@@ -77,7 +80,7 @@ kubectl: guard-region guard-cluster ##@eks (args: region, cluster) Connect to an
 	$(docker_run_interactive) ./lib/eks-connect --region $(region) --cluster $(cluster)
 
 .PHONY: lint
-lint: check terramate-plan tflint tfsec tffmt ##@check Execute linters, security check and Terramate Plan
+lint: check tflint tfsec tffmt ##@check Execute linters, security check and Terramate Plan
 
 .PHONY: check
 check: ##@check Check pre-push integrity

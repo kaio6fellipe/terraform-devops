@@ -1,0 +1,542 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "This dashboard contains PR and Issues across multiple repositories in the Organization using GitHub data source.",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": 14461,
+  "graphTooltip": 0,
+  "id": 41,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": {
+        "uid": "$datasource"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "panels": [],
+      "repeat": "repository",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Repository $repository",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-github-datasource",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "owner": "$owner",
+          "queryType": "Releases",
+          "refId": "A",
+          "repository": "$repository"
+        }
+      ],
+      "title": "Releases",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-github-datasource",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 4,
+        "y": 1
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "options": {
+            "query": ""
+          },
+          "owner": "$owner",
+          "queryType": "Issues",
+          "refId": "A",
+          "repository": "$repository"
+        }
+      ],
+      "title": "Issues Created",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-github-datasource",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 9,
+        "y": 1
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "options": {
+            "query": "",
+            "timeField": 1
+          },
+          "owner": "$owner",
+          "queryType": "Pull_Requests",
+          "refId": "A",
+          "repository": "$repository"
+        }
+      ],
+      "title": "Pull Requests Created",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-github-datasource",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 1
+              },
+              {
+                "color": "dark-orange",
+                "value": 10
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 14,
+        "y": 1
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "options": {
+            "query": "is:open",
+            "timeField": 0
+          },
+          "owner": "$owner",
+          "queryType": "Issues",
+          "refId": "A",
+          "repository": "$repository"
+        }
+      ],
+      "title": "Active Issues",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-github-datasource",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-purple",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 5,
+        "x": 19,
+        "y": 1
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "options": {
+            "query": "is:open",
+            "timeField": 3
+          },
+          "owner": "$owner",
+          "queryType": "Pull_Requests",
+          "refId": "A",
+          "repository": "$repository"
+        }
+      ],
+      "title": "Active Pull Requests",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "count"
+            ]
+          }
+        }
+      ],
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "GitHub",
+          "value": "GitHub"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "grafana-github-datasource",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "kaio6fellipe",
+          "value": "kaio6fellipe"
+        },
+        "hide": 0,
+        "label": "Owner",
+        "name": "owner",
+        "options": [
+          {
+            "selected": true,
+            "text": "kaio6fellipe",
+            "value": "kaio6fellipe"
+          }
+        ],
+        "query": "kaio6fellipe",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "grafana-github-datasource",
+          "uid": "${datasource}"
+        },
+        "definition": "GitHub - Repositories",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Repository",
+        "multi": true,
+        "name": "repository",
+        "options": [],
+        "query": {
+          "owner": "$owner",
+          "queryType": "Repositories"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "GitHub Overview",
+  "uid": "iVcSTeyGz2",
+  "version": 5,
+  "weekStart": ""
+}
