@@ -119,57 +119,57 @@ jobs:
 
       - name: Remove Helm Releases from remote state (Crossplane)
         run: |
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.crossplane'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.crossplane'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (ArgoCD Setup)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.argocd'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.argocd'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (ArgoCD Apps)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.argocd_apps'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.argocd_apps'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (AWS Load Balancer Controller)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.aws_load_balancer_controller'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.aws_load_balancer_controller'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (Node Termination Handler)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.node_termination_handler'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.node_termination_handler'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (External DNS)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.external_dns'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.external_dns'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (External Secrets)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.external_secrets'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.external_secrets'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (Cluster Autoscaler)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.cluster_autoscaler'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.cluster_autoscaler'
         continue-on-error: true
 
       - name: Remove Helm Releases from remote state (Cert Manager)
         run: | 
-          terramate run --reverse --continue-on-error terraform state rm 'helm_release.cert_manager'
+          terramate run --reverse --tags helm --continue-on-error terraform state rm 'helm_release.cert_manager'
         continue-on-error: true
 
       - name: Terramate Destroy
         id: destroy1
-        run: terramate run --reverse --continue-on-error terraform destroy -auto-approve
+        run: terramate run --reverse --no-tags grafana-cloud --continue-on-error terraform destroy -auto-approve
         continue-on-error: true
 
       - name: Terramate Destroy (Double check)
         id: destroy2
-        run: terramate run --reverse --continue-on-error terraform destroy -auto-approve
+        run: terramate run --reverse --no-tags grafana-cloud --continue-on-error terraform destroy -auto-approve
         continue-on-error: true
 
       - name: Terramate Destroy Status
