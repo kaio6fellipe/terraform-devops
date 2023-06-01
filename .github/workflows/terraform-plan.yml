@@ -7,6 +7,7 @@ on:
 env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  GRAFANA_CLOUD_API_KEY: ${{ secrets.GRAFANA_CLOUD_TERRAFORM_TOKEN }}
   TF_VAR_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   TF_VAR_AWS_RDS_PASSWORD: ${{ secrets.AWS_RDS_PASSWORD }}
   TF_VAR_ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
@@ -18,6 +19,10 @@ env:
   TF_VAR_GF_AUTH_GITHUB_CLIENT_SECRET: ${{ secrets.GF_AUTH_GITHUB_CLIENT_SECRET }}
   TF_VAR_GF_SECURITY_ADMIN_USER: ${{ secrets.GF_SECURITY_ADMIN_USER }}
   TF_VAR_GF_SECURITY_ADMIN_PASSWORD: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD }}
+  TF_VAR_GRAFANA_CLOUD_METRICSUSER: ${{ secrets.GRAFANA_CLOUD_METRICSUSER }}  
+  TF_VAR_GRAFANA_CLOUD_LOGSUSER: ${{ secrets.GRAFANA_CLOUD_LOGSUSER }}
+  TF_VAR_GRAFANA_CLOUD_TOKEN: ${{ secrets.GRAFANA_CLOUD_TOKEN }}
+  TF_VAR_GITHUB_PAT: ${{ secrets.GRAFANA_CLOUD_GITHUB_PAT }}
 
 jobs:
   sonarcloud:
@@ -89,7 +94,13 @@ jobs:
         run: terramate fmt --check
 
       - name: List all Stacks
+        id: terramate-list
         run: terramate list
+
+      - name: Generate terramate run-order
+        id: terramate-order
+        run: |
+          terramate experimental run-order
 
       - name: Terramate Init
         id: init
@@ -102,6 +113,13 @@ jobs:
       - name: Terramate Plan
         id: plan
         run: terramate run --changed terraform plan -no-color
+
+      - name: Echo terramate-order output to a file
+        if: always()
+        run: |
+          cat <<EOF > terramate-order.out
+          "${{ steps.terramate-order.outputs.stdout }}"
+          EOF
 
       - name: Echo plan output to a file
         if: always()
@@ -121,7 +139,9 @@ jobs:
           script: |
             const { readFile } = require("fs/promises")
             const data = await readFile('plan.out')
+            const order_data = await readFile('terramate-order.out')
             const plan = "terraform\n" + data.length > 60000 ? `${data.substring(0, 60000)}...` : data
+            const terramate_order = "terramate\n" + order_data
             // 1. Retrieve existing bot comments for the PR
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -134,34 +154,11 @@ jobs:
 
             // 2. Prepare format of the comment
             const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-
-            <details><summary>Format Output</summary>
-
-            \`\`\`\n
-            ${{ steps.fmt.outputs.stdout }}
-            \`\`\`
-
-            </details>
-
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            <details><summary>Validation Output</summary>
-
-            \`\`\`\n
-            ${{ steps.validate.outputs.stdout }}
-            \`\`\`
-
-            </details>
-
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-
-            <details><summary>Show Plan</summary>
-
-            \`\`\`\n
-            ${plan}
-            \`\`\`
-
-            </details>
+            #### Terramate Format and Style 🖌\`${{ steps.tm-fmt.outcome }}\`
+            #### Terramate Run Order 🔀\`${{ steps.terramate-order.outcome }}\`
+            #### Terramate Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terramate Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terramate Plan 📖\`${{ steps.plan.outcome }}\`
 
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 

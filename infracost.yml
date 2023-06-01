@@ -1,9 +1,10 @@
 projects:
-- path: stacks
-- path: stacks/apps
-- path: stacks/platform
-- path: stacks/platform/ansible-server
-- path: stacks/platform/bastion
-- path: stacks/platform/platform-k8s
-- path: stacks/platform/platform-k8s/tools
+- path: stacks/aws
+- path: stacks/aws/apps
+- path: stacks/aws/platform
+- path: stacks/aws/platform/ansible-server
+- path: stacks/aws/platform/bastion
+- path: stacks/aws/platform/platform-k8s
+- path: stacks/aws/platform/platform-k8s/tools
+- path: stacks/grafana-cloud
 version: 0.1
