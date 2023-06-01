@@ -164,12 +164,12 @@ jobs:
 
       - name: Terramate Destroy
         id: destroy1
-        run: terramate run --reverse terraform destroy -auto-approve
+        run: terramate run --reverse --continue-on-error terraform destroy -auto-approve
         continue-on-error: true
 
       - name: Terramate Destroy (Double check)
         id: destroy2
-        run: terramate run --reverse terraform destroy -auto-approve
+        run: terramate run --reverse --continue-on-error terraform destroy -auto-approve
         continue-on-error: true
 
       - name: Terramate Destroy Status
