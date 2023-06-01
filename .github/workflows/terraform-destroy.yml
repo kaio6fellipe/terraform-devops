@@ -58,12 +58,14 @@ jobs:
       - name: Destroy Stateless Resources
         id: destroy-stateless1
         run: |
-          make python script=destroy_stateless_resources.py
+          make python script=destroy_lb_stateless_resources.py
+          make python script=destroy_dns_stateless_resources.py
 
       - name: Destroy Stateless Resources (Double check)
         id: destroy-stateless2
         run: |
-          make python script=destroy_stateless_resources.py
+          make python script=destroy_lb_stateless_resources.py
+          make python script=destroy_dns_stateless_resources.py
 
   destroy:
     name: 'Terraform destroy'
