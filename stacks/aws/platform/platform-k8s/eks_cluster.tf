@@ -22,7 +22,7 @@ module "eks" {
         env = {
           # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
           ENABLE_PREFIX_DELEGATION = "true"
-          WARM_PREFIX_TARGET       = "2"
+          WARM_PREFIX_TARGET       = "1"
         }
       })
     }
@@ -51,6 +51,11 @@ module "eks" {
     iam_role_additional_policies = {
       AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
     }
+    pre_bootstrap_user_data = <<-EOT
+      export USE_MAX_PODS=false
+    EOT
+
+    bootstrap_extra_args = "--kubelet-extra-args '--max-pods=110'"
   }
 
   eks_managed_node_groups = {
