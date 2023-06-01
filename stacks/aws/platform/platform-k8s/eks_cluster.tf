@@ -18,7 +18,6 @@ module "eks" {
     }
     vpc-cni = {
       resolve_conflicts        = "OVERWRITE"
-      service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
       configuration_values = jsonencode({
         env = {
           # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
@@ -29,7 +28,6 @@ module "eks" {
     }
     aws-ebs-csi-driver = {
       resolve_conflicts        = "OVERWRITE"
-      service_account_role_arn = module.ebs_csi_irsa.iam_role_arn
     }
   }
 
@@ -47,6 +45,13 @@ module "eks" {
       groups   = ["system:masters"]
     },
   ]
+
+  eks_managed_node_group_defaults = {
+    iam_role_attach_cni_policy = true
+    iam_role_additional_policies = {
+      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+    }
+  }
 
   eks_managed_node_groups = {
     default = {

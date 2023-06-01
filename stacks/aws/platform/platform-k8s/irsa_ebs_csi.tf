@@ -9,8 +9,7 @@ module "ebs_csi_irsa" {
     main = {
       provider_arn = module.eks.oidc_provider_arn
       namespace_service_accounts = [
-        "kube-system:ebs-csi-controller-sa",
-        "kube-system:ebs-csi-node-sa"
+        "kube-system:ebs-csi-controller-sa"
       ]
     }
   }
