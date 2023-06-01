@@ -66,7 +66,7 @@ module "eks" {
       max_size     = var.max_size
       desired_size = var.desired_size
 
-      enable_bootstrap_user_data = true
+      # enable_bootstrap_user_data = true
       bootstrap_extra_args = "--use-max-pods false --kubelet-extra-args '--max-pods=110'"
 
       tags = {
