@@ -1,17 +1,13 @@
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | 1.2.4 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | 4.57.1 |
+No requirements.
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.57.1 |
-| <a name="provider_terraform"></a> [terraform](#provider\_terraform) | n/a |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 
 ## Modules
 
@@ -24,10 +20,8 @@
 
 | Name | Type |
 |------|------|
-| [aws_route53_record.rds_private](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/resources/route53_record) | resource |
-| [aws_db_snapshot.db_snapshot](https://registry.terraform.io/providers/hashicorp/aws/4.57.1/docs/data-sources/db_snapshot) | data source |
-| [terraform_remote_state.PzaQTyLp7RV3UkOuNO7yJ33MXBmqEaMy7maC-platform-k8s](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
-| [terraform_remote_state.vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [aws_route53_record.rds_private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
+| [aws_db_snapshot.db_snapshot](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/db_snapshot) | data source |
 
 ## Inputs
 

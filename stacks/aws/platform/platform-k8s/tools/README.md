@@ -52,7 +52,7 @@
 | [github_repository_file.argocd](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/repository_file) | data source |
 | [github_repository_file.argocd_apps](https://registry.terraform.io/providers/integrations/github/latest/docs/data-sources/repository_file) | data source |
 | [terraform_remote_state.PzaQTyLp7RV3UkOuNO7yJ33MXBmqEaMy7maC-platform-k8s](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
-| [terraform_remote_state.vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-aws](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 
 ## Inputs
 

@@ -39,6 +39,9 @@
 | <a name="input_GF_AUTH_GITHUB_CLIENT_SECRET"></a> [GF\_AUTH\_GITHUB\_CLIENT\_SECRET](#input\_GF\_AUTH\_GITHUB\_CLIENT\_SECRET) | Grafana's GitHub authentication ClientSecret | `string` | n/a | yes |
 | <a name="input_GF_SECURITY_ADMIN_PASSWORD"></a> [GF\_SECURITY\_ADMIN\_PASSWORD](#input\_GF\_SECURITY\_ADMIN\_PASSWORD) | Grafana's security admin password | `string` | n/a | yes |
 | <a name="input_GF_SECURITY_ADMIN_USER"></a> [GF\_SECURITY\_ADMIN\_USER](#input\_GF\_SECURITY\_ADMIN\_USER) | Grafana's security admin user | `string` | n/a | yes |
+| <a name="input_GRAFANA_CLOUD_LOGSUSER"></a> [GRAFANA\_CLOUD\_LOGSUSER](#input\_GRAFANA\_CLOUD\_LOGSUSER) | Grafana Cloud logs user used for integrations (Grafana Agent) | `string` | `""` | no |
+| <a name="input_GRAFANA_CLOUD_METRICSUSER"></a> [GRAFANA\_CLOUD\_METRICSUSER](#input\_GRAFANA\_CLOUD\_METRICSUSER) | Grafana Cloud metrics user used for integrations (Grafana Agent) | `string` | `""` | no |
+| <a name="input_GRAFANA_CLOUD_TOKEN"></a> [GRAFANA\_CLOUD\_TOKEN](#input\_GRAFANA\_CLOUD\_TOKEN) | Grafana Cloud token used for integrations (Grafana Agent) | `string` | `""` | no |
 
 ## Outputs
 
