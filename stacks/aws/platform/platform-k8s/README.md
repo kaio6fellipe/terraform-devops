@@ -43,9 +43,9 @@
 | <a name="input_ADMIN_USER_NAME"></a> [ADMIN\_USER\_NAME](#input\_ADMIN\_USER\_NAME) | EKS admin user name | `string` | n/a | yes |
 | <a name="input_GITHUB_ACTIONS_CIDR"></a> [GITHUB\_ACTIONS\_CIDR](#input\_GITHUB\_ACTIONS\_CIDR) | GitHub Actions egress CIDR Block | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
 | <a name="input_desired_size"></a> [desired\_size](#input\_desired\_size) | n/a | `number` | `4` | no |
-| <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | n/a | `list(string)` | <pre>[<br>  "t3.micro",<br>  "t3.small",<br>  "t3.medium",<br>  "t3.xlarge"<br>]</pre> | no |
+| <a name="input_instance_types"></a> [instance\_types](#input\_instance\_types) | n/a | `list(string)` | <pre>[<br>  "t3.medium",<br>  "t3.xlarge"<br>]</pre> | no |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | When updating the Kubernetes version, also update the API and client-go version in test/src/go.mod | `string` | `"1.25"` | no |
-| <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `40` | no |
+| <a name="input_max_size"></a> [max\_size](#input\_max\_size) | n/a | `number` | `25` | no |
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | n/a | `number` | `3` | no |
 | <a name="input_name"></a> [name](#input\_name) | n/a | `string` | `"platform-eks"` | no |
 
