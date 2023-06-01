@@ -27,7 +27,7 @@ locals {
     remote_state_bucket       = "terraform-state20220711040913053000000001"
     remote_state_data_enabled = true
     remote_state_datasources = [
-      "vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-stacks",
+      "vx28Nz65Ks3lbQuuG6uwKqQdYPO5Y3aq6mbN-aws",
       "RnbMbZULGoHWEauYKXoSoXHIWT1lJ6yqBg0Y-platform",
     ]
     remote_state_dynamodb = "terraform-state"

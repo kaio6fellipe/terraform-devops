@@ -4,7 +4,7 @@
 #   id          = "h39PH9E01hAEstIPdf4725zs1FNPEOCBE3b1"
 # 
 #   after = [
-#     "/stacks/platform/bastion",
-#     "/stacks/platform/ansible-server",
+#     "/stacks/aws/platform/bastion",
+#     "/stacks/aws/platform/ansible-server",
 #   ]
 # }
