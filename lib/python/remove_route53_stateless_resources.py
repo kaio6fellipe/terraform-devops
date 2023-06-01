@@ -35,7 +35,9 @@ def enumerate_records(client):
 
             for dns_record in zone_records["ResourceRecordSets"]:
                 try:
-                    if dns_record["ResourceRecords"][0]["Value"] is None or dns_record["Type"] is None or dns_record["Name"] is None:
+                    if str(dns_record["Type"]) != "TXT":
+                        pass
+                    elif dns_record["ResourceRecords"][0]["Value"] is None or dns_record["Type"] is None or dns_record["Name"] is None:
                         pass
                     elif ("external-dns" in str(dns_record["ResourceRecords"][0]["Value"])
                             and str(dns_record["Type"]) == "TXT"
