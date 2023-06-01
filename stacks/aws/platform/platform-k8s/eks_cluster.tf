@@ -10,9 +10,18 @@ module "eks" {
 
   # EKS Addons
   cluster_addons = {
-    coredns    = {}
-    kube-proxy = {}
-    vpc-cni    = {}
+    coredns = {
+      resolve_conflicts = "OVERWRITE"
+    }
+    kube-proxy = {
+      resolve_conflicts = "OVERWRITE"
+    }
+    vpc-cni = {
+      resolve_conflicts = "OVERWRITE"
+    }
+    aws-ebs-csi-driver = {
+      resolve_conflicts = "OVERWRITE"
+    }
   }
 
   cluster_ip_family                    = "ipv4"
