@@ -17,10 +17,12 @@ module "eks" {
       resolve_conflicts = "OVERWRITE"
     }
     vpc-cni = {
-      resolve_conflicts = "OVERWRITE"
+      resolve_conflicts        = "OVERWRITE"
+      service_account_role_arn = module.vpc_cni_irsa.iam_role_arn
     }
     aws-ebs-csi-driver = {
-      resolve_conflicts = "OVERWRITE"
+      resolve_conflicts        = "OVERWRITE"
+      service_account_role_arn = module.ebs_csi_irsa.iam_role_arn
     }
   }
 
