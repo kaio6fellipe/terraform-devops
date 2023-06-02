@@ -11,6 +11,7 @@ TFLINT=$(command -v tflint)
 
 color_echo_blue "Linting with TFLint..."
 git add . && \
+terramate run --changed terraform init -backend=true || status_tflint="1"
 terramate run --changed "${TFLINT}" --init || status_tflint="1"
 terramate run --changed "${TFLINT}" --module -f compact --config .tflint.hcl --disable-rule=terraform_unused_declarations || status_tflint="1"
 if [[ "${status_tflint}" != "0" ]]; then

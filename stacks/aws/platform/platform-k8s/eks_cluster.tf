@@ -1,6 +1,6 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.13.0"
+  version = "19.15.2"
 
   cluster_name                   = local.name
   cluster_version                = local.cluster_version
@@ -17,7 +17,8 @@ module "eks" {
       resolve_conflicts = "OVERWRITE"
     }
     vpc-cni = {
-      resolve_conflicts        = "OVERWRITE"
+      resolve_conflicts = "OVERWRITE"
+      before_compute    = true
       configuration_values = jsonencode({
         env = {
           # Reference docs https://docs.aws.amazon.com/eks/latest/userguide/cni-increase-ip-addresses.html
@@ -27,7 +28,7 @@ module "eks" {
       })
     }
     aws-ebs-csi-driver = {
-      resolve_conflicts        = "OVERWRITE"
+      resolve_conflicts = "OVERWRITE"
     }
   }
 
@@ -47,6 +48,7 @@ module "eks" {
   ]
 
   eks_managed_node_group_defaults = {
+    ami_type                   = "AL2_x86_64"
     iam_role_attach_cni_policy = true
     iam_role_additional_policies = {
       AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
