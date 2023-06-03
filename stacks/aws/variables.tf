@@ -54,6 +54,13 @@ variable "GRAFANA_CLOUD_LOGSUSER" {
   sensitive   = true
 }
 
+variable "GRAFANA_CLOUD_TRACESUSER" {
+  description = "Grafana Cloud traces user used for integrations (Grafana Agent)"
+  default     = ""
+  type        = string
+  sensitive   = true
+}
+
 variable "GRAFANA_CLOUD_TOKEN" {
   description = "Grafana Cloud token used for integrations (Grafana Agent)"
   default     = ""
