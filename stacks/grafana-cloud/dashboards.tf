@@ -56,3 +56,14 @@ resource "grafana_dashboard" "node-exporter-full" {
     prevent_destroy = true
   }
 }
+
+resource "grafana_dashboard" "red" {
+  provider    = grafana.ktechdevops
+  message     = "Changed by Terraform"
+  config_json = file("dashboards/red.json")
+  overwrite   = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}

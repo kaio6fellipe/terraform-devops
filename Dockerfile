@@ -4,6 +4,7 @@ LABEL org.opencontainers.image.source https://github.com/kaio6fellipe/terraform-
 ENV DEBIAN_FRONTEND noninteractive
 ENV AWS_CLI_VERSION=2.11.9
 ENV ARGOCD_CLI_VERSION=v2.6.7
+ENV ARGO_ROLLOUT_VERSION=v1.5.1
 ENV BOTO3_VERSION=1.26.114
 ENV PYTEST_VERSION=7.3.1
 ENV TESTFIXTURES_VERSION=7.1.0
@@ -56,6 +57,10 @@ RUN curl "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" | tar -xz
 RUN curl -sSL -o argocd-linux-amd64 "https://github.com/argoproj/argo-cd/releases/download/${ARGOCD_CLI_VERSION}/argocd-linux-amd64" && \
   install -m 555 argocd-linux-amd64 /usr/local/bin/argocd && \
   rm argocd-linux-amd64
+
+RUN curl -LO "https://github.com/argoproj/argo-rollouts/releases/download/${ARGO_ROLLOUT_VERSION}/kubectl-argo-rollouts-linux-amd64" && \
+  chmod +x ./kubectl-argo-rollouts-linux-amd64 && \ 
+  mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
 
 COPY ./lib /lib
 
