@@ -1,7 +1,7 @@
 resource "grafana_folder" "github" {
   provider = grafana.ktechdevops
   uid      = "github"
-  title    = "GitHub Dashboards"
+  title    = "GitHub"
 
   lifecycle {
     prevent_destroy = true
