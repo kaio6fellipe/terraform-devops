@@ -48,6 +48,7 @@ module "stack-secrets-manager" {
       secret_key_value = {
         GRAFANA_CLOUD_METRICSUSER = var.GRAFANA_CLOUD_METRICSUSER
         GRAFANA_CLOUD_LOGSUSER    = var.GRAFANA_CLOUD_LOGSUSER
+        GRAFANA_CLOUD_TRACESUSER  = var.GRAFANA_CLOUD_TRACESUSER
         GRAFANA_CLOUD_TOKEN       = var.GRAFANA_CLOUD_TOKEN
       }
     }

@@ -11,32 +11,11 @@
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
         "type": "dashboard"
-      },
-      {
-        "datasource": {
-          "type": "datasource",
-          "uid": "grafana"
-        },
-        "enable": true,
-        "iconColor": "blue",
-        "name": "argocd-notifications",
-        "target": {
-          "refId": "Anno",
-          "tags": [
-            "argocd-notifications"
-          ],
-          "type": "tags"
-        }
       }
     ]
   },
+  "description": "",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -47,8 +26,7 @@
     {
       "collapsed": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -61,8 +39,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -72,8 +49,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 4,
@@ -96,8 +72,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -107,8 +82,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -170,8 +144,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "time() - max(process_start_time_seconds{job=\"argocd-server-metrics\",namespace=~\"$namespace\"})",
           "format": "time_series",
@@ -184,8 +157,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -248,8 +220,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "count(count by (server) (argocd_cluster_info{namespace=~\"$namespace\"}))",
           "format": "time_series",
@@ -263,8 +234,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -328,8 +298,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "sum(argocd_app_info{namespace=~\"$namespace\",dest_server=~\"$cluster\",health_status=~\"$health_status\",sync_status=~\"$sync_status\"})",
           "format": "time_series",
@@ -343,8 +312,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -407,8 +375,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "count(count by (repo) (argocd_app_info{namespace=~\"$namespace\"}))",
           "format": "time_series",
@@ -422,8 +389,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -483,8 +449,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "sum(argocd_app_info{namespace=~\"$namespace\",dest_server=~\"$cluster\",operation!=\"\"})",
           "format": "time_series",
@@ -503,8 +468,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -557,8 +521,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "sum(argocd_app_info{namespace=~\"$namespace\",dest_server=~\"$cluster\",health_status=~\"$health_status\",sync_status=~\"$sync_status\"}) by (namespace)",
           "format": "time_series",
@@ -602,8 +565,7 @@
     {
       "collapsed": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -616,8 +578,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -638,8 +599,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -693,8 +653,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "sum(argocd_app_info{namespace=~\"$namespace\",dest_server=~\"$cluster\",health_status=~\"$health_status\",sync_status=~\"$sync_status\",health_status!=\"\"}) by (health_status)",
           "format": "time_series",
@@ -749,8 +708,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
-        "type": "prometheus",
-        "uid": "${datasource}"
+        "uid": "$datasource"
       },
       "fieldConfig": {
         "defaults": {
@@ -804,8 +762,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "expr": "sum(argocd_app_info{namespace=~\"$namespace\",dest_server=~\"$cluster\",health_status=~\"$health_status\",sync_status=~\"$sync_status\",health_status!=\"\"}) by (sync_status)",
           "format": "time_series",
@@ -848,8 +805,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -865,8 +821,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -920,8 +875,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(round(increase(argocd_app_sync_total{namespace=~\"$namespace\",dest_server=~\"$cluster\"}[$interval]))) by ($grouping)",
               "format": "time_series",
@@ -971,8 +925,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fieldConfig": {
             "defaults": {
@@ -1025,8 +978,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(round(increase(argocd_app_sync_total{namespace=~\"$namespace\",phase=~\"Error|Failed\",dest_server=~\"$cluster\"}[$interval]))) by ($grouping, phase)",
               "format": "time_series",
@@ -1073,8 +1025,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -1085,8 +1036,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -1102,14 +1052,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1117,7 +1060,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 14
+            "y": 12
           },
           "hiddenSeries": false,
           "id": 58,
@@ -1139,11 +1082,10 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1154,8 +1096,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_app_reconcile_count{namespace=~\"$namespace\",dest_server=~\"$cluster\"}[$interval])) by ($grouping)",
               "format": "time_series",
@@ -1205,29 +1146,13 @@
           },
           "dataFormat": "tsbuckets",
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "gridPos": {
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 18
           },
           "heatmap": {},
           "hideZeroBuckets": false,
@@ -1237,54 +1162,13 @@
             "show": true
           },
           "links": [],
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {
-              "decimals": 0
-            },
-            "color": {
-              "exponent": 0.5,
-              "fill": "#b4ff00",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Spectral",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": true
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": true
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "short"
-            }
-          },
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+          "options": {},
           "reverseYBuckets": false,
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
-              "editorMode": "code",
               "expr": "sum(increase(argocd_app_reconcile_bucket{namespace=~\"$namespace\"}[$interval])) by (le)",
               "format": "heatmap",
               "instant": false,
@@ -1316,14 +1200,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1331,7 +1208,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 27
+            "y": 25
           },
           "hiddenSeries": false,
           "id": 80,
@@ -1355,11 +1232,10 @@
           "links": [],
           "nullPointMode": "null as zero",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1370,8 +1246,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_app_k8s_request_total{namespace=~\"$namespace\",server=~\"$cluster\"}[$interval])) by (verb, resource_kind)",
               "format": "time_series",
@@ -1417,14 +1292,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1432,7 +1300,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 33
+            "y": 31
           },
           "hiddenSeries": false,
           "id": 96,
@@ -1453,10 +1321,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1467,8 +1334,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(workqueue_depth{namespace=~\"$namespace\",name=~\"app_.*\"}) by (name)",
               "format": "time_series",
@@ -1515,14 +1381,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1530,7 +1389,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 33
+            "y": 31
           },
           "hiddenSeries": false,
           "id": 98,
@@ -1550,10 +1409,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -1564,8 +1422,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(argocd_kubectl_exec_pending{namespace=~\"$namespace\"}) by (command)",
               "format": "time_series",
@@ -1614,8 +1471,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -1626,8 +1482,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -1643,14 +1498,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1658,7 +1506,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 26
           },
           "hiddenSeries": false,
           "id": 34,
@@ -1680,11 +1528,10 @@
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1695,8 +1542,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_memstats_heap_alloc_bytes{job=\"argocd-metrics\",namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -1741,14 +1587,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1756,7 +1595,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 22
+            "y": 33
           },
           "hiddenSeries": false,
           "id": 108,
@@ -1780,11 +1619,10 @@
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1795,8 +1633,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "irate(process_cpu_seconds_total{job=\"argocd-metrics\",namespace=~\"$namespace\"}[1m])",
               "format": "time_series",
@@ -1842,14 +1679,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1857,7 +1687,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 29
+            "y": 40
           },
           "hiddenSeries": false,
           "id": 62,
@@ -1881,11 +1711,10 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1896,8 +1725,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_goroutines{job=\"argocd-metrics\",namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -1940,8 +1768,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -1952,8 +1779,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -1969,14 +1795,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -1984,7 +1803,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 27
           },
           "hiddenSeries": false,
           "id": 90,
@@ -2006,10 +1825,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2020,8 +1838,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(argocd_cluster_api_resource_objects{namespace=~\"$namespace\",server=~\"$cluster\"}) by (server)",
               "format": "time_series",
@@ -2066,14 +1883,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2081,7 +1891,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 23
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 92,
@@ -2104,10 +1914,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2118,8 +1927,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "  sum(argocd_cluster_api_resources{namespace=~\"$namespace\",server=~\"$cluster\"}) by (server)",
               "format": "time_series",
@@ -2164,14 +1972,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2179,7 +1980,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 29
+            "y": 40
           },
           "hiddenSeries": false,
           "id": 86,
@@ -2201,10 +2002,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2215,8 +2015,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_cluster_events_total{namespace=~\"$namespace\",server=~\"$cluster\"}[$interval])) by (server)",
               "format": "time_series",
@@ -2259,8 +2058,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -2271,8 +2069,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -2288,14 +2085,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2303,7 +2093,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 17
+            "y": 7
           },
           "hiddenSeries": false,
           "id": 82,
@@ -2321,10 +2111,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2335,8 +2124,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_git_request_total{request_type=\"ls-remote\", namespace=~\"$namespace\"}[10m])) by (namespace)",
               "format": "time_series",
@@ -2381,14 +2169,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2396,7 +2177,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 17
+            "y": 7
           },
           "hiddenSeries": false,
           "id": 84,
@@ -2414,10 +2195,9 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -2428,8 +2208,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_git_request_total{request_type=\"fetch\", namespace=~\"$namespace\"}[10m])) by (namespace)",
               "format": "time_series",
@@ -2480,29 +2259,13 @@
           },
           "dataFormat": "tsbuckets",
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 25
+            "y": 15
           },
           "heatmap": {},
           "hideZeroBuckets": false,
@@ -2511,50 +2274,12 @@
           "legend": {
             "show": false
           },
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {},
-            "color": {
-              "exponent": 0.5,
-              "fill": "#b4ff00",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Spectral",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": false
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "short"
-            }
-          },
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+          "options": {},
           "reverseYBuckets": false,
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_git_request_duration_seconds_bucket{request_type=\"fetch\", namespace=~\"$namespace\"}[$interval])) by (le)",
               "format": "heatmap",
@@ -2590,29 +2315,13 @@
           },
           "dataFormat": "tsbuckets",
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "scaleDistribution": {
-                  "type": "linear"
-                }
-              }
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 25
+            "y": 15
           },
           "heatmap": {},
           "hideZeroBuckets": false,
@@ -2621,50 +2330,12 @@
           "legend": {
             "show": false
           },
-          "options": {
-            "calculate": false,
-            "calculation": {},
-            "cellGap": 2,
-            "cellValues": {},
-            "color": {
-              "exponent": 0.5,
-              "fill": "#b4ff00",
-              "mode": "scheme",
-              "reverse": false,
-              "scale": "exponential",
-              "scheme": "Spectral",
-              "steps": 128
-            },
-            "exemplars": {
-              "color": "rgba(255,0,255,0.7)"
-            },
-            "filterValues": {
-              "le": 1e-9
-            },
-            "legend": {
-              "show": false
-            },
-            "rowsFrame": {
-              "layout": "auto"
-            },
-            "showValue": "never",
-            "tooltip": {
-              "show": true,
-              "yHistogram": false
-            },
-            "yAxis": {
-              "axisPlacement": "left",
-              "reverse": false,
-              "unit": "short"
-            }
-          },
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+          "options": {},
           "reverseYBuckets": false,
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(argocd_git_request_duration_seconds_bucket{request_type=\"ls-remote\", namespace=~\"$namespace\"}[$interval])) by (le)",
               "format": "heatmap",
@@ -2695,14 +2366,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2710,7 +2374,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 33
+            "y": 23
           },
           "hiddenSeries": false,
           "id": 71,
@@ -2728,11 +2392,10 @@
           "links": [],
           "nullPointMode": "connected",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2743,8 +2406,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_memstats_heap_alloc_bytes{job=\"argocd-repo-server\",namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -2789,14 +2451,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "$datasource"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -2804,7 +2459,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 41
+            "y": 31
           },
           "hiddenSeries": false,
           "id": 72,
@@ -2822,11 +2477,10 @@
           "links": [],
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2837,8 +2491,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_goroutines{job=\"argocd-repo-server\",namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -2881,8 +2534,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -2893,8 +2545,7 @@
     {
       "collapsed": true,
       "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "$datasource"
       },
       "gridPos": {
         "h": 1,
@@ -2910,18 +2561,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 18
+            "y": 89
           },
-          "hiddenSeries": false,
           "id": 61,
           "legend": {
             "avg": false,
@@ -2936,12 +2584,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2952,8 +2596,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_memstats_heap_alloc_bytes{job=\"argocd-server-metrics\",namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -2999,18 +2642,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 26
+            "y": 97
           },
-          "hiddenSeries": false,
           "id": 36,
           "legend": {
             "avg": false,
@@ -3025,12 +2665,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3041,8 +2677,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_goroutines{job=\"argocd-server-metrics\",namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -3087,18 +2722,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 35
+            "y": 106
           },
-          "hiddenSeries": false,
           "id": 38,
           "legend": {
             "avg": false,
@@ -3113,12 +2745,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "connected",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3129,8 +2757,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "go_gc_duration_seconds{job=\"argocd-server-metrics\", quantile=\"1\", namespace=~\"$namespace\"}",
               "format": "time_series",
@@ -3170,24 +2797,17 @@
           }
         },
         {
+          "content": "#### gRPC Services:",
           "gridPos": {
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 44
+            "y": 115
           },
           "id": 54,
           "links": [],
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
-            },
-            "content": "#### gRPC Services:",
-            "mode": "markdown"
-          },
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+          "mode": "markdown",
+          "title": "",
           "transparent": true,
           "type": "text"
         },
@@ -3197,18 +2817,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 46
+            "y": 117
           },
-          "hiddenSeries": false,
           "id": 40,
           "legend": {
             "alignAsTable": true,
@@ -3229,12 +2846,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3245,8 +2858,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"application.ApplicationService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3291,18 +2903,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 46
+            "y": 117
           },
-          "hiddenSeries": false,
           "id": 42,
           "legend": {
             "alignAsTable": true,
@@ -3321,12 +2930,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3337,8 +2942,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"cluster.ClusterService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3383,18 +2987,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 55
+            "y": 126
           },
-          "hiddenSeries": false,
           "id": 44,
           "legend": {
             "alignAsTable": true,
@@ -3413,12 +3014,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3429,8 +3026,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"project.ProjectService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3475,18 +3071,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 55
+            "y": 126
           },
-          "hiddenSeries": false,
           "id": 46,
           "legend": {
             "alignAsTable": true,
@@ -3504,12 +3097,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3520,8 +3109,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"repository.RepositoryService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3574,18 +3162,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 64
+            "y": 135
           },
-          "hiddenSeries": false,
           "id": 48,
           "legend": {
             "alignAsTable": true,
@@ -3603,12 +3188,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3619,8 +3200,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"session.SessionService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3665,18 +3245,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 64
+            "y": 135
           },
-          "hiddenSeries": false,
           "id": 49,
           "legend": {
             "alignAsTable": true,
@@ -3694,12 +3271,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3710,8 +3283,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"version.VersionService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3756,18 +3328,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 0,
-            "y": 73
+            "y": 144
           },
-          "hiddenSeries": false,
           "id": 50,
           "legend": {
             "alignAsTable": true,
@@ -3785,12 +3354,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3801,8 +3366,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"account.AccountService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3847,18 +3411,15 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+            "uid": "$datasource"
           },
           "fill": 1,
-          "fillGradient": 0,
           "gridPos": {
             "h": 9,
             "w": 12,
             "x": 12,
-            "y": 73
+            "y": 144
           },
-          "hiddenSeries": false,
           "id": 99,
           "legend": {
             "alignAsTable": true,
@@ -3876,12 +3437,8 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
-          "options": {
-            "alertThreshold": true
-          },
           "paceLength": 10,
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3892,8 +3449,7 @@
           "targets": [
             {
               "datasource": {
-                "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "$datasource"
               },
               "expr": "sum(increase(grpc_server_handled_total{job=\"argocd-server-metrics\",grpc_service=\"settings.SettingsService\",namespace=~\"$namespace\"}[$interval])) by (grpc_code, grpc_method)",
               "format": "time_series",
@@ -3936,8 +3492,7 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "$datasource"
           },
           "refId": "A"
         }
@@ -3949,7 +3504,7 @@
       "collapsed": true,
       "datasource": {
         "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
+        "uid": "grafanacloud-prom"
       },
       "gridPos": {
         "h": 1,
@@ -3966,13 +3521,7 @@
           "dashes": false,
           "datasource": {
             "type": "prometheus",
-            "uid": "${datasource}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "links": []
-            },
-            "overrides": []
+            "uid": "grafanacloud-prom"
           },
           "fill": 1,
           "fillGradient": 0,
@@ -3980,7 +3529,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 83
+            "y": 9
           },
           "hiddenSeries": false,
           "id": 112,
@@ -3997,10 +3546,9 @@
           "linewidth": 1,
           "nullPointMode": "null",
           "options": {
-            "alertThreshold": true
+            "dataLinks": []
           },
           "percentage": false,
-          "pluginVersion": "10.0.0-cloud.3.b04cc88b",
           "pointradius": 2,
           "points": false,
           "renderer": "flot",
@@ -4012,7 +3560,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "${datasource}"
+                "uid": "grafanacloud-prom"
               },
               "expr": "sum(increase(argocd_redis_request_total{namespace=~\"$namespace\"}[$interval])) by (failed)",
               "refId": "A"
@@ -4053,7 +3601,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
+            "uid": "grafanacloud-prom"
           },
           "refId": "A"
         }
@@ -4070,7 +3618,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "grafanacloud-ktechdevops-prom",
           "value": "grafanacloud-ktechdevops-prom"
         },
@@ -4080,7 +3628,6 @@
         "name": "datasource",
         "options": [],
         "query": "prometheus",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -4094,8 +3641,7 @@
           "value": "$__all"
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "$datasource"
         },
         "definition": "label_values(kube_pod_info, namespace)",
         "hide": 0,
@@ -4103,10 +3649,7 @@
         "multi": false,
         "name": "namespace",
         "options": [],
-        "query": {
-          "query": "label_values(kube_pod_info, namespace)",
-          "refId": "Prometheus-namespace-Variable-Query"
-        },
+        "query": "label_values(kube_pod_info, namespace)",
         "refresh": 1,
         "regex": ".*argocd.*",
         "skipUrlSync": false,
@@ -4175,7 +3718,6 @@
           }
         ],
         "query": "1m,5m,10m,30m,1h,2h,4h,8h",
-        "queryValue": "",
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
@@ -4209,7 +3751,6 @@
           }
         ],
         "query": "namespace,name,project",
-        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -4221,8 +3762,7 @@
           "value": "$__all"
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
+          "uid": "$datasource"
         },
         "definition": "label_values(argocd_cluster_info, server)",
         "hide": 0,
@@ -4230,10 +3770,7 @@
         "multi": false,
         "name": "cluster",
         "options": [],
-        "query": {
-          "query": "label_values(argocd_cluster_info, server)",
-          "refId": "Prometheus-cluster-Variable-Query"
-        },
+        "query": "label_values(argocd_cluster_info, server)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -4292,7 +3829,6 @@
           }
         ],
         "query": "Healthy,Progressing,Suspended,Missing,Degraded,Unknown",
-        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -4330,7 +3866,6 @@
           }
         ],
         "query": "Synced,OutOfSync,Unknown",
-        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       }
@@ -4366,8 +3901,8 @@
     ]
   },
   "timezone": "",
-  "title": "ArgoCD Overview",
+  "title": "ArgoCD - Overview",
   "uid": "LCAgc9rWz",
-  "version": 2,
+  "version": 12,
   "weekStart": ""
 }
