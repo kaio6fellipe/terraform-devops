@@ -42,6 +42,7 @@
 | <a name="input_GRAFANA_CLOUD_LOGSUSER"></a> [GRAFANA\_CLOUD\_LOGSUSER](#input\_GRAFANA\_CLOUD\_LOGSUSER) | Grafana Cloud logs user used for integrations (Grafana Agent) | `string` | `""` | no |
 | <a name="input_GRAFANA_CLOUD_METRICSUSER"></a> [GRAFANA\_CLOUD\_METRICSUSER](#input\_GRAFANA\_CLOUD\_METRICSUSER) | Grafana Cloud metrics user used for integrations (Grafana Agent) | `string` | `""` | no |
 | <a name="input_GRAFANA_CLOUD_TOKEN"></a> [GRAFANA\_CLOUD\_TOKEN](#input\_GRAFANA\_CLOUD\_TOKEN) | Grafana Cloud token used for integrations (Grafana Agent) | `string` | `""` | no |
+| <a name="input_GRAFANA_CLOUD_TRACESUSER"></a> [GRAFANA\_CLOUD\_TRACESUSER](#input\_GRAFANA\_CLOUD\_TRACESUSER) | Grafana Cloud traces user used for integrations (Grafana Agent) | `string` | `""` | no |
 
 ## Outputs
 
