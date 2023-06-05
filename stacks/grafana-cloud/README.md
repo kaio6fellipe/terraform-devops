@@ -29,6 +29,7 @@ No modules.
 | [grafana_dashboard.github-overview](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.loki-dashboard](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.node-exporter-full](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.red](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_data_source.github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
 | [grafana_data_source.testdata](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
 | [grafana_folder.argocd](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
