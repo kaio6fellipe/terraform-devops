@@ -31,6 +31,11 @@ module "stack-secrets-manager" {
       recovery_window_in_days = 0
       secret_string           = var.CROSSPLANE_AWS_CREDENTIALS_CONTENT
     },
+    aws-rds-password = {
+      description             = "Crossplane RDS test password"
+      recovery_window_in_days = 0
+      secret_string           = var.AWS_RDS_PASSWORD
+    }
     grafana-secrets = {
       description             = "Grafana Secrets"
       recovery_window_in_days = 0
