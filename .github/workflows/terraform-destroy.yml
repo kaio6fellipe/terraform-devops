@@ -56,17 +56,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Destroy Stateless Resources
+      - name: Destroy Load Balancer Stateless Resources
         id: destroy-stateless1
         run: |
           make python script=destroy_lb_stateless_resources.py
-          make python script=destroy_dns_stateless_resources.py
 
-      - name: Destroy Stateless Resources (Double check)
+      - name: Destroy Load Balancer Stateless Resources (Double check)
         id: destroy-stateless2
         run: |
           make python script=destroy_lb_stateless_resources.py
-          make python script=destroy_dns_stateless_resources.py
 
   destroy:
     name: 'Terraform destroy'
@@ -169,6 +167,11 @@ jobs:
         id: destroy1
         run: terramate run --reverse --no-tags grafana-cloud --continue-on-error terraform destroy -auto-approve
         continue-on-error: true
+
+      - name: Destroy external-dns records
+        id: destroy-stateless-external-dns
+        run: |
+          make python script=destroy_dns_stateless_resources.py
 
       - name: Terramate Destroy (Double check)
         id: destroy2
