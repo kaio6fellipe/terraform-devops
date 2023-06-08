@@ -31,7 +31,6 @@ variable "instance_types" {
   # default = ["t3.small", "t3.medium", "c6i.xlarge"]
   default = [
     "t3.medium",
-    "t3.xlarge",
   ]
   type = list(string)
 }
