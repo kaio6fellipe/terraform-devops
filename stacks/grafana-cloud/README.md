@@ -33,8 +33,9 @@ No modules.
 | [grafana_data_source.github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
 | [grafana_data_source.testdata](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
 | [grafana_folder.argocd](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
-| [grafana_folder.aws](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
-| [grafana_folder.github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
+| [grafana_folder.integration-cloudwatch-metrics](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
+| [grafana_folder.integration-github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
+| [grafana_folder.integration-linux-node](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 | [grafana_folder.loki](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 
 ## Inputs
