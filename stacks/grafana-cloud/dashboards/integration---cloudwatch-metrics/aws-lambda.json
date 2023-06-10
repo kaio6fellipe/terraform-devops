@@ -15,11 +15,11 @@
       }
     ]
   },
-  "description": "Visualize Amazon S3 metrics",
+  "description": "Visualize Amazon Lambda metrics",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 74,
+  "id": 72,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -41,7 +41,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "Showing metrics only for AWS resources that have tags assigned to them. For more information, see [Amazon CloudWatch Metrics for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/metrics-dimensions.html).\n",
+        "content": "Showing metrics only for AWS resources that have tags assigned to them. For more information, see [Amazon CloudWatch Metrics for Amazon Lambda](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics.html).\n",
         "mode": "markdown"
       },
       "pluginVersion": "10.0.1-cloud.1.d4a15e66",
@@ -58,123 +58,89 @@
       "type": "text"
     },
     {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": {
         "uid": "$datasource"
       },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
+      "description": "The number of times your function code is executed.",
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 4,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 3
       },
+      "hiddenSeries": false,
       "id": 3,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
       },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
       "pluginVersion": "10.0.1-cloud.1.d4a15e66",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "sum(last_over_time(aws_s3_number_of_objects_average{scrape_job=~\"$job\"}[1d]) > 0)",
+          "expr": "sum by (dimension_FunctionName) (aws_lambda_invocations_sum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\", dimension_ExecutedVersion=~\"$executed_version\"})",
           "format": "time_series",
+          "legendFormat": "{{dimension_FunctionName}}",
           "refId": "A"
         }
       ],
-      "title": "Total number of objects",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "uid": "$datasource"
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Invocations",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
       },
-      "fieldConfig": {
-        "defaults": {
-          "mappings": [],
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
           "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bytes"
+          "show": true
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 12,
-        "y": 3
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "10.0.1-cloud.1.d4a15e66",
-      "targets": [
         {
-          "datasource": {
-            "uid": "$datasource"
-          },
-          "expr": "sum(last_over_time(aws_s3_bucket_size_bytes_average{scrape_job=~\"$job\"}[1d]) > 0)",
-          "format": "time_series",
-          "refId": "A"
+          "format": "short",
+          "logBase": 1,
+          "show": true
         }
       ],
-      "title": "Total buckets size",
-      "type": "stat"
+      "yaxis": {
+        "align": false
+      }
     },
     {
       "aliasColors": {},
@@ -184,13 +150,99 @@
       "datasource": {
         "uid": "$datasource"
       },
+      "description": "The number of invocations that result in a function error.",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "10.0.1-cloud.1.d4a15e66",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "expr": "sum by (dimension_FunctionName) (aws_lambda_errors_sum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\", dimension_ExecutedVersion=~\"$executed_version\"})",
+          "format": "time_series",
+          "legendFormat": "{{dimension_FunctionName}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Errors",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "min": 0,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "uid": "$datasource"
+      },
+      "description": "The number of invocation requests that are throttled.",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 7
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 5,
@@ -223,15 +275,15 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "last_over_time(aws_s3_number_of_objects_average{scrape_job=~\"$job\", region=~\"$region\", dimension_BucketName=~\"$bucket\"}[1d])",
+          "expr": "sum by (dimension_FunctionName) (aws_lambda_throttles_sum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\", dimension_ExecutedVersion=~\"$executed_version\"})",
           "format": "time_series",
-          "legendFormat": "{{dimension_BucketName}}",
+          "legendFormat": "{{dimension_FunctionName}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Number of objects",
+      "title": "Throttles",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -269,13 +321,14 @@
       "datasource": {
         "uid": "$datasource"
       },
+      "description": "The time that your function code spends processing an event.",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 7
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 6,
@@ -308,15 +361,33 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "last_over_time(aws_s3_bucket_size_bytes_average{scrape_job=~\"$job\", region=~\"$region\", dimension_BucketName=~\"$bucket\"}[1d])",
+          "expr": "sum by (dimension_FunctionName) (aws_lambda_duration_p90{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\", dimension_ExecutedVersion=~\"$executed_version\"})",
           "format": "time_series",
-          "legendFormat": "{{dimension_BucketName}}",
+          "legendFormat": "{{dimension_FunctionName}} (p90)",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "expr": "sum by (dimension_FunctionName) (aws_lambda_duration_minimum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\", dimension_ExecutedVersion=~\"$executed_version\"})",
+          "format": "time_series",
+          "legendFormat": "{{dimension_FunctionName}} (min)",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "expr": "sum by (dimension_FunctionName) (aws_lambda_duration_maximum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\", dimension_ExecutedVersion=~\"$executed_version\"})",
+          "format": "time_series",
+          "legendFormat": "{{dimension_FunctionName}} (max)",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Bucket size",
+      "title": "Duration",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -330,7 +401,8 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
+          "decimals": 0,
+          "format": "ms",
           "logBase": 1,
           "min": 0,
           "show": true
@@ -344,162 +416,6 @@
       "yaxis": {
         "align": false
       }
-    },
-    {
-      "collapse": true,
-      "collapsed": true,
-      "datasource": {
-        "uid": "$datasource"
-      },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 15
-      },
-      "id": 7,
-      "panels": [
-        {
-          "content": "Enable [Requests metrics](https://docs.aws.amazon.com/AmazonS3/latest/userguide/cloudwatch-monitoring.html) from the AWS console and create a Filter to make sure your requests metrics are reported.\n",
-          "gridPos": {
-            "h": 2,
-            "w": 24,
-            "x": 0,
-            "y": 16
-          },
-          "id": 8,
-          "mode": "markdown",
-          "title": "Info",
-          "transparent": false,
-          "type": "text"
-        },
-        {
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 18
-          },
-          "hiddenSeries": false,
-          "id": 9,
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
-          "points": false,
-          "renderer": "flot",
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$datasource"
-              },
-              "expr": "rate(aws_s3_total_request_latency_p95{scrape_job=~\"$job\", region=~\"$region\", dimension_BucketName=~\"$bucket\", dimension_FilterId=~\"$filter_id\"}[2h]) * 1e3",
-              "format": "time_series",
-              "legendFormat": "{{dimension_BucketName}}"
-            }
-          ],
-          "title": "Request latency (p95)",
-          "tooltip": {
-            "value_type": "individual"
-          },
-          "transparent": false,
-          "type": "graph",
-          "yaxes": [
-            {
-              "decimals": 1,
-              "format": "ms",
-              "logBase": 1,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ]
-        },
-        {
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": {
-            "uid": "$datasource"
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 18
-          },
-          "hiddenSeries": false,
-          "id": 10,
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "null",
-          "percentage": false,
-          "points": false,
-          "renderer": "flot",
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "datasource": {
-                "uid": "$datasource"
-              },
-              "expr": "aws_s3_4xx_errors_sum{scrape_job=~\"$job\", region=~\"$region\", dimension_BucketName=~\"$bucket\", dimension_FilterId=~\"$filter_id\"}",
-              "format": "time_series",
-              "legendFormat": "{{dimension_BucketName}}"
-            }
-          ],
-          "title": "Errors count",
-          "tooltip": {
-            "value_type": "individual"
-          },
-          "transparent": false,
-          "type": "graph",
-          "yaxes": [
-            {
-              "decimals": 0,
-              "format": "short",
-              "logBase": 1,
-              "min": 0,
-              "show": true
-            },
-            {
-              "format": "short",
-              "logBase": 1,
-              "show": true
-            }
-          ]
-        }
-      ],
-      "showTitle": true,
-      "targets": [
-        {
-          "datasource": {
-            "uid": "$datasource"
-          },
-          "refId": "A"
-        }
-      ],
-      "title": "Request metrics",
-      "titleSize": "h6",
-      "type": "row"
     }
   ],
   "refresh": "30s",
@@ -546,7 +462,7 @@
         "multi": true,
         "name": "job",
         "options": [],
-        "query": "label_values(aws_s3_info, scrape_job)",
+        "query": "label_values(aws_lambda_info, scrape_job)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -570,7 +486,7 @@
         "multi": true,
         "name": "region",
         "options": [],
-        "query": "label_values(aws_s3_number_of_objects_average, region)",
+        "query": "label_values(aws_lambda_invocations_sum, region)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -590,11 +506,11 @@
         "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": "Bucket",
+        "label": "Function name",
         "multi": true,
-        "name": "bucket",
+        "name": "function_name",
         "options": [],
-        "query": "label_values(aws_s3_number_of_objects_average, dimension_BucketName)",
+        "query": "label_values(aws_lambda_invocations_sum{scrape_job=~\"$job\", region=~\"$region\"}, dimension_FunctionName)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -614,11 +530,36 @@
         "definition": "",
         "hide": 0,
         "includeAll": true,
-        "label": "FilterId",
+        "label": "Resource",
         "multi": true,
-        "name": "filter_id",
+        "name": "resource",
         "options": [],
-        "query": "label_values(aws_s3_all_requests_sum{dimension_BucketName=~\"$bucket_name\"}, dimension_FilterId)",
+        "query": "label_values(aws_lambda_invocations_sum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\"}, dimension_Resource)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "uid": "$datasource"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Executed Version",
+        "multi": true,
+        "name": "executed_version",
+        "options": [],
+        "query": "label_values(aws_lambda_invocations_sum{scrape_job=~\"$job\", region=~\"$region\", dimension_FunctionName=~\"$function_name\", dimension_Resource=~\"$resource\"}, dimension_ExecutedVersion)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -634,8 +575,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "AWS S3",
-  "uid": "8d33f177d36ba927264e63253395f212",
+  "title": "AWS Lambda",
+  "uid": "df8a49a184fcdeefe2f84ee19f408293",
   "version": 2,
   "weekStart": ""
 }

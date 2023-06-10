@@ -1,16 +1,17 @@
-resource "grafana_dashboard" "argocd-overview" {
+resource "grafana_dashboard" "argocd" {
+  for_each = fileset(path.module, "dashboards/argocd/*.json")
+
   provider    = grafana.ktechdevops
   folder      = grafana_folder.argocd.uid
-  message     = "Changed by Terraform"
-  config_json = file("dashboards/argocd/argocd-overview.json")
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
   overwrite   = true
 }
 
-resource "grafana_dashboard" "integration---github" {
-  for_each = fileset(path.module, "dashboards/integration---github/*.json")
+resource "grafana_dashboard" "general" {
+  for_each = fileset(path.module, "dashboards/general/*.json")
 
   provider    = grafana.ktechdevops
-  folder      = grafana_folder.integration-github.uid
   message     = "Managed by Terraform"
   config_json = file(each.value)
   overwrite   = true
@@ -26,25 +27,32 @@ resource "grafana_dashboard" "integration---cloudwatch-metrics" {
   overwrite   = true
 }
 
-resource "grafana_dashboard" "loki-dashboard" {
+resource "grafana_dashboard" "integration---github" {
+  for_each = fileset(path.module, "dashboards/integration---github/*.json")
+
   provider    = grafana.ktechdevops
-  folder      = grafana_folder.loki.uid
-  message     = "Changed by Terraform"
-  config_json = file("dashboards/loki/loki-dashboard.json")
+  folder      = grafana_folder.integration-github.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
   overwrite   = true
 }
 
-resource "grafana_dashboard" "node-exporter-full" {
+resource "grafana_dashboard" "integration---linux-node" {
+  for_each = fileset(path.module, "dashboards/integration---linux-node/*.json")
+
   provider    = grafana.ktechdevops
   folder      = grafana_folder.integration-linux-node.uid
-  message     = "Changed by Terraform"
-  config_json = file("dashboards/integration---linux-node/node-exporter-full.json")
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
   overwrite   = true
 }
 
-resource "grafana_dashboard" "red" {
+resource "grafana_dashboard" "loki" {
+  for_each = fileset(path.module, "dashboards/loki/*.json")
+
   provider    = grafana.ktechdevops
-  message     = "Changed by Terraform"
-  config_json = file("dashboards/general/red.json")
+  folder      = grafana_folder.loki.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
   overwrite   = true
 }
