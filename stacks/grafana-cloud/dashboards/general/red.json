@@ -1062,7 +1062,9 @@
   "refresh": "10s",
   "schemaVersion": 30,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "terraform"
+  ],
   "templating": {
     "list": [
       {
