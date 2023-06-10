@@ -24,12 +24,12 @@ No modules.
 |------|------|
 | [grafana_cloud_stack.ktechdevops](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/cloud_stack) | resource |
 | [grafana_cloud_stack_api_key.management](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/cloud_stack_api_key) | resource |
-| [grafana_dashboard.argocd-overview](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.argocd](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.general](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.integration---cloudwatch-metrics](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.integration---github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
-| [grafana_dashboard.loki-dashboard](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
-| [grafana_dashboard.node-exporter-full](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
-| [grafana_dashboard.red](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.integration---linux-node](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.loki](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_data_source.github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
 | [grafana_data_source.testdata](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
 | [grafana_folder.argocd](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
