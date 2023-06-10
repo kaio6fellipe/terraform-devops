@@ -25,8 +25,8 @@ No modules.
 | [grafana_cloud_stack.ktechdevops](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/cloud_stack) | resource |
 | [grafana_cloud_stack_api_key.management](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/cloud_stack_api_key) | resource |
 | [grafana_dashboard.argocd-overview](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
-| [grafana_dashboard.github-details](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
-| [grafana_dashboard.github-overview](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.integration---cloudwatch-metrics](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.integration---github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.loki-dashboard](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.node-exporter-full](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.red](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
