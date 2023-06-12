@@ -27,11 +27,31 @@ resource "grafana_dashboard" "integration---cloudwatch-metrics" {
   overwrite   = true
 }
 
+resource "grafana_dashboard" "integration---docker" {
+  for_each = fileset(path.module, "dashboards/integration---docker/*.json")
+
+  provider    = grafana.ktechdevops
+  folder      = grafana_folder.integration-docker.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
+  overwrite   = true
+}
+
 resource "grafana_dashboard" "integration---github" {
   for_each = fileset(path.module, "dashboards/integration---github/*.json")
 
   provider    = grafana.ktechdevops
   folder      = grafana_folder.integration-github.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
+  overwrite   = true
+}
+
+resource "grafana_dashboard" "integration---kubernetes" {
+  for_each = fileset(path.module, "dashboards/integration---kubernetes/*.json")
+
+  provider    = grafana.ktechdevops
+  folder      = grafana_folder.integration-kubernetes.uid
   message     = "Managed by Terraform"
   config_json = file(each.value)
   overwrite   = true

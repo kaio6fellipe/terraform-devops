@@ -41,7 +41,27 @@ resource "grafana_folder" "integration-cloudwatch-metrics" {
 resource "grafana_folder" "integration-linux-node" {
   provider = grafana.ktechdevops
   uid      = "integration---linux-node"
-  title   = "Integration - Linux Node (Terraform)"
+  title    = "Integration - Linux Node (Terraform)"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "grafana_folder" "integration-kubernetes" {
+  provider = grafana.ktechdevops
+  uid      = "integration---kubernetes"
+  title    = "Integration - Kubernetes (Terraform)"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "grafana_folder" "integration-docker" {
+  provider = grafana.ktechdevops
+  uid      = "integration---docker"
+  title    = "Integration - Docker (Terraform)"
 
   lifecycle {
     prevent_destroy = true
