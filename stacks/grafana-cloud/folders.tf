@@ -67,3 +67,23 @@ resource "grafana_folder" "integration-docker" {
     prevent_destroy = true
   }
 }
+
+resource "grafana_folder" "integration-grafana-agent" {
+  provider = grafana.ktechdevops
+  uid      = "integration---grafana-agent"
+  title    = "Integration - Grafana Agent (Terraform)"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "grafana_folder" "synthetic-monitoring" {
+  provider = grafana.ktechdevops
+  uid      = "b43f123b-c1c2-46f9-92da-760324165f95"
+  title    = "Synthetic Monitoring (Terraform)"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}

@@ -47,6 +47,16 @@ resource "grafana_dashboard" "integration---github" {
   overwrite   = true
 }
 
+resource "grafana_dashboard" "integration---grafana-agent" {
+  for_each = fileset(path.module, "dashboards/integration---grafana-agent/*.json")
+
+  provider    = grafana.ktechdevops
+  folder      = grafana_folder.integration-grafana-agent.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
+  overwrite   = true
+}
+
 resource "grafana_dashboard" "integration---kubernetes" {
   for_each = fileset(path.module, "dashboards/integration---kubernetes/*.json")
 
@@ -72,6 +82,16 @@ resource "grafana_dashboard" "loki" {
 
   provider    = grafana.ktechdevops
   folder      = grafana_folder.loki.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
+  overwrite   = true
+}
+
+resource "grafana_dashboard" "synthetic-monitoring" {
+  for_each = fileset(path.module, "dashboards/synthetic-monitoring/*.json")
+
+  provider    = grafana.ktechdevops
+  folder      = grafana_folder.synthetic-monitoring.uid
   message     = "Managed by Terraform"
   config_json = file(each.value)
   overwrite   = true
