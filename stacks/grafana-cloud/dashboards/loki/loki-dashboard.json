@@ -20,7 +20,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 13186,
   "graphTooltip": 0,
-  "id": 45,
+  "id": 97,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -42,7 +42,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 3,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 0
@@ -65,7 +65,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.0.0-cloud.3.b04cc88b",
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -122,7 +122,7 @@
         "h": 25,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 5
       },
       "id": 2,
       "maxDataPoints": "",
