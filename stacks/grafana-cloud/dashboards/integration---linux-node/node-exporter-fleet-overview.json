@@ -306,7 +306,7 @@
           }
         ]
       },
-      "pluginVersion": "10.0.1-cloud.1.d4a15e66",
+      "pluginVersion": "10.0.1-cloud.2.a7a20fbf",
       "targets": [
         {
           "datasource": {
@@ -1285,18 +1285,44 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": {
+        "type": "prometheus",
         "uid": "$datasource"
       },
       "description": "Top 25",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
             "drawStyle": "points",
             "fillOpacity": 10,
             "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
             "lineInterpolation": "smooth",
+            "lineWidth": 1,
             "pointSize": 5,
-            "showPoints": "never"
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "decimals": 1,
           "links": [
@@ -1305,6 +1331,20 @@
               "url": "d/fa49a4706d07a042595b664c87fb33ea?var-instance=${__field.labels.instance}&${__url_time_range}"
             }
           ],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
           "unit": "pps"
         },
         "overrides": []
@@ -1362,10 +1402,12 @@
           "datasource": {
             "uid": "$datasource"
           },
-          "expr": "topk(25, irate(node_network_receive_errs_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) + irate(node_network_transmit_errs_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) + irate(node_network_receive_drop_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) + irate(node_network_transmit_drop_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])) > 0.5",
+          "editorMode": "code",
+          "expr": "topk(25, irate(node_network_receive_errs_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) + irate(node_network_transmit_errs_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) + irate(node_network_receive_drop_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]) + irate(node_network_transmit_drop_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval])) >= 0",
           "format": "timeseries",
           "intervalFactor": 1,
           "legendFormat": "{{instance}}: {{device}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1512,6 +1554,6 @@
   "timezone": "utc",
   "title": "Node Exporter / Node Fleet Overview",
   "uid": "4c40f5ed0fd6f6333a359259cfd81ad5",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
