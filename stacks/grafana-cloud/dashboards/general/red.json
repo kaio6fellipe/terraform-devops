@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -20,14 +23,17 @@
   },
   "description": "",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 32,
-  "iteration": 1630992189965,
+  "id": 94,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
       "gridPos": {
         "h": 7,
         "w": 24,
@@ -36,33 +42,241 @@
       },
       "id": 11,
       "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
         "content": "# The RED Method\n\nThis TNS demo service dashboard is using the RED Method. A microservices-oriented monitoring philosophy. The RED Method is a good proxy to how happy your customers will be\n\nFor every resource, monitor:\n\n- Rate (the number of requests per second)\n- Errors (the number of those requests that are failing)\n- Duration (the amount of time those requests take)\n\n[Read More...](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)",
         "mode": "markdown"
       },
-      "pluginVersion": "8.1.2",
+      "pluginVersion": "10.0.1-cloud.3.f250259e",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "refId": "A"
+        }
+      ],
       "type": "text"
     },
     {
-      "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "tempo",
+        "uid": "grafanacloud-traces"
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 19,
+        "x": 0,
+        "y": 7
+      },
+      "id": 20,
+      "targets": [
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "grafanacloud-traces"
+          },
+          "filters": [
+            {
+              "id": "a2df73b6",
+              "operator": "=",
+              "scope": "span"
+            }
+          ],
+          "limit": 20,
+          "queryType": "serviceMap",
+          "refId": "A",
+          "serviceMapQuery": "{}"
+        }
+      ],
+      "title": "Service graph",
+      "type": "nodeGraph"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
       "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-blue",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*Error rate/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*req\\/s/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "reqps"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*avg\\/ms/"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 5,
+        "x": 19,
+        "y": 7
+      },
+      "id": 21,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.0.1-cloud.3.f250259e",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "expr": "(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code=\"STATUS_CODE_ERROR\"}[5m])))/(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code!=\"\"}[5m]))) * 100",
+          "instant": false,
+          "legendFormat": "{{service_name}}: Error rate",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "expr": "sum by(service_name) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", span_kind!=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{service_name}}: req/s",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "editorMode": "code",
+          "expr": "sum by(service_name) (rate(traces_spanmetrics_latency_sum{job=\"span-metrics\"}[5m])) / sum by(service_name) (rate(traces_spanmetrics_latency_count{job=\"span-metrics\"}[5m]))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{service_name}}: avg/ms",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Current stats",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 20
       },
       "id": 7,
       "panels": [],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Load balancer",
       "type": "row"
     },
     {
-      "datasource": "$datasource",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -70,6 +284,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -112,13 +328,13 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "reqps"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "200"
+              "options": "HTTP Status 200"
             },
             "properties": [
               {
@@ -133,7 +349,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "500"
+              "options": "HTTP Status 500"
             },
             "properties": [
               {
@@ -144,14 +360,70 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unspecified"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#80808000",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Error rate"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "none"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "solid"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
           }
         ]
       },
       "gridPos": {
         "h": 7,
-        "w": 12,
+        "w": 8,
         "x": 0,
-        "y": 8
+        "y": 21
       },
       "id": 1,
       "links": [],
@@ -159,27 +431,51 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
+        "timezone": [
+          ""
+        ],
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (status_code) (rate(tns_request_duration_seconds_count{job=~\"$namespace/loadgen\"}[1m]))",
+          "expr": "sum by(http_status_code) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", service_name=\"lb\", span_kind!=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "HTTP Status {{status_code}}",
+          "intervalFactor": 1,
+          "legendFormat": "HTTP Status {{http_status_code}}",
+          "range": true,
           "refId": "A",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum by(http_status_code) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", service_name=\"lb\", span_kind=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Unspecified",
+          "range": true,
+          "refId": "B",
           "step": 10
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Requests Per Second (RPS)",
       "type": "timeseries"
     },
@@ -188,13 +484,18 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$datasource",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -239,16 +540,16 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "ms"
         },
         "overrides": []
       },
       "fill": 1,
       "gridPos": {
         "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 8
+        "w": 8,
+        "x": 8,
+        "y": 21
       },
       "id": 2,
       "legend": {
@@ -268,10 +569,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "percentage": false,
@@ -284,37 +587,110 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(rate(tns_request_duration_seconds_bucket{job=~\"$namespace/loadgen\"}[$__rate_interval])) by (le)) * 1",
+          "expr": "histogram_quantile(0.99, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"lb\"}[$__rate_interval])))",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "99th Percentile",
+          "intervalFactor": 1,
+          "legendFormat": "99th Percentile ({{span_kind}})",
+          "range": true,
           "refId": "A",
           "step": 10
         },
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(tns_request_duration_seconds_bucket{job=~\"$namespace/loadgen\"}[$__rate_interval])) by (le)) * 1",
+          "expr": "histogram_quantile(0.95, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"lb\"}[$__rate_interval])))",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "50th Percentile",
+          "intervalFactor": 1,
+          "legendFormat": "95th Percentile ({{span_kind}})",
+          "range": true,
           "refId": "B",
           "step": 10
         },
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(tns_request_duration_seconds_sum{job=~\"$namespace/loadgen\"}[5m])) * 1 / sum(rate(tns_request_duration_seconds_count{job=~\"$namespace/loadgen\"}[5m]))",
+          "expr": "histogram_quantile(0.90, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"lb\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "90th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "D",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.75, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"lb\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "75th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "E",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.50, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"lb\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "50th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "F",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.25, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"lb\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "25th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "G",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(traces_spanmetrics_latency_sum{job=\"span-metrics\", service_name=\"lb\"}[5m])) / sum(rate(traces_spanmetrics_latency_count{job=\"span-metrics\", service_name=\"lb\"}[5m]))",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "Average [5m]",
+          "range": true,
           "refId": "C",
           "step": 10
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Latency",
       "tooltip": {
         "shared": false,
@@ -323,51 +699,29 @@
       },
       "type": "timeseries",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "s",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": 0,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ]
     },
     {
-      "collapsed": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
       },
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 15
-      },
-      "id": 8,
-      "panels": [],
-      "title": "Web application",
-      "type": "row"
-    },
-    {
-      "datasource": "$datasource",
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -375,6 +729,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -417,13 +773,13 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "reqps"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "200"
+              "options": "HTTP Status 200"
             },
             "properties": [
               {
@@ -438,7 +794,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "500"
+              "options": "HTTP Status 500"
             },
             "properties": [
               {
@@ -453,13 +809,13 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "HTTP Status 500"
+              "options": "Unspecified"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "red",
+                  "fixedColor": "#80808000",
                   "mode": "fixed"
                 }
               }
@@ -468,45 +824,45 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "HTTP Status 503"
+              "options": "Error rate"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "red",
+                  "fixedColor": "dark-red",
                   "mode": "fixed"
                 }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "HTTP Status 400"
-            },
-            "properties": [
+              },
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "HTTP Status 302"
-            },
-            "properties": [
+                "id": "custom.axisPlacement",
+                "value": "auto"
+              },
               {
-                "id": "color",
+                "id": "custom.gradientMode",
+                "value": "none"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
                 "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
+                  "fill": "solid"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "max",
+                "value": 100
               }
             ]
           }
@@ -514,223 +870,79 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 16
+        "w": 8,
+        "x": 16,
+        "y": 21
       },
-      "id": 3,
+      "id": 24,
       "links": [],
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
+        "timezone": [
+          ""
+        ],
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (status_code) (rate(tns_request_duration_seconds_count{job=~\"$namespace/app\"}[1m]))",
+          "expr": "(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code=\"STATUS_CODE_ERROR\", service_name=\"lb\"}[$__rate_interval])))/(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code!=\"\", service_name=\"lb\"}[$__rate_interval]))) * 100",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "HTTP Status {{status_code}}",
+          "intervalFactor": 1,
+          "legendFormat": "Error rate",
+          "range": true,
           "refId": "A",
           "step": 10
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Request Per Second (RPS)",
+      "title": "Error rate",
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$datasource",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 16
-      },
-      "id": 4,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(rate(tns_request_duration_seconds_bucket{job=~\"$namespace/app\"}[$__rate_interval])) by (le)) * 1",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "99th Percentile",
-          "refId": "A",
-          "step": 10
-        },
-        {
-          "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(tns_request_duration_seconds_bucket{job=~\"$namespace/app\"}[$__rate_interval])) by (le)) * 1",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "50th Percentile",
-          "refId": "B",
-          "step": 10
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(rate(tns_request_duration_seconds_sum{job=~\"$namespace/app\"}[10m])) * 1 / sum(rate(tns_request_duration_seconds_count{job=~\"$namespace/app\"}[10m]))",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "Average [10m]",
-          "refId": "C",
-          "step": 10
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Latency",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "timeseries",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": 0,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ]
-    },
-    {
       "collapsed": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
       },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 28
       },
-      "id": 9,
+      "id": 8,
       "panels": [],
-      "title": "Database",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Web application",
       "type": "row"
     },
     {
-      "datasource": "$datasource",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -738,6 +950,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -749,7 +963,7 @@
               "tooltip": false,
               "viz": false
             },
-            "lineInterpolation": "linear",
+            "lineInterpolation": "smooth",
             "lineWidth": 0,
             "pointSize": 5,
             "scaleDistribution": {
@@ -780,13 +994,13 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "reqps"
         },
         "overrides": [
           {
             "matcher": {
               "id": "byName",
-              "options": "200"
+              "options": "HTTP Status 200"
             },
             "properties": [
               {
@@ -801,7 +1015,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "500"
+              "options": "HTTP Status 500"
             },
             "properties": [
               {
@@ -816,13 +1030,13 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "HTTP Status 204"
+              "options": "Unspecified"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "green",
+                  "fixedColor": "#80808000",
                   "mode": "fixed"
                 }
               }
@@ -831,30 +1045,45 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "HTTP Status 208"
+              "options": "Error rate"
             },
             "properties": [
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "green",
+                  "fixedColor": "dark-red",
                   "mode": "fixed"
                 }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "HTTP Status 500"
-            },
-            "properties": [
+              },
               {
-                "id": "color",
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "none"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
                 "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           }
@@ -862,37 +1091,61 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 12,
+        "w": 8,
         "x": 0,
-        "y": 24
+        "y": 29
       },
-      "id": 5,
+      "id": 22,
       "links": [],
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
+        "timezone": [
+          ""
+        ],
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.2",
       "targets": [
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (status_code) (rate(tns_request_duration_seconds_count{job=~\"$namespace/db\"}[1m]))",
+          "expr": "sum by(http_status_code) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", service_name=\"app\", span_kind!=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "HTTP Status {{status_code}}",
+          "intervalFactor": 1,
+          "legendFormat": "HTTP Status {{http_status_code}}",
+          "range": true,
           "refId": "A",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum by(http_status_code) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", service_name=\"app\", span_kind=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Unspecified",
+          "range": true,
+          "refId": "B",
           "step": 10
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Requests Per Second (RPS)",
       "type": "timeseries"
     },
@@ -901,25 +1154,33 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "$datasource",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 20,
-            "gradientMode": "none",
+            "fillOpacity": 12,
+            "gradientMode": "hue",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
@@ -949,18 +1210,18 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "ms"
         },
         "overrides": []
       },
       "fill": 1,
       "gridPos": {
         "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 24
+        "w": 8,
+        "x": 8,
+        "y": 29
       },
-      "id": 6,
+      "id": 18,
       "legend": {
         "avg": false,
         "current": false,
@@ -978,10 +1239,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "percentage": false,
@@ -994,37 +1257,110 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(rate(tns_request_duration_seconds_bucket{job=~\"$namespace/db\"}[$__rate_interval])) by (le)) * 1",
+          "expr": "histogram_quantile(0.99, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"app\"}[$__rate_interval])))",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "99th Percentile",
+          "intervalFactor": 1,
+          "legendFormat": "99th Percentile ({{span_kind}})",
+          "range": true,
           "refId": "A",
           "step": 10
         },
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(tns_request_duration_seconds_bucket{job=~\"$namespace/db\"}[$__rate_interval])) by (le)) * 1",
+          "expr": "histogram_quantile(0.95, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"app\"}[$__rate_interval])))",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "50th Percentile",
+          "intervalFactor": 1,
+          "legendFormat": "95th Percentile ({{span_kind}})",
+          "range": true,
           "refId": "B",
           "step": 10
         },
         {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(rate(tns_request_duration_seconds_sum{job=~\"$namespace/db\"}[10m])) * 1 / sum(rate(tns_request_duration_seconds_count{job=~\"$namespace/db\"}[10m]))",
+          "expr": "histogram_quantile(0.90, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"app\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "90th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "D",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.75, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"app\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "75th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "E",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.50, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"app\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "50th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "F",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.25, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"app\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "25th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "G",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(traces_spanmetrics_latency_sum{job=\"span-metrics\", service_name=\"app\"}[5m])) / sum(rate(traces_spanmetrics_latency_count{job=\"span-metrics\", service_name=\"app\"}[5m]))",
           "format": "time_series",
           "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "Average [10m]",
+          "intervalFactor": 1,
+          "legendFormat": "Average [5m]",
+          "range": true,
           "refId": "C",
           "step": 10
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Latency",
       "tooltip": {
         "shared": false,
@@ -1033,37 +1369,896 @@
       },
       "type": "timeseries",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "s",
-          "label": null,
           "logBase": 1,
-          "max": null,
           "min": 0,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": false
         }
       ]
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 100,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 0,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 200"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#7EB26D",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 500"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#E24D42",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unspecified"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#80808000",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Error rate"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "auto"
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "none"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "solid"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "max",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 29
+      },
+      "id": 25,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          ""
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code=\"STATUS_CODE_ERROR\", service_name=\"app\"}[$__rate_interval])))/(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code!=\"\", service_name=\"app\"}[$__rate_interval]))) * 100",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Error rate",
+          "range": true,
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "Error rate",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "grafanacloud-prom"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 9,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "grafanacloud-prom"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "Database",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 100,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 0,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 200"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#7EB26D",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 500"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#E24D42",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unspecified"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#80808000",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Error rate"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "none"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 37
+      },
+      "id": 23,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          ""
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum by(http_status_code) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", service_name=\"db\", span_kind!=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "HTTP Status {{http_status_code}}",
+          "range": true,
+          "refId": "A",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum by(http_status_code) (rate(traces_spanmetrics_calls_total{job=\"span-metrics\", service_name=\"db\", span_kind=\"SPAN_KIND_UNSPECIFIED\"}[$__rate_interval]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Unspecified",
+          "range": true,
+          "refId": "B",
+          "step": 10
+        }
+      ],
+      "title": "Requests Per Second (RPS)",
+      "type": "timeseries"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 12,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 37
+      },
+      "id": 19,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"db\"}[$__rate_interval])))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "99th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "A",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"db\"}[$__rate_interval])))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "95th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "B",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.90, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"db\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "90th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "D",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.75, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"db\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "75th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "E",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.50, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"db\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "50th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "F",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "histogram_quantile(0.25, sum by(le, span_kind) (rate(traces_spanmetrics_latency_bucket{job=\"span-metrics\", service_name=\"db\"}[$__rate_interval])))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "25th Percentile ({{span_kind}})",
+          "range": true,
+          "refId": "G",
+          "step": 10
+        },
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(rate(traces_spanmetrics_latency_sum{job=\"span-metrics\", service_name=\"db\"}[5m])) / sum(rate(traces_spanmetrics_latency_count{job=\"span-metrics\", service_name=\"db\"}[5m]))",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Average [5m]",
+          "range": true,
+          "refId": "C",
+          "step": 10
+        }
+      ],
+      "thresholds": [],
+      "title": "Latency",
+      "tooltip": {
+        "shared": false,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "timeseries",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "logBase": 1,
+          "min": 0,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": false
+        }
+      ]
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$datasource"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 100,
+            "gradientMode": "hue",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 0,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "reqps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 200"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#7EB26D",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 500"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#E24D42",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Unspecified"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#80808000",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Error rate"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "auto"
+              },
+              {
+                "id": "custom.gradientMode",
+                "value": "none"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "fill": "solid"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "max",
+                "value": 100
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 37
+      },
+      "id": 26,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          ""
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.2",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$datasource"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code=\"STATUS_CODE_ERROR\", service_name=\"db\"}[$__rate_interval])))/(sum by (service_name)(increase(traces_spanmetrics_calls_total{status_code!=\"\", service_name=\"db\"}[$__rate_interval]))) * 100",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Error rate",
+          "range": true,
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "title": "Error rate",
+      "type": "timeseries"
     }
   ],
   "refresh": "10s",
-  "schemaVersion": 30,
+  "schemaVersion": 38,
   "style": "dark",
   "tags": [
-    "terraform"
+    "terraform",
+    "red-method"
   ],
   "templating": {
     "list": [
@@ -1073,11 +2268,8 @@
           "text": "default",
           "value": "default"
         },
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
-        "label": null,
         "multi": false,
         "name": "datasource",
         "options": [],
@@ -1092,16 +2284,17 @@
         "current": {
           "selected": true,
           "text": [
-            "All"
+            "tns-cloud"
           ],
           "value": [
-            "$__all"
+            "tns-cloud"
           ]
         },
-        "datasource": "$datasource",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "$datasource"
+        },
         "definition": "",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "namespace",
@@ -1124,7 +2317,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1155,5 +2348,6 @@
   "timezone": "",
   "title": "RED dashboard",
   "uid": "62440ddb0b6b14e05c6cdd3940eda2d1",
-  "version": 1
+  "version": 9,
+  "weekStart": ""
 }
