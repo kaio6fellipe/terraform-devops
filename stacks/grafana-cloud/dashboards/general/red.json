@@ -340,7 +340,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#7EB26D",
+                  "fixedColor": "green",
                   "mode": "fixed"
                 }
               }
@@ -355,7 +355,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#E24D42",
+                  "fixedColor": "dark-red",
                   "mode": "fixed"
                 }
               }
@@ -414,6 +414,36 @@
               {
                 "id": "unit",
                 "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 302"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 400"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
               }
             ]
           }
@@ -1006,7 +1036,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#7EB26D",
+                  "fixedColor": "green",
                   "mode": "fixed"
                 }
               }
@@ -1021,7 +1051,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#E24D42",
+                  "fixedColor": "dark-red",
                   "mode": "fixed"
                 }
               }
@@ -1084,6 +1114,36 @@
               {
                 "id": "unit",
                 "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 208"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 302"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
               }
             ]
           }
@@ -1691,69 +1751,24 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#E24D42",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Unspecified"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#80808000",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Error rate"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
                   "fixedColor": "dark-red",
                   "mode": "fixed"
                 }
-              },
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "HTTP Status 208"
+            },
+            "properties": [
               {
-                "id": "custom.axisPlacement",
-                "value": "right"
-              },
-              {
-                "id": "custom.gradientMode",
-                "value": "none"
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 3
-              },
-              {
-                "id": "custom.fillOpacity",
-                "value": 0
-              },
-              {
-                "id": "custom.lineStyle",
+                "id": "color",
                 "value": {
-                  "dash": [
-                    10,
-                    10
-                  ],
-                  "fill": "dash"
+                  "fixedColor": "green",
+                  "mode": "fixed"
                 }
-              },
-              {
-                "id": "unit",
-                "value": "percent"
               }
             ]
           }
@@ -2348,6 +2363,6 @@
   "timezone": "",
   "title": "RED dashboard",
   "uid": "62440ddb0b6b14e05c6cdd3940eda2d1",
-  "version": 9,
+  "version": 10,
   "weekStart": ""
 }
