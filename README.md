@@ -20,7 +20,7 @@
 
 This project represents the bootstrap of my development platform together with a combination of several tests using Infrastructure as Code with GitOps where I create and destroy all this infrastructure at once, several times, without any degradation in the services when they come online again.
 
-The objective of this project will be to reach the point where I bootstrap a platform EKS cluster that will have Crossplane and ArgoCD running, from that point on, infrastructure management will be carried out by these two tools and Terraform will be a fallback for functionalities that the Crossplane cannot reach.
+The objective of this project will be to reach the point where I bootstrap a platform EKS cluster that will have ArgoCD running, from that point on, application and infrastructure management will be carried out by GitOps.
 
 The remote state is being managed in the repository: [terraform-remote-state](https://github.com/kaio6fellipe/terraform-remote-state).
 
