@@ -290,7 +290,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
+            "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "hue",
             "hideFrom": {
@@ -1099,6 +1099,10 @@
             "$__all"
           ]
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "grafanacloud-prom"
+        },
         "definition": "label_values(service_name)",
         "hide": 0,
         "includeAll": true,
@@ -1119,13 +1123,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "MLT Dashboard (Cloud)",
   "uid": "4VSk5Lank-cloud",
-  "version": 18,
+  "version": 19,
   "weekStart": ""
 }

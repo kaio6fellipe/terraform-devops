@@ -289,7 +289,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
+            "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "hue",
             "hideFrom": {
@@ -985,7 +985,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
+            "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "hue",
             "hideFrom": {
@@ -1685,7 +1685,7 @@
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
-            "drawStyle": "line",
+            "drawStyle": "bars",
             "fillOpacity": 100,
             "gradientMode": "hue",
             "hideFrom": {
@@ -2363,6 +2363,6 @@
   "timezone": "",
   "title": "RED dashboard",
   "uid": "62440ddb0b6b14e05c6cdd3940eda2d1",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
