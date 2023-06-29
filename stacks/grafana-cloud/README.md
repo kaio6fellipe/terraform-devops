@@ -32,6 +32,7 @@ No modules.
 | [grafana_dashboard.integration---grafana-agent](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.integration---kubernetes](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.integration---linux-node](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
+| [grafana_dashboard.integration---traefik](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.loki](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_dashboard.synthetic-monitoring](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/dashboard) | resource |
 | [grafana_data_source.github](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/data_source) | resource |
@@ -43,6 +44,7 @@ No modules.
 | [grafana_folder.integration-grafana-agent](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 | [grafana_folder.integration-kubernetes](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 | [grafana_folder.integration-linux-node](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
+| [grafana_folder.integration-traefik](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 | [grafana_folder.loki](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 | [grafana_folder.synthetic-monitoring](https://registry.terraform.io/providers/grafana/grafana/1.40.1/docs/resources/folder) | resource |
 
