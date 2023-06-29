@@ -56,5 +56,10 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_ktech_devops_stack_id"></a> [ktech\_devops\_stack\_id](#output\_ktech\_devops\_stack\_id) | n/a |
+| <a name="output_ktech_devops_stack_slug"></a> [ktech\_devops\_stack\_slug](#output\_ktech\_devops\_stack\_slug) | n/a |
+| <a name="output_ktechdevops_stack_management_key"></a> [ktechdevops\_stack\_management\_key](#output\_ktechdevops\_stack\_management\_key) | n/a |
+| <a name="output_ktechdevops_stack_url"></a> [ktechdevops\_stack\_url](#output\_ktechdevops\_stack\_url) | n/a |
 <!-- END_TF_DOCS -->
