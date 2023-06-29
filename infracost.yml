@@ -7,4 +7,5 @@ projects:
 - path: stacks/aws/platform/platform-k8s
 - path: stacks/aws/platform/platform-k8s/tools
 - path: stacks/grafana-cloud
+- path: stacks/grafana-cloud/synthetic-monitoring
 version: 0.1
