@@ -78,6 +78,16 @@ resource "grafana_folder" "integration-grafana-agent" {
   }
 }
 
+resource "grafana_folder" "integration-traefik" {
+  provider = grafana.ktechdevops
+  uid      = "integration---traefik"
+  title    = "Integration - Traefik (Terraform)"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 resource "grafana_folder" "synthetic-monitoring" {
   provider = grafana.ktechdevops
   uid      = "b43f123b-c1c2-46f9-92da-760324165f95"

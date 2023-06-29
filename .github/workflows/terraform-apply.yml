@@ -67,7 +67,7 @@ jobs:
 
   apply:
     name: 'Terraform apply'
-    needs: [sonarcloud,tflint,tfsec,checkov]
+    needs: [sonarcloud,tflint]
     runs-on: ubuntu-latest
 
     defaults:

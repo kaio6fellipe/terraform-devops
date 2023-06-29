@@ -77,6 +77,16 @@ resource "grafana_dashboard" "integration---linux-node" {
   overwrite   = true
 }
 
+resource "grafana_dashboard" "integration---traefik" {
+  for_each = fileset(path.module, "dashboards/integration---traefik/*.json")
+
+  provider    = grafana.ktechdevops
+  folder      = grafana_folder.loki.uid
+  message     = "Managed by Terraform"
+  config_json = file(each.value)
+  overwrite   = true
+}
+
 resource "grafana_dashboard" "loki" {
   for_each = fileset(path.module, "dashboards/loki/*.json")
 
