@@ -81,7 +81,7 @@ resource "grafana_dashboard" "integration---traefik" {
   for_each = fileset(path.module, "dashboards/integration---traefik/*.json")
 
   provider    = grafana.ktechdevops
-  folder      = grafana_folder.loki.uid
+  folder      = grafana_folder.integration-traefik.uid
   message     = "Managed by Terraform"
   config_json = file(each.value)
   overwrite   = true
