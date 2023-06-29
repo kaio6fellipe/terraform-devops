@@ -134,7 +134,7 @@ terramate-docker: guard-args ##@terramate (args: args) Run terramate with additi
 
 .PHONY: terramate-create
 terramate-create: guard-path ##@terramate (args: path) Run terramate create to bootstrap a new stack
-	$(docker_run) bash -c "terramate create $(path) --id=$(shell cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 36 | head -n 1)" && \
+	$(docker_run) bash -c "terramate create $(path) --id=$(shell cat /dev/urandom | tr -dc 'a-zA-Z' | fold -w 36 | head -n 1)" && \
 	make terramate-chown && \
 	$(docker_run) bash -c "chown -R $(user_id):$(group_id) $(path)"
 

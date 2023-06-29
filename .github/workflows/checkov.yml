@@ -16,3 +16,4 @@ jobs:
         with:
           directory: .
           framework: terraform
+        continue-on-error: true

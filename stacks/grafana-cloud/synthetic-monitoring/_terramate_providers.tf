@@ -5,8 +5,8 @@ provider "aws" {
   default_tags {
     tags = {
       Env            = "dev"
-      Stack          = "grafana-cloud"
-      StackID        = "Ag6VT4tTfBuSba4NUZD6rI799fqqvDbWYL70"
+      Stack          = "synthetic-monitoring"
+      StackID        = "g94WrepXSjgd7QrbwuO2fzGLSvb3NGFYXdmh"
       ManagedBy      = "Terraform"
       OrchestratedBy = "Terramate"
     }
