@@ -42,7 +42,7 @@ locals {
       }
       github = {
         source  = "integrations/github"
-        version = "~> 5.0"
+        version = "5.42.0"
       }
       helm = {
         source  = "hashicorp/helm"
