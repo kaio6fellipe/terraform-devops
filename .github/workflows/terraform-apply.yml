@@ -42,6 +42,8 @@ env:
   TF_VAR_GRAFANA_CLOUD_TOKEN: ${{ secrets.GRAFANA_CLOUD_TOKEN }}
   TF_VAR_GITHUB_PAT: ${{ secrets.GRAFANA_CLOUD_GITHUB_PAT }}
   TF_LOG: ${{ inputs.log_level }}
+  TF_VAR_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  TF_VAR_GITHUB_OWNER: ${{ github.repository_owner }}
 
 jobs:
   sonarcloud:
@@ -66,6 +68,7 @@ jobs:
     uses: kaio6fellipe/terraform-devops/.github/workflows/checkov.yml@development
 
   apply:
+    permissions: write-all
     name: 'Terraform apply'
     needs: [sonarcloud,tflint]
     runs-on: ubuntu-latest

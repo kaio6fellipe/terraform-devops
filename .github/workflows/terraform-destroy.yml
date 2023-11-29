@@ -41,9 +41,12 @@ env:
   TF_VAR_GITHUB_PAT: ${{ secrets.GRAFANA_CLOUD_GITHUB_PAT }}
   TF_WARN_OUTPUT_ERRORS: 1
   TF_LOG: ${{ inputs.log_level }}
+  TF_VAR_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  TF_VAR_GITHUB_OWNER: ${{ github.repository_owner }}
 
 jobs:
   destroy-stateless-resources:
+    permissions: write-all
     name: 'Terraform destroy stateless resources'
     runs-on: ubuntu-latest
 
@@ -67,6 +70,7 @@ jobs:
           make python script=destroy_lb_stateless_resources.py
 
   destroy:
+    permissions: write-all
     name: 'Terraform destroy'
     runs-on: ubuntu-latest
     

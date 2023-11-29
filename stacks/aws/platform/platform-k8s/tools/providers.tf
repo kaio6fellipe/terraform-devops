@@ -11,3 +11,8 @@ provider "helm" {
     token                  = try(data.external.aws_eks_cluster_token.result.cluster_token, "")
   }
 }
+
+provider "github" {
+  token = var.GITHUB_TOKEN
+  owner = var.GITHUB_OWNER
+}
