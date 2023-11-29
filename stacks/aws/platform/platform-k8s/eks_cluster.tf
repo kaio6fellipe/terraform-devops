@@ -62,7 +62,7 @@ module "eks" {
       # use_custom_launch_template = false
 
       instance_types = var.instance_types
-      capacity_type  = "SPOT"
+      capacity_type  = "ON_DEMAND"
 
       min_size     = var.min_size
       max_size     = var.max_size
